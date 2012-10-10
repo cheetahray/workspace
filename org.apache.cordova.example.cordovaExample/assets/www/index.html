@@ -3,8 +3,8 @@
   <head>
   <title></title>
   
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
-    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0;" />
+    <meta charset="big5">
 
     <!-- iPad/iPhone specific css below, add after your main css >
     <link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="ipad.css" type="text/css" />		
@@ -45,7 +45,6 @@
 		document.addEventListener("deviceready", onDeviceReady, false);
 
         scanButton = document.getElementById("scan-button");
-        resultSpan = document.getElementById("scan-result");
 
 	}
 	
@@ -58,7 +57,7 @@
 	{
 		// do your thing!
 		//navigator.notification.alert("PhoneGap is working");
-
+		listDir();
         scanButton.addEventListener("click", clickScan, false);
         
 	}
@@ -70,19 +69,55 @@
 
 
     //------------------------------------------------------------------------------
-    function scannerSuccess(result) {
-        console.log("scannerSuccess: result: " + result)
-        //resultSpan.innerText = "success: " + JSON.stringify(result)
+    function scannerSuccess(result) 
+    {
+        console.log("scannerSuccess: result: " + result);
+    	listDir();    
+       	/*
         alert("We got a barcode\n" +
 					"Result: " + result.text + "\n" +
 					"Format: " + result.format + "\n" +
 					"Cancelled: " + result.cancelled);
+    	*/
     }
 
+	function listDir() {
+		
+		var parent = $('#gallery');
+        parent.html('<div class="ui-block-a">' + 
+           			'<img src="images/'+ 'on' + '.png" height="50" width="50"/></div>');
+        for(var i = 1; i < 20; i++) 
+        {
+			switch (i%5) {			
+         		case 0: 
+	           		parent.append('<div class="ui-block-a">' + 
+           			'<img src="images/'+ 'on' + '.png" height="50" width="50"/></div>');
+                 break;
+         		case 1: 
+	           		parent.append('<div class="ui-block-b">' + 
+           			'<img src="images/'+ 'off' + '.png" height="50" width="50"/></div>');
+                 break;        
+         		case 2: 
+	           		parent.append('<div class="ui-block-c">' + 
+           			'<img src="images/'+ 'on' + '.png" height="50" width="50"/></div>');
+                 break;
+         		case 3: 
+	           		parent.append('<div class="ui-block-d">' + 
+           			'<img src="images/'+ 'off' + '.png" height="50" width="50"/></div>');
+                 break;
+         		case 4: 
+	       			parent.append('<div class="ui-block-e">' + 
+           			'<img src="images/' + 'on' + '.png" height="50" width="50"/></div>');
+                 break;
+      		}    
+        	
+    	}
+    }
+        
     //------------------------------------------------------------------------------
     function scannerFailure(message) {
-        console.log("scannerFailure: message: " + message)
-        resultSpan.innerText = "failure: " + JSON.stringify(message)
+        console.log("scannerFailure: message: " + message);
+        alert("Scanning failed: " + message);
 	}
     
     </script>
@@ -90,10 +125,8 @@
   <body onload="onBodyLoad()">
     <div data-role="page" id="home">
     <div data-role="content">
-        <p>Trytry</p>
-        <a href="#" id="scan-button" data-role="button" data-inline="true" data-icon="arrow-r" data-iconpos="right">Trytry</a>
-        <p>scanned: <span id="scan-result">n/a</span>
-
+        <div id="gallery" class="ui-grid-d"></div>
+        <a href="#" id="scan-button" data-role="button" data-inline="true" data-icon="arrow-r" data-iconpos="right">¶}©l±½´y</a>
     </div>
     </div>
   </body>
