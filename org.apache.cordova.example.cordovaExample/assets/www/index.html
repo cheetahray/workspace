@@ -20,115 +20,227 @@
     
     <script type="text/javascript">
 
-
-	// If you want to prevent dragging, uncomment this section
-	/*
-	function preventBehavior(e) 
-	{ 
-      e.preventDefault(); 
-    };
-	document.addEventListener("touchmove", preventBehavior, false);
-	*/
-	
-	/* If you are supporting your own protocol, the var invokeString will contain any arguments to the app launch.
-	see http://iphonedevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html
-	for more details -jm */
-	/*
-	function handleOpenURL(url)
-	{
-		// TODO: do something with the url passed in.
-	}
-	*/
-	
-	function onBodyLoad()
+    function onBodyLoad()
 	{		
 		document.addEventListener("deviceready", onDeviceReady, false);
 
         scanButton = document.getElementById("scan-button");
-
 	}
 	
-
-	/* When this function is called, PhoneGap has been initialized and is ready to roll */
-	/* If you are supporting your own protocol, the var invokeString will contain any arguments to the app launch.
-	see http://iphonedevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html
-	for more details -jm */
-	function onDeviceReady()
+    function onUpdateReady() {
+        var db = window.openDatabase("Database", "1.0", "PhoneGap", 200000);
+        db.transaction(updateDB, errorDB, successDB);
+        db.transaction(queryDB, errorDB);
+    }
+        
+    function createDB(tx) {
+        //tx.executeSql('DROP TABLE IF EXISTS USER');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS USER (id unique, light1, light2, light3, light4, light5, light6, light7, light8, light9, light10, light11, light12, light13, light14, light15, light16, light17, light18, light19, light20)');
+    }
+    
+	function insertDB(tx) {
+        tx.executeSql('INSERT INTO USER (id, light1, light2, light3, light4, light5, light6, light7, light8, light9, light10, light11, light12, light13, light14, light15, light16, light17, light18, light19, light20) ' +
+                      'VALUES (1, "on", "on", "on", "on", "on", "on", "on", "on", "on", "on", "on", "on", "off", "off", "off", "off", "off", "off", "off", "off")');
+    }
+        
+    function updateDB(tx) {
+        var setName = $("#name");
+        tx.executeSql("UPDATE USER SET " + setName.val() + "='on' where id=1");
+    }
+        
+    function successDB() {
+        console.log("Transaction Success!");
+        //alert("Transaction Success!");
+    }
+        
+    function queryDB(tx) {
+        tx.executeSql('SELECT * FROM USER', [], querySuccess, errorDB);
+    }
+        
+    function querySuccess(tx, results) {
+        var number = 0;
+        var parent = $('#gallery');
+        parent.html('<div class="ui-block-a">' + '<img src="images/' +
+                    results.rows.item(0).light1 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light1)
+        	number++;
+        parent.append('<div class="ui-block-b">' + '<img src="images/' +
+                    results.rows.item(0).light2 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light2)
+        	number++;
+        parent.append('<div class="ui-block-c">' + '<img src="images/' +
+                      results.rows.item(0).light3 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light3)
+        	number++;
+        parent.append('<div class="ui-block-d">' + '<img src="images/' +
+                      results.rows.item(0).light4 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light4)
+        	number++;
+        parent.append('<div class="ui-block-e">' + '<img src="images/' +
+                      results.rows.item(0).light5 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light5)
+        	number++;
+        parent.append('<div class="ui-block-a">' + '<img src="images/' +
+                      results.rows.item(0).light6 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light6)
+        	number++;
+        parent.append('<div class="ui-block-b">' + '<img src="images/' +
+                      results.rows.item(0).light7 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light7)
+        	number++;
+        parent.append('<div class="ui-block-c">' + '<img src="images/' +
+                      results.rows.item(0).light8 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light8)
+        	number++;
+        parent.append('<div class="ui-block-d">' + '<img src="images/' +
+                      results.rows.item(0).light9 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light9)
+        	number++;
+        parent.append('<div class="ui-block-e">' + '<img src="images/' +
+                      results.rows.item(0).light10 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light10)
+        	number++;
+        parent.append('<div class="ui-block-a">' + '<img src="images/' +
+                      results.rows.item(0).light11 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light11)
+        	number++;
+        parent.append('<div class="ui-block-b">' + '<img src="images/' +
+                      results.rows.item(0).light12 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light12)
+        	number++;
+        parent.append('<div class="ui-block-c">' + '<img src="images/' +
+                      results.rows.item(0).light13 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light13)
+        	number++;
+        parent.append('<div class="ui-block-d">' + '<img src="images/' +
+                      results.rows.item(0).light14 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light14)
+        	number++;
+        parent.append('<div class="ui-block-e">' + '<img src="images/' +
+                      results.rows.item(0).light15 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light15)
+        	number++;
+        parent.append('<div class="ui-block-a">' + '<img src="images/' +
+                      results.rows.item(0).light16 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light16)
+        	number++;
+        parent.append('<div class="ui-block-b">' + '<img src="images/' +
+                      results.rows.item(0).light17 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light17)
+        	number++;
+        parent.append('<div class="ui-block-c">' + '<img src="images/' +
+                      results.rows.item(0).light18 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light18)
+        	number++;
+        parent.append('<div class="ui-block-d">' + '<img src="images/' +
+                      results.rows.item(0).light19 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light19)
+        	number++;
+        parent.append('<div class="ui-block-e">' + '<img src="images/' +
+                      results.rows.item(0).light20 + '.png" height="50" width="50"/></div>');
+        if("on" == results.rows.item(0).light20)
+        	number++;
+        switch(number)
+        {
+        	case 12:
+        		$.mobile.changePage($('#twelve'));
+	        break;
+        	case 15:
+        		$.mobile.changePage($('#fifteen'));
+        	break;
+        	case 20:
+        		$.mobile.changePage($('#twenty'));
+        	break;
+        }
+    }
+        
+    function errorDB(err) {
+        console.log("Transaction Fail! " + err.code);
+        //alert("Transaction Fail! " + err.code);
+    }
+        
+    function onDeviceReady()
 	{
 		// do your thing!
 		//navigator.notification.alert("PhoneGap is working");
-		listDir();
+		var db = window.openDatabase("Database", "1.0", "PhoneGap", 200000);
+        db.transaction(createDB, errorDB);
+        db.transaction(insertDB, errorDB, successDB);
+        db.transaction(queryDB, errorDB);
         scanButton.addEventListener("click", clickScan, false);
         
 	}
-
 
     function clickScan() {
         window.plugins.barcodeScanner.scan(scannerSuccess, scannerFailure);
     }
 
-
     //------------------------------------------------------------------------------
     function scannerSuccess(result) 
     {
         console.log("scannerSuccess: result: " + result);
-    	listDir();    
-       	/*
-        alert("We got a barcode\n" +
+        if(false == result.cancelled)
+        {
+            $('#name').val(result.text);
+            onUpdateReady();
+    	}
+        /*
+        else
+        {
+            alert("Ray");
+        }
+        */
+        console.log("We got a barcode\n" +
 					"Result: " + result.text + "\n" +
 					"Format: " + result.format + "\n" +
 					"Cancelled: " + result.cancelled);
-    	*/
     }
 
-	function listDir() {
-		
-		var parent = $('#gallery');
-        parent.html('<div class="ui-block-a">' + 
-           			'<img src="images/'+ 'on' + '.png" height="50" width="50"/></div>');
-        for(var i = 1; i < 20; i++) 
-        {
-			switch (i%5) {			
-         		case 0: 
-	           		parent.append('<div class="ui-block-a">' + 
-           			'<img src="images/'+ 'on' + '.png" height="50" width="50"/></div>');
-                 break;
-         		case 1: 
-	           		parent.append('<div class="ui-block-b">' + 
-           			'<img src="images/'+ 'off' + '.png" height="50" width="50"/></div>');
-                 break;        
-         		case 2: 
-	           		parent.append('<div class="ui-block-c">' + 
-           			'<img src="images/'+ 'on' + '.png" height="50" width="50"/></div>');
-                 break;
-         		case 3: 
-	           		parent.append('<div class="ui-block-d">' + 
-           			'<img src="images/'+ 'off' + '.png" height="50" width="50"/></div>');
-                 break;
-         		case 4: 
-	       			parent.append('<div class="ui-block-e">' + 
-           			'<img src="images/' + 'on' + '.png" height="50" width="50"/></div>');
-                 break;
-      		}    
-        	
-    	}
-    }
-        
+	
     //------------------------------------------------------------------------------
     function scannerFailure(message) {
         console.log("scannerFailure: message: " + message);
-        alert("Scanning failed: " + message);
+        //alert("Scanning failed: " + message);
 	}
     
     </script>
   </head>
   <body onload="onBodyLoad()">
     <div data-role="page" id="home">
-    <div data-role="content">
-        <div id="gallery" class="ui-grid-d"></div>
-        <a href="#" id="scan-button" data-role="button" data-inline="true" data-icon="arrow-r" data-iconpos="right">開始掃描</a>
+    	<div data-role="content">
+        	<div id="gallery" class="ui-grid-d"></div>
+        	<a href="#" id="scan-button" data-role="button" data-inline="true" data-icon="arrow-r" data-iconpos="right">開始掃描</a>
+        	<input name="name" id="name" type="hidden">
+    	</div>
     </div>
-    </div>
+    <div data-role="dialog" id="twelve">
+		<div data-role="header">
+  		<h1>您已經12個燈</h1>
+  		</div>
+  		<div data-role="content">
+    		<p>請輸入您的名，我們將會放上info tree.</p>
+    		<form>
+    			<p>使用者名稱：
+    			<input type="text" id="username"/>
+    			</p>
+    		</form>    
+  		</div>
+	</div>
+    <div data-role="dialog" id="fifteen">
+		<div data-role="header">
+  		<h1>您已經15個燈</h1>
+  		</div>
+		<div data-role="content">
+    		<p>Yeah!</p>    
+  		</div>
+	</div>
+    <div data-role="dialog" id="twenty">
+		<div data-role="header">
+  		<h1>您已經20個燈</h1>
+  		</div>
+		<div data-role="content">
+    		<p>Yeah!</p>    
+  		</div>
+	</div>
   </body>
 </html>
-
