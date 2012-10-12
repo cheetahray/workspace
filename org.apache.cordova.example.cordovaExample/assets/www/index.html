@@ -40,7 +40,7 @@
     
 	function insertDB(tx) {
         tx.executeSql('INSERT INTO USER (id, cRuth, hAQes, JAwra, zaqAQ, cReth, XawrE, Qeste, YEChe, StuFR, rATre, cEsap, jUfrE, fUspe, FrAst, qExet, pHare) ' +
-                      'VALUES (1, "on", "on", "on", "on", "on", "on", "on", "on", "on", "on", "on", "on", "on", "on", "off", "on")');
+                      'VALUES (1, "off", "off", "off", "off", "off", "off", "off", "off", "off", "off", "off", "off", "off", "off", "off", "off")');
     }
         
     function updateDB(tx) {
@@ -139,6 +139,7 @@
         		$.mobile.changePage($('#fifteen'));
         	break;
         	case 16:
+        		$('#idVal').val(localStorage.getItem("id"));
         		$.mobile.changePage($('#sixteen'));
         	break;
         }
@@ -201,6 +202,16 @@
       		$(this).html('載入網頁錯誤: ' + settings.url + '!');
    		});
    
+		$('#takePicture').bind("click", function() {
+      		takePicture();
+   		});
+   		$('#selectPicture').bind("click", function() {
+      		selectPicture();
+   		});
+   		$('#uploadPicture').bind("click", function() {
+      		uploadPicture();
+   		});
+   		
 	}
 
     function clickScan() {
@@ -227,13 +238,69 @@
 					"Format: " + result.format + "\n" +
 					"Cancelled: " + result.cancelled);
     }
-
 	
     //------------------------------------------------------------------------------
     function scannerFailure(message) {
         console.log("scannerFailure: message: " + message);
         //alert("Scanning failed: " + message);
 	}
+	
+	function takePicture() {
+	   navigator.camera.getPicture(
+	   function(imageURI) {
+	      var img = document.getElementById('camera_image');
+	      img.src = imageURI;
+	      $('#camera_status').html("成功照相...");
+	   },
+	   function(e) {
+	      $('#camera_status').html("照相失敗...");
+	   },
+	   {  quality: 50, 
+	      destinationType: Camera.DestinationType.FILE_URI
+	   });
+	}
+	function selectPicture() {
+	   navigator.camera.getPicture(
+	   function(imageURI) {
+	      $('#camera_image').attr('src', imageURI);
+	      $('#camera_status').html("成功選擇圖片...");
+	   },
+	   function(e) {
+	      $('#camera_status').html("選擇圖片失敗...");
+	   },
+	   {  quality: 50, 
+	      destinationType: Camera.DestinationType.FILE_URI, 
+	      sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+	   });
+	}
+	function uploadPicture() {
+	   // 取得上傳圖片的URI
+	   var img = document.getElementById('camera_image');
+	   var imageURI = img.src;
+	   if (imageURI) {  // 有圖片    
+	      server = $('#serverUrl').val();  // 取得上傳網址 
+	      if (server) {  // 建立FileUploadOptions物件
+	         var options = new FileUploadOptions();
+	         options.fileKey = "file";
+	         options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
+	         options.mimeType = "image/jpeg";
+	         var params = new Object(); // 建立參數物件
+	         params.id = $('#idVal').val();
+	         params.text = $('#takeText').val();
+	         options.params = params;
+	         options.chunkedMode = false;
+	         var ft = new FileTransfer();   // 上傳檔案
+	         ft.upload(imageURI, server, onSuccess, onFail, options);
+	      }
+	   }
+	   else  $('#camera_status').html("請照相或選擇圖片...");  
+	}
+	function onSuccess(r) {
+	   $('#camera_status').html("上傳成功: " + r.bytesSent + "位元組");              
+	}
+	function onFail(error) {
+	   $('#camera_status').html("上傳失敗: 錯誤碼 = " + error.code);             
+	}	
     
     </script>
   </head>
@@ -256,10 +323,11 @@
 	</div>
     <div data-role="dialog" id="fifteen">
 		<div data-role="header">
-  		<h1>你15個燈了，具備抽獎資格。</h1>
+  		<h1>你15個燈了</h1>
   		</div>
 		<div data-role="content">
     		<form>
+    			<p>填完資料送出即具抽獎資格喔。</p>
     			<input type="hidden" id="idVal"/>
     			<p>輸入您的名：
     			<input type="text" id="nameVal"/>
@@ -276,7 +344,14 @@
   		<h1>你16個燈了。</h1>
   		</div>
 		<div data-role="content">
-    		<p>Yeah!</p>    
+			<p>請打入一段話並上傳圖片，將會秀在infotree。</p>
+    		<input id="serverUrl" type="hidden" value="http://ftp.daf.org.tw/upload.php"/>
+      		<input type="text" id="takeText"/>
+      		<input type="button" id="takePicture" value="照相"/>
+      		<input type="button" id="selectPicture" value="選擇圖片"/>
+      		<input type="button" id="uploadPicture" value="上傳圖片"/>
+      		<div id="camera_status"></div>
+      		<img style="width:200px" id="camera_image" src=""/>    
   		</div>
 	</div>
   </body>
