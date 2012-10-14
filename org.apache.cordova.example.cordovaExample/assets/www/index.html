@@ -28,103 +28,152 @@
 	}
 	
     function onUpdateReady() {
-        var db = window.openDatabase("Database", "1.0", "PhoneGap", 200000);
-        db.transaction(updateDB, errorDB, successDB);
-        db.transaction(queryDB, errorDB);
+        updateDB();
+        querySuccess();
     }
         
-    function createDB(tx) {
-        //tx.executeSql('DROP TABLE IF EXISTS USER');
-        tx.executeSql('CREATE TABLE IF NOT EXISTS USER (id unique, cRuth, hAQes, JAwra, zaqAQ, cReth, XawrE, Qeste, YEChe, StuFR, rATre, cEsap, jUfrE, fUspe, FrAst, qExet, pHare)');
+    function createDB() {
+
+        if (!localStorage.cRuth)
+        {
+            localStorage.setItem("cRuth","off");
+        }
+        if (!localStorage.hAQes)
+        {
+            localStorage.setItem("hAQes","off");
+        }
+        if (!localStorage.JAwra)
+        {
+            localStorage.setItem("JAwra","off");
+        }
+        if (!localStorage.zaqAQ)
+        {
+            localStorage.setItem("zaqAQ","off");
+        }
+        if (!localStorage.cReth)
+        {
+            localStorage.setItem("cReth","off");
+        }
+        if (!localStorage.XawrE)
+        {
+            localStorage.setItem("XawrE","off");
+        }
+        if (!localStorage.Qeste)
+        {
+            localStorage.setItem("Qeste","off");
+        }
+        if (!localStorage.YEChe)
+        {
+            localStorage.setItem("YEChe","off");
+        }
+        if (!localStorage.StuFR)
+        {
+            localStorage.setItem("StuFR","off");
+        }
+        if (!localStorage.rATre)
+        {
+            localStorage.setItem("rATre","off");
+        }
+        if (!localStorage.cEsap)
+        {
+            localStorage.setItem("cEsap","off");
+        }
+        if (!localStorage.jUfrE)
+        {
+            localStorage.setItem("jUfrE","off");
     }
-    
-	function insertDB(tx) {
-        tx.executeSql('INSERT INTO USER (id, cRuth, hAQes, JAwra, zaqAQ, cReth, XawrE, Qeste, YEChe, StuFR, rATre, cEsap, jUfrE, fUspe, FrAst, qExet, pHare) ' +
-                      'VALUES (1, "off", "off", "off", "off", "off", "off", "off", "off", "off", "off", "off", "off", "off", "off", "off", "off")');
+        if (!localStorage.fUspe)
+        {
+            localStorage.setItem("fUspe","off");
+        }
+        if (!localStorage.FrAst)
+        {
+            localStorage.setItem("FrAst","off");
+        }
+        if (!localStorage.qExet)
+        {
+            localStorage.setItem("qExet","off");
+    }
+        if (!localStorage.pHare)
+        {
+            localStorage.setItem("pHare","off");
     }
         
-    function updateDB(tx) {
-        var setName = $("#qrname");
-        tx.executeSql("UPDATE USER SET " + setName.val() + "='on' where id=1");
     }
         
-    function successDB() {
-        console.log("Transaction Success!");
-        //alert("Transaction Success!");
+	function updateDB() {
+        var setName = $("#qrname").val();
+        localStorage.setItem(setName,"on");
     }
         
-    function queryDB(tx) {
-        tx.executeSql('SELECT * FROM USER', [], querySuccess, errorDB);
-    }
-        
-    function querySuccess(tx, results) {
+    function querySuccess() {
         var number = 0;
         var parent = $('#gallery');
         parent.html('<div class="ui-block-a">' + '<img src="images/' +
-                    results.rows.item(0).cRuth + '.png" height="50" width="50"/></div>');
-        if("on" == results.rows.item(0).cRuth)
+                    localStorage.getItem("cRuth") + '.png" height="50" width="50"/></div>');
+        if("on" == localStorage.getItem("cRuth"))
         	number++;
         parent.append('<div class="ui-block-b">' + '<img src="images/' +
-                    results.rows.item(0).hAQes + '.png" height="50" width="50"/></div>');
-        if("on" == results.rows.item(0).hAQes)
+                    localStorage.getItem("hAQes") + '.png" height="50" width="50"/></div>');
+        if("on" == localStorage.getItem("hAQes"))
         	number++;
         parent.append('<div class="ui-block-c">' + '<img src="images/' +
-                      results.rows.item(0).JAwra + '.png" height="50" width="50"/></div>');
-        if("on" == results.rows.item(0).JAwra)
+                      localStorage.getItem("JAwra") + '.png" height="50" width="50"/></div>');
+        if("on" == localStorage.getItem("JAwra"))
         	number++;
         parent.append('<div class="ui-block-d">' + '<img src="images/' +
-                      results.rows.item(0).zaqAQ + '.png" height="50" width="50"/></div>');
-        if("on" == results.rows.item(0).zaqAQ)
+                      localStorage.getItem("zaqAQ") + '.png" height="50" width="50"/></div>');
+        if("on" == localStorage.getItem("zaqAQ"))
         	number++;
         parent.append('<div class="ui-block-a">' + '<img src="images/' +
-                      results.rows.item(0).cReth + '.png" height="50" width="50"/></div>');
-        if("on" == results.rows.item(0).cReth)
+                      localStorage.getItem("cReth") + '.png" height="50" width="50"/></div>');
+        if("on" == localStorage.getItem("cReth"))
         	number++;
         parent.append('<div class="ui-block-b">' + '<img src="images/' +
-                      results.rows.item(0).XawrE + '.png" height="50" width="50"/></div>');
-        if("on" == results.rows.item(0).XawrE)
+                      localStorage.getItem("XawrE") + '.png" height="50" width="50"/></div>');
+        if("on" == localStorage.getItem("XawrE"))
         	number++;
         parent.append('<div class="ui-block-c">' + '<img src="images/' +
-                      results.rows.item(0).Qeste + '.png" height="50" width="50"/></div>');
-        if("on" == results.rows.item(0).Qeste)
+                      localStorage.getItem("Qeste") + '.png" height="50" width="50"/></div>');
+        if("on" == localStorage.getItem("Qeste"))
         	number++;
         parent.append('<div class="ui-block-d">' + '<img src="images/' +
-                      results.rows.item(0).YEChe + '.png" height="50" width="50"/></div>');
-        if("on" == results.rows.item(0).YEChe)
+                      localStorage.getItem("YEChe") + '.png" height="50" width="50"/></div>');
+        if("on" == localStorage.getItem("YEChe"))
         	number++;
         parent.append('<div class="ui-block-a">' + '<img src="images/' +
-                      results.rows.item(0).StuFR + '.png" height="50" width="50"/></div>');
-        if("on" == results.rows.item(0).StuFR)
+                      localStorage.getItem("StuFR") + '.png" height="50" width="50"/></div>');
+        if("on" == localStorage.getItem("StuFR"))
         	number++;
         parent.append('<div class="ui-block-b">' + '<img src="images/' +
-                      results.rows.item(0).rATre + '.png" height="50" width="50"/></div>');
-        if("on" == results.rows.item(0).rATre)
+                      localStorage.getItem("rATre") + '.png" height="50" width="50"/></div>');
+        if("on" == localStorage.getItem("rATre"))
         	number++;
         parent.append('<div class="ui-block-c">' + '<img src="images/' +
-                      results.rows.item(0).cEsap + '.png" height="50" width="50"/></div>');
-        if("on" == results.rows.item(0).cEsap)
+                      localStorage.getItem("cEsap") + '.png" height="50" width="50"/></div>');
+        if("on" == localStorage.getItem("cEsap"))
         	number++;
         parent.append('<div class="ui-block-d">' + '<img src="images/' +
-                      results.rows.item(0).jUfrE + '.png" height="50" width="50"/></div>');
-        if("on" == results.rows.item(0).jUfrE)
+                      localStorage.getItem("jUfrE") + '.png" height="50" width="50"/></div>');
+        if("on" == localStorage.getItem("jUfrE"))
         	number++;
         parent.append('<div class="ui-block-a">' + '<img src="images/' +
-                      results.rows.item(0).fUspe + '.png" height="50" width="50"/></div>');
-        if("on" == results.rows.item(0).fUspe)
+                      localStorage.getItem("fUspe") + '.png" height="50" width="50"/></div>');
+        if("on" == localStorage.getItem("fUspe"))
         	number++;
         parent.append('<div class="ui-block-b">' + '<img src="images/' +
-                      results.rows.item(0).FrAst + '.png" height="50" width="50"/></div>');
-        if("on" == results.rows.item(0).FrAst)
+                      localStorage.getItem("FrAst") + '.png" height="50" width="50"/></div>');
+        if("on" == localStorage.getItem("FrAst"))
         	number++;
         parent.append('<div class="ui-block-c">' + '<img src="images/' +
-                      results.rows.item(0).qExet + '.png" height="50" width="50"/></div>');
-        if("on" == results.rows.item(0).qExet)
+                      localStorage.getItem("qExet") + '.png" height="50" width="50"/></div>');
+        if("on" == localStorage.getItem("qExet"))
         	number++;
         if(number >= 11)
         {
         	parent.append('<div class="ui-block-d">' + '<img src="images/' +
-                      results.rows.item(0).pHare + '.png" height="50" width="50"/></div>');
-        	if("on" == results.rows.item(0).pHare)
+                      localStorage.getItem("pHare") + '.png" height="50" width="50"/></div>');
+            if("on" == localStorage.getItem("pHare"))
         		number++;
         }
         switch(number)
@@ -140,24 +189,22 @@
         	break;
         	case 16:
         		$('#idVal').val(localStorage.getItem("id"));
+                var idVal = $('#idVal').val();
+        	    if(idVal == ""){ 
+				    alert("您尚未輸入名字與號碼喔。");
+                    $.mobile.changePage($('#fifteen')); 
+			    }
+        		else {
         		$.mobile.changePage($('#sixteen'));
+                }
         	break;
         }
     }
         
-    function errorDB(err) {
-        console.log("Transaction Fail! " + err.code);
-        //alert("Transaction Fail! " + err.code);
-    }
-        
     function onDeviceReady()
 	{
-		// do your thing!
-		//navigator.notification.alert("PhoneGap is working");
-		var db = window.openDatabase("Database", "1.0", "PhoneGap", 200000);
-        db.transaction(createDB, errorDB);
-        db.transaction(insertDB, errorDB, successDB);
-        db.transaction(queryDB, errorDB);
+		createDB();
+        querySuccess();
         scanButton.addEventListener("click", clickScan, false);
 
         $("form").submit( function() {
@@ -199,7 +246,7 @@
    		});
    		
    		$('#msg').ajaxError(function(event, request, settings) {
-      		$(this).html('載入網頁錯誤: ' + settings.url + '!');
+      		$(this).html('載入網頁錯誤: ' + settings.msg + '!');
    		});
    
 		$('#takePicture').bind("click", function() {
