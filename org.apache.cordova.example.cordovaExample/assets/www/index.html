@@ -191,8 +191,7 @@
         		$('#idVal').val(localStorage.getItem("id"));
                 var idVal = $('#idVal').val();
         	    if(idVal == ""){ 
-				    alert("您尚未輸入名字與號碼喔。");
-                    $.mobile.changePage($('#fifteen')); 
+				    $.mobile.changePage($('#fifteen')); 
 			    }
         		else {
         		$.mobile.changePage($('#sixteen'));
