@@ -1,404 +1,460 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  <title></title>
-  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0;" />
-    <meta charset="big5">
-
-    <!-- iPad/iPhone specific css below, add after your main css >
-    <link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="ipad.css" type="text/css" />		
-    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="iphone.css" type="text/css" />		
-    -->
-    <link rel="stylesheet" href="jquery.mobile.min.css">
-    <script src="jquery-1.6.4.min.js"></script>
-    <script src="jquery.mobile.min.js"></script>
-
-    <!-- If your application is targeting iOS BEFORE 4.0 you MUST put json2.js from http://www.JSON.org/json2.js into your www directory and include it here -->
-    <script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"></script>
-    <script type="text/javascript" charset="utf-8" src="barcodescanner.js"></script>
-    
-    <script type="text/javascript">
-
-    function onBodyLoad()
-	{		
-		document.addEventListener("deviceready", onDeviceReady, false);
-
-        scanButton = document.getElementById("scan-button");
-	}
-	
-    function onUpdateReady() {
-        updateDB();
-        querySuccess();
-    }
+    <head>
+        <title></title>
         
-    function createDB() {
-
-        if (!localStorage.cRuth)
-        {
-            localStorage.setItem("cRuth","off");
-        }
-        if (!localStorage.hAQes)
-        {
-            localStorage.setItem("hAQes","off");
-        }
-        if (!localStorage.JAwra)
-        {
-            localStorage.setItem("JAwra","off");
-        }
-        if (!localStorage.zaqAQ)
-        {
-            localStorage.setItem("zaqAQ","off");
-        }
-        if (!localStorage.cReth)
-        {
-            localStorage.setItem("cReth","off");
-        }
-        if (!localStorage.XawrE)
-        {
-            localStorage.setItem("XawrE","off");
-        }
-        if (!localStorage.Qeste)
-        {
-            localStorage.setItem("Qeste","off");
-        }
-        if (!localStorage.YEChe)
-        {
-            localStorage.setItem("YEChe","off");
-        }
-        if (!localStorage.StuFR)
-        {
-            localStorage.setItem("StuFR","off");
-        }
-        if (!localStorage.rATre)
-        {
-            localStorage.setItem("rATre","off");
-        }
-        if (!localStorage.cEsap)
-        {
-            localStorage.setItem("cEsap","off");
-        }
-        if (!localStorage.jUfrE)
-        {
-            localStorage.setItem("jUfrE","off");
-    }
-        if (!localStorage.fUspe)
-        {
-            localStorage.setItem("fUspe","off");
-        }
-        if (!localStorage.FrAst)
-        {
-            localStorage.setItem("FrAst","off");
-        }
-        if (!localStorage.qExet)
-        {
-            localStorage.setItem("qExet","off");
-    }
-        if (!localStorage.pHare)
-        {
-            localStorage.setItem("pHare","off");
-    }
-        
-    }
-        
-	function updateDB() {
-        var setName = $("#qrname").val();
-        localStorage.setItem(setName,"on");
-    }
-        
-    function querySuccess() {
-        var number = 0;
-        var parent = $('#gallery');
-        parent.html('<div class="ui-block-a">' + '<img src="images/' +
-                    localStorage.getItem("cRuth") + '.png" height="50" width="50"/></div>');
-        if("on" == localStorage.getItem("cRuth"))
-        	number++;
-        parent.append('<div class="ui-block-b">' + '<img src="images/' +
-                    localStorage.getItem("hAQes") + '.png" height="50" width="50"/></div>');
-        if("on" == localStorage.getItem("hAQes"))
-        	number++;
-        parent.append('<div class="ui-block-c">' + '<img src="images/' +
-                      localStorage.getItem("JAwra") + '.png" height="50" width="50"/></div>');
-        if("on" == localStorage.getItem("JAwra"))
-        	number++;
-        parent.append('<div class="ui-block-d">' + '<img src="images/' +
-                      localStorage.getItem("zaqAQ") + '.png" height="50" width="50"/></div>');
-        if("on" == localStorage.getItem("zaqAQ"))
-        	number++;
-        parent.append('<div class="ui-block-a">' + '<img src="images/' +
-                      localStorage.getItem("cReth") + '.png" height="50" width="50"/></div>');
-        if("on" == localStorage.getItem("cReth"))
-        	number++;
-        parent.append('<div class="ui-block-b">' + '<img src="images/' +
-                      localStorage.getItem("XawrE") + '.png" height="50" width="50"/></div>');
-        if("on" == localStorage.getItem("XawrE"))
-        	number++;
-        parent.append('<div class="ui-block-c">' + '<img src="images/' +
-                      localStorage.getItem("Qeste") + '.png" height="50" width="50"/></div>');
-        if("on" == localStorage.getItem("Qeste"))
-        	number++;
-        parent.append('<div class="ui-block-d">' + '<img src="images/' +
-                      localStorage.getItem("YEChe") + '.png" height="50" width="50"/></div>');
-        if("on" == localStorage.getItem("YEChe"))
-        	number++;
-        parent.append('<div class="ui-block-a">' + '<img src="images/' +
-                      localStorage.getItem("StuFR") + '.png" height="50" width="50"/></div>');
-        if("on" == localStorage.getItem("StuFR"))
-        	number++;
-        parent.append('<div class="ui-block-b">' + '<img src="images/' +
-                      localStorage.getItem("rATre") + '.png" height="50" width="50"/></div>');
-        if("on" == localStorage.getItem("rATre"))
-        	number++;
-        parent.append('<div class="ui-block-c">' + '<img src="images/' +
-                      localStorage.getItem("cEsap") + '.png" height="50" width="50"/></div>');
-        if("on" == localStorage.getItem("cEsap"))
-        	number++;
-        parent.append('<div class="ui-block-d">' + '<img src="images/' +
-                      localStorage.getItem("jUfrE") + '.png" height="50" width="50"/></div>');
-        if("on" == localStorage.getItem("jUfrE"))
-        	number++;
-        parent.append('<div class="ui-block-a">' + '<img src="images/' +
-                      localStorage.getItem("fUspe") + '.png" height="50" width="50"/></div>');
-        if("on" == localStorage.getItem("fUspe"))
-        	number++;
-        parent.append('<div class="ui-block-b">' + '<img src="images/' +
-                      localStorage.getItem("FrAst") + '.png" height="50" width="50"/></div>');
-        if("on" == localStorage.getItem("FrAst"))
-        	number++;
-        parent.append('<div class="ui-block-c">' + '<img src="images/' +
-                      localStorage.getItem("qExet") + '.png" height="50" width="50"/></div>');
-        if("on" == localStorage.getItem("qExet"))
-        	number++;
-        if(number >= 11)
-        {
-        	parent.append('<div class="ui-block-d">' + '<img src="images/' +
-                      localStorage.getItem("pHare") + '.png" height="50" width="50"/></div>');
-            if("on" == localStorage.getItem("pHare"))
-        		number++;
-        }
-        switch(number)
-        {
-        	case 11:
-        		$.mobile.changePage($('#eleven'));
-	        break;
-        	case 15:
-        		$('#phoneVal').val(localStorage.getItem("phone"));
-        		$('#nameVal').val(localStorage.getItem("name"));
-        		$('#idVal').val(localStorage.getItem("id"));
-        		$.mobile.changePage($('#fifteen'));
-        	break;
-        	case 16:
-        		$('#idVal').val(localStorage.getItem("id"));
-                var idVal = $('#idVal').val();
-        	    if(idVal == ""){ 
-				    $.mobile.changePage($('#fifteen')); 
-			    }
-        		else {
-        		$.mobile.changePage($('#sixteen'));
-                }
-        	break;
-        }
-    }
-        
-    function onDeviceReady()
-	{
-		createDB();
-        querySuccess();
-        scanButton.addEventListener("click", clickScan, false);
-
-        $("form").submit( function() {
-        	var phoneVal = $('#phoneVal').val();
-        	var nameVal = $('#nameVal').val();
-        	var idVal = $('#idVal').val();
-        	if(phoneVal == ""){ 
-				alert("∏πΩX§£Ø‡™≈µ€≥·°C"); 
-			}
-			else if(nameVal == ""){ 
-				alert("¶W¶r§£Ø‡™≈µ€≥·°C"); 
-			}
-			else
-			{
-        		$.ajax({
-        			type: 'POST',
-        			url:  'http://ftp.daf.org.tw/getNamePhone.php',
-        			data: { id : idVal,
-        					name : nameVal,
-        					phone : phoneVal }, 
-        			error: function() {
-           				alert("∏¸§J∫Ù≠∂ø˘ª~!");
-        			},        
-        			success: function(data) {
-           				//$('#result').html($(data).find('data').text());
-           				var rsname = $(data).find('name').text();
-           				if("false" != rsname)
-           				{
-	           				localStorage.setItem("id", $(data).find('id').text());
-	           				localStorage.setItem("name", nameVal);
-	           				localStorage.setItem("phone", phoneVal);
-	           			}
-	           			alert("¶®•\: " + rsname);
-	           			$.mobile.changePage($('#home'));    
-        			} 
-      			});
-      		}    
-      		return false;
-   		});
-   		
-   		$('#msg').ajaxError(function(event, request, settings) {
-      		$(this).html('∏¸§J∫Ù≠∂ø˘ª~: ' + settings.msg + '!');
-   		});
-   
-		$('#takePicture').bind("click", function() {
-      		takePicture();
-   		});
-   		$('#selectPicture').bind("click", function() {
-      		selectPicture();
-   		});
-   		$('#uploadPicture').bind("click", function() {
-      		uploadPicture();
-   		});
-   		
-	}
-
-    function clickScan() {
-        window.plugins.barcodeScanner.scan(scannerSuccess, scannerFailure);
-    }
-
-    //------------------------------------------------------------------------------
-    function scannerSuccess(result) 
-    {
-        console.log("scannerSuccess: result: " + result);
-        if(false == result.cancelled)
-        {
-            $('#qrname').val(result.text);
-            onUpdateReady();
-    	}
-        /*
-        else
-        {
-            alert("Ray");
-        }
-        */
-        console.log("We got a barcode\n" +
-					"Result: " + result.text + "\n" +
-					"Format: " + result.format + "\n" +
-					"Cancelled: " + result.cancelled);
-    }
-	
-    //------------------------------------------------------------------------------
-    function scannerFailure(message) {
-        console.log("scannerFailure: message: " + message);
-        //alert("Scanning failed: " + message);
-	}
-	
-	function takePicture() {
-	   navigator.camera.getPicture(
-	   function(imageURI) {
-	      var img = document.getElementById('camera_image');
-	      img.src = imageURI;
-	      $('#camera_status').html("¶®•\∑”¨€...");
-	   },
-	   function(e) {
-	      $('#camera_status').html("∑”¨€•¢±—...");
-	   },
-	   {  quality: 50, 
-	      destinationType: Camera.DestinationType.FILE_URI
-	   });
-	}
-	function selectPicture() {
-	   navigator.camera.getPicture(
-	   function(imageURI) {
-	      $('#camera_image').attr('src', imageURI);
-	      $('#camera_status').html("¶®•\øÔæ‹πœ§˘...");
-	   },
-	   function(e) {
-	      $('#camera_status').html("øÔæ‹πœ§˘•¢±—...");
-	   },
-	   {  quality: 50, 
-	      destinationType: Camera.DestinationType.FILE_URI, 
-	      sourceType: Camera.PictureSourceType.PHOTOLIBRARY
-	   });
-	}
-	function uploadPicture() {
-	   // ®˙±o§W∂«πœ§˘™∫URI
-	   var img = document.getElementById('camera_image');
-	   var imageURI = img.src;
-	   if (imageURI) {  // ¶≥πœ§˘    
-	      server = $('#serverUrl').val();  // ®˙±o§W∂«∫Ùß} 
-	      if (server) {  // ´ÿ•ﬂFileUploadOptions™´•Û
-	         var options = new FileUploadOptions();
-	         options.fileKey = "file";
-	         options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
-	         options.mimeType = "image/jpeg";
-	         var params = new Object(); // ´ÿ•ﬂ∞—º∆™´•Û
-	         params.id = $('#idVal').val();
-	         params.text = $('#takeText').val();
-	         options.params = params;
-	         options.chunkedMode = false;
-	         var ft = new FileTransfer();   // §W∂«¿…Æ◊
-	         ft.upload(imageURI, server, onSuccess, onFail, options);
-	      }
-	   }
-	   else  $('#camera_status').html("Ω–∑”¨€©ŒøÔæ‹πœ§˘...");  
-	}
-	function onSuccess(r) {
-	   $('#camera_status').html("§W∂«¶®•\: " + r.bytesSent + "¶Ï§∏≤’");              
-	}
-	function onFail(error) {
-	   $('#camera_status').html("§W∂«•¢±—: ø˘ª~ΩX = " + error.code);             
-	}	
-    
-    </script>
-  </head>
-  <body onload="onBodyLoad()">
-    <div data-role="page" id="home">
-    	<div data-role="content">
-        	<div id="gallery" class="ui-grid-c"></div>
-        	<a href="#" id="scan-button" data-role="button" data-inline="true" data-icon="arrow-r" data-iconpos="right">∂}©l±Ω¥y</a>
-        	<input name="qrname" id="qrname" type="hidden">
-    		<div id="msg"></div>
-    	</div>
-    </div>
-    <div data-role="dialog" id="eleven">
-		<div data-role="header">
-  		<h1>ßA11≠”øO§F°C</h1>
-  		</div>
-  		<div data-role="content">
-    		<p>∂∞∫°16≠”øO•i¶≥infotree≥·°C</p>
-  		</div>
-	</div>
-    <div data-role="dialog" id="fifteen">
-		<div data-role="header">
-  		<h1>ßA15≠”øO§F</h1>
-  		</div>
-		<div data-role="content">
-    		<form>
-    			<p>∂Òßπ∏ÍÆ∆∞e•XßY®„©‚º˙∏ÍÆÊ≥·°C</p>
-    			<input type="hidden" id="idVal"/>
-    			<p>øÈ§J±z™∫¶W°G
-    			<input type="text" id="nameVal"/>
-    			</p>
-    			<p>øÈ§J¡p√¥±z™∫∏πΩX°G
-    			<input type="number" id="phoneVal"/>
-    			</p>
-    			<input type="submit" value="∞e•X">
-    		</form>    
-  		</div>
-	</div>
-    <div data-role="dialog" id="sixteen">
-		<div data-role="header">
-  		<h1>ßA16≠”øO§F°C</h1>
-  		</div>
-		<div data-role="content">
-			<p>Ω–•¥§J§@¨q∏‹®√§W∂«πœ§˘°A±N∑|®q¶binfotree°C</p>
-    		<input id="serverUrl" type="hidden" value="http://ftp.daf.org.tw/upload.php"/>
-      		<input type="text" id="takeText"/>
-      		<input type="button" id="takePicture" value="∑”¨€"/>
-      		<input type="button" id="selectPicture" value="øÔæ‹πœ§˘"/>
-      		<input type="button" id="uploadPicture" value="§W∂«πœ§˘"/>
-      		<div id="camera_status"></div>
-      		<img style="width:200px" id="camera_image" src=""/>    
-  		</div>
-	</div>
-  </body>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0;" />
+        <meta charset="utf-8">
+            
+            <!-- iPad/iPhone specific css below, add after your main css >
+             <link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="ipad.css" type="text/css" />
+             <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="iphone.css" type="text/css" />
+             -->
+            <link rel="stylesheet" href="jquery.mobile.min.css">
+                <script src="jquery-1.6.4.min.js"></script>
+                <script src="jquery.mobile.min.js"></script>
+                <!-- If your application is targeting iOS BEFORE 4.0 you MUST put json2.js from http://www.JSON.org/json2.js into your www directory and include it here -->
+                <script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"></script>
+                <script type="text/javascript" charset="utf-8" src="barcodescanner.js"></script>
+                <script type="text/javascript" charset="utf-8" src="childbrowser.js"></script>
+                <script type="text/javascript" charset="utf-8" src="FBConnect.js"></script>
+                <script type="text/javascript" charset="utf-8" src="json2-min.js"></script>
+                
+                <script type="text/javascript">
+                    
+                    var fbPlugin;
+                    var client_id = "293327944111580";
+                    var redir_url = "https://www.facebook.com/connect/login_success.html";
+                    
+                    function onBodyLoad()
+                    {
+                        document.addEventListener("deviceready", onDeviceReady, false);
+                        
+                        scanButton = document.getElementById("scan-button");
+                    }
+                    
+                    function onUpdateReady() {
+                        updateDB();
+                        querySuccess();
+                    }
+                    
+                    function createDB() {
+                        
+                        if (!localStorage.cRuth)
+                        {
+                            localStorage.setItem("cRuth","on");
+                        }
+                        if (!localStorage.hAQes)
+                        {
+                            localStorage.setItem("hAQes","on");
+                        }
+                        if (!localStorage.JAwra)
+                        {
+                            localStorage.setItem("JAwra","on");
+                        }
+                        if (!localStorage.zaqAQ)
+                        {
+                            localStorage.setItem("zaqAQ","on");
+                        }
+                        if (!localStorage.cReth)
+                        {
+                            localStorage.setItem("cReth","on");
+                        }
+                        if (!localStorage.XawrE)
+                        {
+                            localStorage.setItem("XawrE","on");
+                        }
+                        if (!localStorage.Qeste)
+                        {
+                            localStorage.setItem("Qeste","on");
+                        }
+                        if (!localStorage.YEChe)
+                        {
+                            localStorage.setItem("YEChe","on");
+                        }
+                        if (!localStorage.StuFR)
+                        {
+                            localStorage.setItem("StuFR","on");
+                        }
+                        if (!localStorage.rATre)
+                        {
+                            localStorage.setItem("rATre","on");
+                        }
+                        if (!localStorage.cEsap)
+                        {
+                            localStorage.setItem("cEsap","on");
+                        }
+                        if (!localStorage.jUfrE)
+                        {
+                            localStorage.setItem("jUfrE","off");
+                        }
+                        if (!localStorage.fUspe)
+                        {
+                            localStorage.setItem("fUspe","off");
+                        }
+                        if (!localStorage.FrAst)
+                        {
+                            localStorage.setItem("FrAst","off");
+                        }
+                        if (!localStorage.qExet)
+                        {
+                            localStorage.setItem("qExet","off");
+                        }
+                        if (!localStorage.pHare)
+                        {
+                            localStorage.setItem("pHare","off");
+                        }
+                        
+                    }
+                    
+                    function updateDB() {
+                        var setName = $("#qrname").val();
+                        localStorage.setItem(setName,"on");
+                    }
+                    
+                    function querySuccess() {
+                        var number = 0;
+                        var parent = $('#gallery');
+                        parent.html('<div class="ui-block-a">' + '<img src="images/' +
+                                    localStorage.getItem("cRuth") + '.png" height="50" width="50"/></div>');
+                        if("on" == localStorage.getItem("cRuth"))
+                        number++;
+                        parent.append('<div class="ui-block-b">' + '<img src="images/' +
+                                      localStorage.getItem("hAQes") + '.png" height="50" width="50"/></div>');
+                        if("on" == localStorage.getItem("hAQes"))
+                        number++;
+                        parent.append('<div class="ui-block-c">' + '<img src="images/' +
+                                      localStorage.getItem("JAwra") + '.png" height="50" width="50"/></div>');
+                        if("on" == localStorage.getItem("JAwra"))
+                        number++;
+                        parent.append('<div class="ui-block-d">' + '<img src="images/' +
+                                      localStorage.getItem("zaqAQ") + '.png" height="50" width="50"/></div>');
+                        if("on" == localStorage.getItem("zaqAQ"))
+                        number++;
+                        parent.append('<div class="ui-block-a">' + '<img src="images/' +
+                                      localStorage.getItem("cReth") + '.png" height="50" width="50"/></div>');
+                        if("on" == localStorage.getItem("cReth"))
+                        number++;
+                        parent.append('<div class="ui-block-b">' + '<img src="images/' +
+                                      localStorage.getItem("XawrE") + '.png" height="50" width="50"/></div>');
+                        if("on" == localStorage.getItem("XawrE"))
+                        number++;
+                        parent.append('<div class="ui-block-c">' + '<img src="images/' +
+                                      localStorage.getItem("Qeste") + '.png" height="50" width="50"/></div>');
+                        if("on" == localStorage.getItem("Qeste"))
+                        number++;
+                        parent.append('<div class="ui-block-d">' + '<img src="images/' +
+                                      localStorage.getItem("YEChe") + '.png" height="50" width="50"/></div>');
+                        if("on" == localStorage.getItem("YEChe"))
+                        number++;
+                        parent.append('<div class="ui-block-a">' + '<img src="images/' +
+                                      localStorage.getItem("StuFR") + '.png" height="50" width="50"/></div>');
+                        if("on" == localStorage.getItem("StuFR"))
+                        number++;
+                        parent.append('<div class="ui-block-b">' + '<img src="images/' +
+                                      localStorage.getItem("rATre") + '.png" height="50" width="50"/></div>');
+                        if("on" == localStorage.getItem("rATre"))
+                        number++;
+                        parent.append('<div class="ui-block-c">' + '<img src="images/' +
+                                      localStorage.getItem("cEsap") + '.png" height="50" width="50"/></div>');
+                        if("on" == localStorage.getItem("cEsap"))
+                        number++;
+                        parent.append('<div class="ui-block-d">' + '<img src="images/' +
+                                      localStorage.getItem("jUfrE") + '.png" height="50" width="50"/></div>');
+                        if("on" == localStorage.getItem("jUfrE"))
+                        number++;
+                        parent.append('<div class="ui-block-a">' + '<img src="images/' +
+                                      localStorage.getItem("fUspe") + '.png" height="50" width="50"/></div>');
+                        if("on" == localStorage.getItem("fUspe"))
+                        number++;
+                        parent.append('<div class="ui-block-b">' + '<img src="images/' +
+                                      localStorage.getItem("FrAst") + '.png" height="50" width="50"/></div>');
+                        if("on" == localStorage.getItem("FrAst"))
+                        number++;
+                        parent.append('<div class="ui-block-c">' + '<img src="images/' +
+                                      localStorage.getItem("qExet") + '.png" height="50" width="50"/></div>');
+                        if("on" == localStorage.getItem("qExet"))
+                        number++;
+                        if(number >= 11)
+                        {
+                            parent.append('<div class="ui-block-d">' + '<img src="images/' +
+                                          localStorage.getItem("pHare") + '.png" height="50" width="50"/></div>');
+                            if("on" == localStorage.getItem("pHare"))
+                            {
+                                $.mobile.changePage($('#sixteen'));
+                            }
+                        }
+                        switch(number)
+                        {
+                            case 11:
+                            $.mobile.changePage($('#eleven'));
+                            share11FaceBook("Ë©¶Êäï", "http://icons-search.com/img/icons-land/IconsLandVistaStyleEmoticonsDemo.zip/IconsLandVistaStyleEmoticonsDemo-PNG-256x256-Cool.png-256x256.png", "http://www.nasa.gov/");
+                            break;
+                            case 15:
+                            $.mobile.changePage($('#fifteen'));
+                            break;
+                        }
+                    }
+                    
+                    function onFBConnected()
+                    {
+                        var req = window.plugins.fbConnect.getMe();
+                        req.onload = onGotMe;
+                    }
+                    
+                    function onGotMe(evt)
+                    {
+                        var json = JSON.parse(evt.target.responseText);
+                        console.log(json.id);
+                        console.log(json.name);
+                        
+                        var idVal = localStorage.getItem("id");
+                        if(null == idVal)
+                        {
+                            idVal = "";
+                        }
+                        console.log(idVal);
+                        var nameVal = json.name;
+                        var fbid = json.id;
+                        console.log(nameVal);
+                        $.ajax({
+                               type: 'POST',
+                               url:  'http://ftp.daf.org.tw/getNamePhone.php',
+                               data: { fbid : fbid,
+                               name : nameVal,
+                               id : idVal },
+                               error: function() {
+                                    alert("ËºâÂÖ•Á∂≤È†ÅÈåØË™§!");
+                               },
+                               success: function(data) {
+                                    if("0" != $(data).find('id').text())
+                                    {
+                                        console.log($(data).find('id').text());
+                                        localStorage.setItem("id", $(data).find('id').text());
+                                    }
+                                    console.log($(data).find('sql').text());
+                                    share15FaceBook("Ë©¶Êäï", "http://icons-search.com/img/icons-land/IconsLandVistaStyleEmoticonsDemo.zip/IconsLandVistaStyleEmoticonsDemo-PNG-256x256-Cool.png-256x256.png", "http://www.nasa.gov/");
+                                    alert("ÊàêÂäü");
+                                    $.mobile.changePage($('#home'));
+                               }
+                        });
+                    }
+                    
+                    function share15FaceBook(text, image, url) {
+                        /*
+                        var client_id = ‚ÄúXXXXXXXXXXXXXX‚Äù;//TODO customize your FaceBook AppID : http://developers.facebook.com/setup/
+                        var redir_url = ‚Äúhttp://www.facebook.com/connect/login_success.html‚Äù;
+                        navigator.notification.activityStart();//Phonegap function to show a waiting message
+                        if (typeof fbPlugin === ‚Äòundefined‚Äô) {
+                            console.log(‚Äòinstall FBConnect‚Äô);
+                            fbPlugin = FBConnect.install();
+                        }
+                        fbPlugin.connect(client_id, redir_url, ‚Äútouch‚Äù);
+                        fbPlugin.onConnect = function() {
+                            console.log(‚ÄòonFBConnected id=‚Äô + window.plugins.fbConnect.accessToken);
+                        */
+                            window.plugins.fbConnect.postFBWall(text, url, image, function(evt) {
+                                console.log(evt.target.responseText);
+                                //alert(‚ÄòSuccessfully shared on Facebok (check your status)‚Äô);
+                                //navigator.notification.activityStop();//Phonegap function to hide a waiting message
+                                }
+                            );
+                        //};
+                    }
+                               
+                    function share11FaceBook(text, image, url) {
+                            if (typeof(fbPlugin) === 'undefined')
+                            {
+                                fbPlugin = FBConnect.install();
+                            }
+                            fbPlugin.connect(client_id, redir_url, "touch");
+                            fbPlugin.onConnect = function() {
+                                    console.log("onFBConnected id=" + window.plugins.fbConnect.accessToken);
+                                    window.plugins.fbConnect.postFBWall(text, url, image, function(evt) {
+                                        console.log(evt.target.responseText);
+                                        //alert(‚ÄòSuccessfully shared on Facebok (check your status)‚Äô);
+                                        //navigator.notification.activityStop();//Phonegap function to hide a waiting message
+                                        }
+                                    );
+                            };
+                    }
+                    
+                    
+                    function onDeviceReady()
+                    {
+                        createDB();
+                        querySuccess();
+                        scanButton.addEventListener("click", clickScan, false);
+                        
+                        $("form").submit( function() {
+                                         if (typeof(fbPlugin) === 'undefined')
+                                         {
+                                            fbPlugin = FBConnect.install();
+                                         }
+                                         fbPlugin.connect(client_id,redir_url,"touch");
+                                         fbPlugin.onConnect = onFBConnected;
+                                         return false;
+                            });
+                        
+                        $('#msg').ajaxError(function(event, request, settings) {
+                                            $(this).html('ËºâÂÖ•Á∂≤È†ÅÈåØË™§: ' + settings.msg + '!');
+                                            });
+                        
+                        $('#takePicture').bind("click", function() {
+                                               takePicture();
+                                               });
+                        $('#selectPicture').bind("click", function() {
+                                                 selectPicture();
+                                                 });
+                        $('#uploadPicture').bind("click", function() {
+                                                 uploadPicture();
+                                                 });
+                        
+                    }
+                    
+                    function clickScan() {
+                        window.plugins.barcodeScanner.scan(scannerSuccess, scannerFailure);
+                    }
+                    
+                    //------------------------------------------------------------------------------
+                    function scannerSuccess(result)
+                    {
+                        console.log("scannerSuccess: result: " + result);
+                        if(false == result.cancelled)
+                        {
+                            $('#qrname').val(result.text);
+                            onUpdateReady();
+                        }
+                        /*
+                         else
+                         {
+                         alert("Ray");
+                         }
+                         */
+                        console.log("We got a barcode\n" +
+                                    "Result: " + result.text + "\n" +
+                                    "Format: " + result.format + "\n" +
+                                    "Cancelled: " + result.cancelled);
+                    }
+                    
+                    //------------------------------------------------------------------------------
+                    function scannerFailure(message) {
+                        console.log("scannerFailure: message: " + message);
+                        //alert("Scanning failed: " + message);
+                    }
+                    
+                    function takePicture() {
+                        navigator.camera.getPicture(
+                                                    function(imageURI) {
+                                                    var img = document.getElementById('camera_image');
+                                                    img.src = imageURI;
+                                                    $('#camera_status').html("ÊàêÂäüÁÖßÁõ∏...");
+                                                    },
+                                                    function(e) {
+                                                    $('#camera_status').html("ÁÖßÁõ∏Â§±Êïó...");
+                                                    },
+                                                    {  quality: 50,
+                                                    destinationType: Camera.DestinationType.FILE_URI
+                                                    });
+                    }
+                    function selectPicture() {
+                        navigator.camera.getPicture(
+                                                    function(imageURI) {
+                                                    $('#camera_image').attr('src', imageURI);
+                                                    $('#camera_status').html("ÊàêÂäüÈÅ∏ÊìáÂúñÁâá...");
+                                                    },
+                                                    function(e) {
+                                                    $('#camera_status').html("ÈÅ∏ÊìáÂúñÁâáÂ§±Êïó...");
+                                                    },
+                                                    {  quality: 50,
+                                                    destinationType: Camera.DestinationType.FILE_URI,
+                                                    sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+                                                    });
+                    }
+                    function uploadPicture() {
+                        // ÂèñÂæó‰∏äÂÇ≥ÂúñÁâáÁöÑURI
+                        var img = document.getElementById('camera_image');
+                        var imageURI = img.src;
+                        if (imageURI) {  // ÊúâÂúñÁâá
+                            server = $('#serverUrl').val();  // ÂèñÂæó‰∏äÂÇ≥Á∂≤ÂùÄ
+                            if (server) {  // Âª∫Á´ãFileUploadOptionsÁâ©‰ª∂
+                                var options = new FileUploadOptions();
+                                options.fileKey = "file";
+                                options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
+                                options.mimeType = "image/jpeg";
+                                var params = new Object(); // Âª∫Á´ãÂèÉÊï∏Áâ©‰ª∂
+                                var idVal = localStorage.getItem("id");
+                                if(null == idVal)
+                                {
+                                    console.log(idVal);
+                                    idVal = "";
+                                }
+                                params.id = idVal;
+                                params.text = $('#takeText').val();
+                                options.params = params;
+                                options.chunkedMode = false;
+                                var ft = new FileTransfer();   // ‰∏äÂÇ≥Ê™îÊ°à
+                                ft.upload(imageURI, server, onSuccess, onFail, options);
+                            }
+                        }
+                        else  $('#camera_status').html("Ë´ãÁÖßÁõ∏ÊàñÈÅ∏ÊìáÂúñÁâá...");
+                    }
+                    function onSuccess(r) {
+                        $('#camera_status').html("‰∏äÂÇ≥ÊàêÂäü: " + r.bytesSent + "‰ΩçÂÖÉÁµÑ");
+                        if("0" != r.response)
+                        {
+                            console.log(r.response);
+                            localStorage.setItem("id",r.response);
+                        }
+                    }
+                    function onFail(error) {
+                        $('#camera_status').html("‰∏äÂÇ≥Â§±Êïó: ÈåØË™§Á¢º = " + error.code);
+                    }
+                    
+                    </script>
+                </head>
+    <body onload="onBodyLoad()">
+        <div data-role="page" id="home">
+            <div data-role="content">
+                <div id="gallery" class="ui-grid-c"></div>
+                <a href="#" id="scan-button" data-role="button" data-inline="true" data-icon="arrow-r" data-iconpos="right">ÈñãÂßãÊéÉÊèè</a>
+                <input name="qrname" id="qrname" type="hidden">
+                    <div id="msg"></div>
+                    </div>
+        </div>
+        <div data-role="dialog" id="eleven">
+            <div data-role="header">
+                <h1>‰Ω†11ÂÄãÁáà‰∫Ü„ÄÇ</h1>
+            </div>
+            <div data-role="content">
+                <p>ÈõÜÊªø16ÂÄãÁáàÂèØÊúâinfotreeÂñî„ÄÇ</p>
+            </div>
+        </div>
+        <div data-role="dialog" id="fifteen">
+            <div data-role="header">
+                <h1>‰Ω†15ÂÄãÁáà‰∫Ü</h1>
+            </div>
+            <div data-role="content">
+                <form>
+                    <p>ÈÄÅÂá∫Ë≥áÊñôÂ∞±ÂèØ‰ª•ÊäΩÁçé‰∫ÜÂñî„ÄÇ</p>
+                    <input type="submit" value="ÈñãÂßã">
+                </form>
+            </div>
+        </div>
+        <div data-role="dialog" id="sixteen">
+            <div data-role="header">
+                <h1>‰Ω†ÊéÉÂà∞‰∫ÜÁ¨¨16ÂÄãÁáà„ÄÇ</h1>
+            </div>
+            <div data-role="content">
+                <p>Ë´ãÊâìÂÖ•‰∏ÄÊÆµË©±‰∏¶‰∏äÂÇ≥ÂúñÁâáÔºåÂ∞áÊúÉÁßÄÂú®infotree„ÄÇ</p>
+                <input id="serverUrl" type="hidden" value="http://ftp.daf.org.tw/upload.php"/>
+                <input type="text" id="takeText"/>
+                <input type="button" id="takePicture" value="ÁÖßÁõ∏"/>
+                <input type="button" id="selectPicture" value="ÈÅ∏ÊìáÂúñÁâá"/>
+                <input type="button" id="uploadPicture" value="‰∏äÂÇ≥ÂúñÁâá"/>
+                <div id="camera_status"></div>
+                <img style="width:200px" id="camera_image" src=""/>
+            </div>
+        </div>
+    </body>
 </html>
