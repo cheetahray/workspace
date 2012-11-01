@@ -56,7 +56,7 @@ FBConnect.prototype.getFriends = function()
 }
 
 FBConnect.prototype.postFBWall = function(message, urlPost, urlPicture, callBack)
-{
+{   message = encodeURIComponent(message);
     console.log("inside postFBWall "+message + " urlPost="+urlPost + " urlPicture="+urlPicture);
     var url = "https://graph.facebook.com/me/feed?access_token=" + this.accessToken+"&message="+message;
     if (urlPost) {
@@ -74,11 +74,6 @@ FBConnect.prototype.postFBGraph = function(url)
     console.log("inside postFBGraph url="+url);
     var req = new XMLHttpRequest();
     req.open("POST", url, true);
-    /*req.onreadystatechange = function() {//Call a function when the state
-     if(req.readyState == 4 && req.status == 200) {
-     alert(req.responseText);
-     }
-     };*/
     req.send(null);
     return req;
 }
@@ -89,6 +84,11 @@ FBConnect.prototype.getMe = function()
 	var req = new XMLHttpRequest();
 	
 	req.open("get",url,true);
+    /*req.onreadystatechange = function() {//Call a function when the state
+     if(req.readyState == 4 && req.status == 200) {
+     console.log(req.responseText);
+     }
+     };*/
 	req.send(null);
 	req.onerror = function(){alert("Error");};
 	return req;

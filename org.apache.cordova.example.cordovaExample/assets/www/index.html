@@ -1,460 +1,71 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title></title>
-        
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0;" />
-        <meta charset="utf-8">
-            
-            <!-- iPad/iPhone specific css below, add after your main css >
-             <link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="ipad.css" type="text/css" />
-             <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="iphone.css" type="text/css" />
-             -->
-            <link rel="stylesheet" href="jquery.mobile.min.css">
-                <script src="jquery-1.6.4.min.js"></script>
-                <script src="jquery.mobile.min.js"></script>
-                <!-- If your application is targeting iOS BEFORE 4.0 you MUST put json2.js from http://www.JSON.org/json2.js into your www directory and include it here -->
-                <script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"></script>
-                <script type="text/javascript" charset="utf-8" src="barcodescanner.js"></script>
+﻿<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.2//EN" "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0"/>
+<title>數位藝術節</title>
+<link href="css/reset.css" media="all" rel="stylesheet" type="text/css" />    
+<link href="css/main.css" media="all" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="jquery-1.6.4.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"></script>
                 <script type="text/javascript" charset="utf-8" src="childbrowser.js"></script>
-                <script type="text/javascript" charset="utf-8" src="FBConnect.js"></script>
-                <script type="text/javascript" charset="utf-8" src="json2-min.js"></script>
-                
-                <script type="text/javascript">
-                    
-                    var fbPlugin;
-                    var client_id = "293327944111580";
-                    var redir_url = "https://www.facebook.com/connect/login_success.html";
-                    
-                    function onBodyLoad()
-                    {
-                        document.addEventListener("deviceready", onDeviceReady, false);
-                        
-                        scanButton = document.getElementById("scan-button");
-                    }
-                    
-                    function onUpdateReady() {
-                        updateDB();
-                        querySuccess();
-                    }
-                    
-                    function createDB() {
-                        
-                        if (!localStorage.cRuth)
-                        {
-                            localStorage.setItem("cRuth","on");
-                        }
-                        if (!localStorage.hAQes)
-                        {
-                            localStorage.setItem("hAQes","on");
-                        }
-                        if (!localStorage.JAwra)
-                        {
-                            localStorage.setItem("JAwra","on");
-                        }
-                        if (!localStorage.zaqAQ)
-                        {
-                            localStorage.setItem("zaqAQ","on");
-                        }
-                        if (!localStorage.cReth)
-                        {
-                            localStorage.setItem("cReth","off");
-                        }
-                        if (!localStorage.XawrE)
-                        {
-                            localStorage.setItem("XawrE","on");
-                        }
-                        if (!localStorage.Qeste)
-                        {
-                            localStorage.setItem("Qeste","on");
-                        }
-                        if (!localStorage.YEChe)
-                        {
-                            localStorage.setItem("YEChe","on");
-                        }
-                        if (!localStorage.StuFR)
-                        {
-                            localStorage.setItem("StuFR","on");
-                        }
-                        if (!localStorage.rATre)
-                        {
-                            localStorage.setItem("rATre","on");
-                        }
-                        if (!localStorage.cEsap)
-                        {
-                            localStorage.setItem("cEsap","on");
-                        }
-                        if (!localStorage.jUfrE)
-                        {
-                            localStorage.setItem("jUfrE","off");
-                        }
-                        if (!localStorage.fUspe)
-                        {
-                            localStorage.setItem("fUspe","off");
-                        }
-                        if (!localStorage.FrAst)
-                        {
-                            localStorage.setItem("FrAst","off");
-                        }
-                        if (!localStorage.qExet)
-                        {
-                            localStorage.setItem("qExet","off");
-                        }
-                        if (!localStorage.pHare)
-                        {
-                            localStorage.setItem("pHare","off");
-                        }
-                        
-                    }
-                    
-                    function updateDB() {
-                        var setName = $("#qrname").val();
-                        localStorage.setItem(setName,"on");
-                    }
-                    
-                    function querySuccess() {
-                        var number = 0;
-                        var parent = $('#gallery');
-                        parent.html('<div class="ui-block-a">' + '<img src="images/' +
-                                    localStorage.getItem("cRuth") + '.png" height="50" width="50"/></div>');
-                        if("on" == localStorage.getItem("cRuth"))
-                        number++;
-                        parent.append('<div class="ui-block-b">' + '<img src="images/' +
-                                      localStorage.getItem("hAQes") + '.png" height="50" width="50"/></div>');
-                        if("on" == localStorage.getItem("hAQes"))
-                        number++;
-                        parent.append('<div class="ui-block-c">' + '<img src="images/' +
-                                      localStorage.getItem("JAwra") + '.png" height="50" width="50"/></div>');
-                        if("on" == localStorage.getItem("JAwra"))
-                        number++;
-                        parent.append('<div class="ui-block-d">' + '<img src="images/' +
-                                      localStorage.getItem("zaqAQ") + '.png" height="50" width="50"/></div>');
-                        if("on" == localStorage.getItem("zaqAQ"))
-                        number++;
-                        parent.append('<div class="ui-block-a">' + '<img src="images/' +
-                                      localStorage.getItem("cReth") + '.png" height="50" width="50"/></div>');
-                        if("on" == localStorage.getItem("cReth"))
-                        number++;
-                        parent.append('<div class="ui-block-b">' + '<img src="images/' +
-                                      localStorage.getItem("XawrE") + '.png" height="50" width="50"/></div>');
-                        if("on" == localStorage.getItem("XawrE"))
-                        number++;
-                        parent.append('<div class="ui-block-c">' + '<img src="images/' +
-                                      localStorage.getItem("Qeste") + '.png" height="50" width="50"/></div>');
-                        if("on" == localStorage.getItem("Qeste"))
-                        number++;
-                        parent.append('<div class="ui-block-d">' + '<img src="images/' +
-                                      localStorage.getItem("YEChe") + '.png" height="50" width="50"/></div>');
-                        if("on" == localStorage.getItem("YEChe"))
-                        number++;
-                        parent.append('<div class="ui-block-a">' + '<img src="images/' +
-                                      localStorage.getItem("StuFR") + '.png" height="50" width="50"/></div>');
-                        if("on" == localStorage.getItem("StuFR"))
-                        number++;
-                        parent.append('<div class="ui-block-b">' + '<img src="images/' +
-                                      localStorage.getItem("rATre") + '.png" height="50" width="50"/></div>');
-                        if("on" == localStorage.getItem("rATre"))
-                        number++;
-                        parent.append('<div class="ui-block-c">' + '<img src="images/' +
-                                      localStorage.getItem("cEsap") + '.png" height="50" width="50"/></div>');
-                        if("on" == localStorage.getItem("cEsap"))
-                        number++;
-                        parent.append('<div class="ui-block-d">' + '<img src="images/' +
-                                      localStorage.getItem("jUfrE") + '.png" height="50" width="50"/></div>');
-                        if("on" == localStorage.getItem("jUfrE"))
-                        number++;
-                        parent.append('<div class="ui-block-a">' + '<img src="images/' +
-                                      localStorage.getItem("fUspe") + '.png" height="50" width="50"/></div>');
-                        if("on" == localStorage.getItem("fUspe"))
-                        number++;
-                        parent.append('<div class="ui-block-b">' + '<img src="images/' +
-                                      localStorage.getItem("FrAst") + '.png" height="50" width="50"/></div>');
-                        if("on" == localStorage.getItem("FrAst"))
-                        number++;
-                        parent.append('<div class="ui-block-c">' + '<img src="images/' +
-                                      localStorage.getItem("qExet") + '.png" height="50" width="50"/></div>');
-                        if("on" == localStorage.getItem("qExet"))
-                        number++;
-                        if(number >= 11)
-                        {
-                            parent.append('<div class="ui-block-d">' + '<img src="images/' +
-                                          localStorage.getItem("pHare") + '.png" height="50" width="50"/></div>');
-                            if("on" == localStorage.getItem("pHare"))
-                            {
-                                $.mobile.changePage($('#sixteen'));
-                            }
-                        }
-                        switch(number)
-                        {
-                            case 11:
-                            $.mobile.changePage($('#eleven'));
-                            share11FaceBook("試投", "http://icons-search.com/img/icons-land/IconsLandVistaStyleEmoticonsDemo.zip/IconsLandVistaStyleEmoticonsDemo-PNG-256x256-Cool.png-256x256.png", "http://www.nasa.gov/");
-                            break;
-                            case 15:
-                            $.mobile.changePage($('#fifteen'));
-                            break;
-                        }
-                    }
-                    
-                    function onFBConnected()
-                    {
-                        var req = window.plugins.fbConnect.getMe();
-                        req.onload = onGotMe;
-                    }
-                    
-                    function onGotMe(evt)
-                    {
-                        var json = JSON.parse(evt.target.responseText);
-                        console.log(json.id);
-                        console.log(json.name);
-                        
-                        var idVal = localStorage.getItem("id");
-                        if(null == idVal)
-                        {
-                            idVal = "";
-                        }
-                        console.log(idVal);
-                        var nameVal = json.name;
-                        var fbid = json.id;
-                        console.log(nameVal);
-                        $.ajax({
-                               type: 'POST',
-                               url:  'http://ftp.daf.org.tw/getNamePhone.php',
-                               data: { fbid : fbid,
-                               name : nameVal,
-                               id : idVal },
-                               error: function() {
-                                    alert("載入網頁錯誤!");
-                               },
-                               success: function(data) {
-                                    if("0" != $(data).find('id').text())
-                                    {
-                                        console.log($(data).find('id').text());
-                                        localStorage.setItem("id", $(data).find('id').text());
-                                    }
-                                    console.log($(data).find('sql').text());
-                                    share15FaceBook("試投", "http://icons-search.com/img/icons-land/IconsLandVistaStyleEmoticonsDemo.zip/IconsLandVistaStyleEmoticonsDemo-PNG-256x256-Cool.png-256x256.png", "http://www.nasa.gov/");
-                                    alert("成功");
-                                    $.mobile.changePage($('#home'));
-                               }
-                        });
-                    }
-                    
-                    function share15FaceBook(text, image, url) {
-                        /*
-                        var client_id = “XXXXXXXXXXXXXX”;//TODO customize your FaceBook AppID : http://developers.facebook.com/setup/
-                        var redir_url = “http://www.facebook.com/connect/login_success.html”;
-                        navigator.notification.activityStart();//Phonegap function to show a waiting message
-                        if (typeof fbPlugin === ‘undefined’) {
-                            console.log(‘install FBConnect’);
-                            fbPlugin = FBConnect.install();
-                        }
-                        fbPlugin.connect(client_id, redir_url, “touch”);
-                        fbPlugin.onConnect = function() {
-                            console.log(‘onFBConnected id=’ + window.plugins.fbConnect.accessToken);
-                        */
-                            window.plugins.fbConnect.postFBWall(text, url, image, function(evt) {
-                                console.log(evt.target.responseText);
-                                //alert(‘Successfully shared on Facebok (check your status)’);
-                                //navigator.notification.activityStop();//Phonegap function to hide a waiting message
-                                }
-                            );
-                        //};
-                    }
-                               
-                    function share11FaceBook(text, image, url) {
-                            if (typeof(fbPlugin) === 'undefined')
-                            {
-                                fbPlugin = FBConnect.install();
-                            }
-                            fbPlugin.connect(client_id, redir_url, "touch");
-                            fbPlugin.onConnect = function() {
-                                    console.log("onFBConnected id=" + window.plugins.fbConnect.accessToken);
-                                    window.plugins.fbConnect.postFBWall(text, url, image, function(evt) {
-                                        console.log(evt.target.responseText);
-                                        //alert(‘Successfully shared on Facebok (check your status)’);
-                                        //navigator.notification.activityStop();//Phonegap function to hide a waiting message
-                                        }
-                                    );
-                            };
-                    }
-                    
-                    
-                    function onDeviceReady()
-                    {
-                        createDB();
-                        querySuccess();
-                        scanButton.addEventListener("click", clickScan, false);
-                        
-                        $("form").submit( function() {
-                                         if (typeof(fbPlugin) === 'undefined')
-                                         {
-                                            fbPlugin = FBConnect.install();
-                                         }
-                                         fbPlugin.connect(client_id,redir_url,"touch");
-                                         fbPlugin.onConnect = onFBConnected;
-                                         return false;
-                            });
-                        
-                        $('#msg').ajaxError(function(event, request, settings) {
-                                            $(this).html('載入網頁錯誤: ' + settings.msg + '!');
-                                            });
-                        
-                        $('#takePicture').bind("click", function() {
-                                               takePicture();
-                                               });
-                        $('#selectPicture').bind("click", function() {
-                                                 selectPicture();
-                                                 });
-                        $('#uploadPicture').bind("click", function() {
-                                                 uploadPicture();
-                                                 });
-                        
-                    }
-                    
-                    function clickScan() {
-                        window.plugins.barcodeScanner.scan(scannerSuccess, scannerFailure);
-                    }
-                    
-                    //------------------------------------------------------------------------------
-                    function scannerSuccess(result)
-                    {
-                        console.log("scannerSuccess: result: " + result);
-                        if(false == result.cancelled)
-                        {
-                            $('#qrname').val(result.text);
-                            onUpdateReady();
-                        }
-                        /*
-                         else
-                         {
-                         alert("Ray");
-                         }
-                         */
-                        console.log("We got a barcode\n" +
-                                    "Result: " + result.text + "\n" +
-                                    "Format: " + result.format + "\n" +
-                                    "Cancelled: " + result.cancelled);
-                    }
-                    
-                    //------------------------------------------------------------------------------
-                    function scannerFailure(message) {
-                        console.log("scannerFailure: message: " + message);
-                        //alert("Scanning failed: " + message);
-                    }
-                    
-                    function takePicture() {
-                        navigator.camera.getPicture(
-                                                    function(imageURI) {
-                                                    var img = document.getElementById('camera_image');
-                                                    img.src = imageURI;
-                                                    $('#camera_status').html("成功照相...");
-                                                    },
-                                                    function(e) {
-                                                    $('#camera_status').html("照相失敗...");
-                                                    },
-                                                    {  quality: 50,
-                                                    destinationType: Camera.DestinationType.FILE_URI
-                                                    });
-                    }
-                    function selectPicture() {
-                        navigator.camera.getPicture(
-                                                    function(imageURI) {
-                                                    $('#camera_image').attr('src', imageURI);
-                                                    $('#camera_status').html("成功選擇圖片...");
-                                                    },
-                                                    function(e) {
-                                                    $('#camera_status').html("選擇圖片失敗...");
-                                                    },
-                                                    {  quality: 50,
-                                                    destinationType: Camera.DestinationType.FILE_URI,
-                                                    sourceType: Camera.PictureSourceType.PHOTOLIBRARY
-                                                    });
-                    }
-                    function uploadPicture() {
-                        // 取得上傳圖片的URI
-                        var img = document.getElementById('camera_image');
-                        var imageURI = img.src;
-                        if (imageURI) {  // 有圖片
-                            server = $('#serverUrl').val();  // 取得上傳網址
-                            if (server) {  // 建立FileUploadOptions物件
-                                var options = new FileUploadOptions();
-                                options.fileKey = "file";
-                                options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
-                                options.mimeType = "image/jpeg";
-                                var params = new Object(); // 建立參數物件
-                                var idVal = localStorage.getItem("id");
-                                if(null == idVal)
-                                {
-                                    console.log(idVal);
-                                    idVal = "";
-                                }
-                                params.id = idVal;
-                                params.text = $('#takeText').val();
-                                options.params = params;
-                                options.chunkedMode = false;
-                                var ft = new FileTransfer();   // 上傳檔案
-                                ft.upload(imageURI, server, onSuccess, onFail, options);
-                            }
-                        }
-                        else  $('#camera_status').html("請照相或選擇圖片...");
-                    }
-                    function onSuccess(r) {
-                        $('#camera_status').html("上傳成功: " + r.bytesSent + "位元組");
-                        if("0" != r.response)
-                        {
-                            console.log(r.response);
-                            localStorage.setItem("id",r.response);
-                        }
-                    }
-                    function onFail(error) {
-                        $('#camera_status').html("上傳失敗: 錯誤碼 = " + error.code);
-                    }
-                    
-                    </script>
-                </head>
-    <body onload="onBodyLoad()">
-        <div data-role="page" id="home">
-            <div data-role="content">
-                <div id="gallery" class="ui-grid-c"></div>
-                <a href="#" id="scan-button" data-role="button" data-inline="true" data-icon="arrow-r" data-iconpos="right">開始掃描</a>
-                <input name="qrname" id="qrname" type="hidden">
-                    <div id="msg"></div>
-                    </div>
-        </div>
-        <div data-role="dialog" id="eleven">
-            <div data-role="header">
-                <h1>你11個燈了。</h1>
-            </div>
-            <div data-role="content">
-                <p>集滿16個燈可有infotree喔。</p>
-            </div>
-        </div>
-        <div data-role="dialog" id="fifteen">
-            <div data-role="header">
-                <h1>你15個燈了</h1>
-            </div>
-            <div data-role="content">
-                <form>
-                    <p>送出資料就可以抽獎了喔。</p>
-                    <input type="submit" value="開始">
-                </form>
-            </div>
-        </div>
-        <div data-role="dialog" id="sixteen">
-            <div data-role="header">
-                <h1>你掃到了第16個燈。</h1>
-            </div>
-            <div data-role="content">
-                <p>請打入一段話並上傳圖片，將會秀在infotree。</p>
-                <input id="serverUrl" type="hidden" value="http://ftp.daf.org.tw/upload.php"/>
-                <input type="text" id="takeText"/>
-                <input type="button" id="takePicture" value="照相"/>
-                <input type="button" id="selectPicture" value="選擇圖片"/>
-                <input type="button" id="uploadPicture" value="上傳圖片"/>
-                <div id="camera_status"></div>
-                <img style="width:200px" id="camera_image" src=""/>
-            </div>
-        </div>
-    </body>
+
+<script type="text/javascript">           
+window.onload = function() {  
+    if(window.plugins.childBrowser == null)
+	{
+		ChildBrowser.install();
+	}
+};
+
+$(document).ready(function() {
+	
+	//$("body").css("display", "none");
+
+    //$("body").fadeIn(1000);
+    
+	$("a.transition").click(function(event){
+		event.preventDefault();
+		linkLocation = this.href;
+		$("body").fadeOut(1000, redirectPage);		
+	});
+		
+	function redirectPage() {
+		window.location = linkLocation;
+	}
+});
+</script>
+<script src="responsiveslides.min.js"></script>
+<link rel="stylesheet" href="css/responsiveslides.css" />
+<script class="secret-source">
+  $(function () {
+	$(".rslides").responsiveSlides({
+        maxwidth: 800,
+        speed: 800
+      });
+  });
+</script>
+</head>
+
+<body>
+
+<header style="width:100%; height:10%"><img src="images/logo.png" width="208"/></header>
+
+<div  class="wrapper">
+
+<div class="game"><a href="game.html"><span></span> 我的<br/>數位藝術足跡</a></div>
+    <div class="slider">
+        <ul class="rslides">
+          <li><img src="images/index_img1.jpg" alt="" width="125" height="125" /></li>
+          <li><img src="images/index_img2.jpg" alt="" width="125" height="125" /></li>
+          <li><img src="images/index_img3.jpg" alt="" width="125" height="125" /></li>
+        </ul>
+    </div>
+    <div class="scan"><a href="scangame.html"><span></span><br/>掃描足跡</a></div> 
+    <div class="official"><a href="javascript:window.plugins.childBrowser.showWebPage('http://digitalartfestival.tw/daf12/')" target="_blank"><span></span>2012臺北<br/>數位藝術節</a></div> 
+    <div class="window8"><a href="javascript:window.plugins.childBrowser.showWebPage('http://windows.microsoft.com/zh-TW/windows/home')" target="_blank"><span></span></a></div>
+
+</div>
+
+</body>
 </html>
