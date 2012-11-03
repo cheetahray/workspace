@@ -100,26 +100,32 @@
     
     function updateDB() {
         var setName = $("#qrname").val();
-        if(" get" == localStorage.getItem(setName))
+        if("pHare" == setName) 
+        {
+            if(number < 11)
         {
             var raynum = $('#raynumber');
-            raynum.html("重複掃描");
-            delayTime = 2000;
+                raynum.html("尚未集滿11點");
+                delayTime = 3000;
         }
-        else if("pHare" == setName) 
+            else if(" get" == localStorage.getItem("pHare"))
         {
-            if(number >= 11 && "" == localStorage.getItem("pHare"))
+                var raynum = $('#raynumber');
+                raynum.html("已上傳過info tree.");
+                delayTime = 3000;
+            }
+            else
         {
             localStorage.setItem(setName," get");
             setTimeout('delayedRedirect("upload.html")', 1000);
         }
-            else
+        }
+        else if(" get" == localStorage.getItem(setName))
             {
                 var raynum = $('#raynumber');
-                raynum.html("尚未集滿11點或已傳上info tree.");
+            raynum.html("重複掃描");
                 delayTime = 2000;
             }
-        }
         else
             localStorage.setItem(setName," get");
     }
@@ -194,7 +200,7 @@
         ray2 += '<td align="center" valign="middle" class="qr12">';
         if(number >= 11)
         {
-        	if("" == localStorage.getItem("pHare"))
+                    if("raysubmit" != localStorage.getItem("raysubmit"))
             {
                 ray2 += "快到<br/>info tree<br/>許願喔";
             }
@@ -209,44 +215,31 @@
         }              
         ray2 += '</td></tr></table>';
         parent.html(ray + ray2);
-        switch(number)
+        if(number >=0 && number < 11)
         {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-            case 10:
-                if(0 != localStorage.getItem("settle"))
-                    shareOnFaceBook("我在松山文創園區，參與2012台北數位藝術節，快來一起沿著windows 8尋找數位藝術足跡吧!", "http://ftp.daf.org.tw/fbimg.jpg", "http://digitalartfestival.tw/daf12/app.html", 0);
-            break;
-        	case 11:
-            case 12:
-            case 13:
-            case 14:
-                if(11 != localStorage.getItem("settle"))
+        	if(0 != localStorage.getItem("settle"))
+            {
+            setTimeout('shareOnFaceBook()',delayTime+1000);
+            }
+            setTimeout('delayedStyle()', delayTime);
+        }
+        else if(number >= 11 && number < 15)
                 {
-                    shareOnFaceBook("我在2012台北數位藝術節，已集滿11個足跡，獲得許願機會! 快來一起沿著windows 8蒐集數位藝術足跡吧!", "http://ftp.daf.org.tw/fbimg.jpg", "http://digitalartfestival.tw/daf12/app.html", 11);
+            if(11 != localStorage.getItem("settle"))
+            {
+            setTimeout('shareOnFaceBook()',delayTime+1000);      
+    		}
+            setTimeout('delayedStyle()', delayTime);
 	            }
-            break;
-        	case 15:
-                if(15 != localStorage.getItem("settle"))
+        else if(15 != localStorage.getItem("settle"))
                 {   
                 setTimeout('delayedRedirect("form.html")', 500);
                 }
                 else
                 {
-                    $('#raystyle1').attr('style', "display:none;");
-                    $('#raystyle2').attr('style', "");
+                    $('#raynumber').html('恭喜您已集滿，獲得抽獎機會');
                 }
-        	break;
-	    }
-        setTimeout('delayedStyle()', delayTime);
+        	
     }  
     
     function delayedRedirect(url){
@@ -259,15 +252,28 @@
         delayTime = 100;
     }
 
-    function rayray(raynum)
+    function rayray()
     {
                       //console.log(evt.target.responseText);
-                      switch(raynum)
+                      switch(number)
                       {
                         case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
+                    case 9:
+                    case 10:
                             localStorage.setItem("settle", 0);
                         break;
                         case 11:
+                    case 12:
+                    case 13:
+                    case 14:
                             localStorage.setItem("settle", 11);
                             setTimeout('delayedRedirect("congrets.html")', 1500);
                         break;
@@ -277,8 +283,9 @@
                       }
     }
 
-    function shareOnFaceBook(text, image, url, raynum) 
+    function shareOnFaceBook() 
     {
+                var why = rayray;
         if (typeof(fbPlugin) === 'undefined')
         {
             fbPlugin = FBConnect.install();
@@ -286,8 +293,30 @@
         fbPlugin.connect(client_id, redir_url, "touch");
         fbPlugin.onConnect = function() {
              //console.log("onFBConnected id=" + window.plugins.fbConnect.accessToken);
-             var why = rayray(raynum);
-             window.plugins.fbConnect.postFBWall(text, url, image, why);
+             switch(number)
+        {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+                     window.plugins.fbConnect.postFBWall("我在松山文創園區，參與2012台北數位藝術節，快來一起沿著windows 8尋找數位藝術足跡吧!", "http://digitalartfestival.tw/daf12/app.html", "http://ftp.daf.org.tw/fbimg.jpg", why);
+                break;
+        	case 11:
+            case 12:
+            case 13:
+            case 14:
+        		    window.plugins.fbConnect.postFBWall("我在2012台北數位藝術節，已集滿11個足跡，獲得許願機會! 快來一起沿著windows 8蒐集數位藝術足跡吧!", "http://digitalartfestival.tw/daf12/app.html", "http://ftp.daf.org.tw/fbimg.jpg", why);
+            break;
+        	case 15:
+                break;
+	    }             
         };
     }
     
@@ -315,6 +344,10 @@
             $('#qrname').val(result.text);
             onUpdateReady();
     	}
+                else
+                {
+                    querySuccess();
+                }
         /*
         console.log("We got a barcode\n" +
                                     "Result: " + result.text + "\n" +
@@ -357,8 +390,7 @@
 
         <div class="space"></div>
         
-        <div id="raystyle1" class="info"><span id="raynumber" style="font-size:24px;"></span></div>
-        <div id="raystyle2" class="info" style="display:none;"><span style="font-size:18px;">恭喜您已集滿，獲得</span><span style="font-size:24px;">抽獎機會</span></div>
+        <div id="raystyle1" class="info"><span id="raynumber" style="font-size:18px;"></span></div>
         
         <div  id="gallery" class="qr">
         </div>

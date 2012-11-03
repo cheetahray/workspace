@@ -43,6 +43,7 @@ $(document).ready(
 	      $('#camera_status').html("照相失敗...");
 	   },
 	   {  quality: 50, 
+          correctOrientation: true,
           destinationType: Camera.DestinationType.FILE_URI
 	   });
 	}
@@ -88,6 +89,7 @@ $(document).ready(
 	         var ft = new FileTransfer();   // 上傳檔案
              //$('#camera_status').text(imageURI + server);
              ft.upload(imageURI, server, onSuccess, onFail, options);
+             localStorage.setItem("raysubmit","raysubmit");
 	      }
 	   }
 	   else  $('#camera_status').html("請照相或選擇圖片...");  
