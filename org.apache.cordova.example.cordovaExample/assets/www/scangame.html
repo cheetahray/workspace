@@ -108,7 +108,7 @@
                 raynum.html("尚未集滿11點");
                 delayTime = 3000;
         }
-            else if(" get" == localStorage.getItem("pHare"))
+                    else if("raysubmit" == localStorage.getItem("raysubmit"))
         {
                 var raynum = $('#raynumber');
                 raynum.html("已上傳過info tree.");
@@ -322,6 +322,7 @@
     
     function onDeviceReady()
 	{
+		number = 0;
         delayTime = 100;
         $.support.cors                 = true;
         var scanButton = document.getElementById("scan-button");

@@ -68,7 +68,12 @@ $(document).ready(
 	   // 取得上傳圖片的URI
 	   var img = document.getElementById('camera_image');
 	   var imageURI = img.src;
-       if (imageURI) {  // 有圖片    
+	    if (imageURI.lastIndexOf("images/media") < 0)
+            $('#camera_status').html("請照相或選擇圖片...");
+        else if ( $('#takeText').val().length <= 0 )
+            $('#camera_status').html("請輸入願望...");
+        else
+        {  // 有圖片
 	      server = $('#serverUrl').val();  // 取得上傳網址 
 	      if (server) {  // 建立FileUploadOptions物件
 	         var options = new FileUploadOptions();
@@ -79,7 +84,6 @@ $(document).ready(
 	         var idVal = localStorage.getItem("id");
                                 if(null == idVal)
                                 {
-                                    console.log(idVal);
                                     idVal = "";
                                 }
                                 params.id = idVal;
@@ -92,7 +96,7 @@ $(document).ready(
              localStorage.setItem("raysubmit","raysubmit");
 	      }
 	   }
-	   else  $('#camera_status').html("請照相或選擇圖片...");  
+	       
 	}
 
 	function onSuccess(r) {
@@ -136,9 +140,9 @@ $(document).ready(
 
 <div class="wrapper"  style="padding-top:15px;">
 
-<p style=" font-size:93.8%; line-height:1.6; margin-bottom:8px;">恭喜您集滿11個數位藝術足跡，請寫下您的願望並上傳照片，Info Tree將會播放。</p>
+<p id="camera_status" style=" font-size:93.8%; line-height:1.6; margin-bottom:8px;">請寫下您的願望並上傳照片，Info Tree將會播放。</p>
 
-<textarea name="" class="textarea" placeholder="請輸入您的願望"></textarea>
+<textarea id="takeText" class="textarea" placeholder="請輸入您的願望"></textarea>
 
 <input id="serverUrl" type="hidden" value="http://ftp.daf.org.tw/upload.php"/>
 
@@ -146,8 +150,8 @@ $(document).ready(
 <div id="takePicture" class="takepic"><a href="#"><span></span>拍照</a></div>
 <div class="space"></div>
 <div id="uploadPicture" class="go2"><a href="#"><span></span>確定發送</a></div> 
-<p><div id="camera_status"></div></p>
-<p><img style="width:0px" id="camera_image" src=""/></p>    
+
+<img style="width:0px" id="camera_image" src=""/>    
 
 </div>
 </body>
