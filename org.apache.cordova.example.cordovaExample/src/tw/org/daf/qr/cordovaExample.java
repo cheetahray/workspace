@@ -17,7 +17,7 @@
        under the License.
  */
 
-package org.apache.cordova.example;
+package tw.org.daf.qr;
 
 import android.app.Activity;
 import android.os.Bundle;
