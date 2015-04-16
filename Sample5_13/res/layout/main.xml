@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+   <SurfaceView 
+		android:id="@+id/mySurfaceView"
+	    android:gravity="center_horizontal"
+	    android:layout_width="600px" 
+	    android:layout_height="fill_parent">
+   </SurfaceView>
+	<LinearLayout 
+      android:id="@+id/LinearLayout01" 
+      android:layout_width="wrap_content" 
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+	 <Button 
+	   android:text="拍照" 
+	   android:id="@+id/Button03" 
+	   android:layout_width="100dip" 
+	   android:layout_height="50dip">
+	 </Button> 
+	  <Button 
+	  android:text="焦距" 
+	  android:id="@+id/Button01" 
+	  android:layout_width="100dip" 
+	  android:layout_height="50dip">
+	 </Button>	  	     
+   </LinearLayout>
+</LinearLayout>

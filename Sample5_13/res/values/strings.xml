@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, CameraActivity!</string>
+    <string name="app_name">Sample5_13</string>
+    <string name="jiao">焦距</string>
+    <string name="jiao1">X1</string>
+    <string name="jiao2">X2</string>
+    <string name="jiao3">X3</string>
+    <string name="jiao4">X4</string>
+    <string name="jiao5">X5</string>
+</resources>
