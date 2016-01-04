@@ -92,7 +92,7 @@ public class AndroidSample_UdpActivity extends Activity {
 
 	public void onStart() {
 		super.onStart();
-		tv1.setText("START...");
+		tv1.setText("WantFreq:RealFreq");
 		et1.setText("35");
 		Thread background = new Thread(new Runnable() {
 			public void run() {
@@ -151,7 +151,7 @@ public class AndroidSample_UdpActivity extends Activity {
 
 						try {
 							ds.receive(dp);
-							if( dp.getAddress().getHostAddress().equals( "192.168.12." + String.valueOf(Integer.parseInt(et1.getText().toString()) + 100) ) )
+							if( dp.getAddress().getHostAddress().equals( "192.168.12." + String.valueOf(Integer.parseInt(et1.getText().toString()) ) ) )
 							    data = new String(recevieData, 0, dp.getLength());
 							    handler.sendMessage(handler.obtainMessage(1, data));
 						} catch (IOException e) {
