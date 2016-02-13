@@ -29,7 +29,7 @@
 		<allow-intent href="itms:*" />
 		<allow-intent href="itms-apps:*" />
 	</platform>
-	
+
 	<feature name="WifiUtils">
 		<param name="android-package" value="org.apache.cordova.wifiutils.WifiUtils" />
 	</feature>
@@ -38,4 +38,5 @@
 		<param name="installPath"
 			value="C:\Windows.old\Users\Ray\Downloads\cordova-plugin-wifiutils-master" />
 	</feature>
+	
 <engine name="android" version="3.7.2"/></widget>
