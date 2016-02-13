@@ -38,5 +38,6 @@
 		<param name="installPath"
 			value="C:\Windows.old\Users\Ray\Downloads\cordova-plugin-wifiutils-master" />
 	</feature>
-	
-<engine name="android" version="3.7.2"/></widget>
+
+	<engine name="android" version="4.1.1" />
+</widget>
