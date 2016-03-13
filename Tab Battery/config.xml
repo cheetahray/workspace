@@ -17,6 +17,7 @@
 	<plugin name="cordova-plugin-whitelist" spec="1" />
 	<access origin="*" />
 	<allow-intent href="http://*/*" />
+	<allow-intent href="http://54.64.144.123/flora/member/*" />
 	<allow-intent href="https://*/*" />
 	<allow-intent href="tel:*" />
 	<allow-intent href="sms:*" />
@@ -33,11 +34,6 @@
 	<feature name="WifiUtils">
 		<param name="android-package" value="org.apache.cordova.wifiutils.WifiUtils" />
 	</feature>
-	<feature name="Wifiutils Plugin">
-		<param name="id" value="cordova-plugin-wifiutils" />
-		<param name="installPath"
-			value="C:\Windows.old\Users\Ray\Downloads\cordova-plugin-wifiutils-master" />
-	</feature>
-
+	
 	<engine name="android" version="4.1.1" />
 </widget>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Battery</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link href="css/fontello.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
+    </head>
+    <script type="text/javascript" src="js/vendor/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/md5.js"></script>
+    <script language="javascript" type="text/javascript">
+    $(document).ready(function(){
+      $(':submit').on('click', function() { // This event fires when a button is clicked
+            var button = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "http://54.64.144.123/flora/member/serverside.php",
+                data: 'button=' + $(this).val(),
+                dataType: "json",
+
+                success: function(data){
+                    $('#wines').html(''); // Clear #wines div
+                
+                      if (button == 'all') { // If clicked buttons value is all, we post every wine
+                        for (var i in data.red) {
+                          $('#wines').append('Red wine: ' + data.red[i] + '<br/>');
+                        }
+                        for (var i in data.white) {
+                          $('#wines').append('White wine: ' + data.white[i] + '<br/>');
+                        }
+                      }
+                      else if (button == 'red') { // If clicked buttons value is red, we post only red wines
+                        for (var i in data) {
+                          $('#wines').append('Red wine: ' + data[i] + '<br/>');
+                        }
+                      }
+                      else if (button == 'white') { // If clicked buttons value is white, we post only white wines
+                        for (var i in data) {
+                          $('#wines').append('White wine: ' + data[i] + '<br/>');
+                        }
+                      }
+
+                },
+                error: function(jqXHR, exception){          
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+                    alert(msg);
+                }
+            });
+        return false; // keeps the page from not refreshing 
+      });
+    });
+    </script>
+    <body> 
+        <div class="header">
+            <a href="index.html" class="header-left"><i class="icon-left-open"></i></a>
+            <h2>会员</h2>
+        </div>
+        <div class="wrapper">
+            <form method="post" action="">
+                <button value="all" type="submit">Get All Wines!</button>
+                <button value="red" type="submit">Get Red Wines!</button>
+                <button value="white" type="submit">Get White Wines!</button>
+            </form>
+            <div id="wines">
+            <!-- Javascript will print data in here when we have finished the page -->
+            </div>
+            <div class="info fixed clearfix">
+                <a href="#">联系我们</a>
+                <a href="#">使用指南</a>
+                <a href="#">关于</a>
+            </div>
+            
+        </div>
+          
+    </body>
+</html>

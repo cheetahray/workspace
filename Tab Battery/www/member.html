@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Battery</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link href="css/fontello.css" rel="stylesheet">
+        <link href="css/bootstrap-switch.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
+    </head>
+    <script type="text/javascript" src="js/vendor/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-switch.js"></script>
+    
+    <body> 
+        <div class="header">
+            <a href="index.html" class="header-left"><i class="icon-left-open"></i></a>
+            <h2>会员</h2>
+        </div>
+        <div class="dark-area member">
+            <img src="img/photo_default.png">
+            <h3>用户名称</h3>
+        </div>       
+        <div class="wrapper">
+              
+            <ul class="list">
+                <li>
+                    <span class="row left toggle-title">智能开关</span>
+                    <span class="row right">
+                        <input type="checkbox" name="toggle" checked>
+                    </span>
+                </li>
+                <li>
+                    <span class="row left toggle-title">省电模式</span>
+                    <span class="row right">
+                        <input type="checkbox" name="toggle" checked>
+                    </span>
+                </li>
+                <li>
+                    <a href="#" class="row btn">设置</a>
+                </li>
+            </ul>
+            
+            <div class="info fixed clearfix">
+                <a href="#">联系我们</a>
+                <a href="#">使用指南</a>
+                <a href="#">关于</a>
+            </div>
+                
+        </div>
+        
+        <script>
+		    $(function () {
+				$("[name='toggle']").bootstrapSwitch();
+			})
+		</script>
+        
+    </body>
+</html>

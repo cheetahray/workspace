@@ -97,6 +97,14 @@
                     });
                 }, 1000);
             }
+			
+			if (percent > 60 ) {
+				$(this).addClass('green').removeClass('yellow');
+			} else if (percent > 30 && percent <= 60) {
+				$(this).addClass('yellow').removeClass('green');
+			} else {
+				$(this).removeClass('green yellow');
+			}
             
             // display a presentable format of current time
             var getPadded = function(val){
