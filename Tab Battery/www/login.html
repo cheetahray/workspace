@@ -11,36 +11,18 @@
     <script type="text/javascript" src="js/md5.js"></script>
     <script language="javascript" type="text/javascript">
     $(document).ready(function(){
-      $(':submit').on('click', function() { // This event fires when a button is clicked
-            var button = $(this).val();
+        $(':submit').on('click', function() { // This event fires when a button is clicked
             $.ajax({
-                type: "GET",
-                url: "http://54.64.144.123/flora/member/serverside.php",
-                data: 'button=' + $(this).val(),
+                type: "POST",
+                url: "http://54.64.144.123/flora/member/checkajax.php",
+                data: $("fileinfo").serialize(),
                 dataType: "json",
 
-                success: function(data){
-                    $('#wines').html(''); // Clear #wines div
-                
-                      if (button == 'all') { // If clicked buttons value is all, we post every wine
-                        for (var i in data.red) {
-                          $('#wines').append('Red wine: ' + data.red[i] + '<br/>');
-                        }
-                        for (var i in data.white) {
-                          $('#wines').append('White wine: ' + data.white[i] + '<br/>');
-                        }
-                      }
-                      else if (button == 'red') { // If clicked buttons value is red, we post only red wines
-                        for (var i in data) {
-                          $('#wines').append('Red wine: ' + data[i] + '<br/>');
-                        }
-                      }
-                      else if (button == 'white') { // If clicked buttons value is white, we post only white wines
-                        for (var i in data) {
-                          $('#wines').append('White wine: ' + data[i] + '<br/>');
-                        }
-                      }
-
+                success: function(result){
+				    for ( key in result)
+				    {
+				        alert(key + " " + result.key);    	
+				    }
                 },
                 error: function(jqXHR, exception){          
                     var msg = '';
@@ -62,8 +44,8 @@
                     alert(msg);
                 }
             });
-        return false; // keeps the page from not refreshing 
-      });
+            return false; // keeps the page from not refreshing 
+        });
     });
     </script>
     <body> 
@@ -72,14 +54,12 @@
             <h2>会员</h2>
         </div>
         <div class="wrapper">
-            <form method="post" action="">
-                <button value="all" type="submit">Get All Wines!</button>
-                <button value="red" type="submit">Get Red Wines!</button>
-                <button value="white" type="submit">Get White Wines!</button>
+            <form method="post" action="" name="fileinfo" id="fileinfo">
+                <input name="admuser" type="text" class="input-style" placeholder="帐号" value="flora">
+                <input name="userpass" type="password" class="input-style" placeholder="密码" value="flower">
+                <button value="all" type="submit" class="btn-login">登入</button>
             </form>
-            <div id="wines">
-            <!-- Javascript will print data in here when we have finished the page -->
-            </div>
+            
             <div class="info fixed clearfix">
                 <a href="#">联系我们</a>
                 <a href="#">使用指南</a>
