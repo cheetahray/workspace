@@ -1,116 +1,16 @@
-.percircle.dark {
-  background-color: #777777;
-}
-.percircle.dark .bar,
-.percircle.dark .fill {
-  border-color: #c6ff00;
-}
-.percircle.dark > span {
-  color: #777777;
-}
-.percircle.dark:after {
-  background-color: #555555;
-}
-.percircle.dark:hover > span {
-  color: #c6ff00;
-}
-.percircle.red .bar,
-.percircle.red .fill {
-  border-color: #dd5454;
-}
-.percircle.red:hover > span {
-  color: #dd5454;
-}
-.percircle.red.dark .bar,
-.percircle.red.dark .fill {
-  border-color: #f84a4a;
-}
-.percircle.red.dark:hover > span {
-  color: #f84a4a;
-}
-.percircle.blue .bar,
-.percircle.blue .fill {
-  border-color: #82cefa;
-}
-.percircle.blue:hover > span {
-  color: #82cefa;
-}
-.percircle.blue.dark .bar,
-.percircle.blue.dark .fill {
-  border-color: #20cceb;
-}
-.percircle.blue.dark:hover > span {
-  color: #20cceb;
-}
 .percircle.green .bar,
 .percircle.green .fill {
-  border-color: #8dea7b;
+  border-color: #c6ff00;
 }
-.percircle.green:hover > span {
-  color: #8dea7b;
-}
-.percircle.green.dark .bar,
-.percircle.green.dark .fill {
-  border-color: #a9ff3a;
-}
-.percircle.green.dark:hover > span {
-  color: #a9ff3a;
-}
-.percircle.orange .bar,
-.percircle.orange .fill {
-  border-color: #e88239;
-}
-.percircle.orange:hover > span {
-  color: #e88239;
-}
-.percircle.orange.dark .bar,
-.percircle.orange.dark .fill {
-  border-color: #dc5b00;
-}
-.percircle.orange.dark:hover > span {
-  color: #dc5b00;
-}
-.percircle.pink .bar,
-.percircle.pink .fill {
-  border-color: #ff8ed0;
-}
-.percircle.pink:hover > span {
-  color: #ff8ed0;
-}
-.percircle.pink.dark .bar,
-.percircle.pink.dark .fill {
-  border-color: #ff58b9;
-}
-.percircle.pink.dark:hover > span {
-  color: #ff58b9;
-}
-.percircle.purple .bar,
-.percircle.purple .fill {
-  border-color: #aa7eff;
-}
-.percircle.purple:hover > span {
-  color: #aa7eff;
-}
-.percircle.purple.dark .bar,
-.percircle.purple.dark .fill {
-  border-color: #7a38f7;
-}
-.percircle.purple.dark:hover > span {
-  color: #7a38f7;
+.percircle.green > span {
+  color: #c6ff00;
 }
 .percircle.yellow .bar,
 .percircle.yellow .fill {
-  border-color: #dcbd00;
+  border-color: #ffe13a;
 }
-.percircle.yellow:hover > span {
-  color: #dcbd00;
-}
-.percircle.yellow.dark .bar,
-.percircle.yellow.dark .fill {
-  border-color: #ffdb00;
-}
-.percircle.yellow.dark:hover > span {
-  color: #ffdb00;
+.percircle.yellow > span {
+  color: #ffe13a;
 }
 .rect-auto,
 .percircle.gt50 .slice {
@@ -120,7 +20,7 @@
 .percircle .bar,
 .gt50 .fill {
   position: absolute;
-  border: 0.08em solid #307bbb;
+  border: 0.08em solid #f53333;
   width: 0.84em;
   height: 0.84em;
   clip: rect(0, 0.5em, 1em, 0);
@@ -151,7 +51,7 @@
 }
 .percircle {
   position: relative;
-  font-size: 120px;
+  font-size: 180px;
   width: 1em;
   height: 1em;
   -webkit-border-radius: 50%;
@@ -159,9 +59,8 @@
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
   border-radius: 50%;
-  float: left;
-  margin: 0 0.1em 0.1em 0;
-  background-color: #cccccc;
+  margin: 0 auto;
+  background-color: #696969;
 }
 .percircle *,
 .percircle *:before,
@@ -189,12 +88,6 @@
   float: none;
   margin: 0 auto;
 }
-.percircle.big {
-  font-size: 240px;
-}
-.percircle.small {
-  font-size: 80px;
-}
 .percircle > span {
   position: absolute;
   z-index: 1;
@@ -203,16 +96,12 @@
   height: 1em;
   margin-top: -0.5em;
   font-size: 0.2em;
-  color: #cccccc;
+  color: #f53333;
   display: block;
   text-align: center;
+  line-height: 1;
   white-space: nowrap;
 }
-
-.perclock > span {
-  font-size: 0.175em;
-}
-
 .percircle:after {
   position: absolute;
   top: 0.08em;
@@ -224,7 +113,7 @@
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
   border-radius: 50%;
-  background-color: #f5f5f5;
+  background-color: #3c3c3c;
   width: 0.84em;
   height: 0.84em;
 }
@@ -234,22 +123,3 @@
   height: 1em;
   clip: rect(0, 1em, 1em, 0.5em);
 }
-.percircle:hover {
-  cursor: default;
-}
-.percircle:hover > span {
-  -webkit-transform: scale(1.3);
-  -moz-transform: scale(1.3);
-  -ms-transform: scale(1.3);
-  -o-transform: scale(1.3);
-  transform: scale(1.3);
-  color: #307bbb;
-}
-.percircle:hover:after {
-  -webkit-transform: scale(1.1);
-  -moz-transform: scale(1.1);
-  -ms-transform: scale(1.1);
-  -o-transform: scale(1.1);
-  transform: scale(1.1);
-}
-/*# sourceMappingURL=percircle.css.map */
