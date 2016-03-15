@@ -24,9 +24,9 @@
                     document.fileinfo.userpass.value = temp;
 					if ( result['num'] == '1' ) 
 					{
-					    alert(result['e']);
-						var db = window.openDatabase("Test", "1.0", "TestDB", 1 * 1024);
+					    var db = window.openDatabase("Test", "1.0", "TestDB", 1 * 1024);
 						var json = result;
+						alert(result['e']);
 						var successFn = function(count){
 							alert("Successfully imported JSON to DB; equivalent to "+count+" SQL statements");
 						};

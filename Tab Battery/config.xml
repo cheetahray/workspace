@@ -39,9 +39,6 @@
 	<feature name="SQLitePlugin">
 		<param name="android-package" value="io.sqlc.SQLitePlugin" />
 	</feature>
-	<feature name="Cordova sqlite storage plugin (core version)">
-		
-	<param name="id" value="cordova-sqlite-storage" /></feature>
 	
 	<feature name="sqlite porter">
 		<param name="id" value="uk.co.workingedge.cordova.plugin.sqliteporter" />
