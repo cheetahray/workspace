@@ -36,7 +36,12 @@ public class AndroidSample_UdpActivity extends Activity {
 			super.handleMessage(msg);
 			String msgString = (String) msg.obj;
 			// t.setToNow();
-			tv1.setText( // String.valueOf(t.hour)+":"+
+			if (tv1.getText().length() > 100)
+			{
+				tv1.setText("");
+			}
+			else
+			    tv1.setText( // String.valueOf(t.hour)+":"+
 					// String.valueOf(t.minute)+":"+
 					// String.valueOf(t.second)+"=>"+
 					msgString + "\n" + tv1.getText().toString());
@@ -93,7 +98,7 @@ public class AndroidSample_UdpActivity extends Activity {
 	public void onStart() {
 		super.onStart();
 		tv1.setText("WantFreq:RealFreq");
-		et1.setText("35");
+		et1.setText("");
 		Thread background = new Thread(new Runnable() {
 			public void run() {
 				/*
@@ -114,7 +119,7 @@ public class AndroidSample_UdpActivity extends Activity {
 					DatagramPacket dp = new DatagramPacket(recevieData, recevieData.length);
 					ds = new DatagramSocket(15005);
 					ds.setSoTimeout(100);
-					// ds.setBroadcast(true); //設定允許廣播
+					// ds.setBroadcast(true); ��
 
 					tsttsl = new DatagramSocket(5005);
 					for (; isRunning.get();) {
@@ -150,10 +155,11 @@ public class AndroidSample_UdpActivity extends Activity {
 						}
 
 						try {
-							ds.receive(dp);
-							if( dp.getAddress().getHostAddress().equals( "192.168.12." + String.valueOf(Integer.parseInt(et1.getText().toString()) ) ) )
-							    data = new String(recevieData, 0, dp.getLength());
-							    handler.sendMessage(handler.obtainMessage(1, data));
+							if (et1.getText().toString().length() > 0)
+							    ds.receive(dp);
+							    if( dp.getAddress().getHostAddress().equals( "192.168.12." + String.valueOf(Integer.parseInt(et1.getText().toString()) ) ) )
+							        data = new String(recevieData, 0, dp.getLength());
+							        handler.sendMessage(handler.obtainMessage(1, data));
 						} catch (IOException e) {
 							continue;
 						}
