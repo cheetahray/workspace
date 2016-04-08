@@ -30,7 +30,7 @@ var app = {
 		box1.addEventListener('touchstart', function(e){
 			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
 			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
-			hello.sendMessage("DO", success2, failure2);
+			hello.sendMessage("127", success2, failure2);
 			box1.setAttribute('style', 'background-color:#B6221E;');
 			e.preventDefault();
 		}, false);
@@ -39,6 +39,15 @@ var app = {
 			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
 			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
 			box1.setAttribute('style', 'background-color:transparent;');
+			e.preventDefault();
+		}, false);
+		
+		var box0 = document.getElementById('SET');
+    
+		box0.addEventListener('touchstart', function(e){
+			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+			entry=prompt('電路板上面貼的標籤寫幾號','');
 			e.preventDefault();
 		}, false);
 		

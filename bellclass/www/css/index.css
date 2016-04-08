@@ -62,6 +62,16 @@ h1 {
     text-align:center;
 }
 
+.SET {
+	font-size:12px;
+	position: absolute;
+	top: 23px;
+	left: 884px;
+	width: 57px;
+	height: 56px;
+	background-color: transparent;
+}
+
 .DO {
 	font-size:12px;
 	position: absolute;
