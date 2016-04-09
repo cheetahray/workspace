@@ -31,7 +31,7 @@ body {
 
 /* Portrait layout (default) */
 .app {
-	background:url('../img/0-iphone-layout_iphone 4.png'); /* 170px x 200px */
+	background:url(../img/0-iphone-layout_iphone4.png); /* 170px x 200px */
 	position:absolute;             /* position in the center of the screen */
 	left:0px;
 	top:0px;

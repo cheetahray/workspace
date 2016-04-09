@@ -30,8 +30,8 @@ var app = {
 		boxRec.addEventListener('touchstart', function(e){
 			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
 			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
-			hello.sendMessage("239", success2, failure2);
-			boxRec.setAttribute('style', 'background:url(\'../img/1-iphone-layout_iphone 4.png\');');
+			hello.sendMessage("R", success2, failure2);
+			boxRec.setAttribute('style', 'background:url(../img/1-iphone-layout_iphone4.png);');
 			e.preventDefault();
 		}, false);
 		
