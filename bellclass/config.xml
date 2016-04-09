@@ -31,12 +31,18 @@
 	</feature>
 	<feature name="Hello">
 		<param name="android-package" value="com.example.plugin.Hello" />
-		
-	<param name="id" value="co.banpad.test" /></feature>
-	
-	
-	
-	
+
+		<param name="id" value="co.banpad.test" />
+	</feature>
+	<feature name="WifiWizard">
+		<param name="android-package" value="com.pylonproducts.wifiwizard.WifiWizard" />
+		<param name="onload" value="true" />
+		<param name="id" value="com.pylonproducts.wifiwizard" />
+	</feature>
+
+
+
+
 
 
 

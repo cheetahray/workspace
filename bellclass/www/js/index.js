@@ -15,8 +15,9 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        
+        var myssid = "";
 		var success = function(message) {
+			myssid = message;
 	        console.log("網路設定成功" + message);
 	    }
 	
@@ -24,7 +25,16 @@ var app = {
 	        alert("網路設定失敗" + err);
 	    }
 
-        hello.initialize("192.168.11.40", 12345, success, failure);
+		WifiWizard.getCurrentSSID(success, failure);
+
+		if(myssid == "bellclass")
+		{
+			hello.initialize("192.168.4.1", 8888, success, failure);
+		}
+        else
+		{
+
+		}
 		
 		var boxRec = document.getElementById('REC');
         
