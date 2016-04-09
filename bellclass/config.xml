@@ -1,16 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="tw.dac.bellclass" version="0.0.1"
 	xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-	<name>bellclass</name>
-	<description>
-		A sample Apache Cordova application that responds to the
-		deviceready
-		event.
-	</description>
-	<author href="http://www.eclipse.org/thym" email="thym-dev@eclipse.org">
-		Eclipse.org -
-		Thym
-	</author>
+	<name>電聲坊</name>
+	<description>電鈴工作坊</description>
+	<author href="http://noisekitchen.tw" email="ray@dac.tw">噪咖事務所</author>
 
 	<content src="index.html" />
 	<!-- Whitelist configuration. Refer to https://cordova.apache.org/docs/en/edge/guide_appdev_whitelist_index.md.html -->
