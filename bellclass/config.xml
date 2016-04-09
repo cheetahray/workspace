@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="tw.dac.bellclass" version="0.0.1"
 	xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-	<name>電聲坊</name>
+	<name>俏敲Bar</name>
 	<description>電鈴工作坊</description>
 	<author href="http://noisekitchen.tw" email="ray@dac.tw">噪咖事務所</author>
 
@@ -22,13 +22,9 @@
 		<allow-intent href="itms:*" />
 		<allow-intent href="itms-apps:*" />
 	</platform>
-	<engine name="android" version="4.1.1" />
 
-	<feature name="Whitelist">
-		<param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
-		<param name="onload" value="true" />
-		<param name="id" value="cordova-plugin-whitelist" />
-	</feature>
+
+	
 	<feature name="Hello">
 		<param name="android-package" value="com.example.plugin.Hello" />
 
@@ -45,8 +41,9 @@
 		<param name="wp-package" value="networkinterface" />
 	</feature>
 	<feature name="NetworkInterface">
-		
-	<param name="id" value="cordova-plugin-networkinterface" /></feature>
+
+		<param name="id" value="cordova-plugin-networkinterface" />
+	</feature>
 
 
 
@@ -57,4 +54,5 @@
 
 
 
-</widget>
+	
+<engine name="android" version="3.6.4"/></widget>

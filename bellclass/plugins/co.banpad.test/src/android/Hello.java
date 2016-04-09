@@ -56,10 +56,10 @@ public class Hello extends CordovaPlugin {
 					}
 					if (successInitializingTransmitter)
 						callbackContext.success(
-								": " + host + " " + port);
+								": " + host );
 					else
 						callbackContext
-								.error(": " + host + " " + port);
+								.error(": " + host );
 				}
 			});
 			return true;

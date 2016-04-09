@@ -25,7 +25,7 @@ var app = {
 
 		var success = function(message) {
 			document.getElementById("already").value = "1";
-			console.log("網路設定成功" + message);
+			alert("網路設定成功" + message);
 		}
 
 		var failure = function(err) {
@@ -199,7 +199,7 @@ var app = {
         var receivedElement = parentElement.querySelector('.received');
         
         listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+        receivedElement.setAttribute('style', 'display:none;');
 
         console.log('Received Event: ' + id);
     }
