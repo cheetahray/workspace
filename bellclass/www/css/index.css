@@ -31,7 +31,7 @@ body {
 
 /* Portrait layout (default) */
 .app {
-	background:url(../img/eclipse_builton.png) no-repeat center top; /* 170px x 200px */
+	background:url('../img/0-iphone-layout_iphone 4.png'); /* 170px x 200px */
 	position:absolute;             /* position in the center of the screen */
 	left:0px;
 	top:0px;
@@ -62,6 +62,16 @@ h1 {
     text-align:center;
 }
 
+.REC {
+	font-size:12px;
+	position: absolute;
+	top: 254px;
+	left: 821px;
+	width: 121px;
+	height: 121px;
+	background-color: transparent;
+}
+
 .SET {
 	font-size:12px;
 	position: absolute;
@@ -79,6 +89,76 @@ h1 {
 	left: 665px;
 	width: 70px;
 	height: 206px;
+	background-color: transparent;
+}
+
+.RE {
+	font-size:12px;
+	position: absolute;
+	top: 203px;
+	left: 575px;
+	width: 70px;
+	height: 214px;
+	background-color: transparent;
+}
+
+.MI {
+	font-size:12px;
+	position: absolute;
+	top: 196px;
+	left: 484px;
+	width: 70px;
+	height: 228px;
+	background-color: transparent;
+}
+
+.FA {
+	font-size:12px;
+	position: absolute;
+	top: 189px;
+	left: 393px;
+	width: 70px;
+	height: 243px;
+	background-color: transparent;
+}
+
+.SO {
+	font-size:12px;
+	position: absolute;
+	top: 182px;
+	left: 302px;
+	width: 70px;
+	height: 257px;
+	background-color: transparent;
+}
+
+.LA {
+	font-size:12px;
+	position: absolute;
+	top: 179px;
+	left: 211px;
+	width: 70px;
+	height: 264px;
+	background-color: transparent;
+}
+
+.TI {
+	font-size:12px;
+	position: absolute;
+	top: 169px;
+	left: 119px;
+	width: 70px;
+	height: 283px;
+	background-color: transparent;
+}
+
+.DOO {
+	font-size:12px;
+	position: absolute;
+	top: 162px;
+	left: 28px;
+	width: 69px;
+	height: 295px;
 	background-color: transparent;
 }
 

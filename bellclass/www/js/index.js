@@ -25,26 +25,155 @@ var app = {
 
         hello.initialize("192.168.11.40", 12345, success, failure);
 		
-		var box1 = document.getElementById('DO');
+		var boxRec = document.getElementById('REC');
     
-		box1.addEventListener('touchstart', function(e){
+		boxRec.addEventListener('touchstart', function(e){
+			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+			hello.sendMessage("239", success2, failure2);
+			boxRec.setAttribute('style', 'background:url(\'../img/1-iphone-layout_iphone 4.png\');');
+			e.preventDefault();
+		}, false);
+		
+		var boxDoo = document.getElementById('DOO');
+    
+		boxDoo.addEventListener('touchstart', function(e){
+			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+			hello.sendMessage("239", success2, failure2);
+			boxDoo.setAttribute('style', 'background-color:#BE2E2B;');
+			e.preventDefault();
+		}, false);
+		
+		boxDoo.addEventListener('touchend', function(e){
+			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+			boxDoo.setAttribute('style', 'background-color:transparent;');
+			e.preventDefault();
+		}, false);
+		
+		var boxTi = document.getElementById('TI');
+    
+		boxTi.addEventListener('touchstart', function(e){
+			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+			hello.sendMessage("223", success2, failure2);
+			boxTi.setAttribute('style', 'background-color:#D5922E;');
+			e.preventDefault();
+		}, false);
+		
+		boxTi.addEventListener('touchend', function(e){
+			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+			boxTi.setAttribute('style', 'background-color:transparent;');
+			e.preventDefault();
+		}, false);
+		
+		var boxLa = document.getElementById('LA');
+    
+		boxLa.addEventListener('touchstart', function(e){
+			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+			hello.sendMessage("207", success2, failure2);
+			boxLa.setAttribute('style', 'background-color:#D1D62E;');
+			e.preventDefault();
+		}, false);
+		
+		boxLa.addEventListener('touchend', function(e){
+			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+			boxLa.setAttribute('style', 'background-color:transparent;');
+			e.preventDefault();
+		}, false);
+		
+		var boxSo = document.getElementById('SO');
+    
+		boxSo.addEventListener('touchstart', function(e){
+			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+			hello.sendMessage("191", success2, failure2);
+			boxSo.setAttribute('style', 'background-color:#3CD12F;');
+			e.preventDefault();
+		}, false);
+		
+		boxSo.addEventListener('touchend', function(e){
+			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+			boxSo.setAttribute('style', 'background-color:transparent;');
+			e.preventDefault();
+		}, false);
+		
+		var boxFa = document.getElementById('FA');
+    
+		boxFa.addEventListener('touchstart', function(e){
+			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+			hello.sendMessage("175", success2, failure2);
+			boxFa.setAttribute('style', 'background-color:#2CC8C7;');
+			e.preventDefault();
+		}, false);
+		
+		boxFa.addEventListener('touchend', function(e){
+			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+			boxFa.setAttribute('style', 'background-color:transparent;');
+			e.preventDefault();
+		}, false);
+		
+		var boxMi = document.getElementById('MI');
+    
+		boxMi.addEventListener('touchstart', function(e){
+			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+			hello.sendMessage("159", success2, failure2);
+			boxMi.setAttribute('style', 'background-color:#233AB9;');
+			e.preventDefault();
+		}, false);
+		
+		boxMi.addEventListener('touchend', function(e){
+			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+			boxMi.setAttribute('style', 'background-color:transparent;');
+			e.preventDefault();
+		}, false);
+		
+		var boxRe = document.getElementById('RE');
+    
+		boxRe.addEventListener('touchstart', function(e){
+			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+			hello.sendMessage("143", success2, failure2);
+			boxRe.setAttribute('style', 'background-color:#CA27D3;');
+			e.preventDefault();
+		}, false);
+		
+		boxRe.addEventListener('touchend', function(e){
+			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+			boxRe.setAttribute('style', 'background-color:transparent;');
+			e.preventDefault();
+		}, false);
+		
+		var boxDo = document.getElementById('DO');
+    
+		boxDo.addEventListener('touchstart', function(e){
 			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
 			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
 			hello.sendMessage("127", success2, failure2);
-			box1.setAttribute('style', 'background-color:#B6221E;');
+			boxDo.setAttribute('style', 'background-color:#B6221E;');
 			e.preventDefault();
 		}, false);
 		
-		box1.addEventListener('touchend', function(e){
+		boxDo.addEventListener('touchend', function(e){
 			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
 			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
-			box1.setAttribute('style', 'background-color:transparent;');
+			boxDo.setAttribute('style', 'background-color:transparent;');
 			e.preventDefault();
 		}, false);
 		
-		var box0 = document.getElementById('SET');
+		var boxSet = document.getElementById('SET');
     
-		box0.addEventListener('touchstart', function(e){
+		boxSet.addEventListener('touchstart', function(e){
 			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
 			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
 			entry=prompt('電路板上面貼的標籤寫幾號','');
