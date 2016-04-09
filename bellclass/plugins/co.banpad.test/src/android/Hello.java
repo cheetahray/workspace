@@ -56,10 +56,10 @@ public class Hello extends CordovaPlugin {
 					}
 					if (successInitializingTransmitter)
 						callbackContext.success(
-								"Success initializing UDP transmitter using datagram socket: " + datagramSocket);
+								": " + host + " " + port);
 					else
 						callbackContext
-								.error("Error initializing UDP transmitter using datagram socket: " + datagramSocket);
+								.error(": " + host + " " + port);
 				}
 			});
 			return true;
@@ -88,9 +88,9 @@ public class Hello extends CordovaPlugin {
 						}
 					}
 					if (messageSent)
-						callbackContext.success("Success transmitting UDP packet: " + datagramPacket);
+						callbackContext.success(": " + data);
 					else
-						callbackContext.error("Error transmitting UDP packet: " + datagramPacket);
+						callbackContext.error(": " + data);
 				}
 			});
 			return true;

@@ -15,27 +15,37 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        var success = function(message) {
-	        console.log(message);
+        
+		var success = function(message) {
+	        console.log("網路設定成功" + message);
 	    }
 	
 	    var failure = function(err) {
-	        console.log(err);
+	        alert("網路設定失敗" + err);
 	    }
 
         hello.initialize("192.168.11.40", 12345, success, failure);
 		
 		var boxRec = document.getElementById('REC');
-    
+        
 		boxRec.addEventListener('touchstart', function(e){
 			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
 			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
-			hello.sendMessage("R", success2, failure2);
-			boxRec.setAttribute('style', 'background:url(../img/1-iphone-layout_iphone4.png);');
+			if  ( document.getElementById("play").value == "1" ) {
+				boxRec.setAttribute('style', 'background: url(img/2-iphone-layout_iphone4.png);');
+				hello.sendMessage("R", success2, failure2);
+				document.getElementById("play").value = "0";
+			}
+			else
+			{
+				boxRec.setAttribute('style', 'background: none;');
+				hello.sendMessage("Q", success2, failure2);
+				document.getElementById("play").value = "1";
+			}
 			e.preventDefault();
 		}, false);
 		
-		var boxDoo = document.getElementById('DOO');
+        var boxDoo = document.getElementById('DOO');
     
 		boxDoo.addEventListener('touchstart', function(e){
 			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
@@ -198,11 +208,11 @@ var app = {
 };
 
 var success2 = function(message) {
-    console.log(message);
+    console.log("傳送音符成功" + message);
 }
 	
 var failure2 = function(err) {
-	console.log(err);
+	alert("傳送音符失敗" + err);
 }
         
 app.initialize();

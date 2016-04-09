@@ -31,7 +31,7 @@ body {
 
 /* Portrait layout (default) */
 .app {
-	background:url(../img/0-iphone-layout_iphone4.png); /* 170px x 200px */
+	background:url(../img/0-iphone-layout_iphone4.png) no-repeat center top; /* 170px x 200px */
 	position:absolute;             /* position in the center of the screen */
 	left:0px;
 	top:0px;
@@ -65,11 +65,11 @@ h1 {
 .REC {
 	font-size:12px;
 	position: absolute;
-	top: 254px;
-	left: 821px;
-	width: 121px;
-	height: 121px;
-	background-color: transparent;
+	top: 252px;
+	left: 819px;
+	width: 124px;
+	height: 125px;
+	background: none;
 }
 
 .SET {
