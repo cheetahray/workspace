@@ -16,16 +16,23 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         var myssid = "";
-		var success = function(message) {
+		var entry = "";
+
+		var successid = function(message) {
 			myssid = message;
-	        console.log("網路設定成功" + message);
+	        console.log("網路抓取成功" + message);
 	    }
-	
-	    var failure = function(err) {
+
+		var success = function(message) {
+			document.getElementById("already").value = "1";
+			console.log("網路設定成功" + message);
+		}
+
+		var failure = function(err) {
 	        alert("網路設定失敗" + err);
 	    }
 
-		WifiWizard.getCurrentSSID(success, failure);
+		WifiWizard.getCurrentSSID(successid, failure);
 
 		if(myssid == "bellclass")
 		{
@@ -33,7 +40,10 @@ var app = {
 		}
         else
 		{
-
+			networkinterface.getIPAddress(
+				function (ip) {
+					myssid = ip.substring( 0, ip.lastIndexOf(".") + 1 );
+				});
 		}
 		
 		var boxRec = document.getElementById('REC');
@@ -41,162 +51,142 @@ var app = {
 		boxRec.addEventListener('touchstart', function(e){
 			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
 			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
-			if  ( document.getElementById("play").value == "1" ) {
+			if (false == readyet())
+			    ;
+			else if  ( document.getElementById("play").value == "1" ) {
 				boxRec.setAttribute('style', 'background: url(img/2-iphone-layout_iphone4.png);');
-				hello.sendMessage("R", success2, failure2);
+				sendto("R", myssid + entry);
 				document.getElementById("play").value = "0";
 			}
 			else
 			{
 				boxRec.setAttribute('style', 'background: none;');
-				hello.sendMessage("Q", success2, failure2);
+				sendto("Q", myssid + entry);
 				document.getElementById("play").value = "1";
 			}
 			e.preventDefault();
 		}, false);
-		
-        var boxDoo = document.getElementById('DOO');
+
+		var boxDoo = document.getElementById('DOO');
     
 		boxDoo.addEventListener('touchstart', function(e){
-			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
-			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
-			hello.sendMessage("239", success2, failure2);
+			sendto("239", myssid + entry);
 			boxDoo.setAttribute('style', 'background-color:#BE2E2B;');
 			e.preventDefault();
 		}, false);
 		
 		boxDoo.addEventListener('touchend', function(e){
-			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
-			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
 			boxDoo.setAttribute('style', 'background-color:transparent;');
+			readyet();
 			e.preventDefault();
 		}, false);
 		
 		var boxTi = document.getElementById('TI');
     
 		boxTi.addEventListener('touchstart', function(e){
-			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
-			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
-			hello.sendMessage("223", success2, failure2);
+			sendto("223", myssid + entry);
 			boxTi.setAttribute('style', 'background-color:#D5922E;');
 			e.preventDefault();
 		}, false);
 		
 		boxTi.addEventListener('touchend', function(e){
-			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
-			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
 			boxTi.setAttribute('style', 'background-color:transparent;');
+			readyet();
 			e.preventDefault();
 		}, false);
 		
 		var boxLa = document.getElementById('LA');
     
 		boxLa.addEventListener('touchstart', function(e){
-			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
-			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
-			hello.sendMessage("207", success2, failure2);
+			sendto("207", myssid + entry);
 			boxLa.setAttribute('style', 'background-color:#D1D62E;');
 			e.preventDefault();
 		}, false);
 		
 		boxLa.addEventListener('touchend', function(e){
-			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
-			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
 			boxLa.setAttribute('style', 'background-color:transparent;');
+			readyet();
 			e.preventDefault();
 		}, false);
 		
 		var boxSo = document.getElementById('SO');
     
 		boxSo.addEventListener('touchstart', function(e){
-			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
-			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
-			hello.sendMessage("191", success2, failure2);
+			sendto("191", myssid + entry);
 			boxSo.setAttribute('style', 'background-color:#3CD12F;');
 			e.preventDefault();
 		}, false);
 		
 		boxSo.addEventListener('touchend', function(e){
-			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
-			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
 			boxSo.setAttribute('style', 'background-color:transparent;');
+			readyet();
 			e.preventDefault();
 		}, false);
 		
 		var boxFa = document.getElementById('FA');
     
 		boxFa.addEventListener('touchstart', function(e){
-			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
-			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
-			hello.sendMessage("175", success2, failure2);
+			sendto("175", myssid + entry);
 			boxFa.setAttribute('style', 'background-color:#2CC8C7;');
 			e.preventDefault();
 		}, false);
 		
 		boxFa.addEventListener('touchend', function(e){
-			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
-			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
 			boxFa.setAttribute('style', 'background-color:transparent;');
+			readyet();
 			e.preventDefault();
 		}, false);
 		
 		var boxMi = document.getElementById('MI');
     
 		boxMi.addEventListener('touchstart', function(e){
-			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
-			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
-			hello.sendMessage("159", success2, failure2);
+			sendto("159", myssid + entry);
 			boxMi.setAttribute('style', 'background-color:#233AB9;');
 			e.preventDefault();
 		}, false);
 		
 		boxMi.addEventListener('touchend', function(e){
-			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
-			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
 			boxMi.setAttribute('style', 'background-color:transparent;');
+			readyet();
 			e.preventDefault();
 		}, false);
 		
 		var boxRe = document.getElementById('RE');
     
 		boxRe.addEventListener('touchstart', function(e){
-			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
-			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
-			hello.sendMessage("143", success2, failure2);
+			sendto("143", myssid + entry);
 			boxRe.setAttribute('style', 'background-color:#CA27D3;');
 			e.preventDefault();
 		}, false);
 		
 		boxRe.addEventListener('touchend', function(e){
-			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
-			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
 			boxRe.setAttribute('style', 'background-color:transparent;');
+			readyet();
 			e.preventDefault();
 		}, false);
 		
 		var boxDo = document.getElementById('DO');
     
 		boxDo.addEventListener('touchstart', function(e){
-			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
-			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
-			hello.sendMessage("127", success2, failure2);
+			sendto("127", myssid + entry);
 			boxDo.setAttribute('style', 'background-color:#B6221E;');
 			e.preventDefault();
 		}, false);
 		
 		boxDo.addEventListener('touchend', function(e){
-			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
-			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
 			boxDo.setAttribute('style', 'background-color:transparent;');
+			readyet();
 			e.preventDefault();
 		}, false);
 		
 		var boxSet = document.getElementById('SET');
     
 		boxSet.addEventListener('touchstart', function(e){
-			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
-			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
-			entry=prompt('電路板上面貼的標籤寫幾號','');
+			entry = parseInt( prompt('電路板上面貼的標籤寫幾號','') );
+			if (entry != NaN && entry < 255)
+			{
+				hello.initialize(myssid + entry, 8888, success, failure);
+            }
 			e.preventDefault();
 		}, false);
 		
@@ -212,7 +202,6 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
-        //hello.sendMessage("Fa", success2, failure2)
     }
 	
 };
@@ -224,5 +213,26 @@ var success2 = function(message) {
 var failure2 = function(err) {
 	alert("傳送音符失敗" + err);
 }
-        
+
+function sendto(mystr, theip)
+{
+	if ( theip.charAt(theip.length-1) == "." )
+	{
+		document.getElementById("already").value = "0";
+	}
+	else
+	{
+		hello.sendMessage(mystr, success2, failure2);
+	}
+}
+
+function readyet()
+{
+	if (document.getElementById("already").value == "0") {
+		alert("您尚未設置電路板上之標籤號\n請按右上設定");
+		return false;
+	}
+	return true;
+}
+
 app.initialize();
