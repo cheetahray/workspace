@@ -24,7 +24,7 @@
 	</platform>
 
 
-	
+
 	<feature name="Hello">
 		<param name="android-package" value="com.example.plugin.Hello" />
 
@@ -44,6 +44,19 @@
 
 		<param name="id" value="cordova-plugin-networkinterface" />
 	</feature>
+	<feature name="YoikScreenOrientation">
+		<param name="android-package"
+			value="net.yoik.cordova.plugins.screenorientation.YoikScreenOrientation" />
+		<param name="wp-package" value="YoikScreenOrientation" />
+	</feature>
+	<feature name="Screen Orientation">
+		<param name="id" value="cordova-plugin-screen-orientation" />
+	</feature>
+	<feature name="Device">
+		<param name="android-package" value="org.apache.cordova.device.Device" />
+		<param name="wp-package" value="Device" />
+		
+	<param name="id" value="cordova-plugin-device" /></feature>
 
 
 
@@ -54,5 +67,6 @@
 
 
 
-	
-<engine name="android" version="3.6.4"/></widget>
+
+	<engine name="android" version="3.6.4" />
+</widget>

@@ -1,24 +1,12 @@
 * {
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    -webkit-touch-callout: none;
+    -webkit-text-size-adjust: none;
+    -webkit-user-select: none;
     background-color:#6C6A68;
-    /* 
-	background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
-    ); 
-	*/
     background-attachment:fixed;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size:12px;
@@ -29,27 +17,27 @@ body {
     width:100%;
 }
 
-/* Portrait layout (default) */
+
 .app {
 	background:url(../img/0-iphone-layout_iphone4.png) no-repeat center top; /* 170px x 200px */
-	position:absolute;             /* position in the center of the screen */
+	position:absolute;
 	left:0px;
 	top:0px;
-	height:641px;                   /* text area height */
-	width:961px;                   /* text area width */
+	height:641px;
+	width:961px;
 	text-align:center;
-	padding:0px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
-	margin:0px 0px 0px 0px;  /* offset vertical: half of image height and text area height */
-                                   /* offset horizontal: half of text area width */
+	padding:0px 0px 0px 0px;
+	margin:0px 0px 0px 0px;
+
 }
 
-/* Landscape layout (with min-width) */
+
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
     .app {
         background-position:left center;
-        padding:0px 0px 0px 0px;  /* padding-top + padding-bottom + text area = image height */
-        margin:0px 0px 0px 0px;  /* offset vertical: half of image height */
-                                      /* offset horizontal: half of image width and text area width */
+        padding:0px 0px 0px 0px;
+        margin:0px 0px 0px 0px;
+
     }
 }
 
@@ -85,80 +73,80 @@ h1 {
 .DO {
 	font-size:12px;
 	position: absolute;
-	top: 243px;
-	left: 665px;
-	width: 69px;
-	height: 137px;
+	top: 208px;
+	left: 668px;
+	width: 64px;
+	height: 203px;
 	background-color: transparent;
 }
 
 .RE {
 	font-size:12px;
 	position: absolute;
-	top: 238px;
-	left: 575px;
-	width: 69px;
-	height: 147px;
+	top: 205px;
+	left: 578px;
+	width: 64px;
+	height: 211px;
 	background-color: transparent;
 }
 
 .MI {
 	font-size:12px;
 	position: absolute;
-	top: 232px;
-	left: 484px;
-	width: 69px;
-	height: 158px;
+	top: 200px;
+	left: 486px;
+	width: 65px;
+	height: 221px;
 	background-color: transparent;
 }
 
 .FA {
 	font-size:12px;
 	position: absolute;
-	top: 229px;
-	left: 393px;
-	width: 69px;
-	height: 164px;
+	top: 191px;
+	left: 395px;
+	width: 65px;
+	height: 238px;
 	background-color: transparent;
 }
 
 .SO {
 	font-size:12px;
 	position: absolute;
-	top: 222px;
-	left: 302px;
-	width: 69px;
-	height: 178px;
+	top: 184px;
+	left: 304px;
+	width: 65px;
+	height: 253px;
 	background-color: transparent;
 }
 
 .LA {
 	font-size:12px;
 	position: absolute;
-	top: 218px;
-	left: 211px;
-	width: 69px;
-	height: 187px;
+	top: 182px;
+	left: 212px;
+	width: 66px;
+	height: 257px;
 	background-color: transparent;
 }
 
 .TI {
 	font-size:12px;
 	position: absolute;
-	top: 210px;
-	left: 119px;
-	width: 68px;
-	height: 204px;
+	top: 173px;
+	left: 121px;
+	width: 65px;
+	height: 275px;
 	background-color: transparent;
 }
 
 .DOO {
 	font-size:12px;
 	position: absolute;
-	top: 202px;
-	left: 28px;
-	width: 68px;
-	height: 220px;
+	top: 165px;
+	left: 31px;
+	width: 64px;
+	height: 291px;
 	background-color: transparent;
 }
 

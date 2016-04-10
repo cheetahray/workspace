@@ -29,7 +29,8 @@ var app = {
 		}
 
 		var failure = function(err) {
-	        alert("網路設定失敗" + err);
+			document.getElementById("already").value = "0";
+			alert("網路設定失敗" + err);
 	    }
 
 		WifiWizard.getCurrentSSID(successid, failure);
@@ -189,8 +190,14 @@ var app = {
             }
 			e.preventDefault();
 		}, false);
-		
-        app.receivedEvent('deviceready');
+
+		window.screen.lockOrientation('landscape');
+
+		anyscreen(['/css/index.css'],function(){
+
+		});
+
+		app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -220,7 +227,7 @@ function sendto(mystr, theip)
 	{
 		document.getElementById("already").value = "0";
 	}
-	else
+	else if (document.getElementById("already").value == "1")
 	{
 		hello.sendMessage(mystr, success2, failure2);
 	}
