@@ -30,7 +30,7 @@ a {
 a:focus {
     outline: 0;
 }
-input, fieldset {
+input, fieldset, button {
     appearance: none;
     border: 0;
     padding: 0;
@@ -42,7 +42,7 @@ input, fieldset {
 input::-ms-clear {
     display: none;
 }
-input:focus {
+input:focus, button:focus {
     outline: 0;
 }
 input[type="number"] {
@@ -74,7 +74,7 @@ img {
 \*------------------------------------*/
 
 body {
-	font: 400 15px/1.4 Helvetica, Arial, "微軟正黑體", "Microsoft JhengHei", sans-serif;
+	font: 400 15px/1.4 Helvetica, Arial, "微�?�??�?, "Microsoft JhengHei", sans-serif;
 	color: #555;
 	background: #fff;
 }
@@ -218,6 +218,7 @@ body {
 .btn-login {
 	display: block;
 	padding: 12px;
+	width: 100%;
 	color: #fff;
 	font-size: 18px;
 	text-align: center;

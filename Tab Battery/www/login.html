@@ -44,6 +44,7 @@
                         alert(result['e']);
                         var successFn = function (count) {
                             console.log("Successfully imported JSON to DB; equivalent to " + count + " SQL statements");
+                            window.location = "member.html";
                         };
                         var errorFn = function (error) {
                             console.log("The following error occurred: " + error.message);

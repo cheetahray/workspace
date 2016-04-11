@@ -154,13 +154,13 @@ h1 {
 	border-radius:4px;
 	-webkit-border-radius:4px;
 	color:#FFFFFF;
-	font-size:24px;
+	font-size:16px;
 	margin:0px 30px;
 	padding:2px 0px;
 	position: absolute;
-	top: 756px;
-	left: 1508px;
-	width: 223px;
+	top: 744px;
+	left: 1481px;
+	width: 277px;
 }
 
 .event.listening {

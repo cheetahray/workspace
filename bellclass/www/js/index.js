@@ -20,7 +20,6 @@ var app = {
 
 		var successid = function(message) {
 			myssid = message;
-			document.getElementById("already").value = "1";
 			console.log("網路初步成功" + message);
 	    }
 
@@ -38,6 +37,7 @@ var app = {
 
 		if(myssid.startsWith("bellclass"))
 		{
+			document.getElementById("already").value = "1";
 			hello.initialize("192.168.4.1", 8888, success, failure);
 		}
         else
@@ -73,7 +73,7 @@ var app = {
     
 		boxDoo.addEventListener('touchstart', function(e){
 			sendto("239", "DO", myssid + entry);
-			boxDoo.setAttribute('style', 'background-color:#BE2E2B;');
+			boxDoo.setAttribute('style', 'background-color:#B6221E;');
 			e.preventDefault();
 		}, false);
 		
@@ -87,7 +87,7 @@ var app = {
     
 		boxTi.addEventListener('touchstart', function(e){
 			sendto("223", "Ti" , myssid + entry);
-			boxTi.setAttribute('style', 'background-color:#D5922E;');
+			boxTi.setAttribute('style', 'background-color:#CA27D3;');
 			e.preventDefault();
 		}, false);
 		
@@ -101,7 +101,7 @@ var app = {
     
 		boxLa.addEventListener('touchstart', function(e){
 			sendto("207", "La", myssid + entry);
-			boxLa.setAttribute('style', 'background-color:#D1D62E;');
+			boxLa.setAttribute('style', 'background-color:#233AB9;');
 			e.preventDefault();
 		}, false);
 		
@@ -115,7 +115,7 @@ var app = {
     
 		boxSo.addEventListener('touchstart', function(e){
 			sendto("191", "So", myssid + entry);
-			boxSo.setAttribute('style', 'background-color:#3CD12F;');
+			boxSo.setAttribute('style', 'background-color:#2CC8C7;');
 			e.preventDefault();
 		}, false);
 		
@@ -129,7 +129,7 @@ var app = {
     
 		boxFa.addEventListener('touchstart', function(e){
 			sendto("175", "Fa", myssid + entry);
-			boxFa.setAttribute('style', 'background-color:#2CC8C7;');
+			boxFa.setAttribute('style', 'background-color:#3CD12F;');
 			e.preventDefault();
 		}, false);
 		
@@ -143,7 +143,7 @@ var app = {
     
 		boxMi.addEventListener('touchstart', function(e){
 			sendto("159", "Mi", myssid + entry);
-			boxMi.setAttribute('style', 'background-color:#233AB9;');
+			boxMi.setAttribute('style', 'background-color:#D1D62E;');
 			e.preventDefault();
 		}, false);
 		
@@ -157,7 +157,7 @@ var app = {
     
 		boxRe.addEventListener('touchstart', function(e){
 			sendto("143", "Re", myssid + entry);
-			boxRe.setAttribute('style', 'background-color:#CA27D3;');
+			boxRe.setAttribute('style', 'background-color:#D5922E;');
 			e.preventDefault();
 		}, false);
 		
@@ -171,7 +171,7 @@ var app = {
     
 		boxDo.addEventListener('touchstart', function(e){
 			sendto("127", "Do", myssid + entry);
-			boxDo.setAttribute('style', 'background-color:#B6221E;');
+			boxDo.setAttribute('style', 'background-color:#BE2E2B;');
 			e.preventDefault();
 		}, false);
 		
