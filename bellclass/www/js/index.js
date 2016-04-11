@@ -20,12 +20,13 @@ var app = {
 
 		var successid = function(message) {
 			myssid = message;
-	        console.log("網路抓取成功" + message);
+			document.getElementById("already").value = "1";
+			console.log("網路初步成功" + message);
 	    }
 
 		var success = function(message) {
 			document.getElementById("already").value = "1";
-			alert("網路設定成功" + message);
+			alert("網路初步成功" + message);
 		}
 
 		var failure = function(err) {
@@ -35,7 +36,7 @@ var app = {
 
 		WifiWizard.getCurrentSSID(successid, failure);
 
-		if(myssid == "bellclass")
+		if(myssid.startsWith("bellclass"))
 		{
 			hello.initialize("192.168.4.1", 8888, success, failure);
 		}
@@ -55,14 +56,14 @@ var app = {
 			if (false == readyet())
 			    ;
 			else if  ( document.getElementById("play").value == "1" ) {
-				boxRec.setAttribute('style', 'background: url(img/2-iphone-layout_iphone4.png);');
-				sendto("R", myssid + entry);
+				boxRec.setAttribute('style', 'background: url(img/2-iphone-layout_iphone.png);');
+				sendto("R", "Recording", myssid + entry);
 				document.getElementById("play").value = "0";
 			}
 			else
 			{
 				boxRec.setAttribute('style', 'background: none;');
-				sendto("Q", myssid + entry);
+				sendto("Q", "Stop", myssid + entry);
 				document.getElementById("play").value = "1";
 			}
 			e.preventDefault();
@@ -71,7 +72,7 @@ var app = {
 		var boxDoo = document.getElementById('DOO');
     
 		boxDoo.addEventListener('touchstart', function(e){
-			sendto("239", myssid + entry);
+			sendto("239", "DO", myssid + entry);
 			boxDoo.setAttribute('style', 'background-color:#BE2E2B;');
 			e.preventDefault();
 		}, false);
@@ -85,7 +86,7 @@ var app = {
 		var boxTi = document.getElementById('TI');
     
 		boxTi.addEventListener('touchstart', function(e){
-			sendto("223", myssid + entry);
+			sendto("223", "Ti" , myssid + entry);
 			boxTi.setAttribute('style', 'background-color:#D5922E;');
 			e.preventDefault();
 		}, false);
@@ -99,7 +100,7 @@ var app = {
 		var boxLa = document.getElementById('LA');
     
 		boxLa.addEventListener('touchstart', function(e){
-			sendto("207", myssid + entry);
+			sendto("207", "La", myssid + entry);
 			boxLa.setAttribute('style', 'background-color:#D1D62E;');
 			e.preventDefault();
 		}, false);
@@ -113,7 +114,7 @@ var app = {
 		var boxSo = document.getElementById('SO');
     
 		boxSo.addEventListener('touchstart', function(e){
-			sendto("191", myssid + entry);
+			sendto("191", "So", myssid + entry);
 			boxSo.setAttribute('style', 'background-color:#3CD12F;');
 			e.preventDefault();
 		}, false);
@@ -127,7 +128,7 @@ var app = {
 		var boxFa = document.getElementById('FA');
     
 		boxFa.addEventListener('touchstart', function(e){
-			sendto("175", myssid + entry);
+			sendto("175", "Fa", myssid + entry);
 			boxFa.setAttribute('style', 'background-color:#2CC8C7;');
 			e.preventDefault();
 		}, false);
@@ -141,7 +142,7 @@ var app = {
 		var boxMi = document.getElementById('MI');
     
 		boxMi.addEventListener('touchstart', function(e){
-			sendto("159", myssid + entry);
+			sendto("159", "Mi", myssid + entry);
 			boxMi.setAttribute('style', 'background-color:#233AB9;');
 			e.preventDefault();
 		}, false);
@@ -155,7 +156,7 @@ var app = {
 		var boxRe = document.getElementById('RE');
     
 		boxRe.addEventListener('touchstart', function(e){
-			sendto("143", myssid + entry);
+			sendto("143", "Re", myssid + entry);
 			boxRe.setAttribute('style', 'background-color:#CA27D3;');
 			e.preventDefault();
 		}, false);
@@ -169,7 +170,7 @@ var app = {
 		var boxDo = document.getElementById('DO');
     
 		boxDo.addEventListener('touchstart', function(e){
-			sendto("127", myssid + entry);
+			sendto("127", "Do", myssid + entry);
 			boxDo.setAttribute('style', 'background-color:#B6221E;');
 			e.preventDefault();
 		}, false);
@@ -191,11 +192,11 @@ var app = {
 			e.preventDefault();
 		}, false);
 
-		window.screen.lockOrientation('landscape');
-
-		anyscreen(['/css/index.css'],function(){
+		anyscreen([''],function() { //(['./css/index.css'],function() {
 
 		});
+
+		window.screen.lockOrientation('landscape');
 
 		app.receivedEvent('deviceready');
     },
@@ -206,7 +207,7 @@ var app = {
         var receivedElement = parentElement.querySelector('.received');
         
         listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
     }
@@ -221,7 +222,7 @@ var failure2 = function(err) {
 	alert("傳送音符失敗" + err);
 }
 
-function sendto(mystr, theip)
+function sendto(mystr, mynote, theip)
 {
 	if ( theip.charAt(theip.length-1) == "." )
 	{
@@ -231,6 +232,7 @@ function sendto(mystr, theip)
 	{
 		hello.sendMessage(mystr, success2, failure2);
 	}
+	$("#note").text(mynote);
 }
 
 function readyet()

@@ -19,12 +19,12 @@ body {
 
 
 .app {
-	background:url(../img/0-iphone-layout_iphone4.png) no-repeat center top; /* 170px x 200px */
+	background:url(../img/0-iphone-layout_iphone.png) no-repeat center top; 
 	position:absolute;
 	left:0px;
 	top:0px;
-	height:641px;
-	width:961px;
+	height:1080px;
+	width:1920px;
 	text-align:center;
 	padding:0px 0px 0px 0px;
 	margin:0px 0px 0px 0px;
@@ -53,100 +53,100 @@ h1 {
 .REC {
 	font-size:12px;
 	position: absolute;
-	top: 252px;
-	left: 819px;
-	width: 124px;
-	height: 125px;
+	top: 408px;
+	left: 1622px;
+	width: 236px;
+	height: 234px;
 	background: none;
 }
 
 .SET {
 	font-size:12px;
 	position: absolute;
-	top: 23px;
-	left: 884px;
-	width: 57px;
-	height: 56px;
-	background-color: transparent;
-}
-
-.DO {
-	font-size:12px;
-	position: absolute;
-	top: 208px;
-	left: 668px;
-	width: 64px;
-	height: 203px;
-	background-color: transparent;
-}
-
-.RE {
-	font-size:12px;
-	position: absolute;
-	top: 205px;
-	left: 578px;
-	width: 64px;
-	height: 211px;
-	background-color: transparent;
-}
-
-.MI {
-	font-size:12px;
-	position: absolute;
-	top: 200px;
-	left: 486px;
-	width: 65px;
-	height: 221px;
-	background-color: transparent;
-}
-
-.FA {
-	font-size:12px;
-	position: absolute;
-	top: 191px;
-	left: 395px;
-	width: 65px;
-	height: 238px;
-	background-color: transparent;
-}
-
-.SO {
-	font-size:12px;
-	position: absolute;
-	top: 184px;
-	left: 304px;
-	width: 65px;
-	height: 253px;
-	background-color: transparent;
-}
-
-.LA {
-	font-size:12px;
-	position: absolute;
-	top: 182px;
-	left: 212px;
-	width: 66px;
-	height: 257px;
-	background-color: transparent;
-}
-
-.TI {
-	font-size:12px;
-	position: absolute;
-	top: 173px;
-	left: 121px;
-	width: 65px;
-	height: 275px;
+	top: 35px;
+	left: 1778px;
+	width: 95px;
+	height: 98px;
 	background-color: transparent;
 }
 
 .DOO {
 	font-size:12px;
 	position: absolute;
-	top: 165px;
-	left: 31px;
-	width: 64px;
-	height: 291px;
+	top: 326px;
+	left: 1324px;
+	width: 128px;
+	height: 391px;
+	background-color: transparent;
+}
+
+.TI {
+	font-size:12px;
+	position: absolute;
+	top: 315px;
+	left: 1148px;
+	width: 130px;
+	height: 407px;
+	background-color: transparent;
+}
+
+.LA {
+	font-size:12px;
+	position: absolute;
+	top: 304px;
+	left: 974px;
+	width: 125px;
+	height: 433px;
+	background-color: transparent;
+}
+
+.SO {
+	font-size:12px;
+	position: absolute;
+	top: 287px;
+	left: 797px;
+	width: 125px;
+	height: 464px;
+	background-color: transparent;
+}
+
+.FA {
+	font-size:12px;
+	position: absolute;
+	top: 276px;
+	left: 618px;
+	width: 127px;
+	height: 489px;
+	background-color: transparent;
+}
+
+.MI {
+	font-size:12px;
+	position: absolute;
+	top: 270px;
+	left: 442px;
+	width: 128px;
+	height: 503px;
+	background-color: transparent;
+}
+
+.RE {
+	font-size:12px;
+	position: absolute;
+	top: 253px;
+	left: 265px;
+	width: 125px;
+	height: 533px;
+	background-color: transparent;
+}
+
+.DO {
+	font-size:12px;
+	position: absolute;
+	top: 237px;
+	left: 89px;
+	width: 128px;
+	height: 565px;
 	background-color: transparent;
 }
 
@@ -154,13 +154,13 @@ h1 {
 	border-radius:4px;
 	-webkit-border-radius:4px;
 	color:#FFFFFF;
-	font-size:12px;
+	font-size:24px;
 	margin:0px 30px;
 	padding:2px 0px;
 	position: absolute;
-	top: 427px;
-	left: 733px;
-	width: 150px;
+	top: 756px;
+	left: 1508px;
+	width: 223px;
 }
 
 .event.listening {

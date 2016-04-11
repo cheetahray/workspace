@@ -43,13 +43,13 @@
                         };
                         alert(result['e']);
                         var successFn = function (count) {
-                            alert("Successfully imported JSON to DB; equivalent to " + count + " SQL statements");
+                            console.log("Successfully imported JSON to DB; equivalent to " + count + " SQL statements");
                         };
                         var errorFn = function (error) {
-                            alert("The following error occurred: " + error.message);
+                            console.log("The following error occurred: " + error.message);
                         };
                         var progressFn = function (current, total) {
-                            alert("Imported " + current + "/" + total + " statements");
+                            console.log("Imported " + current + "/" + total + " statements");
                         };
                         cordova.plugins.sqlitePorter.importJsonToDb(db, json, {
                             successFn: successFn,
