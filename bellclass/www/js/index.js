@@ -1,3 +1,5 @@
+var noway = "";
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -18,14 +20,32 @@ var app = {
         var myssid = "";
 		var entry = "";
 
-		var successid = function(message) {
-			myssid = message;
-			console.log("網路初步成功" + message);
-	    }
-
 		var success = function(message) {
 			document.getElementById("already").value = "1";
-			alert("網路初步成功" + message);
+			var addevt = $('#runner').runner({
+                stopAt: 2048000 // 2(min) * 60(sec) * 1000(ms) = 120000
+            });
+            addevt.on('runnerStart', function(eventObject, info) {
+                boxRec.setAttribute('style', 'background: url(img/2-iphone-layout_iphone.png);');
+				sendto("R", "開錄了", myssid + entry);
+				document.getElementById("record").value = "1";
+			});
+            addevt.on('runnerStop', function(eventObject, info) {
+                boxRec.setAttribute('style', 'background: none;');
+				sendto("Q", "錄完了", myssid + entry);
+				document.getElementById("record").value = "0";
+			});
+            addevt.on('runnerFinish', function(eventObject, info) {
+                alert('只能錄半小時');
+            });
+            addevt.on('runnerLap', function(eventObject, info) {
+                sendto(noway, noway, myssid + entry);
+            });
+            alert("網路初步成功" + message);
+		}
+
+		var successid = function(message) {
+			myssid = message;
 		}
 
 		var failure = function(err) {
@@ -37,7 +57,6 @@ var app = {
 
 		if(strncmp(myssid,"bellclass",9))
 		{
-			document.getElementById("already").value = "1";
 			hello.initialize("192.168.4.1", 8888, success, failure);
 		}
         else
@@ -53,18 +72,15 @@ var app = {
 		boxRec.addEventListener('touchstart', function(e){
 			//var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
 			//startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
-			if (false == readyet())
-			    ;
-			else if  ( document.getElementById("play").value == "1" ) {
-				boxRec.setAttribute('style', 'background: url(img/2-iphone-layout_iphone.png);');
-				sendto("R", "Recording", myssid + entry);
-				document.getElementById("play").value = "0";
+			if (document.getElementById("already").value == "0")
+			    readyet();
+			else if  ( document.getElementById("record").value == "0" ) 
+			{
+				$('#runner').runner('start');
 			}
 			else
 			{
-				boxRec.setAttribute('style', 'background: none;');
-				sendto("Q", "Stop", myssid + entry);
-				document.getElementById("play").value = "1";
+				$('#runner').runner('reset', true);
 			}
 			e.preventDefault();
 		}, false);
@@ -79,7 +95,8 @@ var app = {
 		}, false);
 		
 		boxDoo.addEventListener('touchend', function(e){
-		    boxDoo.setAttribute('style', 'background-color:transparent;');
+		    if(document.getElementById("already").value == "1")
+			    boxDoo.setAttribute('style', 'background-color:transparent;');
 			readyet();
 			e.preventDefault();
 		}, false);
@@ -94,7 +111,8 @@ var app = {
 		}, false);
 		
 		boxTi.addEventListener('touchend', function(e){
-			boxTi.setAttribute('style', 'background-color:transparent;');
+			if(document.getElementById("already").value == "1")
+			    boxTi.setAttribute('style', 'background-color:transparent;');
 			readyet();
 			e.preventDefault();
 		}, false);
@@ -109,7 +127,8 @@ var app = {
 		}, false);
 		
 		boxLa.addEventListener('touchend', function(e){
-			boxLa.setAttribute('style', 'background-color:transparent;');
+			if(document.getElementById("already").value == "1")
+			    boxLa.setAttribute('style', 'background-color:transparent;');
 			readyet();
 			e.preventDefault();
 		}, false);
@@ -124,7 +143,8 @@ var app = {
 		}, false);
 		
 		boxSo.addEventListener('touchend', function(e){
-			boxSo.setAttribute('style', 'background-color:transparent;');
+			if(document.getElementById("already").value == "1")
+			    boxSo.setAttribute('style', 'background-color:transparent;');
 			readyet();
 			e.preventDefault();
 		}, false);
@@ -139,7 +159,8 @@ var app = {
 		}, false);
 		
 		boxFa.addEventListener('touchend', function(e){
-			boxFa.setAttribute('style', 'background-color:transparent;');
+			if(document.getElementById("already").value == "1")
+			    boxFa.setAttribute('style', 'background-color:transparent;');
 			readyet();
 			e.preventDefault();
 		}, false);
@@ -154,7 +175,8 @@ var app = {
 		}, false);
 		
 		boxMi.addEventListener('touchend', function(e){
-			boxMi.setAttribute('style', 'background-color:transparent;');
+			if(document.getElementById("already").value == "1")
+			    boxMi.setAttribute('style', 'background-color:transparent;');
 			readyet();
 			e.preventDefault();
 		}, false);
@@ -169,7 +191,8 @@ var app = {
 		}, false);
 		
 		boxRe.addEventListener('touchend', function(e){
-			boxRe.setAttribute('style', 'background-color:transparent;');
+			if(document.getElementById("already").value == "1")
+			    boxRe.setAttribute('style', 'background-color:transparent;');
 			readyet();
 			e.preventDefault();
 		}, false);
@@ -184,7 +207,8 @@ var app = {
 		}, false);
 		
 		boxDo.addEventListener('touchend', function(e){
-			boxDo.setAttribute('style', 'background-color:transparent;');
+			if(document.getElementById("already").value == "1")
+			    boxDo.setAttribute('style', 'background-color:transparent;');
 			readyet();
 			e.preventDefault();
 		}, false);
@@ -245,11 +269,10 @@ function sendto(mystr, mynote, theip)
 
 function readyet()
 {
-	if (document.getElementById("already").value == "0") {
-		alert("您尚未設置電路板上之標籤號\n請按右上設定");
-		return false;
-	}
-	return true;
+    if (document.getElementById("already").value == "0")
+	    alert("您尚未設置電路板上之標籤號\n請按右上設定");
+	else if (document.getElementById("record").value == "1")
+	    noway = $('#runner').runner('lap');
 }
 
 function strncmp(a, b, n){

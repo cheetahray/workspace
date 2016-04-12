@@ -1,72 +1,52 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="tw.dac.bellclass" version="0.0.1"
-	xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-	<name>俏敲Bar</name>
-	<description>電鈴工作坊</description>
-	<author href="http://noisekitchen.tw" email="ray@dac.tw">噪咖事務所</author>
+<widget id="tw.dac.bellclass" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>俏敲Bar</name>
+    <description>電鈴工作坊</description>
+    <author email="ray@dac.tw" href="http://noisekitchen.tw">噪咖事務所</author>
+    <content src="index.html" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+    <feature name="Hello">
+        <param name="android-package" value="com.example.plugin.Hello" />
+        <param name="id" value="co.banpad.test" />
+    </feature>
+    <feature name="WifiWizard">
+        <param name="android-package" value="com.pylonproducts.wifiwizard.WifiWizard" />
+        <param name="onload" value="true" />
+        <param name="id" value="com.pylonproducts.wifiwizard" />
+    </feature>
+    <feature name="networkinterface">
+        <param name="android-package" value="com.albahra.plugin.networkinterface.networkinterface" />
+        <param name="wp-package" value="networkinterface" />
+    </feature>
+    <feature name="NetworkInterface">
+        <param name="id" value="cordova-plugin-networkinterface" />
+    </feature>
+    <feature name="YoikScreenOrientation">
+        <param name="android-package" value="net.yoik.cordova.plugins.screenorientation.YoikScreenOrientation" />
+        <param name="wp-package" value="YoikScreenOrientation" />
+    </feature>
+    <feature name="Screen Orientation">
+        <param name="id" value="cordova-plugin-screen-orientation" />
+    </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+        <param name="wp-package" value="Device" />
+        <param name="id" value="cordova-plugin-device" />
+    </feature>
+    <engine name="android" version="3.6.4" />
 
-	<content src="index.html" />
-	<!-- Whitelist configuration. Refer to https://cordova.apache.org/docs/en/edge/guide_appdev_whitelist_index.md.html -->
-	<plugin name="cordova-plugin-whitelist" spec="1" />
-	<access origin="*" />
-	<allow-intent href="http://*/*" />
-	<allow-intent href="https://*/*" />
-	<allow-intent href="tel:*" />
-	<allow-intent href="sms:*" />
-	<allow-intent href="mailto:*" />
-	<allow-intent href="geo:*" />
-	<platform name="android">
-		<allow-intent href="market:*" />
-	</platform>
-	<platform name="ios">
-		<allow-intent href="itms:*" />
-		<allow-intent href="itms-apps:*" />
-	</platform>
-
-
-
-	<feature name="Hello">
-		<param name="android-package" value="com.example.plugin.Hello" />
-
-		<param name="id" value="co.banpad.test" />
-	</feature>
-	<feature name="WifiWizard">
-		<param name="android-package" value="com.pylonproducts.wifiwizard.WifiWizard" />
-		<param name="onload" value="true" />
-		<param name="id" value="com.pylonproducts.wifiwizard" />
-	</feature>
-	<feature name="networkinterface">
-		<param name="android-package"
-			value="com.albahra.plugin.networkinterface.networkinterface" />
-		<param name="wp-package" value="networkinterface" />
-	</feature>
-	<feature name="NetworkInterface">
-
-		<param name="id" value="cordova-plugin-networkinterface" />
-	</feature>
-	<feature name="YoikScreenOrientation">
-		<param name="android-package"
-			value="net.yoik.cordova.plugins.screenorientation.YoikScreenOrientation" />
-		<param name="wp-package" value="YoikScreenOrientation" />
-	</feature>
-	<feature name="Screen Orientation">
-		<param name="id" value="cordova-plugin-screen-orientation" />
-	</feature>
-	<feature name="Device">
-		<param name="android-package" value="org.apache.cordova.device.Device" />
-		<param name="wp-package" value="Device" />
-		
-	<param name="id" value="cordova-plugin-device" /></feature>
-
-
-
-
-
-
-
-
-
-
-
-	<engine name="android" version="3.6.4" />
 </widget>
