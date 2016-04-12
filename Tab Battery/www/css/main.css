@@ -89,6 +89,7 @@ body {
 }
 .header {
 	position: relative;
+	padding-top: 20px;
 	color: #fff;
 	background-color: #2e3032;
 }
@@ -100,7 +101,7 @@ body {
 }
 .header-left, .header-right {
 	position: absolute;
-	top: 0;
+	top: 20px;
 	padding: 12px;
 	font-size: 18px;
 }
