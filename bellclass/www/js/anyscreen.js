@@ -36,7 +36,11 @@ function anyscreen(css_urls, successCallback){
         else {
             var initscale = 1/dpr;
         }
-        scaling = Math.min( app.deviceHeight / parseFloat( $("#APP").css("width") ) , app.deviceWidth / parseFloat( $("#APP").css("height") ) ) * 0.96;
+        
+        scaling = app.deviceHeight / parseFloat( $("#APP").css("width") ) ; // , app.deviceWidth / parseFloat( $("#APP").css("height") ) ;
+        if (device.platform == "Android")
+            scaling = scaling * 0.96;
+            
         viewport.setAttribute('content', 'user-scalable=no, initial-scale=' + initscale + ', maximum-scale=' + scaling + ', minimum-scale=' + scaling + ', target-densitydpi=device-dpi');
     	
     }

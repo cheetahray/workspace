@@ -56,9 +56,9 @@
 		
 		NSString* socket = [NSString stringWithFormat:@"%i", DatagramSocketC];
 		if (DatagramSocketC != 0 && successInitializingTransmitter)
-			pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[@"Success initializing UDP transmitter using datagram socket: " stringByAppendingString:socket]];
+			pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[@": " stringByAppendingString:(NSString *)[command.arguments objectAtIndex:0]]];
 		else
-			pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[@"Error initializing UDP transmitter using datagram socket: " stringByAppendingString:socket]];
+			pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[@": " stringByAppendingString:(NSString *)[command.arguments objectAtIndex:0]]];
 		
 		[self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 	}];
@@ -81,9 +81,9 @@
 		}
 		
 		if (messageSent)
-			pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[@"Success transmitting UDP packet: " stringByAppendingString:[command.arguments objectAtIndex:0]]];
+			pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[@": " stringByAppendingString:(NSString *)[command.arguments objectAtIndex:0]]];
 		else
-			pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[@"Error transmitting UDP packet: " stringByAppendingString:[command.arguments objectAtIndex:0]]];
+			pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[@": " stringByAppendingString:(NSString *)[command.arguments objectAtIndex:0]]];
 		
 		[self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 	}];
