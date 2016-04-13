@@ -48,5 +48,5 @@
         <param name="id" value="cordova-plugin-device" />
     </feature>
     <engine name="android" version="3.6.4" />
-
+    <plugin name="org.nypr.cordova.sleeptimerplugin" spec="https://github.com/wnyc/cordova-plugin-sleeptimer" />
 </widget>

@@ -53,8 +53,8 @@ h1 {
 .REC {
 	font-size:12px;
 	position: absolute;
-	top: 408px;
-	left: 1622px;
+	top: 493px;
+	left: 1592px;
 	width: 236px;
 	height: 234px;
 	background: none;
@@ -63,8 +63,8 @@ h1 {
 .SET {
 	font-size:12px;
 	position: absolute;
-	top: 35px;
-	left: 1778px;
+	top: 155px;
+	left: 1788px;
 	width: 95px;
 	height: 98px;
 	background-color: transparent;
@@ -73,7 +73,7 @@ h1 {
 .DOO {
 	font-size:12px;
 	position: absolute;
-	top: 326px;
+	top: 415px;
 	left: 1324px;
 	width: 128px;
 	height: 391px;
@@ -83,7 +83,7 @@ h1 {
 .TI {
 	font-size:12px;
 	position: absolute;
-	top: 315px;
+	top: 404px;
 	left: 1148px;
 	width: 130px;
 	height: 407px;
@@ -93,7 +93,7 @@ h1 {
 .LA {
 	font-size:12px;
 	position: absolute;
-	top: 304px;
+	top: 393px;
 	left: 974px;
 	width: 125px;
 	height: 433px;
@@ -103,7 +103,7 @@ h1 {
 .SO {
 	font-size:12px;
 	position: absolute;
-	top: 287px;
+	top: 376px;
 	left: 797px;
 	width: 125px;
 	height: 464px;
@@ -113,7 +113,7 @@ h1 {
 .FA {
 	font-size:12px;
 	position: absolute;
-	top: 276px;
+	top: 365px;
 	left: 618px;
 	width: 127px;
 	height: 489px;
@@ -123,7 +123,7 @@ h1 {
 .MI {
 	font-size:12px;
 	position: absolute;
-	top: 270px;
+	top: 359px;
 	left: 442px;
 	width: 128px;
 	height: 503px;
@@ -133,7 +133,7 @@ h1 {
 .RE {
 	font-size:12px;
 	position: absolute;
-	top: 253px;
+	top: 342px;
 	left: 265px;
 	width: 125px;
 	height: 533px;
@@ -143,7 +143,7 @@ h1 {
 .DO {
 	font-size:12px;
 	position: absolute;
-	top: 237px;
+	top: 326px;
 	left: 89px;
 	width: 128px;
 	height: 565px;
@@ -158,7 +158,7 @@ h1 {
 	margin:0px 30px;
 	padding:2px 0px;
 	position: absolute;
-	top: 744px;
+	top: 839px;
 	left: 1481px;
 	width: 277px;
 }

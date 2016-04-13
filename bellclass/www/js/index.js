@@ -1,5 +1,4 @@
-var noway = "";
-
+var finalcountdown = 1;
 var app = {
     // Application Constructor
     initialize: function() {
@@ -21,31 +20,60 @@ var app = {
 		var entry = "";
 
 		var success = function(message) {
-			document.getElementById("already").value = "1";
-			var addevt = $('#runner').runner({
-                stopAt: 2048000 // 2(min) * 60(sec) * 1000(ms) = 120000
-            });
-            addevt.on('runnerStart', function(eventObject, info) {
-                boxRec.setAttribute('style', 'background: url(img/2-iphone-layout_iphone.png);');
-				sendto("R", "開錄了", myssid + entry);
-				document.getElementById("record").value = "1";
-			});
-            addevt.on('runnerStop', function(eventObject, info) {
-                boxRec.setAttribute('style', 'background: none;');
-				sendto("Q", "錄完了", myssid + entry);
-				document.getElementById("record").value = "0";
-			});
-            addevt.on('runnerFinish', function(eventObject, info) {
-                alert('只能錄半小時');
-            });
-            addevt.on('runnerLap', function(eventObject, info) {
-                sendto(noway, noway, myssid + entry);
-            });
+		    if ( document.getElementById("already").value == "0" )
+		    {
+			    document.getElementById("already").value = "1";
+			    var addevt = $('#runner').runner();
+                addevt.on('runnerStop', function(eventObject, info) {
+                    if (document.getElementById("record").value == "1")
+                    {
+                        var noway = $('#runner').runner('lap') ;
+	                    var iflarge8 = parseFloat( noway );
+	                    while (iflarge8 > 8.0)
+	                    {
+	                        mycountdown("121");
+	                        iflarge8 = iflarge8 - 8;
+	                    }
+	                    noway = iflarge8.toString();
+	                    var pointpos = noway.indexOf(".");
+	                    if (pointpos > -1)
+	                    {
+	                        var first = parseInt( noway.substring(0, pointpos) ) << 4;
+	                        var second = parseInt( noway.substring(pointpos + 1, pointpos + 2 ) ) + first;
+	                        mycountdown( second.toString() );
+	                    }
+	                    
+                        if ( finalcountdown <= 0 )
+	                    {
+	                        finalcountdown = 1;
+	                        window.sleeptimer.sleep(
+                                successCallback,
+                                errorCallback,
+                                {
+                                    'sleep' : 1, // sleep in 5 minutes/300 seconds
+								    'countdown' : false // if true, send time-to-sleep countdown from native to javascript
+							    }
+							);
+	                    }
+	                }
+                });
+            }
             alert("網路初步成功" + message);
 		}
 
 		var successid = function(message) {
 			myssid = message;
+			if(strncmp(myssid,"bellclass",9))
+    		{
+	    		hello.initialize("192.168.4.1", 8888, success, failure);
+		    }
+            else
+	    	{
+		    	networkinterface.getIPAddress(
+			    	function (ip) {
+				    	myssid = ip.substring( 0, ip.lastIndexOf(".") + 1 );
+				    });
+	    	}
 		}
 
 		var failure = function(err) {
@@ -54,19 +82,7 @@ var app = {
 	    }
 
 		WifiWizard.getCurrentSSID(successid, failure);
-
-		if(strncmp(myssid,"bellclass",9))
-		{
-			hello.initialize("192.168.4.1", 8888, success, failure);
-		}
-        else
-		{
-			networkinterface.getIPAddress(
-				function (ip) {
-					myssid = ip.substring( 0, ip.lastIndexOf(".") + 1 );
-				});
-		}
-		
+        
 		var boxRec = document.getElementById('REC');
         
 		boxRec.addEventListener('touchstart', function(e){
@@ -76,20 +92,30 @@ var app = {
 			    readyet();
 			else if  ( document.getElementById("record").value == "0" ) 
 			{
-				$('#runner').runner('start');
+				boxRec.setAttribute('style', 'background: url(img/2-iphone-layout_iphone.png);');
+				sendto("R", "開錄了", myssid + entry);
+				document.getElementById("record").value = "1";
+				finalcountdown = 510;
 			}
 			else
 			{
-				$('#runner').runner('reset', true);
+			    finalboxRec();    
 			}
 			e.preventDefault();
 		}, false);
 
+        var finalboxRec = function() {
+            document.getElementById("record").value = "0";
+		    boxRec.setAttribute('style', 'background: none;');
+			sendto("Q", "錄完了", myssid + entry);
+			$('#runner').runner('reset', true);
+        }
+        
 		var boxDoo = document.getElementById('DOO');
     
 		boxDoo.addEventListener('touchstart', function(e){
-		    sendto("239", "DO", myssid + entry);
-		    if(document.getElementById("already").value == "1")
+		    readyet();
+			if(document.getElementById("already").value == "1")
 			    boxDoo.setAttribute('style', 'background-color:#B6221E;');
 			e.preventDefault();
 		}, false);
@@ -97,14 +123,14 @@ var app = {
 		boxDoo.addEventListener('touchend', function(e){
 		    if(document.getElementById("already").value == "1")
 			    boxDoo.setAttribute('style', 'background-color:transparent;');
-			readyet();
-			e.preventDefault();
+			sendto("239", "DO", myssid + entry);
+		    e.preventDefault();
 		}, false);
 		
 		var boxTi = document.getElementById('TI');
     
 		boxTi.addEventListener('touchstart', function(e){
-			sendto("223", "Ti" , myssid + entry);
+			readyet();
 			if(document.getElementById("already").value == "1")
 			    boxTi.setAttribute('style', 'background-color:#CA27D3;');
 			e.preventDefault();
@@ -113,14 +139,14 @@ var app = {
 		boxTi.addEventListener('touchend', function(e){
 			if(document.getElementById("already").value == "1")
 			    boxTi.setAttribute('style', 'background-color:transparent;');
-			readyet();
+			sendto("223", "Ti" , myssid + entry);
 			e.preventDefault();
 		}, false);
 		
 		var boxLa = document.getElementById('LA');
     
 		boxLa.addEventListener('touchstart', function(e){
-			sendto("207", "La", myssid + entry);
+			readyet();
 			if(document.getElementById("already").value == "1")
 			    boxLa.setAttribute('style', 'background-color:#233AB9;');
 			e.preventDefault();
@@ -129,14 +155,14 @@ var app = {
 		boxLa.addEventListener('touchend', function(e){
 			if(document.getElementById("already").value == "1")
 			    boxLa.setAttribute('style', 'background-color:transparent;');
-			readyet();
+			sendto("207", "La", myssid + entry);
 			e.preventDefault();
 		}, false);
 		
 		var boxSo = document.getElementById('SO');
     
 		boxSo.addEventListener('touchstart', function(e){
-			sendto("191", "So", myssid + entry);
+			readyet();
 			if(document.getElementById("already").value == "1")
 			    boxSo.setAttribute('style', 'background-color:#2CC8C7;');
 			e.preventDefault();
@@ -145,14 +171,14 @@ var app = {
 		boxSo.addEventListener('touchend', function(e){
 			if(document.getElementById("already").value == "1")
 			    boxSo.setAttribute('style', 'background-color:transparent;');
-			readyet();
+			sendto("191", "So", myssid + entry);
 			e.preventDefault();
 		}, false);
 		
 		var boxFa = document.getElementById('FA');
     
 		boxFa.addEventListener('touchstart', function(e){
-			sendto("175", "Fa", myssid + entry);
+			readyet();
 			if(document.getElementById("already").value == "1")
 			    boxFa.setAttribute('style', 'background-color:#3CD12F;');
 			e.preventDefault();
@@ -161,14 +187,14 @@ var app = {
 		boxFa.addEventListener('touchend', function(e){
 			if(document.getElementById("already").value == "1")
 			    boxFa.setAttribute('style', 'background-color:transparent;');
-			readyet();
+			sendto("175", "Fa", myssid + entry);
 			e.preventDefault();
 		}, false);
 		
 		var boxMi = document.getElementById('MI');
     
 		boxMi.addEventListener('touchstart', function(e){
-			sendto("159", "Mi", myssid + entry);
+			readyet();
 			if(document.getElementById("already").value == "1")
 			    boxMi.setAttribute('style', 'background-color:#D1D62E;');
 			e.preventDefault();
@@ -177,14 +203,14 @@ var app = {
 		boxMi.addEventListener('touchend', function(e){
 			if(document.getElementById("already").value == "1")
 			    boxMi.setAttribute('style', 'background-color:transparent;');
-			readyet();
+			sendto("159", "Mi", myssid + entry);
 			e.preventDefault();
 		}, false);
 		
 		var boxRe = document.getElementById('RE');
     
 		boxRe.addEventListener('touchstart', function(e){
-			sendto("143", "Re", myssid + entry);
+			readyet();
 			if(document.getElementById("already").value == "1")
 			    boxRe.setAttribute('style', 'background-color:#D5922E;');
 			e.preventDefault();
@@ -193,14 +219,14 @@ var app = {
 		boxRe.addEventListener('touchend', function(e){
 			if(document.getElementById("already").value == "1")
 			    boxRe.setAttribute('style', 'background-color:transparent;');
-			readyet();
+			sendto("143", "Re", myssid + entry);
 			e.preventDefault();
 		}, false);
 		
 		var boxDo = document.getElementById('DO');
     
 		boxDo.addEventListener('touchstart', function(e){
-			sendto("127", "Do", myssid + entry);
+			readyet();
 			if(document.getElementById("already").value == "1")
 			    boxDo.setAttribute('style', 'background-color:#BE2E2B;');
 			e.preventDefault();
@@ -209,20 +235,42 @@ var app = {
 		boxDo.addEventListener('touchend', function(e){
 			if(document.getElementById("already").value == "1")
 			    boxDo.setAttribute('style', 'background-color:transparent;');
-			readyet();
+			sendto("127", "Do", myssid + entry);
 			e.preventDefault();
 		}, false);
 		
 		var boxSet = document.getElementById('SET');
     
 		boxSet.addEventListener('touchstart', function(e){
-			entry = parseInt( prompt('電路板上面貼的標籤寫幾號','') );
-			if (entry != NaN && entry < 255)
-			{
-				hello.initialize(myssid + entry, 8888, success, failure);
+			if(strncmp(myssid,"bellclass",9) == false)
+    		{
+			    entry = parseInt( prompt('電路板上面貼的標籤寫幾號','') );
+			    if (entry != NaN && entry < 255)
+			    {
+				    hello.initialize(myssid + entry, 8888, success, failure);
+                }
             }
+            else
+                alert("您已經是在家模式，如果想設定請改Wifi");
 			e.preventDefault();
 		}, false);
+		
+		// example of a callback method
+		var successCallback = function(result) {
+		  if (result.type==='sleep') {
+		    finalboxRec();
+			alert("歐 板子的記憶體有限");
+		  } else if (result.type==='countdown') {
+		    console.log('time until sleep: ' + result.timeLeft + ' seconds');
+		  } else {
+		    console.log('unhandled type (' + result.type + ')');
+		  }
+		}; 
+		
+		// example of a callback method
+		var errorCallback = function(error) {
+		  alert(error);
+		}; 
 
 		anyscreen([''],function() { //(['./css/index.css'],function() {
 
@@ -256,15 +304,21 @@ var failure2 = function(err) {
 
 function sendto(mystr, mynote, theip)
 {
-	if ( theip.charAt(theip.length-1) == "." )
+	//if ( theip.charAt(theip.length-1) == "." )
+		//document.getElementById("already").value = "0";
+	//else 
+	if (document.getElementById("already").value == "1")
 	{
-		document.getElementById("already").value = "0";
-	}
-	else if (document.getElementById("already").value == "1")
-	{
-		hello.sendMessage(mystr, success2, failure2);
+		mycountdown(mystr);
+		if (document.getElementById("record").value == "1")
+		    $('#runner').runner('start');
 	}
 	$("#note").text(mynote);
+}
+
+function mycountdown(mystr) {
+    hello.sendMessage(mystr, success2, failure2);
+    finalcountdown = finalcountdown - 1;
 }
 
 function readyet()
@@ -272,7 +326,9 @@ function readyet()
     if (document.getElementById("already").value == "0")
 	    alert("您尚未設置電路板上之標籤號\n請按右上設定");
 	else if (document.getElementById("record").value == "1")
-	    noway = $('#runner').runner('lap');
+	{    
+	    $('#runner').runner('reset', true);
+    }
 }
 
 function strncmp(a, b, n){
