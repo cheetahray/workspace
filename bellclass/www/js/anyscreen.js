@@ -19,8 +19,8 @@ function anyscreen(css_urls, successCallback){
     
     /* try to fix screens */
     var dpr = window.devicePixelRatio;
-
-    var viewport = document.createElement("meta");
+    notification.alert(dpr);
+	var viewport = document.createElement("meta");
     viewport.setAttribute("name","viewport");
 
     if (device.platform == "iOS" || device.platform == "Android"){
