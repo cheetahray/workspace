@@ -9,6 +9,19 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
+         /* the larger side ALWAYS is called 'height' */
+		if (screen.width > screen.height) {
+			app.deviceHeight = screen.width;
+			app.deviceWidth = screen.height;
+		}
+		else {
+			app.deviceHeight = screen.height;
+			app.deviceWidth = screen.width; 
+        }
+		var ratio = app.deviceHeight/app.deviceWidth;
+		if (ratio > 1.55)
+		    window.location = "second.html";
+			
 		document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     // deviceready Event Handler
@@ -18,7 +31,7 @@ var app = {
     onDeviceReady: function() {
         var myssid = "";
 		var entry = "";
-        
+
 		var success = function(message) {
 		    if ( document.getElementById("already").value == "0" )
 		    {
@@ -58,12 +71,12 @@ var app = {
 	                }
                 });
             }
-            navigator.notification.alert("網路初步成功" + message, alertCallback, "");
-		}
+            navigator.notification.alert("網路初步成功" + message, alertDismissed, '', '確定');
+        }
 
 		var successid = function(message) {
 			myssid = message;
-			if(strncmp(myssid,"bellclass_",10))
+			if(strncmp(myssid,"bellclass",9))
     		{
 	    		hello.initialize("192.168.4.1", 8888, success, failure);
 		    }
@@ -78,7 +91,7 @@ var app = {
 
 		var failure = function(err) {
 			document.getElementById("already").value = "0";
-			navigator.notification.alert("網路設定失敗" + err, alertCallback, "");
+			navigator.notification.alert("網路設定失敗" + err, alertDismissed, '', '確定');
 	    }
 
 		WifiWizard.getCurrentSSID(successid, failure);
@@ -242,16 +255,16 @@ var app = {
 		var boxSet = document.getElementById('SET');
     
 		boxSet.addEventListener('touchstart', function(e){
-			if(strncmp(myssid,"bellclass_",10) == false)
+			if(strncmp(myssid,"bellclass",9) == false)
     		{
-			    entry = parseInt( navigator.notification.prompt('電路板上面貼的標籤寫幾號', promptCallback, "") );
+			    entry = parseInt( navigator.notification.prompt('電路板上面貼的標籤寫幾號', onPrompt, '', ['確定','取消'], '') );
 			    if (entry != NaN && entry < 255)
 			    {
 				    hello.initialize(myssid + entry, 8888, success, failure);
                 }
             }
             else
-                navigator.notification.alert("您已經是在家用模式，想設定請改外部 Wifi", alertCallback, "");
+                navigator.notification.alert("已經是在家裡模式\n如果想設定請請改Wifi成外出模式", alertDismissed, '', '確定');
 			e.preventDefault();
 		}, false);
 		
@@ -259,7 +272,7 @@ var app = {
 		var successCallback = function(result) {
 		  if (result.type==='sleep') {
 		    finalboxRec();
-			navigator.notification.alert("歐 板子的記憶體有限", alertCallback, "");
+			navigator.notification.alert("不好意思板子的記憶體有限", alertDismissed, '', '確定');
 		  } else if (result.type==='countdown') {
 		    console.log('time until sleep: ' + result.timeLeft + ' seconds');
 		  } else {
@@ -269,7 +282,7 @@ var app = {
 		
 		// example of a callback method
 		var errorCallback = function(error) {
-		  navigator.notification.alert(error, alertCallback, "");
+		  navigator.notification.alert(error, alertDismissed, '', '確定');
 		}; 
 
 		anyscreen([''],function() { //(['./css/index.css'],function() {
@@ -299,7 +312,7 @@ var success2 = function(message) {
 }
 	
 var failure2 = function(err) {
-	navigator.notification.alert("傳送音符失敗" + err, alertCallback, "");
+    navigator.notification.alert("傳送音符失敗" + err, alertDismissed, '', '確定');
 }
 
 function sendto(mystr, mynote, theip)
@@ -324,7 +337,7 @@ function mycountdown(mystr) {
 function readyet()
 {
     if (document.getElementById("already").value == "0")
-	    navigator.notification.alert("您尚未設置電路板上之標籤號\n請按右上設定", alertCallback, "");
+	    navigator.notification.alert("您尚未設置電路板上之標籤號\n請按右上設定", alertDismissed, '', '確定');
 	else if (document.getElementById("record").value == "1")
 	{    
 	    $('#runner').runner('reset', true);

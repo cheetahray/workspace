@@ -17,9 +17,9 @@ function anyscreen(css_urls, successCallback){
         app.deviceWidth = screen.width; 
     }
     
-    /* try to fix screens */
+	/* try to fix screens */
     var dpr = window.devicePixelRatio;
-    navigator.notification.alert(dpr, alertCallback, "");
+    
 	var viewport = document.createElement("meta");
     viewport.setAttribute("name","viewport");
 
