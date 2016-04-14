@@ -9,6 +9,13 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    // deviceready Event Handler
+    //
+    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+    // function, we must explicitly call 'app.receivedEvent(...);'
+    onDeviceReady: function() {
          /* the larger side ALWAYS is called 'height' */
 		if (screen.width > screen.height) {
 			app.deviceHeight = screen.width;
@@ -19,16 +26,9 @@ var app = {
 			app.deviceWidth = screen.width; 
         }
 		var ratio = app.deviceHeight/app.deviceWidth;
-		if (ratio > 1.55)
-		    window.location = "second.html";
-			
-		document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
+		if (ratio > 1.55 && window.location.href.indexOf("index") > 0)
+		    window.location.assign("second.html");
+		
         var myssid = "";
 		var entry = "";
 
