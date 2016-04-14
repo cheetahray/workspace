@@ -19,7 +19,7 @@ function anyscreen(css_urls, successCallback){
     
     /* try to fix screens */
     var dpr = window.devicePixelRatio;
-    notification.alert(dpr);
+    navigator.notification.alert(dpr, alertCallback, "");
 	var viewport = document.createElement("meta");
     viewport.setAttribute("name","viewport");
 

@@ -58,7 +58,7 @@ var app = {
 	                }
                 });
             }
-            notification.alert("網路初步成功" + message, alertCallback, "");
+            navigator.notification.alert("網路初步成功" + message, alertCallback, "");
 		}
 
 		var successid = function(message) {
@@ -78,7 +78,7 @@ var app = {
 
 		var failure = function(err) {
 			document.getElementById("already").value = "0";
-			notification.alert("網路設定失敗" + err, alertCallback, "");
+			navigator.notification.alert("網路設定失敗" + err, alertCallback, "");
 	    }
 
 		WifiWizard.getCurrentSSID(successid, failure);
@@ -244,14 +244,14 @@ var app = {
 		boxSet.addEventListener('touchstart', function(e){
 			if(strncmp(myssid,"bellclass_",10) == false)
     		{
-			    entry = parseInt( notification.prompt('電路板上面貼的標籤寫幾號', promptCallback, "") );
+			    entry = parseInt( navigator.notification.prompt('電路板上面貼的標籤寫幾號', promptCallback, "") );
 			    if (entry != NaN && entry < 255)
 			    {
 				    hello.initialize(myssid + entry, 8888, success, failure);
                 }
             }
             else
-                notification.alert("您已經是在家用模式，想設定請改外部 Wifi", alertCallback, "");
+                navigator.notification.alert("您已經是在家用模式，想設定請改外部 Wifi", alertCallback, "");
 			e.preventDefault();
 		}, false);
 		
@@ -259,7 +259,7 @@ var app = {
 		var successCallback = function(result) {
 		  if (result.type==='sleep') {
 		    finalboxRec();
-			notification.alert("歐 板子的記憶體有限", alertCallback, "");
+			navigator.notification.alert("歐 板子的記憶體有限", alertCallback, "");
 		  } else if (result.type==='countdown') {
 		    console.log('time until sleep: ' + result.timeLeft + ' seconds');
 		  } else {
@@ -269,7 +269,7 @@ var app = {
 		
 		// example of a callback method
 		var errorCallback = function(error) {
-		  notification.alert(error, alertCallback, "");
+		  navigator.notification.alert(error, alertCallback, "");
 		}; 
 
 		anyscreen([''],function() { //(['./css/index.css'],function() {
@@ -299,7 +299,7 @@ var success2 = function(message) {
 }
 	
 var failure2 = function(err) {
-	notification.alert("傳送音符失敗" + err, alertCallback, "");
+	navigator.notification.alert("傳送音符失敗" + err, alertCallback, "");
 }
 
 function sendto(mystr, mynote, theip)
@@ -324,7 +324,7 @@ function mycountdown(mystr) {
 function readyet()
 {
     if (document.getElementById("already").value == "0")
-	    notification.alert("您尚未設置電路板上之標籤號\n請按右上設定", alertCallback, "");
+	    navigator.notification.alert("您尚未設置電路板上之標籤號\n請按右上設定", alertCallback, "");
 	else if (document.getElementById("record").value == "1")
 	{    
 	    $('#runner').runner('reset', true);
