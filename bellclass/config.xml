@@ -50,4 +50,5 @@
     <engine name="android" version="3.6.4" />
     <plugin name="org.nypr.cordova.sleeptimerplugin" spec="https://github.com/wnyc/cordova-plugin-sleeptimer" />
     <plugin name="cordova-plugin-dialogs" spec="~1.2.0" />
+    <plugin name="cordova-plugin-network-information" spec="~1.2.0" />
 </widget>
