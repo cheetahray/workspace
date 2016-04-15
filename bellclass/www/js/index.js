@@ -41,6 +41,17 @@ var success = function (message) {
 
 var successid = function (message) {
     myssid = message;
+    if (strcmp(myssid, "bellclass_")) {
+        hello.initialize("192.168.4.1", 8888, success, failure);
+    }
+    else {
+        networkinterface.getIPAddress(
+            function (ip) {
+                myssid = ip.substring(0, ip.lastIndexOf(".") + 1);
+            }
+        );
+        navigator.notification.prompt('電路板上面貼的標籤寫幾號', onPrompt, '', ['確定', '取消'], '');
+    }
 }
 
 var failure = function (err) {
@@ -94,8 +105,6 @@ var app = {
         var ratio = app.deviceHeight / app.deviceWidth;
         if (ratio > 1.55 && window.location.href.indexOf("index") > 0)
             window.location.assign("second.html");
-
-        WifiWizard.getCurrentSSID(successid, failure);
 
         var boxRec = document.getElementById('REC');
 
@@ -254,18 +263,9 @@ var app = {
         var boxSet = document.getElementById('SET');
 
         boxSet.addEventListener('touchstart', function (e) {
-            if (strcmp(myssid, "bellclass_")) {
-		        hello.initialize("192.168.4.1", 8888, success, failure);
-		    }
-		    else {
-		        networkinterface.getIPAddress(
-		            function (ip) {
-		                myssid = ip.substring(0, ip.lastIndexOf(".") + 1);
-		            });
-                navigator.notification.prompt('電路板上面貼的標籤寫幾號', onPrompt, '', ['確定', '取消'], '');
-		    }
             if (document.getElementById("record").value == "1")
                 finalboxRec();
+            WifiWizard.getCurrentSSID(successid, failure);
             e.preventDefault();
         }, false);
 
@@ -296,6 +296,7 @@ var app = {
 };
 
 var success2 = function (message) {
+    finalcountdown = finalcountdown - 1;
     console.log("傳送音符成功" + message);
 }
 
@@ -317,7 +318,6 @@ function sendto(mystr, mynote, theip) {
 
 function mycountdown(mystr) {
     hello.sendMessage(mystr, success2, failure2);
-    finalcountdown = finalcountdown - 1;
 }
 
 function readyet() {
@@ -364,13 +364,10 @@ function checkConnection() {
 
 function onOffline() {
     document.getElementById("already").value = "0";
-    myssid = "";
-    entry = "";
 }
 
 function onOnline() {
     document.getElementById("already").value = "0";
-    WifiWizard.getCurrentSSID(successid, failure);
 }
 
 app.initialize();
