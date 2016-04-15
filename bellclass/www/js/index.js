@@ -272,7 +272,9 @@ var app = {
         }, false);
 
         document.addEventListener("offline", onOffline, false);
-
+        document.addEventListener("online", onOnline, false);
+        keepscreenon.enable();
+        
         anyscreen([''], function () { //(['./css/index.css'],function() {
 
         });
@@ -364,6 +366,12 @@ function checkConnection() {
 
 function onOffline() {
     document.getElementById("already").value = "0";
+    myssid = "";
+    entry = "";
+}
+
+function onOnline() {
+    WifiWizard.getCurrentSSID(successid, failure);
 }
 
 app.initialize();
