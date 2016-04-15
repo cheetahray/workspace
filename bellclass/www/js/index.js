@@ -41,15 +41,6 @@ var success = function (message) {
 
 var successid = function (message) {
     myssid = message;
-    if (strncmp(myssid, "bellclass_", 10)) {
-        hello.initialize("192.168.4.1", 8888, success, failure);
-    }
-    else {
-        networkinterface.getIPAddress(
-            function (ip) {
-                myssid = ip.substring(0, ip.lastIndexOf(".") + 1);
-            });
-    }
 }
 
 var failure = function (err) {
@@ -263,11 +254,18 @@ var app = {
         var boxSet = document.getElementById('SET');
 
         boxSet.addEventListener('touchstart', function (e) {
-            if (strncmp(myssid, "bellclass_", 10) == false) {
+            if (strcmp(myssid, "bellclass_")) {
+		        hello.initialize("192.168.4.1", 8888, success, failure);
+		    }
+		    else {
+		        networkinterface.getIPAddress(
+		            function (ip) {
+		                myssid = ip.substring(0, ip.lastIndexOf(".") + 1);
+		            });
                 navigator.notification.prompt('電路板上面貼的標籤寫幾號', onPrompt, '', ['確定', '取消'], '');
-            }
-            else
-                navigator.notification.alert("已經是在家裡模式\n如果想設定請請改Wifi成外出模式", alertDismissed, '', '確定');
+		    }
+            if (document.getElementById("record").value == "1")
+                finalboxRec();
             e.preventDefault();
         }, false);
 
@@ -330,8 +328,8 @@ function readyet() {
     }
 }
 
-function strncmp(a, b, n) {
-    return a.substring(0, n) == b.substring(0, n);
+function strcmp(a, b) {
+    return a.indexOf(b) >= 0;
 }
 
 function alertDismissed() {
@@ -371,6 +369,7 @@ function onOffline() {
 }
 
 function onOnline() {
+    document.getElementById("already").value = "0";
     WifiWizard.getCurrentSSID(successid, failure);
 }
 
