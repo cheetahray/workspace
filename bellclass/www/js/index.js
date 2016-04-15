@@ -115,7 +115,7 @@ var app = {
                 readyet();
             else if (document.getElementById("record").value == "0") {
                 boxRec.setAttribute('style', 'background: url(img/2-iphone-layout_iphone.png);');
-                sendto("R", "開錄了", myssid + entry);
+                sendto("R", finalcountdown.toStrong(), myssid + entry);
                 document.getElementById("record").value = "1";
                 finalcountdown = 510;
             }
@@ -126,9 +126,10 @@ var app = {
         }, false);
 
         var finalboxRec = function () {
+            alert("why");
             document.getElementById("record").value = "0";
             boxRec.setAttribute('style', 'background: none;');
-            sendto("Q", "錄完了", myssid + entry);
+            sendto("Q", finalcountdown.toStrong(), myssid + entry);
             $('#runner').runner('reset', true);
         }
 
@@ -144,7 +145,7 @@ var app = {
         boxDoo.addEventListener('touchend', function (e) {
             if (document.getElementById("already").value == "1")
                 boxDoo.setAttribute('style', 'background-color:transparent;');
-            sendto("239", "DO", myssid + entry);
+            sendto("239", finalcountdown.toStrong(), myssid + entry);
             e.preventDefault();
         }, false);
 
@@ -160,7 +161,7 @@ var app = {
         boxTi.addEventListener('touchend', function (e) {
             if (document.getElementById("already").value == "1")
                 boxTi.setAttribute('style', 'background-color:transparent;');
-            sendto("223", "Ti", myssid + entry);
+            sendto("223", finalcountdown.toStrong(), myssid + entry);
             e.preventDefault();
         }, false);
 
@@ -176,7 +177,7 @@ var app = {
         boxLa.addEventListener('touchend', function (e) {
             if (document.getElementById("already").value == "1")
                 boxLa.setAttribute('style', 'background-color:transparent;');
-            sendto("207", "La", myssid + entry);
+            sendto("207", finalcountdown.toStrong(), myssid + entry);
             e.preventDefault();
         }, false);
 
@@ -192,7 +193,7 @@ var app = {
         boxSo.addEventListener('touchend', function (e) {
             if (document.getElementById("already").value == "1")
                 boxSo.setAttribute('style', 'background-color:transparent;');
-            sendto("191", "So", myssid + entry);
+            sendto("191", finalcountdown.toStrong(), myssid + entry);
             e.preventDefault();
         }, false);
 
@@ -208,7 +209,7 @@ var app = {
         boxFa.addEventListener('touchend', function (e) {
             if (document.getElementById("already").value == "1")
                 boxFa.setAttribute('style', 'background-color:transparent;');
-            sendto("175", "Fa", myssid + entry);
+            sendto("175", finalcountdown.toStrong(), myssid + entry);
             e.preventDefault();
         }, false);
 
@@ -224,7 +225,7 @@ var app = {
         boxMi.addEventListener('touchend', function (e) {
             if (document.getElementById("already").value == "1")
                 boxMi.setAttribute('style', 'background-color:transparent;');
-            sendto("159", "Mi", myssid + entry);
+            sendto("159", finalcountdown.toStrong(), myssid + entry);
             e.preventDefault();
         }, false);
 
@@ -240,7 +241,7 @@ var app = {
         boxRe.addEventListener('touchend', function (e) {
             if (document.getElementById("already").value == "1")
                 boxRe.setAttribute('style', 'background-color:transparent;');
-            sendto("143", "Re", myssid + entry);
+            sendto("143", finalcountdown.toStrong(), myssid + entry);
             e.preventDefault();
         }, false);
 
@@ -256,7 +257,7 @@ var app = {
         boxDo.addEventListener('touchend', function (e) {
             if (document.getElementById("already").value == "1")
                 boxDo.setAttribute('style', 'background-color:transparent;');
-            sendto("127", "Do", myssid + entry);
+            sendto("127", finalcountdown.toStrong(), myssid + entry);
             e.preventDefault();
         }, false);
 
@@ -296,7 +297,6 @@ var app = {
 };
 
 var success2 = function (message) {
-    finalcountdown = finalcountdown - 1;
     console.log("傳送音符成功" + message);
 }
 
@@ -318,6 +318,7 @@ function sendto(mystr, mynote, theip) {
 
 function mycountdown(mystr) {
     hello.sendMessage(mystr, success2, failure2);
+    finalcountdown = finalcountdown - 1;
 }
 
 function readyet() {
