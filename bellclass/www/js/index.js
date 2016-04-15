@@ -5,36 +5,6 @@ var entry = "";
 var success = function (message) {
     if (document.getElementById("already").value == "0") {
         document.getElementById("already").value = "1";
-        var addevt = $('#runner').runner();
-        addevt.on('runnerStop', function (eventObject, info) {
-            if (document.getElementById("record").value == "1") {
-                var noway = $('#runner').runner('lap');
-                var iflarge8 = parseFloat(noway);
-                while (iflarge8 > 8.0) {
-                    mycountdown("121");
-                    iflarge8 = iflarge8 - 8;
-                }
-                noway = iflarge8.toString();
-                var pointpos = noway.indexOf(".");
-                if (pointpos > -1) {
-                    var first = parseInt(noway.substring(0, pointpos)) << 4;
-                    var second = parseInt(noway.substring(pointpos + 1, pointpos + 2)) + first;
-                    mycountdown(second.toString());
-                }
-
-                if (finalcountdown <= 0) {
-                    finalcountdown = 1;
-                    window.sleeptimer.sleep(
-                        successCallback,
-                        errorCallback,
-                        {
-                            'sleep': 1, // sleep in 5 minutes/300 seconds
-                            'countdown': false // if true, send time-to-sleep countdown from native to javascript
-                        }
-                    );
-                }
-            }
-        });
     }
     navigator.notification.alert("網路初步成功" + message, alertDismissed, '', '確定');
 }
@@ -269,8 +239,39 @@ var app = {
         if (ratio > 1.55 && window.location.href.indexOf("index") > 0)
             window.location.assign("second.html");
 
-        document.addEventListener("offline", onOffline, false);
-        document.addEventListener("online", onOnline, false);
+        var addevt = $('#runner').runner();
+        addevt.on('runnerStop', function (eventObject, info) {
+            if (document.getElementById("record").value == "1") {
+                var noway = $('#runner').runner('lap');
+                var iflarge8 = parseFloat(noway);
+                while (iflarge8 > 8.0) {
+                    mycountdown("121");
+                    iflarge8 = iflarge8 - 8;
+                }
+                noway = iflarge8.toString();
+                var pointpos = noway.indexOf(".");
+                if (pointpos > -1) {
+                    var first = parseInt(noway.substring(0, pointpos)) << 4;
+                    var second = parseInt(noway.substring(pointpos + 1, pointpos + 2)) + first;
+                    mycountdown(second.toString());
+                }
+
+                if (finalcountdown <= 0) {
+                    finalcountdown = 1;
+                    window.sleeptimer.sleep(
+                        successCallback,
+                        errorCallback,
+                        {
+                            'sleep': 1, // sleep in 5 minutes/300 seconds
+                            'countdown': false // if true, send time-to-sleep countdown from native to javascript
+                        }
+                    );
+                }
+            }
+        });
+
+        //document.addEventListener("offline", onOffline, false);
+        //document.addEventListener("online", onOnline, false);
         keepscreenon.enable();
 
         anyscreen([''], function () { //(['./css/index.css'],function() {
