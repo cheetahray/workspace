@@ -59,23 +59,6 @@ var failure = function (err) {
     navigator.notification.alert("網路設定失敗" + err, alertDismissed, '', '確定');
 }
 
-// example of a callback method
-var successCallback = function (result) {
-    if (result.type === 'sleep') {
-        finalboxRec();
-        navigator.notification.alert("不好意思板子的記憶體有限", alertDismissed, '', '確定');
-    } else if (result.type === 'countdown') {
-        console.log('time until sleep: ' + result.timeLeft + ' seconds');
-    } else {
-        console.log('unhandled type (' + result.type + ')');
-    }
-};
-
-// example of a callback method
-var errorCallback = function (error) {
-    navigator.notification.alert(error, alertDismissed, '', '確定');
-};
-
 var app = {
     // Application Constructor
     initialize: function () {
@@ -268,6 +251,23 @@ var app = {
             WifiWizard.getCurrentSSID(successid, failure);
             e.preventDefault();
         }, false);
+
+        // example of a callback method
+        var successCallback = function (result) {
+            if (result.type === 'sleep') {
+                finalboxRec();
+                navigator.notification.alert("不好意思板子的記憶體有限", alertDismissed, '', '確定');
+            } else if (result.type === 'countdown') {
+                console.log('time until sleep: ' + result.timeLeft + ' seconds');
+            } else {
+                console.log('unhandled type (' + result.type + ')');
+            }
+        };
+
+        // example of a callback method
+        var errorCallback = function (error) {
+            navigator.notification.alert(error, alertDismissed, '', '確定');
+        };
 
         document.addEventListener("offline", onOffline, false);
         document.addEventListener("online", onOnline, false);
