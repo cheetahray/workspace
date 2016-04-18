@@ -41,7 +41,11 @@
                                 }
                             }
                         };
-                        alert(result['e']);
+                        navigator.notification.alert(result['e'],  // message
+                                alertDismissed,         // callback
+                                '',            // title
+                                '确定'                  // buttonName
+                        );
                         var successFn = function (count) {
                             console.log("Successfully imported JSON to DB; equivalent to " + count + " SQL statements");
                             window.location = "member.html";
@@ -60,7 +64,11 @@
                         });
                     }
                     else if (result['num'] == '0') {
-                        alert(result['e']);
+                        navigator.notification.alert(result['e'],  // message
+                                alertDismissed,         // callback
+                                '',            // title
+                                '确定'                  // buttonName
+                        );
                     }
                 },
                 error: function (jqXHR, exception) {
@@ -81,7 +89,11 @@
                     } else {
                         msg = '不知名的错误\n' + jqXHR.responseText;
                     }
-                    alert(msg);
+                    navigator.notification.alert(msg,  // message
+                            alertDismissed,         // callback
+                            '',            // title
+                            '确定'                  // buttonName
+                    );
                 }
             });
             return false; // keeps the page from not refreshing 

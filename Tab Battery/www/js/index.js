@@ -16,6 +16,7 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
+        keepscreenon.enable();
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
@@ -25,10 +26,14 @@ var app = {
         var receivedElement = parentElement.querySelector('.received');
 
         listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
     }
 };
+
+function alertDismissed() {
+    // do something
+}
 
 app.initialize();
