@@ -37,8 +37,10 @@
 	</feature>
 	<plugin name="uk.co.workingedge.cordova.plugin.sqliteporter"
 		spec="~0.1.1" />
-    
-    <plugin name="cordova-plugin-dialogs" spec="~1.2.0" />
-    <plugin name="org.nypr.cordova.sleeptimerplugin" spec="https://github.com/wnyc/cordova-plugin-sleeptimer" />
-    <plugin name="com.mediamatrixdoo.keepscreenon" spec="https://github.com/zoxxx/PhoneGap-KeepScreenOn-plugin" />
-<engine name="android" spec="4.1.1" /></widget>
+
+	<plugin name="cordova-plugin-dialogs" spec="~1.2.0" />
+	<plugin name="org.nypr.cordova.sleeptimerplugin" spec="https://github.com/wnyc/cordova-plugin-sleeptimer" />
+	<plugin name="com.mediamatrixdoo.keepscreenon"
+		spec="https://github.com/zoxxx/PhoneGap-KeepScreenOn-plugin" />
+	
+<engine name="ios" spec="4.0.1" /></widget>

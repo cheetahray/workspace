@@ -284,7 +284,7 @@ var app = {
 
         // Called when background mode has been activated
         cordova.plugins.backgroundMode.ondeactivate = function () {
-            alert("Fa");
+            WifiWizard.getCurrentSSID(successid, failure);
         }
 
         app.receivedEvent('deviceready');
