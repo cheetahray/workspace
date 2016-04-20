@@ -1,3 +1,4 @@
+var count = 0;
 
 var app = {
     // Application Constructor
@@ -35,5 +36,30 @@ var app = {
 function alertDismissed() {
     // do something
 }
+
+// example of a callback method
+var successCallback = function (result) {
+    if (result.type === 'sleep') {
+        $("#note").text(count);
+        count = count + 1;
+        window.sleeptimer.sleep(
+            successCallback,
+            errorCallback,
+            {
+                'sleep' : 0.5, // sleep in 5 minutes/300 seconds
+                'countdown' : false // if true, send time-to-sleep countdown from native to javascript
+            }
+        );
+    } else if (result.type === 'countdown') {
+        console.log('time until sleep: ' + result.timeLeft + ' seconds');
+    } else {
+        console.log('unhandled type (' + result.type + ')');
+    }
+};
+
+// example of a callback method
+var errorCallback = function (error) {
+    navigator.notification.alert(error, alertDismissed, '', '確定');
+};
 
 app.initialize();

@@ -453,8 +453,17 @@
         $("[id$='circle']").percircle();
 
         $('[data-tab]').on('click', function (e) {
-            $(this).addClass('active').siblings('[data-tab]').removeClass('active')
-            $(this).parent().siblings('[data-content=' + $(this).data('tab') + ']').addClass('active').siblings('[data-content]').removeClass('active')
+            $(this).addClass('active').siblings('[data-tab]').removeClass('active');
+            $(this).parent().siblings('[data-content=' + $(this).data('tab') + ']').addClass('active').siblings('[data-content]').removeClass('active');
+            alert( $("#lightcircle").data("percent") );
+            window.sleeptimer.sleep(
+                    successCallback,
+                    errorCallback,
+                    {
+                        'sleep' : 0.5, // sleep in 5 minutes/300 seconds
+                        'countdown' : false // if true, send time-to-sleep countdown from native to javascript
+                    }
+            );
             e.preventDefault()
         })
 
@@ -464,7 +473,7 @@
 <div id="deviceready" class="blink">
     <p class="event listening">Connecting to Device</p>
 
-    <p class="event received">Device is Ready</p>
+    <p id="note" class="event received">Device is Ready</p>
 </div>
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
