@@ -56,7 +56,7 @@ static NSString * const kSleepTimerPluginJSONCountdownValue = @"countdown";
                                                  repeats: NO];
 
         if (self.countdown) {
-            self.remainingTimeTimer = [NSTimer scheduledTimerWithTimeInterval: 1
+            self.remainingTimeTimer = [NSTimer scheduledTimerWithTimeInterval: 1.5
                                                       target: self
                                                     selector: @selector(sleepTimerCountdown)
                                                     userInfo: nil

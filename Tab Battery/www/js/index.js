@@ -1,4 +1,6 @@
+var nowid = "";
 var count = 0;
+var myVar;
 
 var app = {
     // Application Constructor
@@ -18,6 +20,8 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         keepscreenon.enable();
+        count = parseInt( $("#1circle").attr('data-percent') );
+        $("#1circle").percircle();
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
@@ -38,24 +42,15 @@ function alertDismissed() {
 }
 
 // example of a callback method
-var successCallback = function (result) {
-    if (result.type === 'sleep') {
-        $("#note").text(count);
-        count = count + 1;
-        window.sleeptimer.sleep(
-            successCallback,
-            errorCallback,
-            {
-                'sleep' : 0.5, // sleep in 5 minutes/300 seconds
-                'countdown' : false // if true, send time-to-sleep countdown from native to javascript
-            }
-        );
-    } else if (result.type === 'countdown') {
-        console.log('time until sleep: ' + result.timeLeft + ' seconds');
-    } else {
-        console.log('unhandled type (' + result.type + ')');
-    }
-};
+var successCallback = function(result) {
+  if (result.type==='sleep') {
+    console.log('do something like stop audio playback');
+  } else if (result.type==='countdown') {
+    console.log('time until sleep: ' + result.timeLeft + ' seconds');
+  } else {
+    console.log('unhandled type (' + result.type + ')');
+  }
+}; 
 
 // example of a callback method
 var errorCallback = function (error) {

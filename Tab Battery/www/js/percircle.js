@@ -38,7 +38,47 @@
             
             var percent = percircle.attr('data-percent') || options.percent || 0;
             var perclock = percircle.attr('data-perclock') || options.perclock || 0;
-            if (!perclock) {
+
+            if (percircle.attr('data-text').indexOf("icon-flash") > 0) {
+                if (!percircle.hasClass('perclock')) percircle.addClass('perclock');
+
+                myVar = setInterval(function(){
+                    var text = percircle.attr('data-text') || options.text || percent + '%';
+                    percircle.html('<span>'+text+'</span>');
+                    // add divs for structure
+                    $('<div class="slice"><div class="bar"></div><div class="fill"></div></div>').appendTo(percircle);
+                    if (count == percent)
+                        count = 0;
+                    else if (count == 0 && percent % 10 != 0)
+                        count = percent % 10;
+                    else if (percent - count < 10)
+                        count = percent;
+                    else
+                        count = count + 10;
+                    //var seconds = d.getSeconds();
+                    if (count > 50){
+                        percircle.addClass('gt50');
+                        $('.bar', percircle).css({
+                            '-webkit-transform' : 'rotate(180deg)',
+                            '-moz-transform'    : 'rotate(180deg)',
+                            '-ms-transform'     : 'rotate(180deg)',
+                            '-o-transform'      : 'rotate(180deg)',
+                            'transform'         : 'rotate(180deg)'
+                        });
+                    }
+                    else
+                        percircle.removeClass('gt50');
+                    var rotationDegrees = 3.6 * count;  // temporary clockwise rotation value
+                    $('.bar', percircle).css({
+                        '-webkit-transform' : 'rotate(' + rotationDegrees + 'deg)',
+                        '-moz-transform'    : 'rotate(' + rotationDegrees + 'deg)',
+                        '-ms-transform'     : 'rotate(' + rotationDegrees + 'deg)',
+                        '-o-transform'      : 'rotate(' + rotationDegrees + 'deg)',
+                        'transform'         : 'rotate(' + rotationDegrees + 'deg)'
+                    });
+                }, 1000);
+            }
+            else if (!perclock) {
                 if (percent > 50) percircle.addClass('gt50');
                 var text = percircle.attr('data-text') || options.text || percent + '%';
                 $('<span>'+text+'</span>').appendTo(percircle);

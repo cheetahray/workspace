@@ -30,7 +30,7 @@
 <div data-content="b1" class="content active">
     <div class="dark-area clearfix">
         <div class="clearfix">
-            <div id="lightcircle" data-text="0%<br/><i class='icon-flash'></i>" data-percent="0"></div>
+            <div id="1circle" data-text="0%<br/><i class='icon-flash'></i>" data-percent="0" data-animate="false"></div>
         </div>
     </div>
     <div class="wrapper">
@@ -114,7 +114,7 @@
 <div data-content="b2" class="content">
     <div class="dark-area clearfix">
         <div class="clearfix">
-            <div id="lightcircle" data-text="20%<br/><i class='icon-flash'></i>" data-percent="20"></div>
+            <div id="2circle" data-text="20%<br/><i class='icon-flash'></i>" data-percent="20" data-animate="false"></div>
         </div>
     </div>
     <div class="wrapper">
@@ -198,7 +198,7 @@
 <div data-content="b3" class="content">
     <div class="dark-area clearfix">
         <div class="clearfix">
-            <div id="lightcircle" data-text="43%<br/><i class='icon-flash'></i>" data-percent="43"></div>
+            <div id="3circle" data-text="43%<br/><i class='icon-flash'></i>" data-percent="43" data-animate="false"></div>
         </div>
     </div>
     <div class="wrapper">
@@ -282,7 +282,7 @@
 <div data-content="b4" class="content">
     <div class="dark-area clearfix">
         <div class="clearfix">
-            <div id="lightcircle" data-text="75%<br/><i class='icon-flash'></i>" data-percent="75"></div>
+            <div id="4circle" data-text="75%<br/><i class='icon-flash'></i>" data-percent="75" data-animate="false"></div>
         </div>
     </div>
     <div class="wrapper">
@@ -366,7 +366,7 @@
 <div data-content="b5" class="content">
     <div class="dark-area clearfix">
         <div class="clearfix">
-            <div id="lightcircle" data-text="100%" data-percent="100"></div>
+            <div id="5circle" data-text="100%" data-percent="100" data-animate="false"></div>
         </div>
     </div>
     <div class="wrapper">
@@ -450,20 +450,15 @@
 <script>
     $(function () {
 
-        $("[id$='circle']").percircle();
+        //$("[id$='circle']").percircle();
 
         $('[data-tab]').on('click', function (e) {
+            clearInterval(myVar);
             $(this).addClass('active').siblings('[data-tab]').removeClass('active');
             $(this).parent().siblings('[data-content=' + $(this).data('tab') + ']').addClass('active').siblings('[data-content]').removeClass('active');
-            alert( $("#lightcircle").data("percent") );
-            window.sleeptimer.sleep(
-                    successCallback,
-                    errorCallback,
-                    {
-                        'sleep' : 0.5, // sleep in 5 minutes/300 seconds
-                        'countdown' : false // if true, send time-to-sleep countdown from native to javascript
-                    }
-            );
+            nowid = "#" + $(this).data('tab').substr(1,2) + "circle";
+            count = parseInt( $(nowid).attr('data-percent') );
+            $(nowid).percircle();
             e.preventDefault()
         })
 

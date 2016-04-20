@@ -33,9 +33,9 @@ public class SleepTimerPlugin extends CordovaPlugin {
 				Log.d(LOG_TAG, "SleepTimer Plugin sleeping...");
 				JSONObject options = args.getJSONObject(0);
 				
-				int seconds = 0;
+				long seconds = 0;
 				if (options.has("sleep")) {
-					seconds = options.getInt("sleep");
+					seconds = options.getLong("sleep");
 				}
 				
 				boolean _countdown = false;
@@ -83,8 +83,8 @@ public class SleepTimerPlugin extends CordovaPlugin {
 									    }
 									}
 								},
-								1000,
-								1000);
+								1500,
+								1500);
 					}
 				}
 				
