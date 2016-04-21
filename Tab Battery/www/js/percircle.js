@@ -43,18 +43,19 @@
                 if (!percircle.hasClass('perclock')) percircle.addClass('perclock');
 
                 myVar = setInterval(function(){
+                    var each = 10;
                     var text = percircle.attr('data-text') || options.text || percent + '%';
                     percircle.html('<span>'+text+'</span>');
                     // add divs for structure
                     $('<div class="slice"><div class="bar"></div><div class="fill"></div></div>').appendTo(percircle);
                     if (count == percent)
                         count = 0;
-                    else if (count == 0 && percent % 10 != 0)
-                        count = percent % 10;
-                    else if (percent - count < 10)
+                    else if (count == 0 && percent % each != 0)
+                        count = percent % each;
+                    else if (percent - count < each)
                         count = percent;
                     else
-                        count = count + 10;
+                        count = count + each;
                     //var seconds = d.getSeconds();
                     if (count > 50){
                         percircle.addClass('gt50');
