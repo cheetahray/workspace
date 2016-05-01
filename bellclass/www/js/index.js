@@ -1,12 +1,15 @@
 var finalcountdown = 1;
 var myssid = "";
 var entry = "";
-
+var language = "";
 var success = function (message) {
     if (document.getElementById("already").value == "0") {
         document.getElementById("already").value = "1";
     }
-    navigator.notification.alert("網路初步成功" + message, alertDismissed, '', '確定');
+    if (language == "zh-TW")
+        navigator.notification.alert("網路初步成功" + message, alertDismissed, '', '確定');
+    else if (language == "zh-CN")
+        navigator.notification.alert("网路初步成功" + message, alertDismissed, '', '确定');
 }
 
 var successid = function (message) {
@@ -20,13 +23,19 @@ var successid = function (message) {
                 myssid = ip.substring(0, ip.lastIndexOf(".") + 1);
             }
         );
-        navigator.notification.prompt('電路板上面貼的標籤寫幾號', onPrompt, '', ['確定', '取消'], '');
+        if (language == "zh-TW")
+            navigator.notification.prompt('電路板上面貼的標籤寫幾號', onPrompt, '', ['確定', '取消'], '');
+        else if (language == "zh-CN")
+            navigator.notification.prompt('电路板上面贴的标签写几号', onPrompt, '', ['确定', '取消'], '');
     }
 }
 
 var failure = function (err) {
     document.getElementById("already").value = "0";
-    navigator.notification.alert("網路設定失敗" + err, alertDismissed, '', '確定');
+    if (language == "zh-TW")
+        navigator.notification.alert("網路設定失敗" + err, alertDismissed, '', '確定');
+    else if (language == "zh-CN")
+        navigator.notification.alert("网路设定失败" + err, alertDismissed, '', '确定');
 }
 
 var boxRec = document.getElementById('REC');
@@ -34,13 +43,15 @@ var boxRec = document.getElementById('REC');
 boxRec.addEventListener('touchstart', function (e) {
     //var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
     //startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
-    if (document.getElementById("already").value == "0")
-        readyet();
-    else if (document.getElementById("record").value == "0") {
-        boxRec.setAttribute('style', 'background: url(img/2-iphone-layout_iphone.png);');
-        sendto("R", finalcountdown.toString(), myssid + entry);
-        document.getElementById("record").value = "1";
-        finalcountdown = 510;
+    if (document.getElementById("record").value == "0") {
+        readyet("R");
+        if (document.getElementById("already").value == "1")
+        {
+            boxRec.setAttribute('style', 'background: url(img/2-iphone-layout_iphone.png);');
+            sendto(finalcountdown.toString());
+            document.getElementById("record").value = "1";
+            finalcountdown = 510;
+        }
     }
     else {
         finalboxRec();
@@ -51,14 +62,15 @@ boxRec.addEventListener('touchstart', function (e) {
 var finalboxRec = function () {
     document.getElementById("record").value = "0";
     boxRec.setAttribute('style', 'background: none;');
-    sendto("Q", finalcountdown.toString(), myssid + entry);
+    readyet("Q");
+    sendto(finalcountdown.toString());
     $('#runner').runner('reset', true);
 }
 
 var boxDoo = document.getElementById('DOO');
 
 boxDoo.addEventListener('touchstart', function (e) {
-    readyet();
+    readyet("239");
     if (document.getElementById("already").value == "1")
         boxDoo.setAttribute('style', 'background-color:#B6221E;');
     e.preventDefault();
@@ -67,14 +79,14 @@ boxDoo.addEventListener('touchstart', function (e) {
 boxDoo.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxDoo.setAttribute('style', 'background-color:transparent;');
-    sendto("239", finalcountdown.toString(), myssid + entry);
+    sendto(finalcountdown.toString());
     e.preventDefault();
 }, false);
 
 var boxTi = document.getElementById('TI');
 
 boxTi.addEventListener('touchstart', function (e) {
-    readyet();
+    readyet("223");
     if (document.getElementById("already").value == "1")
         boxTi.setAttribute('style', 'background-color:#CA27D3;');
     e.preventDefault();
@@ -83,14 +95,14 @@ boxTi.addEventListener('touchstart', function (e) {
 boxTi.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxTi.setAttribute('style', 'background-color:transparent;');
-    sendto("223", finalcountdown.toString(), myssid + entry);
+    sendto(finalcountdown.toString());
     e.preventDefault();
 }, false);
 
 var boxLa = document.getElementById('LA');
 
 boxLa.addEventListener('touchstart', function (e) {
-    readyet();
+    readyet("207");
     if (document.getElementById("already").value == "1")
         boxLa.setAttribute('style', 'background-color:#233AB9;');
     e.preventDefault();
@@ -99,14 +111,14 @@ boxLa.addEventListener('touchstart', function (e) {
 boxLa.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxLa.setAttribute('style', 'background-color:transparent;');
-    sendto("207", finalcountdown.toString(), myssid + entry);
+    sendto(finalcountdown.toString());
     e.preventDefault();
 }, false);
 
 var boxSo = document.getElementById('SO');
 
 boxSo.addEventListener('touchstart', function (e) {
-    readyet();
+    readyet("191");
     if (document.getElementById("already").value == "1")
         boxSo.setAttribute('style', 'background-color:#2CC8C7;');
     e.preventDefault();
@@ -115,14 +127,14 @@ boxSo.addEventListener('touchstart', function (e) {
 boxSo.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxSo.setAttribute('style', 'background-color:transparent;');
-    sendto("191", finalcountdown.toString(), myssid + entry);
+    sendto(finalcountdown.toString());
     e.preventDefault();
 }, false);
 
 var boxFa = document.getElementById('FA');
 
 boxFa.addEventListener('touchstart', function (e) {
-    readyet();
+    readyet("175");
     if (document.getElementById("already").value == "1")
         boxFa.setAttribute('style', 'background-color:#3CD12F;');
     e.preventDefault();
@@ -131,14 +143,14 @@ boxFa.addEventListener('touchstart', function (e) {
 boxFa.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxFa.setAttribute('style', 'background-color:transparent;');
-    sendto("175", finalcountdown.toString(), myssid + entry);
+    sendto(finalcountdown.toString());
     e.preventDefault();
 }, false);
 
 var boxMi = document.getElementById('MI');
 
 boxMi.addEventListener('touchstart', function (e) {
-    readyet();
+    readyet("159");
     if (document.getElementById("already").value == "1")
         boxMi.setAttribute('style', 'background-color:#D1D62E;');
     e.preventDefault();
@@ -147,14 +159,14 @@ boxMi.addEventListener('touchstart', function (e) {
 boxMi.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxMi.setAttribute('style', 'background-color:transparent;');
-    sendto("159", finalcountdown.toString(), myssid + entry);
+    sendto(finalcountdown.toString());
     e.preventDefault();
 }, false);
 
 var boxRe = document.getElementById('RE');
 
 boxRe.addEventListener('touchstart', function (e) {
-    readyet();
+    readyet("143");
     if (document.getElementById("already").value == "1")
         boxRe.setAttribute('style', 'background-color:#D5922E;');
     e.preventDefault();
@@ -163,14 +175,14 @@ boxRe.addEventListener('touchstart', function (e) {
 boxRe.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxRe.setAttribute('style', 'background-color:transparent;');
-    sendto("143", finalcountdown.toString(), myssid + entry);
+    sendto(finalcountdown.toString());
     e.preventDefault();
 }, false);
 
 var boxDo = document.getElementById('DO');
 
 boxDo.addEventListener('touchstart', function (e) {
-    readyet();
+    readyet("127");
     if (document.getElementById("already").value == "1")
         boxDo.setAttribute('style', 'background-color:#BE2E2B;');
     e.preventDefault();
@@ -179,7 +191,7 @@ boxDo.addEventListener('touchstart', function (e) {
 boxDo.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxDo.setAttribute('style', 'background-color:transparent;');
-    sendto("127", finalcountdown.toString(), myssid + entry);
+    sendto(finalcountdown.toString());
     e.preventDefault();
 }, false);
 
@@ -196,7 +208,10 @@ boxSet.addEventListener('touchstart', function (e) {
 var successCallback = function (result) {
     if (result.type === 'sleep') {
         finalboxRec();
-        navigator.notification.alert("不好意思板子的記憶體有限", alertDismissed, '', '確定');
+        if (language == "zh-TW")
+            navigator.notification.alert("不好意思板子的記憶體有限", alertDismissed, '', '確定');
+        else if (language == "zh-CN")
+            navigator.notification.alert("不好意思板子的记忆模块有限", alertDismissed, '', '确定');
     } else if (result.type === 'countdown') {
         console.log('time until sleep: ' + result.timeLeft + ' seconds');
     } else {
@@ -206,7 +221,10 @@ var successCallback = function (result) {
 
 // example of a callback method
 var errorCallback = function (error) {
-    navigator.notification.alert(error, alertDismissed, '', '確定');
+    if (language == "zh-TW")
+        navigator.notification.alert(error, alertDismissed, '', '確定');
+    else if (language == "zh-CN")
+        navigator.notification.alert(error, alertDismissed, '', '确定');
 };
 
 var app = {
@@ -240,35 +258,6 @@ var app = {
             window.location.assign("second.html");
 
         var addevt = $('#runner').runner();
-        addevt.on('runnerStop', function (eventObject, info) {
-            if (document.getElementById("record").value == "1") {
-                var noway = $('#runner').runner('lap');
-                var iflarge8 = parseFloat(noway);
-                while (iflarge8 > 8.0) {
-                    mycountdown("121");
-                    iflarge8 = iflarge8 - 8;
-                }
-                noway = iflarge8.toString();
-                var pointpos = noway.indexOf(".");
-                if (pointpos > -1) {
-                    var first = parseInt(noway.substring(0, pointpos)) << 4;
-                    var second = parseInt(noway.substring(pointpos + 1, pointpos + 2)) + first;
-                    mycountdown(second.toString());
-                }
-
-                if (finalcountdown <= 0) {
-                    finalcountdown = 1;
-                    window.sleeptimer.sleep(
-                        successCallback,
-                        errorCallback,
-                        {
-                            'sleep': 1, // sleep in 5 minutes/300 seconds
-                            'countdown': false // if true, send time-to-sleep countdown from native to javascript
-                        }
-                    );
-                }
-            }
-        });
 
         //document.addEventListener("offline", onOffline, false);
         //document.addEventListener("online", onOnline, false);
@@ -286,6 +275,11 @@ var app = {
         cordova.plugins.backgroundMode.ondeactivate = function () {
             WifiWizard.getCurrentSSID(successid, failure);
         }
+
+        navigator.globalization.getLocaleName(
+            function (locale) { language = locale.value; },
+            function () { navigator.nofification.alert('Error getting locale\n'); }
+        );
 
         app.receivedEvent('deviceready');
     },
@@ -308,15 +302,17 @@ var success2 = function (message) {
 }
 
 var failure2 = function (err) {
-    navigator.notification.alert("傳送音符失敗" + err, alertDismissed, '', '確定');
+    if (language == "zh-TW")
+        navigator.notification.alert("傳送音符失敗" + err, alertDismissed, '', '確定');
+    else if (language == "zh-CN")
+        navigator.notification.alert("传送音符失败" + err, alertDismissed, '', '确定');
 }
 
-function sendto(mystr, mynote, theip) {
+function sendto(mynote) {
     //if ( theip.charAt(theip.length-1) == "." )
     //document.getElementById("already").value = "0";
     //else
     if (document.getElementById("already").value == "1") {
-        mycountdown(mystr);
         if (document.getElementById("record").value == "1")
             $('#runner').runner('start');
     }
@@ -328,11 +324,45 @@ function mycountdown(mystr) {
     finalcountdown = finalcountdown - 1;
 }
 
-function readyet() {
+function readyet(mystr) {
     if (document.getElementById("already").value == "0")
-        navigator.notification.alert("您尚未設置電路板上之標籤號\n請按右上設定", alertDismissed, '', '確定');
-    else if (document.getElementById("record").value == "1") {
-        $('#runner').runner('reset', true);
+    {
+        if (language == "zh-TW")
+            navigator.notification.alert("您尚未設置電路板上之標籤號\n請按右上設定", alertDismissed, '', '確定');
+        else if (language == "zh-CN")
+            navigator.notification.alert("您尚未设置电路板上之标签号\n请按右上设定", alertDismissed, '', '确定');
+    }
+    else
+    {
+        if (document.getElementById("record").value == "1") {
+            var noway = $('#runner').runner('lap');
+            var iflarge8 = parseFloat(noway);
+            while (iflarge8 > 8.0) {
+                mycountdown("121");
+                iflarge8 = iflarge8 - 8;
+            }
+            noway = iflarge8.toString();
+            var pointpos = noway.indexOf(".");
+            if (pointpos > -1) {
+                var first = parseInt(noway.substring(0, pointpos)) << 4;
+                var second = parseInt(noway.substring(pointpos + 1, pointpos + 2)) + first;
+                mycountdown(second.toString());
+            }
+
+            if (finalcountdown <= 0) {
+                finalcountdown = 1;
+                window.sleeptimer.sleep(
+                    successCallback,
+                    errorCallback,
+                    {
+                        'sleep': 1, // sleep in 5 minutes/300 seconds
+                        'countdown': false // if true, send time-to-sleep countdown from native to javascript
+                    }
+                );
+            }
+            $('#runner').runner('reset', true);
+        }
+        mycountdown(mystr);
     }
 }
 
@@ -351,7 +381,6 @@ function onPrompt(results) {
             hello.initialize(myssid + entry, 8888, success, failure);
         }
     }
-    //alert("You selected button number " + results.buttonIndex + " and entered " + results.input1);
 }
 
 function checkConnection() {
@@ -367,7 +396,7 @@ function checkConnection() {
     states[Connection.CELL]     = 'Cell generic connection';
     states[Connection.NONE]     = 'No network connection';
 
-    alert('Connection type: ' + states[networkState]);
+    navigator.notification.alert('Connection type: ' + states[networkState]);
 }
 
 function onOffline() {
