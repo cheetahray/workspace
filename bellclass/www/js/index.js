@@ -10,12 +10,15 @@ var success = function (message) {
         navigator.notification.alert("網路初步成功" + message, alertDismissed, '', '確定');
     else if (language == "zh-CN")
         navigator.notification.alert("网路初步成功" + message, alertDismissed, '', '确定');
+    else
+        navigator.notification.alert("Network seems ready." + message, alertDismissed, '', 'OK');
 }
 
 var successid = function (message) {
     myssid = message;
-    if (strcmp(myssid, "bellclass_")) {
-        hello.initialize("192.168.4.1", 8888, success, failure);
+    if (strcmp(myssid, "bellclass_"))
+    {
+        cordova.InAppBrowser.open('http://192.168.4.1', '_blank', 'location=yes'); //hello.initialize("192.168.4.1", 8888, success3, failure);
     }
     else {
         networkinterface.getIPAddress(
@@ -27,6 +30,8 @@ var successid = function (message) {
             navigator.notification.prompt('電路板上面貼的標籤寫幾號', onPrompt, '', ['確定', '取消'], '');
         else if (language == "zh-CN")
             navigator.notification.prompt('电路板上面贴的标签写几号', onPrompt, '', ['确定', '取消'], '');
+        else
+            navigator.notification.prompt('What number on a stick of your motherboard?', onPrompt, '', ['OK', 'Cancel'], '');
     }
 }
 
@@ -36,6 +41,8 @@ var failure = function (err) {
         navigator.notification.alert("網路設定失敗" + err, alertDismissed, '', '確定');
     else if (language == "zh-CN")
         navigator.notification.alert("网路设定失败" + err, alertDismissed, '', '确定');
+    else
+        navigator.notification.alert("Network fails." + err, alertDismissed, '', 'OK');
 }
 
 var boxRec = document.getElementById('REC');
@@ -50,7 +57,7 @@ boxRec.addEventListener('touchstart', function (e) {
             boxRec.setAttribute('style', 'background: url(img/2-iphone-layout_iphone.png);');
             sendto(finalcountdown.toString());
             document.getElementById("record").value = "1";
-            finalcountdown = 510;
+            finalcountdown = 478;
         }
     }
     else {
@@ -212,6 +219,8 @@ var successCallback = function (result) {
             navigator.notification.alert("不好意思板子的記憶體有限", alertDismissed, '', '確定');
         else if (language == "zh-CN")
             navigator.notification.alert("不好意思板子的记忆模块有限", alertDismissed, '', '确定');
+        else
+            navigator.notification.alert("We are sorry that memory size is limited.", alertDismissed, '', 'OK');
     } else if (result.type === 'countdown') {
         console.log('time until sleep: ' + result.timeLeft + ' seconds');
     } else {
@@ -225,6 +234,8 @@ var errorCallback = function (error) {
         navigator.notification.alert(error, alertDismissed, '', '確定');
     else if (language == "zh-CN")
         navigator.notification.alert(error, alertDismissed, '', '确定');
+    else
+        navigator.notification.alert(error, alertDismissed, '', 'OK');
 };
 
 var app = {
@@ -306,6 +317,8 @@ var failure2 = function (err) {
         navigator.notification.alert("傳送音符失敗" + err, alertDismissed, '', '確定');
     else if (language == "zh-CN")
         navigator.notification.alert("传送音符失败" + err, alertDismissed, '', '确定');
+    else
+        navigator.notification.alert("Melody plays unsuccessfully." + err, alertDismissed, '', 'OK');
 }
 
 function sendto(mynote) {
@@ -331,6 +344,8 @@ function readyet(mystr) {
             navigator.notification.alert("您尚未設置電路板上之標籤號\n請按右上設定", alertDismissed, '', '確定');
         else if (language == "zh-CN")
             navigator.notification.alert("您尚未设置电路板上之标签号\n请按右上设定", alertDismissed, '', '确定');
+        else
+            navigator.notification.alert("You haven't set the network.\nPlease touch top-right corner, the setting icon.", alertDismissed, '', 'OK');
     }
     else
     {
