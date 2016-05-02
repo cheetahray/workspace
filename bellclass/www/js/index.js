@@ -32,6 +32,25 @@ var success3 = function (message) {
     {
         hello.initialize("192.168.4.1", 8888, success4, failure);
     }
+    else
+    {
+        id3();
+    }
+}
+
+function id3()
+{
+    networkinterface.getIPAddress(
+        function (ip) {
+            myssid = ip.substring(0, ip.lastIndexOf(".") + 1);
+        }
+    );
+    if (language == "zh-TW")
+        navigator.notification.prompt('電路板上面貼的標籤寫幾號', onPrompt, '', ['確定', '取消'], '');
+    else if (language == "zh-CN")
+        navigator.notification.prompt('电路板上面贴的标签写几号', onPrompt, '', ['确定', '取消'], '');
+    else
+        navigator.notification.prompt('What number on a stick of your motherboard?', onPrompt, '', ['OK', 'Cancel'], '');
 }
 
 var successid = function (message) {
@@ -41,17 +60,7 @@ var successid = function (message) {
         cordova.InAppBrowser.open('http://192.168.4.1', '_blank', 'location=yes');
     }
     else {
-        networkinterface.getIPAddress(
-            function (ip) {
-                myssid = ip.substring(0, ip.lastIndexOf(".") + 1);
-            }
-        );
-        if (language == "zh-TW")
-            navigator.notification.prompt('電路板上面貼的標籤寫幾號', onPrompt, '', ['確定', '取消'], '');
-        else if (language == "zh-CN")
-            navigator.notification.prompt('电路板上面贴的标签写几号', onPrompt, '', ['确定', '取消'], '');
-        else
-            navigator.notification.prompt('What number on a stick of your motherboard?', onPrompt, '', ['OK', 'Cancel'], '');
+        id3();
     }
 }
 
@@ -304,7 +313,7 @@ var app = {
 
         // Called when background mode has been activated
         cordova.plugins.backgroundMode.ondeactivate = function () {
-            WifiWizard.getCurrentSSID(successid, failure);
+            WifiWizard.getCurrentSSID(success3, failure);
         }
 
         navigator.globalization.getLocaleName(
