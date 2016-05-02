@@ -12,6 +12,6 @@ li { border: 1px solid #666; padding: .25em; }
 /*Toggle*/
 .toggle { font-weight: bold; padding: .25em; }
 .toggle:after { content: " +"; }
-.toggle + ul { display: none; }
+.toggle + ul { display: block; }
 .toggle.active:after { content: " -"; }
 .toggle.active + ul { display: block; }
