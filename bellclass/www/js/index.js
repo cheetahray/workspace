@@ -14,11 +14,31 @@ var success = function (message) {
         navigator.notification.alert("Network seems ready." + message, alertDismissed, '', 'OK');
 }
 
+var success4 = function (message) {
+    if (document.getElementById("already").value == "0") {
+        document.getElementById("already").value = "1";
+    }
+    if (language == "zh-TW")
+        console.log("網路初步成功" + message);
+    else if (language == "zh-CN")
+        console.log("网路初步成功" + message);
+    else
+        console.log("Network seems ready." + message);
+}
+
+var success3 = function (message) {
+    myssid = message;
+    if (strcmp(myssid, "bellclass_"))
+    {
+        hello.initialize("192.168.4.1", 8888, success4, failure);
+    }
+}
+
 var successid = function (message) {
     myssid = message;
     if (strcmp(myssid, "bellclass_"))
     {
-        cordova.InAppBrowser.open('http://192.168.4.1', '_blank', 'location=yes'); //hello.initialize("192.168.4.1", 8888, success3, failure);
+        cordova.InAppBrowser.open('http://192.168.4.1', '_blank', 'location=yes');
     }
     else {
         networkinterface.getIPAddress(
@@ -291,6 +311,8 @@ var app = {
             function (locale) { language = locale.value; },
             function () { navigator.nofification.alert('Error getting locale\n'); }
         );
+
+        WifiWizard.getCurrentSSID(success3, failure);
 
         app.receivedEvent('deviceready');
     },
