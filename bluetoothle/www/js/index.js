@@ -947,7 +947,8 @@ function subscribeSuccess(obj) {
     logger("Subscribed Result");
     var bytes = bluetoothle.encodedStringToBytes(obj.value);
     var string = bluetoothle.bytesToString(bytes);
-    $("#note").text(string);
+    //$("#note").text(string);
+    $('#battery').val(string);
   }
   else if (obj.status == "subscribed")
   {
