@@ -908,27 +908,6 @@ function subscribe(address, serviceUuid, characteristicUuid) {
   return false;
 }
 
-function subscribeSuccess(obj) {
-  logger("Subscribe Success : " + JSON.stringify(obj));
-
-  if (obj.status == "subscribedResult")
-  {
-    logger("Subscribed Result");
-  }
-  else if (obj.status == "subscribed")
-  {
-    logger("Subscribed");
-  }
-  else
-  {
-    logger("Unexpected Subscribe Status");
-  }
-}
-
-function subscribeError(obj) {
-  logger("Subscribe Error : " + JSON.stringify(obj));
-}
-
 function notify(address, serviceUuid, characteristicUuid) {
   var paramsObj = {address:address, serviceUuid:serviceUuid, characteristicUuid:characteristicUuid};
 

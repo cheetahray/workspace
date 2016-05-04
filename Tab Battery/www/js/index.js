@@ -34,7 +34,7 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
-        console.log('Received Event: ' + id);
+        logger('Received Event: ' + id);
     }
 };
 
@@ -45,11 +45,11 @@ function alertDismissed() {
 // example of a callback method
 var successCallback = function(result) {
   if (result.type==='sleep') {
-    console.log('do something like stop audio playback');
+    logger('do something like stop audio playback');
   } else if (result.type==='countdown') {
-    console.log('time until sleep: ' + result.timeLeft + ' seconds');
+    logger('time until sleep: ' + result.timeLeft + ' seconds');
   } else {
-    console.log('unhandled type (' + result.type + ')');
+    logger('unhandled type (' + result.type + ')');
   }
 }; 
 
@@ -59,7 +59,7 @@ var errorCallback = function (error) {
 };
 
 function isInitialized() {
-    console.log("Is Initialized");
+    logger("Is Initialized");
 
     bluetoothle.isInitialized(isInitializedSuccess);
 
@@ -67,11 +67,11 @@ function isInitialized() {
 }
 
 function isInitializedSuccess(obj) {
-    console.log("Is Initialized Success : " + JSON.stringify(obj));
+    logger("Is Initialized Success : " + JSON.stringify(obj));
 
     if (obj.isInitialized)
     {
-        console.log("Is Initialized : true");
+        logger("Is Initialized : true");
     }
     else
     {
@@ -82,7 +82,7 @@ function isInitializedSuccess(obj) {
 function initialize() {
     var paramsObj = {request:true};
 
-    console.log("Initialize : " + JSON.stringify(paramsObj));
+    logger("Initialize : " + JSON.stringify(paramsObj));
 
     bluetoothle.initialize(initializeSuccess, initializeError, paramsObj);
 
@@ -90,7 +90,7 @@ function initialize() {
 }
 
 function initializeSuccess(obj) {
-    console.log("Initialize Success : " + JSON.stringify(obj));
+    logger("Initialize Success : " + JSON.stringify(obj));
 
     if (obj.status == "enabled")
     {
@@ -103,11 +103,11 @@ function initializeSuccess(obj) {
 }
 
 function initializeError(obj) {
-    console.log("Initialize Error : " + JSON.stringify(obj));
+    navigator.notification.alert("Initialize Error : " + JSON.stringify(obj), alertDismissed, '', '確定');
 }
 
 function isScanning() {
-    console.log("Is Scanning");
+    logger("Is Scanning");
 
     bluetoothle.isScanning(isScanningSuccess);
 
@@ -115,11 +115,11 @@ function isScanning() {
 }
 
 function isScanningSuccess(obj) {
-    console.log("Is Scanning Success : " + JSON.stringify(obj));
+    logger("Is Scanning Success : " + JSON.stringify(obj));
 
     if (obj.isScanning)
     {
-        console.log("Is Scanning : true");
+        logger("Is Scanning : true");
     }
     else
     {
@@ -132,7 +132,7 @@ function startScan() {
 
     var paramsObj = {serviceUuids:[], allowDuplicates: false};
 
-    console.log("Start Scan : " + JSON.stringify(paramsObj));
+    logger("Start Scan : " + JSON.stringify(paramsObj));
 
     bluetoothle.startScan(startScanSuccess, startScanError, paramsObj);
 
@@ -140,11 +140,11 @@ function startScan() {
 }
 
 function startScanSuccess(obj) {
-    console.log("Start Scan Success : " + JSON.stringify(obj));
+    logger("Start Scan Success : " + JSON.stringify(obj));
 
     if (obj.status == "scanResult")
     {
-        console.log("Scan Result");
+        logger("Scan Result");
         if(obj.name == "CT")
         {
             connect(obj.address);
@@ -154,7 +154,7 @@ function startScanSuccess(obj) {
     }
     else if (obj.status == "scanStarted")
     {
-        console.log("Scan Started");
+        logger("Scan Started");
     }
     else
     {
@@ -181,7 +181,7 @@ function addDevice(address, name) {
 }
 
 function stopScan() {
-    console.log("Stop Scan");
+    logger("Stop Scan");
 
     bluetoothle.stopScan(stopScanSuccess, stopScanError);
 
@@ -189,15 +189,15 @@ function stopScan() {
 }
 
 function stopScanSuccess(obj) {
-    console.log("Stop Scan Success : " + JSON.stringify(obj));
+    logger("Stop Scan Success : " + JSON.stringify(obj));
 
     if (obj.status == "scanStopped")
     {
-        console.log("Scan Stopped");
+        logger("Scan Stopped");
     }
     else
     {
-        console.log("Unexpected Stop Scan Status");
+        navigator.notification.alert("Unexpected Stop Scan Status", alertDismissed, '', '確定');
     }
 }
 
@@ -208,7 +208,7 @@ function stopScanError(obj) {
 function isConnected(address) {
     var paramsObj = {address:address};
 
-    console.log("Is Connected : " + JSON.stringify(paramsObj));
+    logger("Is Connected : " + JSON.stringify(paramsObj));
 
     bluetoothle.isConnected(isConnectedSuccess, paramsObj);
     return false;
@@ -219,18 +219,18 @@ function isConnectedSuccess(obj) {
 
     if (obj.isConnected)
     {
-        console.log("Is Connected : true");
+        logger("Is Connected : true");
     }
     else
     {
-        console.log("Is Connected : false");
+        logger("Is Connected : false");
     }
 }
 
 function connect(address) {
     var paramsObj = {address:address};
 
-    console.log("Connect : " + JSON.stringify(paramsObj));
+    logger("Connect : " + JSON.stringify(paramsObj));
 
     bluetoothle.connect(connectSuccess, connectError, paramsObj);
 
@@ -238,16 +238,16 @@ function connect(address) {
 }
 
 function connectSuccess(obj) {
-    console.log("Connect Success : " + JSON.stringify(obj));
+    logger("Connect Success : " + JSON.stringify(obj));
 
     if (obj.status == "connected")
     {
-        console.log("Connected");
+        logger("Connected");
         discover(obj.address)
     }
     else if (obj.status == "connecting")
     {
-        console.log("Connecting");
+        logger("Connecting");
     }
     else
     {
@@ -262,7 +262,7 @@ function connectError(obj) {
 function isDiscovered(address) {
     var paramsObj = {address:address};
 
-    console.log("Is Discovered : " + JSON.stringify(paramsObj));
+    logger("Is Discovered : " + JSON.stringify(paramsObj));
 
     bluetoothle.isDiscovered(isDiscoveredSuccess, paramsObj);
 
@@ -274,18 +274,18 @@ function isDiscoveredSuccess(obj) {
 
     if (obj.isDiscovered)
     {
-        console.log("Is Discovered : true");
+        logger("Is Discovered : true");
     }
     else
     {
-        console.log("Is Discovered : false");
+        logger("Is Discovered : false");
     }
 }
 
 function discover(address) {
     var paramsObj = {address:address};
 
-    console.log("Discover : " + JSON.stringify(paramsObj));
+    logger("Discover : " + JSON.stringify(paramsObj));
 
     bluetoothle.discover(discoverSuccess, discoverError, paramsObj);
 
@@ -293,11 +293,11 @@ function discover(address) {
 }
 
 function discoverSuccess(obj) {
-    console.log("Discover Success : " + JSON.stringify(obj));
+    logger("Discover Success : " + JSON.stringify(obj));
 
     if (obj.status == "discovered")
     {
-        console.log("Discovered");
+        logger("Discovered");
 
         var address = obj.address;
 
@@ -307,7 +307,7 @@ function discoverSuccess(obj) {
         {
             var service = services[i];
 
-            addService(address, service.serviceUuid);
+            //addService(address, service.serviceUuid);
 
             var characteristics = service.characteristics;
 
@@ -315,16 +315,19 @@ function discoverSuccess(obj) {
             {
                 var characteristic = characteristics[j];
 
-                addCharacteristic(address, service.serviceUuid, characteristic.characteristicUuid);
-
+                //addCharacteristic(address, service.serviceUuid, characteristic.characteristicUuid);
+                if("fff6" == characteristic.characteristicUuid)
+                    subscribe(address, service.serviceUuid, characteristic.characteristicUuid);
+                /*
                 var descriptors = characteristic.descriptors;
 
                 for (var k = 0; k < descriptors.length; k++)
                 {
                     var descriptor = descriptors[k];
 
-                    addDescriptor(address, service.serviceUuid, characteristic.characteristicUuid, descriptor.descriptorUuid);
+                    //addDescriptor(address, service.serviceUuid, characteristic.characteristicUuid, descriptor.descriptorUuid);
                 }
+                */
             }
         }
     }
@@ -338,5 +341,182 @@ function discoverError(obj) {
     navigator.notification.alert("Discover Error : " + JSON.stringify(obj), alertDismissed, '', '確定');
 }
 
+function rssi(address) {
+    var paramsObj = {address:address};
+
+    logger("RSSI : " + JSON.stringify(paramsObj));
+
+    bluetoothle.rssi(rssiSuccess, rssiError, paramsObj);
+
+    return false;
+}
+
+function rssiSuccess(obj) {
+    logger("RSSI Success : " + JSON.stringify(obj));
+
+    if (obj.status == "rssi")
+    {
+        logger("RSSI");
+    }
+    else
+    {
+        navigator.notification.alert("Unexpected RSSI Status", alertDismissed, '', '確定');
+    }
+}
+
+function rssiError(obj) {
+    navigator.notification.alert("RSSI Error : " + JSON.stringify(obj), alertDismissed, '', '確定');
+}
+
+function addDevice(address, name) {
+    var $devices = $(".devices");
+
+    var $check = $devices.find("li[data-address='{0}']".format(address));
+    if ($check.length > 0)
+    {
+        return;
+    }
+
+    var template = $("#device").text().format(address, name);
+
+    $devices.append(template);
+}
+
+function getAddress($item) {
+    return $item.parents("li[data-address]").attr("data-address");
+}
+
+function addService(address, serviceUuid) {
+    var $devices = $(".devices");
+
+    var $services = $devices.find("li[data-address='{0}'] ul.services".format(address));
+
+    var $check = $services.find("li[data-serviceUuid='{0}']".format(serviceUuid));
+    if ($check.length > 0)
+    {
+        return;
+    }
+
+    var template = $("#service").text().format(serviceUuid);
+
+    $services.append(template);
+}
+
+function getServiceUuid($item) {
+    return $item.parents("li[data-serviceUuid]").attr("data-serviceUuid");
+}
+
+function addCharacteristic(address, serviceUuid, characteristicUuid) {
+    var $devices = $(".devices");
+
+    var $services = $devices.find("li[data-address='{0}'] ul.services".format(address));
+
+    var $characteristics = $services.find("li[data-serviceUuid='{0}'] ul.characteristics".format(serviceUuid));
+
+    var $check = $characteristics.find("li[data-characteristicUuid='{0}']".format(characteristicUuid));
+    if ($check.length > 0)
+    {
+        return;
+    }
+
+    var template = $("#characteristic").text().format(characteristicUuid);
+
+    $characteristics.append(template);
+}
+
+function getCharacteristicUuid($item) {
+    return $item.parents("li[data-characteristicUuid]").attr("data-characteristicUuid");
+}
+
+function addDescriptor(address, serviceUuid, characteristicUuid, descriptorUuid) {
+    var $devices = $(".devices");
+
+    var $services = $devices.find("li[data-address='{0}'] ul.services".format(address));
+
+    var $characteristics = $services.find("li[data-serviceUuid='{0}'] ul.characteristics".format(serviceUuid));
+
+    var $descriptors = $characteristics.find("li[data-characteristicUuid='{0}'] ul.descriptors".format(characteristicUuid));
+
+    var $check = $descriptors.find("li[data-descriptorUuid='{0}']".format(descriptorUuid));
+    if ($check.length > 0)
+    {
+        return;
+    }
+
+    var template = $("#descriptor").text().format(descriptorUuid);
+
+    $descriptors.append(template);
+}
+
+function getDescriptorUuid($item) {
+    return $item.parents("li[data-descriptorUuid]").attr("data-descriptorUuid");
+}
+
+function subscribe(address, serviceUuid, characteristicUuid) {
+    var paramsObj = {address:address, serviceUuid:serviceUuid, characteristicUuid:characteristicUuid};
+
+    logger("Subscribe : " + JSON.stringify(paramsObj));
+
+    bluetoothle.subscribe(subscribeSuccess, subscribeError, paramsObj);
+
+    return false;
+}
+
+function subscribeSuccess(obj) {
+    logger("Subscribe Success : " + JSON.stringify(obj));
+
+    if (obj.status == "subscribedResult")
+    {
+        logger("Subscribed Result");
+        var bytes = bluetoothle.encodedStringToBytes(obj.value);
+        var string = bluetoothle.bytesToString(bytes);
+        $("#note").text(string);
+        //$('#battery').val(string);
+    }
+    else if (obj.status == "subscribed")
+    {
+        logger("Subscribed");
+    }
+    else
+    {
+        navigator.notification.alert("Unexpected Subscribe Status", alertDismissed, '', '確定');
+    }
+}
+
+function subscribeError(obj) {
+    navigator.notification.alert("Subscribe Error : " + JSON.stringify(obj), alertDismissed, '', '確定');
+}
+
+function unsubscribe(address, serviceUuid, characteristicUuid) {
+    var paramsObj = {address:address, serviceUuid:serviceUuid, characteristicUuid:characteristicUuid};
+
+    logger("Unsubscribe : " + JSON.stringify(paramsObj));
+
+    bluetoothle.unsubscribe(unsubscribeSuccess, unsubscribeError, paramsObj);
+
+    return false;
+}
+
+function unsubscribeSuccess(obj) {
+    logger("Unsubscribe Success : " + JSON.stringify(obj));
+
+    if (obj.status == "unsubscribed")
+    {
+        logger("Unsubscribed");
+    }
+    else
+    {
+        navigator.notification.alert("Unexpected Unsubscribe Status", alertDismissed, '', '確定');
+    }
+}
+
+function unsubscribeError(obj) {
+    navigator.notification.alert("Unsubscribe Error : " + JSON.stringify(obj), alertDismissed, '', '確定');
+}
+
+function logger(message) {
+    console.log(message);
+
+}
 
 app.initialize();
