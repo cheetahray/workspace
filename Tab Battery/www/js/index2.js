@@ -19,7 +19,6 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        keepscreenon.enable();
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
@@ -41,14 +40,14 @@ function alertDismissed() {
 
 // example of a callback method
 var successCallback = function(result) {
-  if (result.type==='sleep') {
-    console.log('do something like stop audio playback');
-  } else if (result.type==='countdown') {
-    console.log('time until sleep: ' + result.timeLeft + ' seconds');
-  } else {
-    console.log('unhandled type (' + result.type + ')');
-  }
-}; 
+    if (result.type==='sleep') {
+        logger('do something like stop audio playback');
+    } else if (result.type==='countdown') {
+        logger('time until sleep: ' + result.timeLeft + ' seconds');
+    } else {
+        logger('unhandled type (' + result.type + ')');
+    }
+};
 
 // example of a callback method
 var errorCallback = function (error) {

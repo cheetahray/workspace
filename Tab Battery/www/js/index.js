@@ -1,6 +1,7 @@
 var nowid = "";
 var count = 0;
 var myVar;
+var objadd = "";
 
 var app = {
     // Application Constructor
@@ -19,7 +20,6 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        keepscreenon.enable();
         isInitialized();
         count = parseInt( $("#1circle").attr('data-percent') );
         $("#1circle").percircle();
@@ -42,22 +42,6 @@ function alertDismissed() {
     // do something
 }
 
-// example of a callback method
-var successCallback = function(result) {
-  if (result.type==='sleep') {
-    logger('do something like stop audio playback');
-  } else if (result.type==='countdown') {
-    logger('time until sleep: ' + result.timeLeft + ' seconds');
-  } else {
-    logger('unhandled type (' + result.type + ')');
-  }
-}; 
-
-// example of a callback method
-var errorCallback = function (error) {
-    navigator.notification.alert(error, alertDismissed, '', '確定');
-};
-
 function isInitialized() {
     logger("Is Initialized");
 
@@ -71,7 +55,17 @@ function isInitializedSuccess(obj) {
 
     if (obj.isInitialized)
     {
-        logger("Is Initialized : true");
+        var db = window.openDatabase("Test", "1.0", "TestDB", 1 * 1024);
+        var successFn = function(json, count){
+            objadd = json.data.inserts.Bluetooth[0].address;
+            logger("Exported JSON: "+ objadd );
+            logger("Exported JSON contains equivalent of "+count+" SQL statements");
+            reconnect(objadd);
+        };
+        cordova.plugins.sqlitePorter.exportDbToJson(db, {
+            successFn: successFn
+        });
+        //logger("Is Initialized : true");
     }
     else
     {
@@ -145,10 +139,73 @@ function startScanSuccess(obj) {
     if (obj.status == "scanResult")
     {
         logger("Scan Result");
-        if(obj.name == "CT")
+        if(obj.name == "SimpleBLEPeripheral") //"CT")
         {
             connect(obj.address);
-            stopScan();
+            objadd = obj.address;
+            var iferr;
+            var db = window.openDatabase("Test", "1.0", "TestDB", 1 * 1024);
+            //var db = window.sqlitePlugin.openDatabase({name: 'my.db', location: 'default'});
+            var json = {
+                "data": {
+                    "updates": {
+                        "Bluetooth": [
+                            {
+                                "set": {
+                                    "address": obj.address
+                                },
+                                "where": {}
+                            }
+                        ]
+                    }
+                }
+            };
+            var successFn = function (count) {
+                clearInterval(iferr);
+                stopScan();
+                logger("Successfully imported JSON to DB; equivalent to " + count + " SQL statements");
+            };
+            var errorFn = function (error) {
+                iferr = setInterval(function () {
+
+                    json = {
+                        "structure": {
+                            "tables": {
+                                "Artist": "([username] PRIMARY KEY, [password], [photourl])",
+                                "Bluetooth": "([address])"
+                            },
+                            "otherSQL": [
+
+                            ]
+                        },
+                        "data": {
+                            "inserts": {
+                                "Bluetooth": [
+                                    {
+                                        "address": obj.address
+                                    }
+                                ]
+                            }
+                        }
+                    };
+                    cordova.plugins.sqlitePorter.importJsonToDb(db, json, {
+                        successFn: successFn,
+                        errorFn: errorFn,
+                        progressFn: progressFn,
+                        batchInsertSize: 500
+                    });
+
+                }, 1000);
+                logger("The following error occurred: " + error.message);
+            };
+            var progressFn = function(current, total){
+                logger("Imported "+current+"/"+total+" statements");
+            };
+            cordova.plugins.sqlitePorter.importJsonToDb(db, json, {
+                successFn: successFn,
+                errorFn: errorFn,
+                progressFn: progressFn
+            });
         }
         //addDevice(obj.address, obj.name);
     }
@@ -243,7 +300,7 @@ function connectSuccess(obj) {
     if (obj.status == "connected")
     {
         logger("Connected");
-        discover(obj.address)
+        discover(obj.address);
     }
     else if (obj.status == "connecting")
     {
@@ -257,6 +314,38 @@ function connectSuccess(obj) {
 
 function connectError(obj) {
     navigator.notification.alert("Connect Error : " + JSON.stringify(obj), alertDismissed, '', '確定');
+}
+
+function reconnect(address) {
+    var paramsObj = {address:address};
+
+    logger("Reconnect : " + JSON.stringify(paramsObj));
+
+    bluetoothle.reconnect(reconnectSuccess, reconnectError, paramsObj);
+
+    return false;
+}
+
+function reconnectSuccess(obj) {
+    logger("Reconnect Success : " + JSON.stringify(obj));
+
+    if (obj.status == "connected")
+    {
+        logger("Connected");
+        discover(obj.address);
+    }
+    else if (obj.status == "connecting")
+    {
+        logger("Connecting");
+    }
+    else
+    {
+        navigator.notification.alert("Unexpected Reconnect Status", alertDismissed, '', '確定');
+    }
+}
+
+function reconnectError(obj) {
+    navigator.notification.alert("Reconnect Error : " + JSON.stringify(obj), alertDismissed, '', '確定');
 }
 
 function isDiscovered(address) {
@@ -316,7 +405,7 @@ function discoverSuccess(obj) {
                 var characteristic = characteristics[j];
 
                 //addCharacteristic(address, service.serviceUuid, characteristic.characteristicUuid);
-                if("fff6" == characteristic.characteristicUuid)
+                if("fff7" == characteristic.characteristicUuid)
                     subscribe(address, service.serviceUuid, characteristic.characteristicUuid);
                 /*
                 var descriptors = characteristic.descriptors;
@@ -518,5 +607,40 @@ function logger(message) {
     console.log(message);
 
 }
+
+function disconnect(address) {
+    var paramsObj = {address:address};
+
+    logger("Disconnect : " + JSON.stringify(paramsObj));
+
+    bluetoothle.disconnect(disconnectSuccess, disconnectError, paramsObj);
+
+    return false;
+}
+
+function disconnectSuccess(obj) {
+    logger("Disconnect Success : " + JSON.stringify(obj));
+
+    if (obj.status == "disconnected")
+    {
+        logger("Disconnected");
+    }
+    else if (obj.status == "disconnecting")
+    {
+        logger("Disconnecting");
+    }
+    else
+    {
+        navigator.notification.alert("Unexpected Disconnect Status", alertDismissed, '', '確定');
+    }
+}
+
+function disconnectError(obj) {
+    navigator.notification.alert("Disconnect Error : " + JSON.stringify(obj), alertDismissed, '', '確定');
+}
+
+$(window).on('beforeunload', function(){
+    disconnect(objadd);
+});
 
 app.initialize();
