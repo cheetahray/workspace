@@ -42,7 +42,7 @@ function anyscreen(css_urls, successCallback){
             scaling = scaling * 0.96;
             
         viewport.setAttribute('content', 'user-scalable=no, initial-scale=' + initscale + ', maximum-scale=' + scaling + ', minimum-scale=' + scaling + ', target-densitydpi=device-dpi');
-    	
+
     }
     else if (device.platform == "windows") {
 

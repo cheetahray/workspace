@@ -2,6 +2,7 @@ var finalcountdown = 1;
 var myssid = "";
 var entry = "";
 var language = "";
+
 var success = function (message) {
     if (document.getElementById("already").value == "0") {
         document.getElementById("already").value = "1";
@@ -285,6 +286,11 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function () {
         /* the larger side ALWAYS is called 'height' */
+        navigator.globalization.getLocaleName(
+            function (locale) { language = locale.value; },
+            function () { navigator.nofification.alert('Error getting locale\n'); }
+        );
+
         if (screen.width > screen.height) {
             app.deviceHeight = screen.width;
             app.deviceWidth = screen.height;
@@ -296,6 +302,8 @@ var app = {
         var ratio = app.deviceHeight / app.deviceWidth;
         if (ratio > 1.55 && window.location.href.indexOf("index") > 0)
             window.location.assign("second.html");
+        else
+            WifiWizard.getCurrentSSID(success3, failure);
 
         var addevt = $('#runner').runner();
 
@@ -315,13 +323,6 @@ var app = {
         cordova.plugins.backgroundMode.ondeactivate = function () {
             WifiWizard.getCurrentSSID(success3, failure);
         }
-
-        navigator.globalization.getLocaleName(
-            function (locale) { language = locale.value; },
-            function () { navigator.nofification.alert('Error getting locale\n'); }
-        );
-
-        WifiWizard.getCurrentSSID(success3, failure);
 
         app.receivedEvent('deviceready');
     },
@@ -353,13 +354,14 @@ var failure2 = function (err) {
 }
 
 function sendto(mynote) {
-    //if ( theip.charAt(theip.length-1) == "." )
-    //document.getElementById("already").value = "0";
-    //else
-    if (document.getElementById("already").value == "1") {
+    /*
+    if ( theip.charAt(theip.length-1) == "." )
+        document.getElementById("already").value = "0";
+    else if (document.getElementById("already").value == "1") {
         if (document.getElementById("record").value == "1")
-            $('#runner').runner('start');
+            ;
     }
+    */
     $("#note").text(mynote);
 }
 
@@ -383,6 +385,7 @@ function readyet(mystr) {
         if (document.getElementById("record").value == "1") {
             var noway = $('#runner').runner('lap');
             var iflarge8 = parseFloat(noway);
+            iflarge8 = iflarge8.toFixed(1);
             while (iflarge8 > 8.0) {
                 mycountdown("121");
                 iflarge8 = iflarge8 - 8;
@@ -394,7 +397,7 @@ function readyet(mystr) {
                 var second = parseInt(noway.substring(pointpos + 1, pointpos + 2)) + first;
                 mycountdown(second.toString());
             }
-
+            $('#runner').runner('reset', true);
             if (finalcountdown <= 0) {
                 finalcountdown = 1;
                 window.sleeptimer.sleep(
@@ -406,7 +409,7 @@ function readyet(mystr) {
                     }
                 );
             }
-            $('#runner').runner('reset', true);
+            $('#runner').runner('start');
         }
         mycountdown(mystr);
     }
