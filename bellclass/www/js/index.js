@@ -33,7 +33,7 @@ var success3 = function (message) {
     {
         hello.initialize("192.168.4.1", 8888, success4, failure);
     }
-    else
+    else if (document.getElementById("already").value == "0")
     {
         id3();
     }
@@ -81,11 +81,11 @@ boxRec.addEventListener('touchstart', function (e) {
     //var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
     //startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
     if (document.getElementById("record").value == "0") {
-        readyet("R");
+        readyet();
         if (document.getElementById("already").value == "1")
         {
             boxRec.setAttribute('style', 'background: url(img/2-iphone-layout_iphone.png);');
-            sendto(finalcountdown.toString());
+            sendto("R", finalcountdown.toString());
             document.getElementById("record").value = "1";
             finalcountdown = 478;
         }
@@ -99,15 +99,15 @@ boxRec.addEventListener('touchstart', function (e) {
 var finalboxRec = function () {
     document.getElementById("record").value = "0";
     boxRec.setAttribute('style', 'background: none;');
-    readyet("Q");
-    sendto(finalcountdown.toString());
+    //readyet();
+    sendto("Q", finalcountdown.toString());
     $('#runner').runner('reset', true);
 }
 
 var boxDoo = document.getElementById('DOO');
 
 boxDoo.addEventListener('touchstart', function (e) {
-    readyet("239");
+    readyet();
     if (document.getElementById("already").value == "1")
         boxDoo.setAttribute('style', 'background-color:#B6221E;');
     e.preventDefault();
@@ -116,14 +116,14 @@ boxDoo.addEventListener('touchstart', function (e) {
 boxDoo.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxDoo.setAttribute('style', 'background-color:transparent;');
-    sendto(finalcountdown.toString());
+    sendto("239", finalcountdown.toString());
     e.preventDefault();
 }, false);
 
 var boxTi = document.getElementById('TI');
 
 boxTi.addEventListener('touchstart', function (e) {
-    readyet("223");
+    readyet();
     if (document.getElementById("already").value == "1")
         boxTi.setAttribute('style', 'background-color:#CA27D3;');
     e.preventDefault();
@@ -132,14 +132,14 @@ boxTi.addEventListener('touchstart', function (e) {
 boxTi.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxTi.setAttribute('style', 'background-color:transparent;');
-    sendto(finalcountdown.toString());
+    sendto("223", finalcountdown.toString());
     e.preventDefault();
 }, false);
 
 var boxLa = document.getElementById('LA');
 
 boxLa.addEventListener('touchstart', function (e) {
-    readyet("207");
+    readyet();
     if (document.getElementById("already").value == "1")
         boxLa.setAttribute('style', 'background-color:#233AB9;');
     e.preventDefault();
@@ -148,14 +148,14 @@ boxLa.addEventListener('touchstart', function (e) {
 boxLa.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxLa.setAttribute('style', 'background-color:transparent;');
-    sendto(finalcountdown.toString());
+    sendto("207", finalcountdown.toString());
     e.preventDefault();
 }, false);
 
 var boxSo = document.getElementById('SO');
 
 boxSo.addEventListener('touchstart', function (e) {
-    readyet("191");
+    readyet();
     if (document.getElementById("already").value == "1")
         boxSo.setAttribute('style', 'background-color:#2CC8C7;');
     e.preventDefault();
@@ -164,14 +164,14 @@ boxSo.addEventListener('touchstart', function (e) {
 boxSo.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxSo.setAttribute('style', 'background-color:transparent;');
-    sendto(finalcountdown.toString());
+    sendto("191", finalcountdown.toString());
     e.preventDefault();
 }, false);
 
 var boxFa = document.getElementById('FA');
 
 boxFa.addEventListener('touchstart', function (e) {
-    readyet("175");
+    readyet();
     if (document.getElementById("already").value == "1")
         boxFa.setAttribute('style', 'background-color:#3CD12F;');
     e.preventDefault();
@@ -180,14 +180,14 @@ boxFa.addEventListener('touchstart', function (e) {
 boxFa.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxFa.setAttribute('style', 'background-color:transparent;');
-    sendto(finalcountdown.toString());
+    sendto("175", finalcountdown.toString());
     e.preventDefault();
 }, false);
 
 var boxMi = document.getElementById('MI');
 
 boxMi.addEventListener('touchstart', function (e) {
-    readyet("159");
+    readyet();
     if (document.getElementById("already").value == "1")
         boxMi.setAttribute('style', 'background-color:#D1D62E;');
     e.preventDefault();
@@ -196,14 +196,14 @@ boxMi.addEventListener('touchstart', function (e) {
 boxMi.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxMi.setAttribute('style', 'background-color:transparent;');
-    sendto(finalcountdown.toString());
+    sendto("159", finalcountdown.toString());
     e.preventDefault();
 }, false);
 
 var boxRe = document.getElementById('RE');
 
 boxRe.addEventListener('touchstart', function (e) {
-    readyet("143");
+    readyet();
     if (document.getElementById("already").value == "1")
         boxRe.setAttribute('style', 'background-color:#D5922E;');
     e.preventDefault();
@@ -212,14 +212,14 @@ boxRe.addEventListener('touchstart', function (e) {
 boxRe.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxRe.setAttribute('style', 'background-color:transparent;');
-    sendto(finalcountdown.toString());
+    sendto("143", finalcountdown.toString());
     e.preventDefault();
 }, false);
 
 var boxDo = document.getElementById('DO');
 
 boxDo.addEventListener('touchstart', function (e) {
-    readyet("127");
+    readyet();
     if (document.getElementById("already").value == "1")
         boxDo.setAttribute('style', 'background-color:#BE2E2B;');
     e.preventDefault();
@@ -228,7 +228,7 @@ boxDo.addEventListener('touchstart', function (e) {
 boxDo.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxDo.setAttribute('style', 'background-color:transparent;');
-    sendto(finalcountdown.toString());
+    sendto("127", finalcountdown.toString());
     e.preventDefault();
 }, false);
 
@@ -306,7 +306,33 @@ var app = {
             WifiWizard.getCurrentSSID(success3, failure);
 
         var addevt = $('#runner').runner();
-
+        addevt.on('runnerStop', function (eventObject, info) {
+            var noway = $('#runner').runner('lap');
+            var iflarge8 = parseFloat(noway);
+            iflarge8 = iflarge8.toFixed(1);
+            while (iflarge8 > 8.0) {
+                mycountdown("121");
+                iflarge8 = iflarge8 - 8;
+            }
+            noway = iflarge8.toString();
+            var pointpos = noway.indexOf(".");
+            if (pointpos > -1) {
+                var first = parseInt(noway.substring(0, pointpos)) << 4;
+                var second = parseInt(noway.substring(pointpos + 1, pointpos + 2)) + first;
+                mycountdown(second.toString());
+            }
+            if (finalcountdown <= 0) {
+                finalcountdown = 1;
+                window.sleeptimer.sleep(
+                    successCallback,
+                    errorCallback,
+                    {
+                        'sleep': 1, // sleep in 5 minutes/300 seconds
+                        'countdown': false // if true, send time-to-sleep countdown from native to javascript
+                    }
+                );
+            }
+        });
         //document.addEventListener("offline", onOffline, false);
         //document.addEventListener("online", onOnline, false);
         keepscreenon.enable();
@@ -353,15 +379,17 @@ var failure2 = function (err) {
         navigator.notification.alert("Melody plays unsuccessfully." + err, alertDismissed, '', 'OK');
 }
 
-function sendto(mynote) {
+function sendto(mystr, mynote) {
     /*
     if ( theip.charAt(theip.length-1) == "." )
         document.getElementById("already").value = "0";
-    else if (document.getElementById("already").value == "1") {
-        if (document.getElementById("record").value == "1")
-            ;
-    }
+    else
     */
+    if (document.getElementById("already").value == "1") {
+        mycountdown(mystr);
+        if (document.getElementById("record").value == "1")
+            $('#runner').runner('start');
+    }
     $("#note").text(mynote);
 }
 
@@ -380,38 +408,8 @@ function readyet(mystr) {
         else
             navigator.notification.alert("You haven't set the network.\nPlease touch top-right corner, the setting icon.", alertDismissed, '', 'OK');
     }
-    else
-    {
-        if (document.getElementById("record").value == "1") {
-            var noway = $('#runner').runner('lap');
-            var iflarge8 = parseFloat(noway);
-            iflarge8 = iflarge8.toFixed(1);
-            while (iflarge8 > 8.0) {
-                mycountdown("121");
-                iflarge8 = iflarge8 - 8;
-            }
-            noway = iflarge8.toString();
-            var pointpos = noway.indexOf(".");
-            if (pointpos > -1) {
-                var first = parseInt(noway.substring(0, pointpos)) << 4;
-                var second = parseInt(noway.substring(pointpos + 1, pointpos + 2)) + first;
-                mycountdown(second.toString());
-            }
-            $('#runner').runner('reset', true);
-            if (finalcountdown <= 0) {
-                finalcountdown = 1;
-                window.sleeptimer.sleep(
-                    successCallback,
-                    errorCallback,
-                    {
-                        'sleep': 1, // sleep in 5 minutes/300 seconds
-                        'countdown': false // if true, send time-to-sleep countdown from native to javascript
-                    }
-                );
-            }
-            $('#runner').runner('start');
-        }
-        mycountdown(mystr);
+    else if (document.getElementById("record").value == "1") {
+        $('#runner').runner('reset', true);
     }
 }
 
