@@ -11,5 +11,6 @@
 
 - (void)initialize:(CDVInvokedUrlCommand*)command;
 - (void)sendMessage:(CDVInvokedUrlCommand*)command;
+- (void)listenForPackets:(CDVInvokedUrlCommand*)command;
 
 @end
