@@ -47,9 +47,21 @@ var successScan = function (message) {
 
 var successListen = function (message) {
     if (message == "bell")
-        alert(entry);
-    else
-        alert(message);
+    {
+        app.receivedEvent('deviceready');
+        hello.initialize("192.168.4.1", 8888, successInternal, failureSet);
+    }
+    else if (entry < 255)
+    {
+        entry = entry + 1;
+        if (language == "zh-TW")
+            $("#note").text("掃描 " + entry);
+        else if (language == "zh-CN")
+            $("#note").text("扫描 " + entry);
+        else
+            $("#note").text("Scan " + entry);
+        hello.initialize(myip + entry, 8888, successFor, failureSet);
+    }
 }
 
 var failureScan = function (message) {
@@ -65,7 +77,12 @@ var failureListen = function (message) {
     if (entry < 255)
     {
         entry = entry + 1;
-        $("#note").text(entry);
+        if (language == "zh-TW")
+            $("#note").text("掃描 " + entry);
+        else if (language == "zh-CN")
+            $("#note").text("扫描 " + entry);
+        else
+            $("#note").text("Scan " + entry);
         hello.initialize(myip + entry, 8888, successFor, failureSet);
     }
     else {
@@ -108,6 +125,7 @@ function id3()
         function (ip) {
             myip = ip.substring(0, ip.lastIndexOf(".") + 1);
             if (strcmp(myssid, "bellclass") == false) {
+                app.scanEvent('deviceready');
                 entry = 1;
                 hello.initialize(myip + entry, 8888, successFor, failureSet);
             }
@@ -435,6 +453,17 @@ var app = {
         var receivedElement = parentElement.querySelector('.received');
 
         listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:none;');
+
+        console.log('Received Event: ' + id);
+    },
+
+    scanEvent: function (id) {
+        var parentElement = document.getElementById(id);
+        //var listeningElement = parentElement.querySelector('.listening');
+        var receivedElement = parentElement.querySelector('.received');
+
+        //listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
