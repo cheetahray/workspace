@@ -80,7 +80,7 @@
         {
             // set timeout to 2 seconds.
             struct timeval timeV;
-            timeV.tv_sec = 2;
+            timeV.tv_sec = 1;
             timeV.tv_usec = 0;
             
             if (setsockopt(listeningSocket, SOL_SOCKET, SO_RCVTIMEO, &timeV, sizeof(timeV)) == -1)
@@ -143,7 +143,7 @@
                     }
                     else
                     {
-                        socket = [NSString stringWithFormat:@"Error: listenForPackets - malloc failed."];
+                        socket = [NSString stringWithFormat:@"Error: listenForPackets - no packets."];
                         uccessInitializingReceiver = false;
                     }
                     free(buf);
