@@ -72,6 +72,7 @@
         CDVPluginResult* pluginResult = nil;
         NSString* err = nil;
         NSString *msg = nil;
+        void *buf = nil;
         int listeningSocket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
         if (listeningSocket <= 0) {
             err = [NSString stringWithFormat:@"Error: listenForPackets - socket() failed."];
@@ -114,7 +115,7 @@
                     socklen_t receiveSockaddrLen = sizeof(receiveSockaddr);
                     
                     size_t bufSize = 512;
-                    void *buf = malloc(bufSize);
+                    buf = malloc(bufSize);
                     ssize_t result = recvfrom(listeningSocket, buf, bufSize, 0, (struct sockaddr *)&receiveSockaddr, &receiveSockaddrLen);
                     
                     NSData *data = nil;
