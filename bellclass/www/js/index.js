@@ -48,6 +48,8 @@ var successScan = function (message) {
 var successListen = function (message) {
     if (message == "bell")
         alert(entry);
+    else
+        alert(message);
 }
 
 var failureScan = function (message) {
