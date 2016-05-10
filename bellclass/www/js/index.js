@@ -24,11 +24,11 @@ var successFor = function (message) {
     hello.listenForPackets(successListen, failureListen);
     hello.sendMessage("WHO", successScan, failureScan);
     if (language == "zh-TW")
-        console.log("網路初步成功" + message, alertDismissed, '', '確定');
+        console.log("網路初步成功" + message);
     else if (language == "zh-CN")
-        console.log("网路初步成功" + message, alertDismissed, '', '确定');
+        console.log("网路初步成功" + message);
     else
-        console.log("Network seems ready." + message, alertDismissed, '', 'OK');
+        console.log("Network seems ready." + message);
 }
 
 var successScan = function (message) {
@@ -38,39 +38,41 @@ var successScan = function (message) {
      }
      */
     if (language == "zh-TW")
-        console.log("傳送掃描請求" + message, alertDismissed, '', '確定');
+        console.log("傳送掃描請求" + message);
     else if (language == "zh-CN")
-        console.log("傳送掃描請求" + message, alertDismissed, '', '确定');
+        console.log("传送扫描请求" + message);
     else
-        console.log("Send scan request." + message, alertDismissed, '', 'OK');
+        console.log("Send scan request." + message);
 }
 
 var successListen = function (message) {
-    if (message != "bell")
-    {
-        entry = entry + 1;
-        hello.initialize(myip + entry, 8888, successFor, failureSet);
-    }
-    else
-        alert(message);
+    if (message == "bell")
+        alert(entry);
 }
 
 var failureScan = function (message) {
     if (language == "zh-TW")
-        navigator.notification.alert("掃描IP失敗" + message, alertDismissed, '', '確定');
+        navigator.notification.alert("傳送掃描失敗" + message, alertDismissed, '', '確定');
     else if (language == "zh-CN")
-        navigator.notification.alert("扫描IP失败" + message, alertDismissed, '', '确定');
+        navigator.notification.alert("传送扫描失败" + message, alertDismissed, '', '确定');
     else
-        navigator.notification.alert("Scan network failed." + message, alertDismissed, '', 'OK');
+        navigator.notification.alert("Send scan failed." + message, alertDismissed, '', 'OK');
 }
 
 var failureListen = function (message) {
-    if (language == "zh-TW")
-        navigator.notification.alert("聽取封包失敗" + message, alertDismissed, '', '確定');
-    else if (language == "zh-CN")
-        navigator.notification.alert("听取封包失败" + message, alertDismissed, '', '确定');
-    else
-        navigator.notification.alert("Listen packet failed." + message, alertDismissed, '', 'OK');
+    if (entry < 255)
+    {
+        entry = entry + 1;
+        hello.initialize(myip + entry, 8888, successFor, failureSet);
+    }
+    else {
+        if (language == "zh-TW")
+            navigator.notification.alert("掃描IP失敗" + message, alertDismissed, '', '確定');
+        else if (language == "zh-CN")
+            navigator.notification.alert("扫描IP失败" + message, alertDismissed, '', '确定');
+        else
+            navigator.notification.alert("Scan network failed." + message, alertDismissed, '', 'OK');
+    }
 }
 
 var successInternal = function (message) {
