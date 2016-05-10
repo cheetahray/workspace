@@ -79,7 +79,7 @@ function id3()
     networkinterface.getIPAddress(
         function (ip) {
             myip = ip.substring(0, ip.lastIndexOf(".") + 1);
-            if (strcmp(myssid, "bellclass") == -1) {
+            if (strcmp(myssid, "bellclass") == false) {
                 for(entry = 1; entry < 5; entry++)
                 {
                     hello.initialize(myip + entry, 8888, successFor, failureSet);

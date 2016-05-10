@@ -70,10 +70,11 @@
     
     [self.commandDelegate runInBackground:^{
         CDVPluginResult* pluginResult = nil;
-        NSString* socket = nil;
+        NSString* err = nil;
+        NSString *msg = nil;
         int listeningSocket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
         if (listeningSocket <= 0) {
-            socket = [NSString stringWithFormat:@"Error: listenForPackets - socket() failed."];
+            err = [NSString stringWithFormat:@"Error: listenForPackets - socket() failed."];
             successInitializingReceiver = false;//return;
         }
         else
@@ -85,7 +86,7 @@
             
             if (setsockopt(listeningSocket, SOL_SOCKET, SO_RCVTIMEO, &timeV, sizeof(timeV)) == -1)
             {
-                socket = [NSString stringWithFormat:@"Error: listenForPackets - setsockopt failed"];
+                err = [NSString stringWithFormat:@"Error: listenForPackets - setsockopt failed"];
                 close(listeningSocket);
                 successInitializingReceiver = false;
             }
@@ -103,7 +104,7 @@
                 int status = bind(listeningSocket, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
                 if (status == -1) {
                     close(listeningSocket);
-                    socket = [NSString stringWithFormat:@"Error: listenForPackets - bind() failed."];
+                    err = [NSString stringWithFormat:@"Error: listenForPackets - bind() failed."];
                     successInitializingReceiver = false;
                 }
                 else
@@ -133,7 +134,7 @@
                         }
                         
                         NSString *address = [NSString stringWithCString:addrBuf encoding:NSASCIIStringEncoding];
-                        NSString *msg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                        msg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                         /*
                          dispatch_async(dispatch_get_main_queue(), ^{
                          [self didReceiveMessage:msg fromAddress:address];
@@ -143,8 +144,8 @@
                     }
                     else
                     {
-                        socket = [NSString stringWithFormat:@"Error: listenForPackets - no packets."];
-                        uccessInitializingReceiver = false;
+                        err = [NSString stringWithFormat:@"Error: listenForPackets - no packets."];
+                        successInitializingReceiver = false;
                     }
                     free(buf);
                     close(listeningSocket);
@@ -154,7 +155,7 @@
         if (successInitializingReceiver)
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[@"" stringByAppendingString:msg]];
         else
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[@"" stringByAppendingString:socket]];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[@"" stringByAppendingString:err]];
         
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];
