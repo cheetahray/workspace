@@ -1,6 +1,6 @@
 var finalcountdown = 1;
 var myssid = "";
-var entry = "";
+var entry = 0;
 var language = "";
 var myip = "";
 var successSet = function (message) {
@@ -21,6 +21,8 @@ var successFor = function (message) {
         document.getElementById("already").value = "1";
     }
      */
+    hello.listenForPackets(successListen, failureListen);
+    hello.sendMessage("WHO", successScan, failureScan);
     if (language == "zh-TW")
         console.log("網路初步成功" + message, alertDismissed, '', '確定');
     else if (language == "zh-CN")
@@ -36,15 +38,21 @@ var successScan = function (message) {
      }
      */
     if (language == "zh-TW")
-        navigator.notification.alert("傳送掃描請求" + message, alertDismissed, '', '確定');
+        console.log("傳送掃描請求" + message, alertDismissed, '', '確定');
     else if (language == "zh-CN")
-        navigator.notification.alert("傳送掃描請求" + message, alertDismissed, '', '确定');
+        console.log("傳送掃描請求" + message, alertDismissed, '', '确定');
     else
-        navigator.notification.alert("Send scan request." + message, alertDismissed, '', 'OK');
+        console.log("Send scan request." + message, alertDismissed, '', 'OK');
 }
 
 var successListen = function (message) {
-    alert(message);
+    if (message != "bell")
+    {
+        entry = entry + 1;
+        hello.initialize(myip + entry, 8888, successFor, failureSet);
+    }
+    else
+        alert(message);
 }
 
 var failureScan = function (message) {
@@ -95,13 +103,8 @@ function id3()
         function (ip) {
             myip = ip.substring(0, ip.lastIndexOf(".") + 1);
             if (strcmp(myssid, "bellclass") == false) {
-                for(entry = 71; entry < 72; entry++)
-                {
-                    alert(myip + entry);
-                    hello.initialize(myip + entry, 8888, successFor, failureSet);
-                    hello.listenForPackets(successListen, failureListen);
-                    hello.sendMessage("WHO", successScan, failureScan);
-                }
+                entry = 1;
+                hello.initialize(myip + entry, 8888, successFor, failureSet);
             }
             else {
                 if (language == "zh-TW")
