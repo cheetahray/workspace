@@ -43,11 +43,21 @@ var successListen = function (message) {
 }
 
 var failureScan = function (message) {
-    alert(message);
+    if (language == "zh-TW")
+        navigator.notification.alert("掃描IP失敗" + message, alertDismissed, '', '確定');
+    else if (language == "zh-CN")
+        navigator.notification.alert("扫描IP失败" + message, alertDismissed, '', '确定');
+    else
+        navigator.notification.alert("Scan network failed." + message, alertDismissed, '', 'OK');
 }
 
 var failureListen = function (message) {
-    alert(message);
+    if (language == "zh-TW")
+        navigator.notification.alert("聽取封包失敗" + message, alertDismissed, '', '確定');
+    else if (language == "zh-CN")
+        navigator.notification.alert("听取封包失败" + message, alertDismissed, '', '确定');
+    else
+        navigator.notification.alert("Listen packet failed." + message, alertDismissed, '', 'OK');
 }
 
 var successInternal = function (message) {
@@ -80,8 +90,9 @@ function id3()
         function (ip) {
             myip = ip.substring(0, ip.lastIndexOf(".") + 1);
             if (strcmp(myssid, "bellclass") == false) {
-                for(entry = 1; entry < 5; entry++)
+                for(entry = 1; entry < 2; entry++)
                 {
+                    alert(myip + entry);
                     hello.initialize(myip + entry, 8888, successFor, failureSet);
                     hello.listenForPackets(successListen, failureListen);
                     hello.sendMessage("WHO", successScan, failureScan);
