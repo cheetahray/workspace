@@ -6,5 +6,8 @@ module.exports = {
     },
     sendMessage: function (msg, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "Hello", "sendMessage", [msg]);
+    },
+    listenForPackets: function (successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "Hello", "listenForPackets", []);
     }
 };

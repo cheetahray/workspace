@@ -2,8 +2,8 @@ var finalcountdown = 1;
 var myssid = "";
 var entry = "";
 var language = "";
-
-var success = function (message) {
+var myip = "";
+var successSet = function (message) {
     if (document.getElementById("already").value == "0") {
         document.getElementById("already").value = "1";
     }
@@ -15,7 +15,42 @@ var success = function (message) {
         navigator.notification.alert("Network seems ready." + message, alertDismissed, '', 'OK');
 }
 
-var success4 = function (message) {
+var successFor = function (message) {
+    /*
+    if (document.getElementById("already").value == "0") {
+        document.getElementById("already").value = "1";
+    }
+     */
+    if (language == "zh-TW")
+        console.log("網路初步成功" + message, alertDismissed, '', '確定');
+    else if (language == "zh-CN")
+        console.log("网路初步成功" + message, alertDismissed, '', '确定');
+    else
+        console.log("Network seems ready." + message, alertDismissed, '', 'OK');
+}
+
+var successScan = function (message) {
+    /*
+     if (document.getElementById("already").value == "0") {
+     document.getElementById("already").value = "1";
+     }
+     */
+    alert(message);
+}
+
+var successListen = function (message) {
+    alert(message);
+}
+
+var failureScan = function (message) {
+    alert(message);
+}
+
+var failureListen = function (message) {
+    alert(message);
+}
+
+var successInternal = function (message) {
     if (document.getElementById("already").value == "0") {
         document.getElementById("already").value = "1";
     }
@@ -27,11 +62,11 @@ var success4 = function (message) {
         console.log("Network seems ready." + message);
 }
 
-var success3 = function (message) {
+var successInit = function (message) {
     myssid = message;
     if (strcmp(myssid, "bellclass_"))
     {
-        hello.initialize("192.168.4.1", 8888, success4, failure);
+        hello.initialize("192.168.4.1", 8888, successInternal, failureSet);
     }
     else if (document.getElementById("already").value == "0")
     {
@@ -43,18 +78,28 @@ function id3()
 {
     networkinterface.getIPAddress(
         function (ip) {
-            myssid = ip.substring(0, ip.lastIndexOf(".") + 1);
+            myip = ip.substring(0, ip.lastIndexOf(".") + 1);
+            if (strcmp(myssid, "bellclass") == -1) {
+                for(entry = 1; entry < 5; entry++)
+                {
+                    hello.initialize(myip + entry, 8888, successFor, failureSet);
+                    hello.listenForPackets(successListen, failureListen);
+                    hello.sendMessage("WHO", successScan, failureScan);
+                }
+            }
+            else {
+                if (language == "zh-TW")
+                    navigator.notification.prompt('電路板上面貼的標籤寫幾號', onPrompt, '', ['確定', '取消'], '');
+                else if (language == "zh-CN")
+                    navigator.notification.prompt('电路板上面贴的标签写几号', onPrompt, '', ['确定', '取消'], '');
+                else
+                    navigator.notification.prompt('What number on a stick of your motherboard?', onPrompt, '', ['OK', 'Cancel'], '');
+            }
         }
     );
-    if (language == "zh-TW")
-        navigator.notification.prompt('電路板上面貼的標籤寫幾號', onPrompt, '', ['確定', '取消'], '');
-    else if (language == "zh-CN")
-        navigator.notification.prompt('电路板上面贴的标签写几号', onPrompt, '', ['确定', '取消'], '');
-    else
-        navigator.notification.prompt('What number on a stick of your motherboard?', onPrompt, '', ['OK', 'Cancel'], '');
 }
 
-var successid = function (message) {
+var successOpen = function (message) {
     myssid = message;
     if (strcmp(myssid, "bellclass_"))
     {
@@ -65,7 +110,7 @@ var successid = function (message) {
     }
 }
 
-var failure = function (err) {
+var failureSet = function (err) {
     document.getElementById("already").value = "0";
     if (language == "zh-TW")
         navigator.notification.alert("網路設定失敗" + err, alertDismissed, '', '確定');
@@ -73,6 +118,16 @@ var failure = function (err) {
         navigator.notification.alert("网路设定失败" + err, alertDismissed, '', '确定');
     else
         navigator.notification.alert("Network fails." + err, alertDismissed, '', 'OK');
+}
+
+var failureSSID = function (err) {
+    document.getElementById("already").value = "0";
+    if (language == "zh-TW")
+        navigator.notification.alert("抓取網路名稱失敗" + err, alertDismissed, '', '確定');
+    else if (language == "zh-CN")
+        navigator.notification.alert("抓取网路名称失败" + err, alertDismissed, '', '确定');
+    else
+        navigator.notification.alert("Get Wifi SSID fails." + err, alertDismissed, '', 'OK');
 }
 
 var boxRec = document.getElementById('REC');
@@ -237,12 +292,12 @@ var boxSet = document.getElementById('SET');
 boxSet.addEventListener('touchstart', function (e) {
     if (document.getElementById("record").value == "1")
         finalboxRec();
-    WifiWizard.getCurrentSSID(successid, failure);
+    WifiWizard.getCurrentSSID(successOpen, failureSSID);
     e.preventDefault();
 }, false);
 
 // example of a callback method
-var successCallback = function (result) {
+var successCountdown = function (result) {
     if (result.type === 'sleep') {
         finalboxRec();
         if (language == "zh-TW")
@@ -259,7 +314,7 @@ var successCallback = function (result) {
 };
 
 // example of a callback method
-var errorCallback = function (error) {
+var errorCountdown = function (error) {
     if (language == "zh-TW")
         navigator.notification.alert(error, alertDismissed, '', '確定');
     else if (language == "zh-CN")
@@ -303,7 +358,7 @@ var app = {
         if (ratio > 1.55 && window.location.href.indexOf("index") > 0)
             window.location.assign("second.html");
         else
-            WifiWizard.getCurrentSSID(success3, failure);
+            WifiWizard.getCurrentSSID(successInit, failureSSID);
 
         var addevt = $('#runner').runner();
         addevt.on('runnerStop', function (eventObject, info) {
@@ -324,8 +379,8 @@ var app = {
             if (finalcountdown <= 0) {
                 finalcountdown = 1;
                 window.sleeptimer.sleep(
-                    successCallback,
-                    errorCallback,
+                    successCountdown,
+                    errorCountdown,
                     {
                         'sleep': 1, // sleep in 5 minutes/300 seconds
                         'countdown': false // if true, send time-to-sleep countdown from native to javascript
@@ -344,7 +399,7 @@ var app = {
 
         // Called when background mode has been activated
         cordova.plugins.backgroundMode.ondeactivate = function () {
-            WifiWizard.getCurrentSSID(success3, failure);
+            WifiWizard.getCurrentSSID(successInit, failureSSID);
         }
 
         app.receivedEvent('deviceready');
@@ -363,11 +418,11 @@ var app = {
 
 };
 
-var success2 = function (message) {
+var successNote = function (message) {
     console.log("傳送音符成功" + message);
 }
 
-var failure2 = function (err) {
+var failureNote = function (err) {
     if (language == "zh-TW")
         navigator.notification.alert("傳送音符失敗" + err, alertDismissed, '', '確定');
     else if (language == "zh-CN")
@@ -391,7 +446,7 @@ function sendto(mystr, mynote) {
 }
 
 function mycountdown(mystr) {
-    hello.sendMessage(mystr, success2, failure2);
+    hello.sendMessage(mystr, successNote, failureNote);
     finalcountdown = finalcountdown - 1;
 }
 
@@ -422,7 +477,7 @@ function onPrompt(results) {
     if (results.buttonIndex == 1) {
         entry = parseInt(results.input1);
         if (entry != NaN && entry < 255) {
-            hello.initialize(myssid + entry, 8888, success, failure);
+            hello.initialize(myip + entry, 8888, successSet, failureSet);
         }
     }
 }
