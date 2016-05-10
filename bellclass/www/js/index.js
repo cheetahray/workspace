@@ -63,6 +63,7 @@ var failureListen = function (message) {
     if (entry < 255)
     {
         entry = entry + 1;
+        $("#note").text(entry);
         hello.initialize(myip + entry, 8888, successFor, failureSet);
     }
     else {
@@ -432,7 +433,7 @@ var app = {
         var receivedElement = parentElement.querySelector('.received');
 
         listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
     }
@@ -463,7 +464,6 @@ function sendto(mystr, mynote) {
         if (document.getElementById("record").value == "1")
             $('#runner').runner('start');
     }
-    $("#note").text(mynote);
 }
 
 function mycountdown(mystr) {
