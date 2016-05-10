@@ -35,7 +35,12 @@ var successScan = function (message) {
      document.getElementById("already").value = "1";
      }
      */
-    alert(message);
+    if (language == "zh-TW")
+        navigator.notification.alert("傳送掃描請求" + message, alertDismissed, '', '確定');
+    else if (language == "zh-CN")
+        navigator.notification.alert("傳送掃描請求" + message, alertDismissed, '', '确定');
+    else
+        navigator.notification.alert("Send scan request." + message, alertDismissed, '', 'OK');
 }
 
 var successListen = function (message) {
@@ -90,7 +95,7 @@ function id3()
         function (ip) {
             myip = ip.substring(0, ip.lastIndexOf(".") + 1);
             if (strcmp(myssid, "bellclass") == false) {
-                for(entry = 1; entry < 2; entry++)
+                for(entry = 71; entry < 72; entry++)
                 {
                     alert(myip + entry);
                     hello.initialize(myip + entry, 8888, successFor, failureSet);

@@ -113,7 +113,7 @@
                     struct sockaddr_in receiveSockaddr;
                     socklen_t receiveSockaddrLen = sizeof(receiveSockaddr);
                     
-                    size_t bufSize = 9216;
+                    size_t bufSize = 512;
                     void *buf = malloc(bufSize);
                     ssize_t result = recvfrom(listeningSocket, buf, bufSize, 0, (struct sockaddr *)&receiveSockaddr, &receiveSockaddrLen);
                     
@@ -144,10 +144,10 @@
                     }
                     else
                     {
+                        free(buf);
                         err = [NSString stringWithFormat:@"Error: listenForPackets - no packets."];
                         successInitializingReceiver = false;
                     }
-                    free(buf);
                     close(listeningSocket);
                 }
             }
