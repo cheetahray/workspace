@@ -3,6 +3,7 @@ var myssid = "";
 var entry = 0;
 var language = "";
 var myip = "";
+var arewescan = false;
 var successSet = function (message) {
     if (document.getElementById("already").value == "0") {
         document.getElementById("already").value = "1";
@@ -145,7 +146,7 @@ var successOpen = function (message) {
     {
         cordova.InAppBrowser.open('http://192.168.4.1', '_blank', 'location=yes');
     }
-    else {
+    else if (arewescan == false){
         id3();
     }
 }
@@ -452,7 +453,7 @@ var app = {
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:none;');
-
+        arewescan = false;
         console.log('Received Event: ' + id);
     },
 
@@ -463,7 +464,7 @@ var app = {
 
         //listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-
+        arewescan = true;
         console.log('Received Event: ' + id);
     }
 

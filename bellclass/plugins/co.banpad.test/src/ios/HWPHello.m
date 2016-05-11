@@ -83,7 +83,7 @@
             // set timeout to 2 seconds.
             struct timeval timeV;
             timeV.tv_sec = 0;
-            timeV.tv_usec = 250000;
+            timeV.tv_usec = 125000;
             
             if (setsockopt(listeningSocket, SOL_SOCKET, SO_RCVTIMEO, &timeV, sizeof(timeV)) == -1)
             {
