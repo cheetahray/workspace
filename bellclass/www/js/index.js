@@ -61,6 +61,15 @@ var successListen = function (message) {
             $("#note").text("Scan " + entry);
         hello.initialize(myip + entry, 8888, successFor, failureSet);
     }
+    else {
+        app.receivedEvent('deviceready');
+        if (language == "zh-TW")
+            navigator.notification.alert("掃描IP失敗" + message, alertDismissed, '', '確定');
+        else if (language == "zh-CN")
+            navigator.notification.alert("扫描IP失败" + message, alertDismissed, '', '确定');
+        else
+            navigator.notification.alert("Scan network failed." + message, alertDismissed, '', 'OK');
+    }
 }
 
 var failureScan = function (message) {
