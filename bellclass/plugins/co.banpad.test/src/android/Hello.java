@@ -46,20 +46,25 @@ public class Hello extends CordovaPlugin {
 						datagramPacket = new DatagramPacket(bytes, 0, address, port);
 						// create socket
 						try {
-							datagramSocket = new DatagramSocket();
-							successInitializingTransmitter = true;
-
-						} catch (SocketException e) {
+							if(successInitializingTransmitter == false)
+							{	
+							    datagramSocket = new DatagramSocket(8888, InetAddress.getByName("0.0.0.0"));
+							    successInitializingTransmitter = true;
+							    datagramSocket.setSoTimeout(125);
+							}
+						}
+						catch (UnknownHostException e) {
+							e.printStackTrace();
+						}
+						catch (SocketException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
 					if (successInitializingTransmitter)
-						callbackContext.success(
-								": " + host );
+						callbackContext.success(": " + host);
 					else
-						callbackContext
-								.error(": " + host );
+						callbackContext.error(": " + host);
 				}
 			});
 			return true;
@@ -94,7 +99,43 @@ public class Hello extends CordovaPlugin {
 				}
 			});
 			return true;
+		} else if ("listenForPackets".equals(action)) {
+
+			cordova.getThreadPool().execute(new Runnable() {
+				public void run() {
+					this.listenForPackets(callbackContext);
+				}
+
+				private void listenForPackets(CallbackContext callbackContext) {
+			        byte[] recvBuf = new byte[16];
+			        DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
+			        String message = null;
+					boolean messageReceive = false;
+					// Only attempt to send a packet if the transmitter
+					// initialization was successful
+					if (successInitializingTransmitter) {
+						try {
+							datagramSocket.receive(packet);
+							message = new String(packet.getData()).trim();
+							messageReceive = true;
+					    } 
+						catch (SocketTimeoutException e) {
+							e.printStackTrace();
+					    }
+						catch (IOException e) {
+							e.printStackTrace();
+						}
+						
+					}
+					if (messageReceive)
+						callbackContext.success(message);
+					else
+						callbackContext.error("Error: listenForPackets - no packets.");
+				}
+			});
+			return true;
 		}
+
 		return false;
 	}
 }

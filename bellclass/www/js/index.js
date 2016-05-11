@@ -85,6 +85,7 @@ var failureListen = function (message) {
         hello.initialize(myip + entry, 8888, successFor, failureSet);
     }
     else {
+        app.receivedEvent('deviceready');
         if (language == "zh-TW")
             navigator.notification.alert("掃描IP失敗" + message, alertDismissed, '', '確定');
         else if (language == "zh-CN")
