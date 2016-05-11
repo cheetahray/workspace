@@ -32,11 +32,6 @@ var successFor = function (message) {
 }
 
 var successScan = function (message) {
-    /*
-     if (document.getElementById("already").value == "0") {
-     document.getElementById("already").value = "1";
-     }
-     */
     if (language == "zh-TW")
         console.log("傳送掃描請求" + message);
     else if (language == "zh-CN")
@@ -49,9 +44,12 @@ var successListen = function (message) {
     if (message == "bell")
     {
         app.receivedEvent('deviceready');
-        hello.initialize("192.168.4.1", 8888, successInternal, failureSet);
+        if (document.getElementById("already").value == "0") {
+            document.getElementById("already").value = "1";
+        }
+        //hello.initialize(myip + entry, 8888, successInternal, failureSet);
     }
-    else if (entry < 255)
+    else if (entry < 254)
     {
         entry = entry + 1;
         if (language == "zh-TW")
@@ -74,7 +72,7 @@ var failureScan = function (message) {
 }
 
 var failureListen = function (message) {
-    if (entry < 255)
+    if (entry < 254)
     {
         entry = entry + 1;
         if (language == "zh-TW")
