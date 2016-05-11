@@ -55,7 +55,7 @@
             successInitializingTransmitter = true;
         }
         
-        NSString* socket = [NSString stringWithFormat:@"%i", DatagramSocketC];
+        //NSString* socket = [NSString stringWithFormat:@"%i", DatagramSocketC];
         if (DatagramSocketC != 0 && successInitializingTransmitter)
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[@": " stringByAppendingString:(NSString *)[command.arguments objectAtIndex:0]]];
         else
@@ -134,7 +134,7 @@
                             addrBuf[0] = '\0';
                         }
                         
-                        NSString *address = [NSString stringWithCString:addrBuf encoding:NSASCIIStringEncoding];
+                        //NSString *address = [NSString stringWithCString:addrBuf encoding:NSASCIIStringEncoding];
                         msg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                         /*
                          dispatch_async(dispatch_get_main_queue(), ^{
