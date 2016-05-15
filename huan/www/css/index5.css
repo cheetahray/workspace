@@ -53,20 +53,20 @@ h1 {
 .REC {
 	font-size: 12px;
 	position: absolute;
-	top: 1842px;
-	left: 977px;
-	width: 210px;
-	height: 50px;
+	top: 1821px;
+	left: 724px;
+	width: 712px;
+	height: 95px;
 	background: none;
 }
 
 .QR {
 	font-size: 12px;
 	position: absolute;
-	top: 1843px;
-	left: 198px;
-	width: 324px;
-	height: 50px;
+	top: 1822px;
+	left: 1px;
+	width: 718px;
+	height: 97px;
 	background: none;
 }
 
@@ -74,9 +74,9 @@ h1 {
 	font-size: 12px;
 	position: absolute;
 	top: 115px;
-	left: 59px;
-	width: 103px;
-	height: 50px;
+	left: 2px;
+	width: 210px;
+	height: 100px;
 	
 }
 
@@ -88,7 +88,7 @@ h1 {
 	margin: 0px 30px;
 	padding: 2px 0px;
 	position: absolute;
-	top: 1806px;
+	top: 1773px;
 	left: 557px;
 	width: 277px;
 }
