@@ -11,10 +11,6 @@ boxRec.addEventListener('touchstart', function (e) {
         window.location.assign("second3.html");
     else if (window.location.href.indexOf("index.") > 0)
         window.location.assign("index3.html");
-    else if (window.location.href.indexOf("second7") > 0)
-        window.location.assign("second5.html");
-    else if (window.location.href.indexOf("index7") > 0)
-        window.location.assign("index5.html");
     else if (window.location.href.indexOf("second5") > 0)
         window.location.assign("second7.html");
     else if (window.location.href.indexOf("index5") > 0)
@@ -44,6 +40,10 @@ boxSet.addEventListener('touchstart', function (e) {
     else if (window.location.href.indexOf("second6") > 0)
         window.location.assign("second5.html");
     else if (window.location.href.indexOf("index6") > 0)
+        window.location.assign("index5.html");
+    else if (window.location.href.indexOf("second7") > 0)
+        window.location.assign("second5.html");
+    else if (window.location.href.indexOf("index7") > 0)
         window.location.assign("index5.html");
     e.preventDefault();
 }, false);
