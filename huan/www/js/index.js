@@ -15,6 +15,10 @@ boxRec.addEventListener('touchstart', function (e) {
         window.location.assign("second7.html");
     else if (window.location.href.indexOf("index5") > 0)
         window.location.assign("index7.html");
+    else if (window.location.href.indexOf("second7") > 0)
+        window.location.assign("second5.html");
+    else if (window.location.href.indexOf("index7") > 0)
+        window.location.assign("index5.html");
     e.preventDefault();
 }, false);
 
