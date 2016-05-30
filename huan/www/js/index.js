@@ -110,7 +110,7 @@ var app = {
         if (window.location.href.indexOf("6.html") > 0) {
 
             $(".qrcode").qrcode({
-                "size": 500,
+                "size": 700,
                 "text": "http://larsjung.de/qrcode"
             });
 
