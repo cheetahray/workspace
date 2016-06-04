@@ -63,13 +63,13 @@ h1 {
 }
 
 .SET {
-	font-size:12px;
+	background: url(../img/soccur.png);
+	font-size: 12px;
 	position: absolute;
-	top: 0px;
-	left: 0px;
-	width: 50px;
-	height: 50px;
-	background-color: transparent;
+	top: 490px;
+	left: 490px;
+	width: 100px;
+	height: 100px;
 }
 
 .TI {
@@ -150,8 +150,8 @@ h1 {
 	margin: 0px 0px;
 	padding: 2px 0px;
 	position: absolute;
-	top: -36px;
-	left: 0px;
+	top: 0px;
+	left: 100px;
 	width: 277px;
 }
 
