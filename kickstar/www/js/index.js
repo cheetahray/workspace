@@ -33,6 +33,20 @@ var left1 = 0;
 var right1 = 0;
 var top1 = 0;
 var bottom1 = 0;
+var radius1 = 0;
+var radius2 = 0;
+var radius3 = 0;
+var radius4 = 0;
+var radius5 = 0;
+var radius6 = 0;
+var radius7 = 0;
+var r2_1 = 0;
+var r2_2 = 0;
+var r2_3 = 0;
+var r2_4 = 0;
+var r2_5 = 0;
+var r2_6 = 0;
+var r2_7 = 0;
 
 function alertDismissed() {
     // do something
@@ -50,8 +64,10 @@ function getCenter()
 	left7 = parseInt( left.substr(0, left.indexOf("px")) );
 	var width7 = parseInt( width.substr(0, width.indexOf("px")) );
 	right7 = left7 + width7;
-	centerY = top7 + height7 / 2;
-	centerX = left7 + width7 / 2;
+	radius7 = width7 / 2;
+	centerY = top7 + radius7;
+	centerX = left7 + radius7;
+	r2_7 = radius7 * radius7;
 }
 
 function getSuccorW()
@@ -72,7 +88,8 @@ function getBoardary()
 	left6 = parseInt( left.substr(0, left.indexOf("px")) );
 	var width6 = parseInt( width.substr(0, width.indexOf("px")) );
 	right6 = left6 + width6;
-
+    radius6 = width6 / 2;
+	r2_6 = radius6 * radius6;
 	top = $("#five").css("top");
     left = $("#five").css("left");
     width = $("#five").css("width");
@@ -83,7 +100,8 @@ function getBoardary()
 	left5 = parseInt( left.substr(0, left.indexOf("px")) );
 	var width5 = parseInt( width.substr(0, width.indexOf("px")) );
 	right5 = left5 + width5;
-
+    radius5 = width5 / 2;
+	r2_5 = radius5 * radius5;
 	top = $("#four").css("top");
     left = $("#four").css("left");
     width = $("#four").css("width");
@@ -94,7 +112,8 @@ function getBoardary()
 	left4 = parseInt( left.substr(0, left.indexOf("px")) );
 	var width4 = parseInt( width.substr(0, width.indexOf("px")) );
 	right4 = left4 + width4;
-
+    radius4 = width4 / 2;
+	r2_4 = radius4 * radius4;
 	top = $("#three").css("top");
     left = $("#three").css("left");
     width = $("#three").css("width");
@@ -105,7 +124,8 @@ function getBoardary()
 	left3 = parseInt( left.substr(0, left.indexOf("px")) );
 	var width3 = parseInt( width.substr(0, width.indexOf("px")) );
 	right3 = left3 + width3;
-
+    radius3 = width3 / 2;
+	r2_3 = radius3 * radius3;
 	top = $("#two").css("top");
     left = $("#two").css("left");
     width = $("#two").css("width");
@@ -116,7 +136,8 @@ function getBoardary()
 	left2 = parseInt( left.substr(0, left.indexOf("px")) );
 	var width2 = parseInt( width.substr(0, width.indexOf("px")) );
 	right2 = left2 + width2;
-
+    radius2 = width2 / 2;
+	r2_2 = radius2 * radius2;
 	top = $("#one").css("top");
     left = $("#one").css("left");
     width = $("#one").css("width");
@@ -127,27 +148,78 @@ function getBoardary()
 	left1 = parseInt( left.substr(0, left.indexOf("px")) );
 	var width1 = parseInt( width.substr(0, width.indexOf("px")) );
 	right1 = left1 + width1;
-    
+    radius1 = width1 / 2;
+	r2_1 = radius1 * radius1;	
+}
+
+function clearAll()
+{
+    boxDo.setAttribute('style', 'background-color:transparent;');
+	boxRe.setAttribute('style', 'background-color:transparent;');
+	boxMi.setAttribute('style', 'background-color:transparent;');
+	boxFa.setAttribute('style', 'background-color:transparent;');
+	boxSo.setAttribute('style', 'background-color:transparent;');
+	boxLa.setAttribute('style', 'background-color:transparent;');
+	boxTi.setAttribute('style', 'background-color:transparent;');			
 }
 
 function processMove()
 {
 	var candraw = true;
-	if ( nowx > left1 && nowx < right1 && nowy > top1  && nowy < bottom1 )
-	    $("#note").text("1");
-	else if ( nowx > left2 && nowx < right2 && nowy > top2  && nowy < bottom2 )
-		$("#note").text("2");
-	else if ( nowx > left3 && nowx < right3 && nowy > top3  && nowy < bottom3 )
-	    $("#note").text("3");
-	else if ( nowx > left4 && nowx < right4 && nowy > top4  && nowy < bottom4 )
-		$("#note").text("4");
-	else if ( nowx > left5 && nowx < right5 && nowy > top5  && nowy < bottom5 )
-	    $("#note").text("5");
-	else if ( nowx > left6 && nowx < right6 && nowy > top6  && nowy < bottom6 )
-	    $("#note").text("6");
-	else if ( nowx > left7 && nowx < right7 && nowy > top7  && nowy < bottom7 )
-	    $("#note").text("7");
-    else
+	var nowr2 = (nowx - centerX) * (nowx - centerX) + (nowy - centerY) * (nowy - centerY); 
+	if ( nowr2 < r2_1 )//( nowx > left1 && nowx < right1 && nowy > top1  && nowy < bottom1 )
+	{
+		boxRe.setAttribute('style', 'background-color:transparent;');
+		boxDo.setAttribute('style', 'border: 2px solid violet; border-radius: ' + radius1.toString() + 'px;');
+		//$("#note").text("1");
+    }
+	else if ( nowr2 < r2_2 ) //( nowx > left2 && nowx < right2 && nowy > top2  && nowy < bottom2 )
+	{
+		boxMi.setAttribute('style', 'background-color:transparent;');
+		boxRe.setAttribute('style', 'border: 2px solid indigo; border-radius: ' + radius2.toString() + 'px;');
+		boxDo.setAttribute('style', 'border: 2px solid violet; border-radius: ' + radius1.toString() + 'px;');
+		//$("#note").text("2");
+	}
+	else if ( nowr2 < r2_3 ) //( nowx > left3 && nowx < right3 && nowy > top3  && nowy < bottom3 )
+	{
+	    boxFa.setAttribute('style', 'background-color:transparent;');
+		boxMi.setAttribute('style', 'border: 2px solid blue; border-radius: ' + radius3.toString() + 'px;');
+		boxRe.setAttribute('style', 'border: 2px solid indigo; border-radius: ' + radius2.toString() + 'px;');
+		boxDo.setAttribute('style', 'background-color:transparent;');
+		//$("#note").text("3");
+	}
+	else if ( nowr2 < r2_4 ) //( nowx > left4 && nowx < right4 && nowy > top4  && nowy < bottom4 )
+	{
+		boxSo.setAttribute('style', 'background-color:transparent;');
+		boxFa.setAttribute('style', 'border: 2px solid green; border-radius: ' + radius4.toString() + 'px;');
+		boxMi.setAttribute('style', 'border: 2px solid blue; border-radius: ' + radius3.toString() + 'px;');
+		boxRe.setAttribute('style', 'background-color:transparent;');
+		//$("#note").text("4");
+	}
+	else if ( nowr2 < r2_5 ) //( nowx > left5 && nowx < right5 && nowy > top5  && nowy < bottom5 )
+	{
+	    boxLa.setAttribute('style', 'background-color:transparent;');
+		boxSo.setAttribute('style', 'border: 2px solid yellow; border-radius: ' + radius5.toString() + 'px;');
+        boxFa.setAttribute('style', 'border: 2px solid green; border-radius: ' + radius4.toString() + 'px;');
+		boxMi.setAttribute('style', 'background-color:transparent;');
+		//$("#note").text("5");
+	}
+	else if ( nowr2 < r2_6 ) //( nowx > left6 && nowx < right6 && nowy > top6  && nowy < bottom6 )
+	{
+        boxTi.setAttribute('style', 'background-color:transparent;');
+		boxLa.setAttribute('style', 'border: 2px solid orange; border-radius: ' + radius6.toString() + 'px;');
+		boxSo.setAttribute('style', 'border: 2px solid yellow; border-radius: ' + radius5.toString() + 'px;');
+        boxFa.setAttribute('style', 'background-color:transparent;');
+		//$("#note").text("6");
+	}
+	else if ( nowr2 < r2_7 ) //( nowx > left7 && nowx < right7 && nowy > top7  && nowy < bottom7 )
+	{
+	    boxTi.setAttribute('style', 'border: 2px solid red; border-radius: ' + radius7.toString() + 'px;');
+	    boxLa.setAttribute('style', 'border: 2px solid orange; border-radius: ' + radius6.toString() + 'px;');
+        boxSo.setAttribute('style', 'background-color:transparent;');
+		//$("#note").text("7");
+	}
+	else
 	    candraw = false;
 	if (true == candraw)
 	    boxSet.setAttribute('style', 'left: ' + (parseInt(nowx)-succorW).toString() + 'px; top: ' + (parseInt(nowy)-succorW).toString() + 'px;');
@@ -194,16 +266,16 @@ function strcmp(a, b) {
 
 var successInit = function (message) {
     myssid = message;
-    if (strcmp(myssid, "bellclass_"))
+	if (strcmp(myssid, "bellclass_"))
     {
         hello.initialize("192.168.4.1", 8888, successInternal, failureSet);
     }
 	else if (language == "zh-TW")
-        navigator.notification.alert("您沒連上電路板的wifi" + err, alertDismissed, '', '確定');
-    else if (language == "zh-CN")
-        navigator.notification.alert("您没连上电路板的wifi" + err, alertDismissed, '', '确定');
-    else
-        navigator.notification.alert("You haven't connected to motherboard's wifi." + err, alertDismissed, '', 'OK');
+		navigator.notification.alert("您沒連上電路板的wifi" + message, alertDismissed, '', '確定');
+	else if (language == "zh-CN")
+	    navigator.notification.alert("您没连上电路板的wifi" + message, alertDismissed, '', '确定');
+	else
+        navigator.notification.alert("You haven't connected to motherboard's wifi." + message, alertDismissed, '', 'OK');
 	/*
     else if (document.getElementById("already").value == "0")
     {
@@ -219,7 +291,7 @@ var boxTi = document.getElementById('seven');
 boxTi.addEventListener('touchstart', function (e) {
     //readyet();
     //if (document.getElementById("already").value == "1")
-	    //boxTi.setAttribute('style', 'background-color:#CA27D3;');
+	    boxTi.setAttribute('style', 'border: 2px solid red; border-radius: ' + radius7.toString() + 'px;');
     e.preventDefault();
 	var touch = e.touches[0];
 	nowx = touch.pageX;
@@ -239,7 +311,7 @@ boxTi.addEventListener('touchmove', function (e) {
 
 boxTi.addEventListener('touchend', function (e) {
     //if (document.getElementById("already").value == "1")
-        //boxTi.setAttribute('style', 'background-color:transparent;');
+        clearAll();
     //sendto("223", finalcountdown.toString());
     e.preventDefault();
 	nowx = centerX;
@@ -252,7 +324,7 @@ var boxLa = document.getElementById('six');
 boxLa.addEventListener('touchstart', function (e) {
     //readyet();
     //if (document.getElementById("already").value == "1")
-        //boxLa.setAttribute('style', 'background-color:#233AB9;');
+        boxLa.setAttribute('style', 'border: 2px solid orange; border-radius: ' + radius6.toString() + 'px;');
     e.preventDefault();
 	var touch = e.touches[0];
 	nowx = touch.pageX;
@@ -272,7 +344,7 @@ boxLa.addEventListener('touchmove', function (e) {
 
 boxLa.addEventListener('touchend', function (e) {
     //if (document.getElementById("already").value == "1")
-        //boxLa.setAttribute('style', 'background-color:transparent;');
+        clearAll();
     //sendto("207", finalcountdown.toString());
     e.preventDefault();
 	nowx = centerX;
@@ -285,7 +357,7 @@ var boxSo = document.getElementById('five');
 boxSo.addEventListener('touchstart', function (e) {
     //readyet();
     //if (document.getElementById("already").value == "1")
-        //boxSo.setAttribute('style', 'background-color:#2CC8C7;');
+        boxSo.setAttribute('style', 'border: 2px solid yellow; border-radius: ' + radius5.toString() + 'px;');
     e.preventDefault();
 	var touch = e.touches[0];
 	nowx = touch.pageX;
@@ -305,7 +377,7 @@ boxSo.addEventListener('touchmove', function (e) {
 
 boxSo.addEventListener('touchend', function (e) {
     //if (document.getElementById("already").value == "1")
-        //boxSo.setAttribute('style', 'background-color:transparent;');
+        clearAll();
     //sendto("191", finalcountdown.toString());
     e.preventDefault();
 	nowx = centerX;
@@ -318,7 +390,7 @@ var boxFa = document.getElementById('four');
 boxFa.addEventListener('touchstart', function (e) {
     //readyet();
     //if (document.getElementById("already").value == "1")
-        //boxFa.setAttribute('style', 'background-color:#3CD12F;');
+        boxFa.setAttribute('style', 'border: 2px solid green; border-radius: ' + radius4.toString() + 'px;');
     e.preventDefault();
 	var touch = e.touches[0];
 	nowx = touch.pageX;
@@ -338,7 +410,7 @@ boxFa.addEventListener('touchmove', function (e) {
 
 boxFa.addEventListener('touchend', function (e) {
     //if (document.getElementById("already").value == "1")
-        //boxFa.setAttribute('style', 'background-color:transparent;');
+        clearAll();
     //sendto("175", finalcountdown.toString());
     e.preventDefault();
 	nowx = centerX;
@@ -351,7 +423,7 @@ var boxMi = document.getElementById('three');
 boxMi.addEventListener('touchstart', function (e) {
     //readyet();
     //if (document.getElementById("already").value == "1")
-        //boxMi.setAttribute('style', 'background-color:#D1D62E;');
+        boxMi.setAttribute('style', 'border: 2px solid blue; border-radius: ' + radius3.toString() + 'px;');
     e.preventDefault();
 	var touch = e.touches[0];
 	nowx = touch.pageX;
@@ -371,7 +443,7 @@ boxMi.addEventListener('touchmove', function (e) {
 
 boxMi.addEventListener('touchend', function (e) {
     //if (document.getElementById("already").value == "1")
-        //boxMi.setAttribute('style', 'background-color:transparent;');
+        clearAll();
     //sendto("159", finalcountdown.toString());
     e.preventDefault();
 	nowx = centerX;
@@ -384,7 +456,7 @@ var boxRe = document.getElementById('two');
 boxRe.addEventListener('touchstart', function (e) {
     //readyet();
     //if (document.getElementById("already").value == "1")
-        //boxRe.setAttribute('style', 'background-color:#D5922E;');
+        boxRe.setAttribute('style', 'border: 2px solid indigo; border-radius: ' + radius2.toString() + 'px;');
     e.preventDefault();
 	var touch = e.touches[0];
 	nowx = touch.pageX;
@@ -404,7 +476,7 @@ boxRe.addEventListener('touchmove', function (e) {
 
 boxRe.addEventListener('touchend', function (e) {
     //if (document.getElementById("already").value == "1")
-        //boxRe.setAttribute('style', 'background-color:transparent;');
+        clearAll();
     //sendto("143", finalcountdown.toString());
     e.preventDefault();
 	nowx = centerX;
@@ -417,7 +489,7 @@ var boxDo = document.getElementById('one');
 boxDo.addEventListener('touchstart', function (e) {
     //readyet();
     //if (document.getElementById("already").value == "1")
-        //boxDo.setAttribute('style', 'background-color:#BE2E2B;');
+        boxDo.setAttribute('style', 'border: 2px solid violet; border-radius: ' + radius1.toString() + 'px;');
     e.preventDefault();
 	var touch = e.touches[0];
 	nowx = touch.pageX;
@@ -437,7 +509,7 @@ boxDo.addEventListener('touchmove', function (e) {
 
 boxDo.addEventListener('touchend', function (e) {
     //if (document.getElementById("already").value == "1")
-        //boxDo.setAttribute('style', 'background-color:transparent;');
+        clearAll();
     //sendto("127", finalcountdown.toString());
     e.preventDefault();
 	nowx = centerX;
@@ -468,10 +540,6 @@ var app = {
             function () { navigator.nofification.alert('Error getting locale\n'); }
         );
 
-        getCenter();
-		getSuccorW();
-        getBoardary();
-		
         if (screen.width > screen.height) {
             app.deviceHeight = screen.width;
             app.deviceWidth = screen.height;
@@ -490,6 +558,10 @@ var app = {
 
         });
 
+        getCenter();
+		getSuccorW();
+        getBoardary();
+		
         window.screen.lockOrientation('landscape');
 			
 		cordova.plugins.backgroundMode.enable();
@@ -508,7 +580,7 @@ var app = {
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-
+		
         console.log('Received Event: ' + id);
     }
 };
