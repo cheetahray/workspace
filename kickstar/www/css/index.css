@@ -25,7 +25,7 @@ body {
     height:100%;
     margin:0px;
     padding:0px;
-    text-transform:uppercase;
+    /*text-transform:uppercase;*/
     width:100%;
 }
 
@@ -66,10 +66,10 @@ h1 {
 	background: url(../img/soccur.png);
 	font-size: 12px;
 	position: absolute;
-	top: 490px;
-	left: 490px;
-	width: 100px;
-	height: 100px;
+	top: 500px;
+	left: 500px;
+	width: 80px;
+	height: 80px;
 }
 
 .TI {
@@ -146,13 +146,14 @@ h1 {
 	border-radius: 4px;
 	-webkit-border-radius: 4px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 36px;
 	margin: 0px 0px;
 	padding: 2px 0px;
 	position: absolute;
 	top: 0px;
 	left: 100px;
-	width: 277px;
+	width: 600px;
+	height: 50px;
 }
 
 .event.listening {
