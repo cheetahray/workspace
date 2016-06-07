@@ -38,8 +38,8 @@ function anyscreen(css_urls, successCallback){
         }
         
 		scaling = app.deviceHeight / parseFloat( $("#APP").css("width") ) ; // , app.deviceWidth / parseFloat( $("#APP").css("height") ) ;
-        if (device.platform == "Android")
-            scaling = scaling * 0.96;
+        //if (device.platform == "Android")
+         //   scaling = scaling * 0.96;
             
         viewport.setAttribute('content', 'user-scalable=no, initial-scale=' + initscale + ', maximum-scale=' + scaling + ', minimum-scale=' + scaling + ', target-densitydpi=device-dpi');
 

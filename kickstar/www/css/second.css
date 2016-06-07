@@ -1,192 +1,226 @@
 * {
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
 body {
-    -webkit-touch-callout: none;
-    -webkit-text-size-adjust: none;
-    -webkit-user-select: none;
-    background-color:#6C6A68;
-    background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
-    height:100%;
-    margin:0px;
-    padding:0px;
-    text-transform:uppercase;
-    width:100%;
+    -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color: #E4E4E4;
+    /*
+	background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:-webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #A7A7A7),
+        color-stop(0.51, #E4E4E4)
+    );
+	*/
+    background-attachment: fixed;
+    font-family: 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    /*text-transform:uppercase;*/
+    width: 100%;
 }
 
-
+/* Portrait layout (default) */
 .app {
-	background:url(../img/1-iphone-layout_iphone.png) no-repeat center top;
-	position:absolute;
-	left:0px;
-	top:0px;
-	height:1080px;
-	width:1920px;
-	text-align:center;
-	padding:0px 0px 0px 0px;
-	margin:0px 0px 0px 0px;
-
+    background: url(../img/1440p.png) no-repeat center top; /* 170px x 200px */
+    position: absolute; /* position in the center of the screen */
+    left: 0px;
+    top: 0px;
+    height: 1440px; /* text area height */
+    width: 1920px; /* text area width */
+    text-align: center;
+    padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
+    margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
+    /* offset horizontal: half of text area width */
 }
 
-
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width: 400px) {
     .app {
-        background-position:left center;
-        padding:0px 0px 0px 0px;
-        margin:0px 0px 0px 0px;
-
+        background-position: left center;
+        padding: 0px 0px 0px 0px; /* padding-top + padding-bottom + text area = image height */
+        margin: 0px 0px 0px 0px; /* offset vertical: half of image height */
+        /* offset horizontal: half of image width and text area width */
     }
 }
 
 h1 {
-    font-size:24px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
-}
-
-.REC {
-	font-size:12px;
-	position: absolute;
-	top: 403px;
-	left: 1592px;
-	width: 236px;
-	height: 238px;
-	background: none;
+    font-size: 24px;
+    font-weight: normal;
+    margin: 0px;
+    overflow: visible;
+    padding: 0px;
+    text-align: center;
 }
 
 .SET {
-	font-size:12px;
-	position: absolute;
-	top: 65px;
-	left: 1788px;
-	width: 95px;
-	height: 98px;
-	background-color: transparent;
-}
-
-.DOO {
-	font-size:12px;
-	position: absolute;
-	top: 325px;
-	left: 1324px;
-	width: 128px;
-	height: 391px;
-	background-color: transparent;
+    background: url(../img/button.png);
+    font-size: 12px;
+    position: absolute;
+    top: 630px;
+    left: 380px;
+    width: 176px;
+    height: 177px;
 }
 
 .TI {
-	font-size:12px;
-	position: absolute;
-	top: 314px;
-	left: 1148px;
-	width: 130px;
-	height: 407px;
-	background-color: transparent;
+    font-size: 12px;
+    position: absolute;
+    top: 651px;
+    left: 400px;
+    width: 137px;
+    height: 137px;
+    background-color: transparent;
 }
 
 .LA {
-	font-size:12px;
-	position: absolute;
-	top: 303px;
-	left: 974px;
-	width: 125px;
-	height: 433px;
-	background-color: transparent;
+    font-size: 12px;
+    position: absolute;
+    top: 583px;
+    left: 333px;
+    width: 274px;
+    height: 274px;
+    background-color: transparent;
 }
 
 .SO {
-	font-size:12px;
-	position: absolute;
-	top: 286px;
-	left: 797px;
-	width: 125px;
-	height: 464px;
-	background-color: transparent;
+    font-size: 12px;
+    position: absolute;
+    top: 514px;
+    left: 266px;
+    width: 411px;
+    height: 411px;
+    background-color: transparent;
 }
 
 .FA {
-	font-size:12px;
-	position: absolute;
-	top: 275px;
-	left: 618px;
-	width: 127px;
-	height: 489px;
-	background-color: transparent;
+    font-size: 12px;
+    position: absolute;
+    top: 446px;
+    left: 219px;
+    width: 548px;
+    height: 548px;
+    background-color: transparent;
 }
 
 .MI {
-	font-size:12px;
-	position: absolute;
-	top: 269px;
-	left: 442px;
-	width: 128px;
-	height: 503px;
-	background-color: transparent;
+    font-size: 12px;
+    position: absolute;
+    top: 377px;
+    left: 132px;
+    width: 685px;
+    height: 685px;
+    background-color: transparent;
 }
 
 .RE {
-	font-size:12px;
-	position: absolute;
-	top: 252px;
-	left: 265px;
-	width: 125px;
-	height: 533px;
-	background-color: transparent;
+    font-size: 12px;
+    position: absolute;
+    top: 309px;
+    left: 65px;
+    width: 822px;
+    height: 822px;
+    background-color: transparent;
 }
 
 .DO {
-	font-size:12px;
+    font-size: 12px;
+    position: absolute;
+    top: 240px;
+    left: -2px;
+    width: 959px;
+    height: 959px;
+    background-color: transparent;
+}
+
+.KICK {
+	font-size: 12px;
 	position: absolute;
-	top: 236px;
-	left: 89px;
-	width: 128px;
-	height: 565px;
+	top: 409px;
+	left: 1050px;
+	width: 220px;
+	height: 220px;
+	background-color: transparent;
+}
+
+.KICKII {
+	font-size: 12px;
+	position: absolute;
+	top: 409px;
+	left: 1450px;
+	width: 220px;
+	height: 220px;
+	background-color: transparent;
+}
+
+.BREAK {
+	font-size: 12px;
+	position: absolute;
+	top: 809px;
+	left: 1450px;
+	width: 220px;
+	height: 220px;
 	background-color: transparent;
 }
 
 .event {
-	border-radius:4px;
-	-webkit-border-radius:4px;
-	color:#FFFFFF;
-	font-size:16px;
-	margin:0px 30px;
-	padding:2px 0px;
-	position: absolute;
-	top: 748px;
-	left: 1481px;
-	width: 277px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    color: #FFFFFF;
+    font-size: 36px;
+    margin: 0px 0px;
+    padding: 2px 0px;
+    position: absolute;
+    top: 0px;
+    left: 100px;
+    width: 600px;
+    height: 50px;
 }
 
 .event.listening {
-	background-color:#333333;
-	display:block;
-	
+    background-color: #333333;
+    display: block;
 }
 
 .event.received {
-	background-color:#4B946A;
-	display:none;
+    background-color: #4B946A;
+    display: none;
 }
 
 @keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+    from {
+        opacity: 1.0;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    to {
+        opacity: 1.0;
+    }
 }
- 
+
 @-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+    from {
+        opacity: 1.0;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    to {
+        opacity: 1.0;
+    }
 }
- 
+
 .blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
+    animation: fade 3000ms infinite;
+    -webkit-animation: fade 3000ms infinite;
 }
