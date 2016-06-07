@@ -287,24 +287,27 @@ function processMove() {
     var ret="";
     if (nowr2 < r2_1)//( nowx > left1 && nowx < right1 && nowy > top1  && nowy < bottom1 )
     {
-        if (mysin > sin45)
+        if (triY > 0) //(mysin > sin45)
             ret = "0x09";
-        else if (mysin < _sin45)
+        else if (triY < 0) //(mysin < _sin45)
             ret = "0x01";
+        /*
         else if (triX > 0)
             ret = "0x90";
         else if (triX < 0)
             ret = "0x10";
+               */
         boxRe.setAttribute('style', 'background-color:transparent;');
         boxDo.setAttribute('style', 'border: 2px solid violet; border-radius: ' + radius1.toString() + 'px;');
         $("#note").text(ConvertBase.dec2bin(parseInt(ret).toString()));
     }
     else if (nowr2 < r2_2) //( nowx > left2 && nowx < right2 && nowy > top2  && nowy < bottom2 )
     {
-        if (mysin > sin67_5)
-            ret = "0x0A"
-        else if (mysin < _sin67_5)
-            ret = "0x02"
+        if (triY > 0) //(mysin > sin67_5)
+            ret = "0x0A";
+        else if (triY < 0) //(mysin < _sin67_5)
+            ret = "0x02";
+        /*
         else {
             if (mysin < sin22_5 && mysin > _sin22_5) {
                 ret = "0x20";
@@ -319,6 +322,7 @@ function processMove() {
                 ret = "0x" + ConvertBase.dec2hex((parseInt(ret) + 128).toString()).toUpperCase();
             }
         }
+               */
         boxMi.setAttribute('style', 'background-color:transparent;');
         boxRe.setAttribute('style', 'border: 2px solid indigo; border-radius: ' + radius2.toString() + 'px;');
         boxDo.setAttribute('style', 'border: 2px solid violet; border-radius: ' + radius1.toString() + 'px;');
@@ -327,9 +331,9 @@ function processMove() {
     else if (nowr2 < r2_3) //( nowx > left3 && nowx < right3 && nowy > top3  && nowy < bottom3 )
     {
         if (mysin > sin75)
-            ret = "0x0B"
+            ret = "0x0B";
         else if (mysin < _sin75)
-            ret = "0x03"
+            ret = "0x03";
         else {
             if (mysin < sin15 && mysin > _sin15) {
                 ret = "0x30";
@@ -359,9 +363,9 @@ function processMove() {
     else if (nowr2 < r2_4) //( nowx > left4 && nowx < right4 && nowy > top4  && nowy < bottom4 )
     {
         if (mysin > sin78_75)
-            ret = "0x0C"
+            ret = "0x0C";
         else if (mysin < _sin78_75)
-            ret = "0x04"
+            ret = "0x04";
         else {
             if (mysin < sin11_25 && mysin > _sin11_25) {
                 ret = "0x40";
@@ -397,9 +401,9 @@ function processMove() {
     else if (nowr2 < r2_5) //( nowx > left5 && nowx < right5 && nowy > top5  && nowy < bottom5 )
     {
         if (mysin > sin81)
-            ret = "0x0D"
+            ret = "0x0D";
         else if (mysin < _sin81)
-            ret = "0x05"
+            ret = "0x05";
         else {
             if (mysin < sin9 && mysin > _sin9) {
                 ret = "0x50";
@@ -441,9 +445,9 @@ function processMove() {
     else if (nowr2 < r2_6) //( nowx > left6 && nowx < right6 && nowy > top6  && nowy < bottom6 )
     {
         if (mysin > sin82_5)
-            ret = "0x0E"
+            ret = "0x0E";
         else if (mysin < _sin82_5)
-            ret = "0x06"
+            ret = "0x06";
         else {
             if (mysin < sin7_5 && mysin > _sin7_5) {
                 ret = "0x60";
@@ -492,9 +496,9 @@ function processMove() {
     {
 
         if (mysin > sin83_57)
-            ret = "0x0F"
+            ret = "0x0F";
         else if (mysin < _sin83_57)
-            ret = "0x07"
+            ret = "0x07";
         else {
             if (mysin < sin6_43 && mysin > _sin6_43) {
                 ret = "0x70";
