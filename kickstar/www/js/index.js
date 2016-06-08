@@ -551,7 +551,7 @@ function processMove() {
     }
     if (true == candraw)
     {
-        //$("#note").text(ConvertBase.dec2bin(parseInt(ret).toString()));
+        $("#note").text(ConvertBase.dec2bin(parseInt(ret).toString()));
         boxSet.setAttribute('style', 'left: ' + (parseInt(nowx) - succorW).toString() + 'px; top: ' + (parseInt(nowy) - succorW).toString() + 'px;');
     }
 }
@@ -599,11 +599,11 @@ var successInit = function (message) {
         hello.initialize("192.168.4.1", 7777, successInternal, failureSet);
     }
     else if (language == "zh-TW")
-        navigator.notification.alert("您沒連上電路板的wifi" + message, alertDismissed, '', '確定');
+        navigator.notification.alert("您沒連上電路板的 wifi uucar_x", alertDismissed, '', '確定');
     else if (language == "zh-CN")
-        navigator.notification.alert("您没连上电路板的wifi" + message, alertDismissed, '', '确定');
+        navigator.notification.alert("您没连上电路板的 wifi uucar_x", alertDismissed, '', '确定');
     else
-        navigator.notification.alert("You haven't connected to motherboard's wifi." + message, alertDismissed, '', 'OK');
+        navigator.notification.alert("You haven't connected to motherboard's wifi uucar_x.", alertDismissed, '', 'OK');
     /*
      else if (document.getElementById("already").value == "0")
      {
@@ -954,7 +954,7 @@ var app = {
         var receivedElement = parentElement.querySelector('.received');
 
         listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+        receivedElement.setAttribute('style', 'display:none;');
 
         console.log('Received Event: ' + id);
     }

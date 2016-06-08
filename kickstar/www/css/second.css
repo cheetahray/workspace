@@ -63,40 +63,40 @@ h1 {
 }
 
 .SET {
-    background: url(../img/button.png);
-    font-size: 12px;
-    position: absolute;
-    top: 630px;
-    left: 380px;
-    width: 176px;
-    height: 177px;
+	background: url(../img/button.png);
+	font-size: 12px;
+	position: absolute;
+	top: 630px;
+	left: 377px;
+	width: 176px;
+	height: 177px;
 }
 
 .TI {
-    font-size: 12px;
-    position: absolute;
-    top: 651px;
-    left: 400px;
-    width: 137px;
-    height: 137px;
-    background-color: transparent;
+	font-size: 12px;
+	position: absolute;
+	top: 651px;
+        left: 395px;
+	width: 137px;
+	height: 137px;
+	background-color: transparent;
 }
 
 .LA {
-    font-size: 12px;
-    position: absolute;
-    top: 583px;
-    left: 333px;
-    width: 274px;
-    height: 274px;
-    background-color: transparent;
+	font-size: 12px;
+	position: absolute;
+	top: 583px;
+        left: 325px;
+	width: 274px;
+	height: 274px;
+	background-color: transparent;
 }
 
 .SO {
     font-size: 12px;
     position: absolute;
     top: 514px;
-    left: 266px;
+    left: 256px;
     width: 411px;
     height: 411px;
     background-color: transparent;
@@ -106,7 +106,7 @@ h1 {
 	font-size: 12px;
 	position: absolute;
 	top: 446px;
-	left: 200px;
+	left: 189px;
 	width: 548px;
 	height: 548px;
 	background-color: transparent;
@@ -116,7 +116,7 @@ h1 {
     font-size: 12px;
     position: absolute;
     top: 377px;
-    left: 132px;
+    left: 121px;
     width: 685px;
     height: 685px;
     background-color: transparent;
@@ -126,7 +126,7 @@ h1 {
     font-size: 12px;
     position: absolute;
     top: 309px;
-    left: 65px;
+    left: 51px;
     width: 822px;
     height: 822px;
     background-color: transparent;
@@ -136,7 +136,7 @@ h1 {
     font-size: 12px;
     position: absolute;
     top: 240px;
-    left: -2px;
+    left: -16px;
     width: 959px;
     height: 959px;
     background-color: transparent;
