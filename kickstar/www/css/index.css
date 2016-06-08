@@ -106,7 +106,7 @@ h1 {
     font-size: 12px;
     position: absolute;
     top: 266px;
-    left: 219px;
+    left: 200px;
     width: 548px;
     height: 548px;
     background-color: transparent;
@@ -160,6 +160,16 @@ h1 {
 	width: 220px;
 	height: 220px;
 	background-color: transparent;
+}
+
+.KICKIII {
+    font-size: 12px;
+    position: absolute;
+    top: 629px;
+    left: 1050px;
+    width: 220px;
+    height: 220px;
+    background-color: transparent;
 }
 
 .BREAK {

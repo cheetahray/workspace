@@ -103,13 +103,13 @@ h1 {
 }
 
 .FA {
-    font-size: 12px;
-    position: absolute;
-    top: 446px;
-    left: 219px;
-    width: 548px;
-    height: 548px;
-    background-color: transparent;
+	font-size: 12px;
+	position: absolute;
+	top: 446px;
+	left: 200px;
+	width: 548px;
+	height: 548px;
+	background-color: transparent;
 }
 
 .MI {
@@ -160,6 +160,16 @@ h1 {
 	width: 220px;
 	height: 220px;
 	background-color: transparent;
+}
+
+.KICKIII {
+    font-size: 12px;
+    position: absolute;
+    top: 809px;
+    left: 1050px;
+    width: 220px;
+    height: 220px;
+    background-color: transparent;
 }
 
 .BREAK {
