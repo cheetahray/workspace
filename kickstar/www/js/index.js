@@ -299,7 +299,6 @@ function processMove() {
                */
         boxRe.setAttribute('style', 'background-color:transparent;');
         boxDo.setAttribute('style', 'border: 2px solid violet; border-radius: ' + radius1.toString() + 'px;');
-        $("#note").text(ConvertBase.dec2bin(parseInt(ret).toString()));
     }
     else if (nowr2 < r2_2) //( nowx > left2 && nowx < right2 && nowy > top2  && nowy < bottom2 )
     {
@@ -326,7 +325,6 @@ function processMove() {
         boxMi.setAttribute('style', 'background-color:transparent;');
         boxRe.setAttribute('style', 'border: 2px solid indigo; border-radius: ' + radius2.toString() + 'px;');
         boxDo.setAttribute('style', 'border: 2px solid violet; border-radius: ' + radius1.toString() + 'px;');
-        $("#note").text(ConvertBase.dec2bin(parseInt(ret).toString()));
     }
     else if (nowr2 < r2_3) //( nowx > left3 && nowx < right3 && nowy > top3  && nowy < bottom3 )
     {
@@ -358,7 +356,6 @@ function processMove() {
         boxMi.setAttribute('style', 'border: 2px solid blue; border-radius: ' + radius3.toString() + 'px;');
         boxRe.setAttribute('style', 'border: 2px solid indigo; border-radius: ' + radius2.toString() + 'px;');
         boxDo.setAttribute('style', 'background-color:transparent;');
-        $("#note").text(ConvertBase.dec2bin(parseInt(ret).toString()));
     }
     else if (nowr2 < r2_4) //( nowx > left4 && nowx < right4 && nowy > top4  && nowy < bottom4 )
     {
@@ -396,7 +393,6 @@ function processMove() {
         boxFa.setAttribute('style', 'border: 2px solid green; border-radius: ' + radius4.toString() + 'px;');
         boxMi.setAttribute('style', 'border: 2px solid blue; border-radius: ' + radius3.toString() + 'px;');
         boxRe.setAttribute('style', 'background-color:transparent;');
-        $("#note").text(ConvertBase.dec2bin(parseInt(ret).toString()));
     }
     else if (nowr2 < r2_5) //( nowx > left5 && nowx < right5 && nowy > top5  && nowy < bottom5 )
     {
@@ -440,7 +436,6 @@ function processMove() {
         boxSo.setAttribute('style', 'border: 2px solid yellow; border-radius: ' + radius5.toString() + 'px;');
         boxFa.setAttribute('style', 'border: 2px solid green; border-radius: ' + radius4.toString() + 'px;');
         boxMi.setAttribute('style', 'background-color:transparent;');
-        $("#note").text(ConvertBase.dec2bin(parseInt(ret).toString()));
     }
     else if (nowr2 < r2_6) //( nowx > left6 && nowx < right6 && nowy > top6  && nowy < bottom6 )
     {
@@ -490,7 +485,6 @@ function processMove() {
         boxLa.setAttribute('style', 'border: 2px solid orange; border-radius: ' + radius6.toString() + 'px;');
         boxSo.setAttribute('style', 'border: 2px solid yellow; border-radius: ' + radius5.toString() + 'px;');
         boxFa.setAttribute('style', 'background-color:transparent;');
-        $("#note").text(ConvertBase.dec2bin(parseInt(ret).toString()));
     }
     else if (nowr2 < r2_7 + 40000) //( nowx > left7 && nowx < right7 && nowy > top7  && nowy < bottom7 )
     {
@@ -546,7 +540,6 @@ function processMove() {
         boxTi.setAttribute('style', 'border: 2px solid red; border-radius: ' + radius7.toString() + 'px;');
         boxLa.setAttribute('style', 'border: 2px solid orange; border-radius: ' + radius6.toString() + 'px;');
         boxSo.setAttribute('style', 'background-color:transparent;');
-        $("#note").text(ConvertBase.dec2bin(parseInt(ret).toString()));
     }
     else
         candraw = false;
@@ -557,7 +550,10 @@ function processMove() {
         lastret = ret;
     }
     if (true == candraw)
+    {
+        //$("#note").text(ConvertBase.dec2bin(parseInt(ret).toString()));
         boxSet.setAttribute('style', 'left: ' + (parseInt(nowx) - succorW).toString() + 'px; top: ' + (parseInt(nowy) - succorW).toString() + 'px;');
+    }
 }
 
 var failureSet = function (err) {
@@ -933,14 +929,14 @@ var app = {
         getBoardary();
 
         window.screen.lockOrientation('landscape');
-        /*
+        
         cordova.plugins.backgroundMode.enable();
 
         // Called when background mode has been activated
         cordova.plugins.backgroundMode.ondeactivate = function () {
             WifiWizard.getCurrentSSID(successInit, failureSSID);
         }
-        */
+        
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
