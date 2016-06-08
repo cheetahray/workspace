@@ -933,13 +933,14 @@ var app = {
         getBoardary();
 
         window.screen.lockOrientation('landscape');
-
+        /*
         cordova.plugins.backgroundMode.enable();
 
         // Called when background mode has been activated
         cordova.plugins.backgroundMode.ondeactivate = function () {
             WifiWizard.getCurrentSSID(successInit, failureSSID);
         }
+        */
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
