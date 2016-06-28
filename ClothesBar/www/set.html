@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+
+                <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        -->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/set.css">
+        <title>Hello World</title>
+    </head>
+    <body>
+        <div id="APP" class="app">
+          <div id="deviceready" class="blink">
+            <p class="event listening">Connecting to Device</p>
+            <p id="note" class="event received">Device is Ready</p>
+          </div>
+          <div id="REC" class="REC"></div>
+          <div id="SET" class="SET"></div>
+        </div>
+        <input id="record" type="hidden" value="0" />
+        <input id="already" type="hidden" value="0" />
+        <span id="runner"></span>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/anyscreen.js"></script>
+        <script type="text/javascript" src="js/set.js"></script>
+        <script type="text/javascript" src="js/jquery-1.12.3.js"></script>
+        <script src="js/jquery.runner.js" type="text/javascript"></script>
+    </body>
+</html>
