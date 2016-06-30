@@ -133,7 +133,7 @@ function id3()
     networkinterface.getIPAddress(
         function (ip) {
             myip = ip.substring(0, ip.lastIndexOf(".") + 1);
-            if (strcmp(myssid, "bellclass") == false) {
+            if (strcmp(myssid, "DAC-2F(rear)") == false) {
                 app.scanEvent('deviceready');
                 entry = 1;
                 hello.initialize(myip + entry, 8888, successFor, failureSet);

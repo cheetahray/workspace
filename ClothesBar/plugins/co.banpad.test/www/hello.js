@@ -9,5 +9,8 @@ module.exports = {
     },
     listenForPackets: function (successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "Hello", "listenForPackets", []);
+    },
+    playmidi: function (meg, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "Hello", "playmidi", [msg]);
     }
 };
