@@ -33,7 +33,7 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
     
     
     //AudioUnit *player = (AudioUnit*) refCon;
-    ssize_t result = 0;
+    
     MIDIPacket *packet = (MIDIPacket *)pktlist->packet;
     for (int i=0; i < pktlist->numPackets; i++) {
         Byte midiStatus = packet->data[0];
@@ -86,8 +86,9 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
                 default:
                     break;
             }
-            //NSLog([noteType stringByAppendingFormat:[NSString stringWithFormat:@": %i", noteNumber]]);
+            NSLog([noteType stringByAppendingFormat:[NSString stringWithFormat:@": %i", noteNumber]]);
             
+
             //OSStatus result = noErr;
             //result = MusicDeviceMIDIEvent (player, midiStatus, note, velocity, 0);
         }
