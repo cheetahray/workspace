@@ -4,6 +4,12 @@
 #define kHighNote 72
 #define kMidNote  60
 
+@interface HWPHello ()
+
+@property (readwrite) AudioUnit samplerUnit;
+
+@end
+
 @implementation HWPHello
 {
     // Regular C implementation:
