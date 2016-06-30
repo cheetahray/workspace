@@ -513,7 +513,8 @@ function sendto(mystr, mynote) {
     else
     */
     if (document.getElementById("already").value == "1") {
-        hello.playmidi(mystr, successMidi, failureMidi); //mycountdown(mystr);
+        hello.playmidi(mystr, successMidi, failureMidi); 
+        //mycountdown(mystr);
         if (document.getElementById("record").value == "1")
             $('#runner').runner('start');
     }
