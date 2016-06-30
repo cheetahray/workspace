@@ -493,6 +493,19 @@ var failureNote = function (err) {
         navigator.notification.alert("Melody plays unsuccessfully." + err, alertDismissed, '', 'OK');
 }
 
+var successMidi = function (message) {
+    console.log("播放音樂成功" + message);
+}
+
+var failureMidi = function (err) {
+    if (language == "zh-TW")
+        navigator.notification.alert("音樂正在播出" + err, alertDismissed, '', '確定');
+    else if (language == "zh-CN")
+        navigator.notification.alert("音乐正在播出" + err, alertDismissed, '', '确定');
+    else
+        navigator.notification.alert("Midi is playing now." + err, alertDismissed, '', 'OK');
+}
+
 function sendto(mystr, mynote) {
     /*
     if ( theip.charAt(theip.length-1) == "." )
@@ -500,7 +513,7 @@ function sendto(mystr, mynote) {
     else
     */
     if (document.getElementById("already").value == "1") {
-        mycountdown(mystr);
+        hello.playmidi(mystr, successMidi, failureMidi); //mycountdown(mystr);
         if (document.getElementById("record").value == "1")
             $('#runner').runner('start');
     }
