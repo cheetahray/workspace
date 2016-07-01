@@ -319,17 +319,19 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
                                       &virtualMidi);
             
             NSAssert( result == noErr, @"MIDIClientCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
-            double len = 0.0;
+
             // Create an endpoint
             MIDIEndpointRef virtualEndpoint;
             result = MIDIDestinationCreate(virtualMidi, @"Virtual Destination", MyMIDIReadProc, self.samplerUnit, &virtualEndpoint);
             
             NSAssert( result == noErr, @"MIDIDestinationCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
-            NSString *simpletest;
+
             // Create a new music sequence
             MusicSequence s;
             // Initialise the music sequence
             NewMusicSequence(&s);
+            double len = 0.0;
+            NSString *simpletest;
             switch([(NSString *)[command.arguments objectAtIndex:0] intValue])
             {
                 case 239:
