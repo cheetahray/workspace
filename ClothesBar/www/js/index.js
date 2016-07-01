@@ -133,18 +133,18 @@ function id3()
     networkinterface.getIPAddress(
         function (ip) {
             myip = ip.substring(0, ip.lastIndexOf(".") + 1);
-            if (strcmp(myssid, "DAC-2F(rear)") == false) {
-                app.scanEvent('deviceready');
-                entry = 1;
+            if (strcmp(myssid, "DAC-2F(rear)") == true) {
+                //app.scanEvent('deviceready');
+                entry = 255;
                 hello.initialize(myip + entry, 8888, successFor, failureSet);
             }
             else {
                 if (language == "zh-TW")
-                    navigator.notification.prompt('電路板上面貼的標籤寫幾號', onPrompt, '', ['確定', '取消'], '');
+                    navigator.notification.prompt('沒連上廣場的wifi', onPrompt, '', ['確定', '取消'], '');
                 else if (language == "zh-CN")
-                    navigator.notification.prompt('电路板上面贴的标签写几号', onPrompt, '', ['确定', '取消'], '');
+                    navigator.notification.prompt('没连上广场的wifi', onPrompt, '', ['确定', '取消'], '');
                 else
-                    navigator.notification.prompt('What number on a stick of your motherboard?', onPrompt, '', ['OK', 'Cancel'], '');
+                    navigator.notification.prompt('Not connected to wifi in this square?', onPrompt, '', ['OK', 'Cancel'], '');
             }
         }
     );
