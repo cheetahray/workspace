@@ -7,6 +7,9 @@
 @interface HWPHello ()
 
 @property (readwrite) AudioUnit samplerUnit;
+@property (readwrite) Boolean successInitializingTransmitter;
+@property (readwrite) int DatagramSocketC;
+@property (readwrite) struct sockaddr_in broadcastAddr;
 
 @end
 
@@ -14,18 +17,20 @@
 {
     // Regular C implementation:
     char * messageToSend;
-    struct sockaddr_in broadcastAddr;
-    int DatagramSocketC;
-    Boolean successInitializingTransmitter;
     Boolean successInitializingReceiver;
     Boolean midisuccess;
 }
 
 @synthesize samplerUnit         = _samplerUnit;
+@synthesize successInitializingTransmitter;
+@synthesize DatagramSocketC;
+@synthesize broadcastAddr;
 
 void MyMIDINotifyProc (const MIDINotification  *message, void *refCon) {
     printf("MIDI Notify, messageId=%d,", (int)message->messageID);
 }
+
+static HWPHello *myclass;
 
 static void MyMIDIReadProc(const MIDIPacketList *pktlist,
                            void *refCon,
@@ -33,7 +38,7 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
     
     
     //AudioUnit *player = (AudioUnit*) refCon;
-    
+    Boolean gottogo = false;
     MIDIPacket *packet = (MIDIPacket *)pktlist->packet;
     for (int i=0; i < pktlist->numPackets; i++) {
         Byte midiStatus = packet->data[0];
@@ -48,59 +53,66 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
             NSString *noteType;
             switch (noteNumber) {
                 case 0:
-                    noteType = @"C";
+                    noteType = @"127";
+                    gottogo = true;
                     break;
                 case 1:
                     noteType = @"C#";
+                    gottogo = false;
                     break;
                 case 2:
-                    noteType = @"D";
+                    noteType = @"143";
+                    gottogo = true;
                     break;
                 case 3:
                     noteType = @"D#";
+                    gottogo = false;
                     break;
                 case 4:
-                    noteType = @"E";
+                    noteType = @"159";
+                    gottogo = true;
                     break;
                 case 5:
-                    noteType = @"F";
+                    noteType = @"175";
+                    gottogo = true;
                     break;
                 case 6:
                     noteType = @"F#";
+                    gottogo = false;
                     break;
                 case 7:
-                    noteType = @"G";
+                    noteType = @"191";
+                    gottogo = true;
                     break;
                 case 8:
                     noteType = @"G#";
+                    gottogo = false;
                     break;
                 case 9:
-                    noteType = @"A";
+                    noteType = @"207";
+                    gottogo = true;
                     break;
                 case 10:
-                    noteType = @"Bb";
+                    noteType = @"A#";
+                    gottogo = false;
                     break;
                 case 11:
-                    noteType = @"B";
+                    noteType = @"223";
+                    gottogo = true;
                     break;
                 default:
                     break;
             }
-            NSLog([noteType stringByAppendingFormat:[NSString stringWithFormat:@": %i", noteNumber]]);
-            
-
+            //NSLog([noteType stringByAppendingFormat:[NSString stringWithFormat:@": %i", ((int) note)]]);
+            ssize_t result = 0;
+            if (myclass->successInitializingTransmitter) {
+                if(true == gottogo)
+                    result = sendto(myclass->DatagramSocketC, noteType.cString, strlen(noteType.cString), 0, (struct sockaddr*)&(myclass->broadcastAddr), sizeof myclass->broadcastAddr);
+            }
             //OSStatus result = noErr;
             //result = MusicDeviceMIDIEvent (player, midiStatus, note, velocity, 0);
         }
         packet = MIDIPacketNext(packet);
-    }
-}
-
-- (void) sendmidi:(NSString *)noteType
-{
-    ssize_t result = 0;
-    if (successInitializingTransmitter) {
-        result = sendto(DatagramSocketC, (__bridge const void *)(noteType), strlen((__bridge const void *)noteType), 0, (struct sockaddr*)&broadcastAddr, sizeof broadcastAddr);
     }
 }
 
@@ -148,7 +160,7 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
             
             successInitializingTransmitter = true;
         }
-        
+        myclass = self;
         //NSString* socket = [NSString stringWithFormat:@"%i", DatagramSocketC];
         if (DatagramSocketC != 0 && successInitializingTransmitter)
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[@": " stringByAppendingString:(NSString *)[command.arguments objectAtIndex:0]]];
@@ -348,7 +360,7 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
             MusicSequenceGetIndTrack(s, 1, &t);
             MusicTrackGetProperty(t, kSequenceTrackProperty_TrackLength, &len, &sz);
             
-            
+            midisuccess = true;
             while (1) { // kill time until the music is over
                 usleep (3 * 1000 * 1000);
                 MusicTimeStamp now = 0;
@@ -362,7 +374,7 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
             DisposeMusicSequence(s);
             DisposeMusicPlayer(p);
             
-            
+            midisuccess = false;
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[@": " stringByAppendingString:(NSString *)[command.arguments objectAtIndex:0]]];
         }
         else
