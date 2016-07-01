@@ -136,7 +136,7 @@ function id3()
             if (strcmp(myssid, "DAC-2F(rear)") == true) {
                 //app.scanEvent('deviceready');
                 entry = 255;
-                hello.initialize(myip + entry, 8888, successFor, failureSet);
+                hello.initialize(myip + entry, 8888, successSet, failureSet);
             }
             else {
                 if (language == "zh-TW")

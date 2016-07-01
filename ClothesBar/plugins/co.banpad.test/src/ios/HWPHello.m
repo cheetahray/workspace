@@ -49,65 +49,72 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
             Byte note = packet->data[1] & 0x7F;
             Byte velocity = packet->data[2] & 0x7F;
             
-            int noteNumber = ((int) note) % 12;
+            //int noteNumber = ((int) note) % 12;
             NSString *noteType;
-            switch (noteNumber) {
-                case 0:
+            switch ((int)note) {
+                case 84:
                     noteType = @"127";
                     gottogo = true;
                     break;
-                case 1:
+                case 85:
                     noteType = @"C#";
                     gottogo = false;
                     break;
-                case 2:
+                case 86:
                     noteType = @"143";
                     gottogo = true;
                     break;
-                case 3:
+                case 87:
                     noteType = @"D#";
                     gottogo = false;
                     break;
-                case 4:
+                case 88:
                     noteType = @"159";
                     gottogo = true;
                     break;
-                case 5:
+                case 89:
                     noteType = @"175";
                     gottogo = true;
                     break;
-                case 6:
+                case 90:
                     noteType = @"F#";
                     gottogo = false;
                     break;
-                case 7:
+                case 91:
                     noteType = @"191";
                     gottogo = true;
                     break;
-                case 8:
+                case 92:
                     noteType = @"G#";
                     gottogo = false;
                     break;
-                case 9:
+                case 93:
                     noteType = @"207";
                     gottogo = true;
                     break;
-                case 10:
+                case 94:
                     noteType = @"A#";
                     gottogo = false;
                     break;
-                case 11:
+                case 95:
                     noteType = @"223";
+                    gottogo = true;
+                    break;
+                case 96:
+                    noteType = @"239";
                     gottogo = true;
                     break;
                 default:
                     break;
             }
-            //NSLog([noteType stringByAppendingFormat:[NSString stringWithFormat:@": %i", ((int) note)]]);
-            ssize_t result = 0;
-            if (myclass->successInitializingTransmitter) {
-                if(true == gottogo)
-                    result = sendto(myclass->DatagramSocketC, noteType.cString, strlen(noteType.cString), 0, (struct sockaddr*)&(myclass->broadcastAddr), sizeof myclass->broadcastAddr);
+            if((int)velocity > 0)
+            {
+                NSLog([noteType stringByAppendingFormat:[NSString stringWithFormat:@": %i", ((int) note)]]);
+                ssize_t result = 0;
+                if (myclass->successInitializingTransmitter) {
+                    if(true == gottogo)
+                        result = sendto(myclass->DatagramSocketC, noteType.cString, strlen(noteType.cString), 0, (struct sockaddr*)&(myclass->broadcastAddr), sizeof myclass->broadcastAddr);
+                }
             }
             //OSStatus result = noErr;
             //result = MusicDeviceMIDIEvent (player, midiStatus, note, velocity, 0);
@@ -303,7 +310,6 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
         if(false == midisuccess)
         {
             OSStatus result = noErr;
-            messageToSend = ((NSString *)[command.arguments objectAtIndex:0]).cString;
             
             // Create a client
             MIDIClientRef virtualMidi;
@@ -313,22 +319,49 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
                                       &virtualMidi);
             
             NSAssert( result == noErr, @"MIDIClientCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
-            
+            double len = 0.0;
             // Create an endpoint
             MIDIEndpointRef virtualEndpoint;
             result = MIDIDestinationCreate(virtualMidi, @"Virtual Destination", MyMIDIReadProc, self.samplerUnit, &virtualEndpoint);
             
             NSAssert( result == noErr, @"MIDIDestinationCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
-            
+            NSString *simpletest;
             // Create a new music sequence
             MusicSequence s;
             // Initialise the music sequence
             NewMusicSequence(&s);
+            switch([(NSString *)[command.arguments objectAtIndex:0] intValue])
+            {
+                case 239:
+                    simpletest = @"bee";
+                    len = 30.0;
+                    break;
+                case 223:
+                    simpletest = @"bridge";
+                    len = 17.0;
+                    break;
+                case 207:
+                    simpletest = @"cuckoo";
+                    len = 18.0;
+                    break;
+                case 191:
+                    simpletest = @"donkey";
+                    len = 28.0;
+                    break;
+                case 175:
+                    simpletest = @"tpchild1";
+                    len = 26.0;
+                    break;
+                default:
+                    simpletest = @"tpchild1";
+                    len = 0.0;
+                    break;
+            }
             
             // Get a string to the path of the MIDI file which
             // should be located in the Resources folder
             NSString *midiFilePath = [[NSBundle mainBundle]
-                                      pathForResource:@"simpletest"
+                                      pathForResource:simpletest
                                       ofType:@"mid"];
             
             // Create a new URL which points to the MIDI file
@@ -354,18 +387,19 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
             MusicPlayerStart(p);
             
             // Get length of track so that we know how long to kill time for
-            MusicTrack t;
-            MusicTimeStamp len;
-            UInt32 sz = sizeof(MusicTimeStamp);
-            MusicSequenceGetIndTrack(s, 1, &t);
-            MusicTrackGetProperty(t, kSequenceTrackProperty_TrackLength, &len, &sz);
-            
+            //MusicTrack t;
+            //MusicTimeStamp len;
+            //UInt32 sz = sizeof(MusicTimeStamp);
+            //MusicSequenceGetIndTrack(s, 1, &t);
+            //MusicTrackGetProperty(t, kSequenceTrackProperty_TrackLength, &len, &sz);
+            NSDate *start = [NSDate date];
+            NSTimeInterval timeInterval;
             midisuccess = true;
             while (1) { // kill time until the music is over
-                usleep (3 * 1000 * 1000);
-                MusicTimeStamp now = 0;
-                MusicPlayerGetTime (p, &now);
-                if (now >= len)
+                usleep (3000000);
+                timeInterval = [start timeIntervalSinceNow];
+                //NSLog([NSString stringWithFormat:@": %f", timeInterval*-1]);
+                if (timeInterval*-1 >= len)
                     break;
             }
             
