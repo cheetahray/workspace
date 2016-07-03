@@ -135,7 +135,7 @@ function id3()
             myip = ip.substring(0, ip.lastIndexOf(".") + 1);
             if (strcmp(myssid, "DAC-2F(rear)") == true) {
                 //app.scanEvent('deviceready');
-                entry = 34;
+                entry = 255;
                 hello.initialize(myip + entry, 8888, successSet, failureSet);
             }
             else {

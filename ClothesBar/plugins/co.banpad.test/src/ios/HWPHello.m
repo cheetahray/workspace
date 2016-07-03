@@ -19,9 +19,27 @@
     char * messageToSend;
     Boolean successInitializingReceiver;
     Boolean midisuccess;
+    // Create a client
+    MIDIClientRef virtualMidi1;
+    MIDIClientRef virtualMidi2;
+    MIDIClientRef virtualMidi3;
+    MIDIClientRef virtualMidi4;
+    MIDIClientRef virtualMidi5;
+    // Create an endpoint
+    MIDIEndpointRef virtualEndpoint1;
+    MIDIEndpointRef virtualEndpoint2;
+    MIDIEndpointRef virtualEndpoint3;
+    MIDIEndpointRef virtualEndpoint4;
+    MIDIEndpointRef virtualEndpoint5;
+    // Create a new music sequence
+    MusicSequence s1;
+    MusicSequence s2;
+    MusicSequence s3;
+    MusicSequence s4;
+    MusicSequence s5;
 }
 
-@synthesize samplerUnit         = _samplerUnit;
+@synthesize samplerUnit;
 @synthesize successInitializingTransmitter;
 @synthesize DatagramSocketC;
 @synthesize broadcastAddr;
@@ -168,6 +186,108 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
             successInitializingTransmitter = true;
         }
         myclass = self;
+        
+        result = MIDIClientCreate(CFSTR("Virtual Client"),
+                                  MyMIDINotifyProc,
+                                  NULL,
+                                  &virtualMidi1);
+        NSAssert( result == noErr, @"MIDIClientCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
+        result = MIDIClientCreate(CFSTR("Virtual Client"),
+                                  MyMIDINotifyProc,
+                                  NULL,
+                                  &virtualMidi2);
+        NSAssert( result == noErr, @"MIDIClientCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
+        result = MIDIClientCreate(CFSTR("Virtual Client"),
+                                  MyMIDINotifyProc,
+                                  NULL,
+                                  &virtualMidi3);
+        NSAssert( result == noErr, @"MIDIClientCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
+        result = MIDIClientCreate(CFSTR("Virtual Client"),
+                                  MyMIDINotifyProc,
+                                  NULL,
+                                  &virtualMidi4);
+        NSAssert( result == noErr, @"MIDIClientCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
+        result = MIDIClientCreate(CFSTR("Virtual Client"),
+                                  MyMIDINotifyProc,
+                                  NULL,
+                                  &virtualMidi5);
+        NSAssert( result == noErr, @"MIDIClientCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
+        
+        result = MIDIDestinationCreate(virtualMidi1, @"Virtual Destination", MyMIDIReadProc, self.samplerUnit, &virtualEndpoint1);
+        
+        NSAssert( result == noErr, @"MIDIDestinationCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
+        result = MIDIDestinationCreate(virtualMidi2, @"Virtual Destination", MyMIDIReadProc, self.samplerUnit, &virtualEndpoint2);
+        
+        NSAssert( result == noErr, @"MIDIDestinationCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
+        result = MIDIDestinationCreate(virtualMidi3, @"Virtual Destination", MyMIDIReadProc, self.samplerUnit, &virtualEndpoint3);
+        
+        NSAssert( result == noErr, @"MIDIDestinationCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
+        result = MIDIDestinationCreate(virtualMidi4, @"Virtual Destination", MyMIDIReadProc, self.samplerUnit, &virtualEndpoint4);
+        
+        NSAssert( result == noErr, @"MIDIDestinationCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
+        result = MIDIDestinationCreate(virtualMidi5, @"Virtual Destination", MyMIDIReadProc, self.samplerUnit, &virtualEndpoint5);
+        
+        NSAssert( result == noErr, @"MIDIDestinationCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
+        
+        // Initialise the music sequence
+        NewMusicSequence(&s1);
+        NewMusicSequence(&s2);
+        NewMusicSequence(&s3);
+        NewMusicSequence(&s4);
+        NewMusicSequence(&s5);
+        
+        // Get a string to the path of the MIDI file which
+        // should be located in the Resources folder
+        NSString *midiFilePath = [[NSBundle mainBundle]
+                                  pathForResource:@"bee"
+                                  ofType:@"mid"];
+        // Create a new URL which points to the MIDI file
+        NSURL * midiFileURL = [NSURL fileURLWithPath:midiFilePath];
+        MusicSequenceFileLoad(s1, (__bridge CFURLRef) midiFileURL, 0, 0);
+        
+        // Get a string to the path of the MIDI file which
+        // should be located in the Resources folder
+        midiFilePath = [[NSBundle mainBundle]
+                        pathForResource:@"bridge"
+                        ofType:@"mid"];
+        // Create a new URL which points to the MIDI file
+        midiFileURL = [NSURL fileURLWithPath:midiFilePath];
+        MusicSequenceFileLoad(s2, (__bridge CFURLRef) midiFileURL, 0, 0);
+        
+        // Get a string to the path of the MIDI file which
+        // should be located in the Resources folder
+        midiFilePath = [[NSBundle mainBundle]
+                        pathForResource:@"cuckoo"
+                        ofType:@"mid"];
+        // Create a new URL which points to the MIDI file
+        midiFileURL = [NSURL fileURLWithPath:midiFilePath];
+        MusicSequenceFileLoad(s3, (__bridge CFURLRef) midiFileURL, 0, 0);
+        
+        // Get a string to the path of the MIDI file which
+        // should be located in the Resources folder
+        midiFilePath = [[NSBundle mainBundle]
+                        pathForResource:@"donkey"
+                        ofType:@"mid"];
+        // Create a new URL which points to the MIDI file
+        midiFileURL = [NSURL fileURLWithPath:midiFilePath];
+        MusicSequenceFileLoad(s4, (__bridge CFURLRef) midiFileURL, 0, 0);
+        
+        // Get a string to the path of the MIDI file which
+        // should be located in the Resources folder
+        midiFilePath = [[NSBundle mainBundle]
+                        pathForResource:@"tpchild1"
+                        ofType:@"mid"];
+        // Create a new URL which points to the MIDI file
+        midiFileURL = [NSURL fileURLWithPath:midiFilePath];
+        MusicSequenceFileLoad(s5, (__bridge CFURLRef) midiFileURL, 0, 0);
+        
+        // ************* Set the endpoint of the sequence to be our virtual endpoint
+        MusicSequenceSetMIDIEndpoint(s1, virtualEndpoint1);
+        MusicSequenceSetMIDIEndpoint(s2, virtualEndpoint2);
+        MusicSequenceSetMIDIEndpoint(s3, virtualEndpoint3);
+        MusicSequenceSetMIDIEndpoint(s4, virtualEndpoint4);
+        MusicSequenceSetMIDIEndpoint(s5, virtualEndpoint5);
+        
         //NSString* socket = [NSString stringWithFormat:@"%i", DatagramSocketC];
         if (DatagramSocketC != 0 && successInitializingTransmitter)
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[@": " stringByAppendingString:(NSString *)[command.arguments objectAtIndex:0]]];
@@ -309,79 +429,48 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
         CDVPluginResult* pluginResult = nil;
         if(false == midisuccess)
         {
-            OSStatus result = noErr;
-            
-            // Create a client
-            MIDIClientRef virtualMidi;
-            result = MIDIClientCreate(CFSTR("Virtual Client"),
-                                      MyMIDINotifyProc,
-                                      NULL,
-                                      &virtualMidi);
-            
-            NSAssert( result == noErr, @"MIDIClientCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
-
-            // Create an endpoint
-            MIDIEndpointRef virtualEndpoint;
-            result = MIDIDestinationCreate(virtualMidi, @"Virtual Destination", MyMIDIReadProc, self.samplerUnit, &virtualEndpoint);
-            
-            NSAssert( result == noErr, @"MIDIDestinationCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
-
-            // Create a new music sequence
-            MusicSequence s;
-            // Initialise the music sequence
-            NewMusicSequence(&s);
-            double len = 0.0;
-            NSString *simpletest;
-            switch([(NSString *)[command.arguments objectAtIndex:0] intValue])
-            {
-                case 239:
-                    simpletest = @"bee";
-                    len = 30.0;
-                    break;
-                case 223:
-                    simpletest = @"bridge";
-                    len = 17.0;
-                    break;
-                case 207:
-                    simpletest = @"cuckoo";
-                    len = 18.0;
-                    break;
-                case 191:
-                    simpletest = @"donkey";
-                    len = 28.0;
-                    break;
-                case 175:
-                    simpletest = @"tpchild1";
-                    len = 26.0;
-                    break;
-                default:
-                    simpletest = @"tpchild1";
-                    len = 0.0;
-                    break;
-            }
-            
-            // Get a string to the path of the MIDI file which
-            // should be located in the Resources folder
-            NSString *midiFilePath = [[NSBundle mainBundle]
-                                      pathForResource:simpletest
-                                      ofType:@"mid"];
-            
-            // Create a new URL which points to the MIDI file
-            NSURL * midiFileURL = [NSURL fileURLWithPath:midiFilePath];
-            
-            
-            MusicSequenceFileLoad(s, (__bridge CFURLRef) midiFileURL, 0, 0);
+            //OSStatus result = noErr;
             
             // Create a new music player
             MusicPlayer  p;
             // Initialise the music player
             NewMusicPlayer(&p);
             
-            // ************* Set the endpoint of the sequence to be our virtual endpoint
-            MusicSequenceSetMIDIEndpoint(s, virtualEndpoint);
+            double len = 0.0;
+            switch([(NSString *)[command.arguments objectAtIndex:0] intValue])
+            {
+                case 239:
+                    len = 30.0;
+                    // Load the sequence into the music player
+                    MusicPlayerSetSequence(p, s1);
+                    break;
+                case 223:
+                    len = 17.0;
+                    // Load the sequence into the music player
+                    MusicPlayerSetSequence(p, s2);
+                    break;
+                case 207:
+                    len = 18.0;
+                    // Load the sequence into the music player
+                    MusicPlayerSetSequence(p, s3);
+                    break;
+                case 191:
+                    len = 28.0;
+                    // Load the sequence into the music player
+                    MusicPlayerSetSequence(p, s4);
+                    break;
+                case 175:
+                    len = 26.0;
+                    // Load the sequence into the music player
+                    MusicPlayerSetSequence(p, s5);
+                    break;
+                default:
+                    len = 0.0;
+                    // Load the sequence into the music player
+                    MusicPlayerSetSequence(p, s1);
+                    break;
+            }
             
-            // Load the sequence into the music player
-            MusicPlayerSetSequence(p, s);
             // Called to do some MusicPlayer setup. This just
             // reduces latency when MusicPlayerStart is called
             MusicPlayerPreroll(p);
@@ -407,7 +496,29 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
             
             // Stop the player and dispose of the objects
             MusicPlayerStop(p);
-            DisposeMusicSequence(s);
+            
+            switch([(NSString *)[command.arguments objectAtIndex:0] intValue])
+            {
+                case 239:
+                    DisposeMusicSequence(s1);
+                    break;
+                case 223:
+                    DisposeMusicSequence(s2);
+                    break;
+                case 207:
+                    DisposeMusicSequence(s3);
+                    break;
+                case 191:
+                    DisposeMusicSequence(s4);
+                    break;
+                case 175:
+                    DisposeMusicSequence(s5);
+                    break;
+                default:
+                    DisposeMusicSequence(s1);
+                    break;
+            }
+            
             DisposeMusicPlayer(p);
             
             midisuccess = false;
