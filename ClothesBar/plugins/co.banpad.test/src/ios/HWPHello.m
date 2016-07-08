@@ -10,13 +10,6 @@
 @property (readwrite) Boolean successInitializingTransmitter;
 @property (readwrite) int DatagramSocketC;
 @property (readwrite) struct sockaddr_in broadcastAddr;
-@property (readwrite) struct sockaddr_in broadcastAddr2;
-@property (readwrite) struct sockaddr_in broadcastAddr3;
-@property (readwrite) struct sockaddr_in broadcastAddr4;
-@property (readwrite) struct sockaddr_in broadcastAddr5;
-@property (readwrite) struct sockaddr_in broadcastAddr6;
-@property (readwrite) struct sockaddr_in broadcastAddr7;
-@property (readwrite) struct sockaddr_in broadcastAddr8;
 
 @end
 
@@ -50,13 +43,6 @@
 @synthesize successInitializingTransmitter;
 @synthesize DatagramSocketC;
 @synthesize broadcastAddr;
-@synthesize broadcastAddr2;
-@synthesize broadcastAddr3;
-@synthesize broadcastAddr4;
-@synthesize broadcastAddr5;
-@synthesize broadcastAddr6;
-@synthesize broadcastAddr7;
-@synthesize broadcastAddr8;
 
 void MyMIDINotifyProc (const MIDINotification  *message, void *refCon) {
     printf("MIDI Notify, messageId=%d,", (int)message->messageID);
@@ -147,13 +133,6 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
                     if(true == gottogo)
                     {
                         result = sendto(myclass->DatagramSocketC, noteType.cString, strlen(noteType.cString), 0, (struct sockaddr*)&(myclass->broadcastAddr), sizeof myclass->broadcastAddr);
-                        result = sendto(myclass->DatagramSocketC, noteType.cString, strlen(noteType.cString), 0, (struct sockaddr*)&(myclass->broadcastAddr2), sizeof myclass->broadcastAddr2);
-                        result = sendto(myclass->DatagramSocketC, noteType.cString, strlen(noteType.cString), 0, (struct sockaddr*)&(myclass->broadcastAddr3), sizeof myclass->broadcastAddr3);
-                        result = sendto(myclass->DatagramSocketC, noteType.cString, strlen(noteType.cString), 0, (struct sockaddr*)&(myclass->broadcastAddr4), sizeof myclass->broadcastAddr4);
-                        result = sendto(myclass->DatagramSocketC, noteType.cString, strlen(noteType.cString), 0, (struct sockaddr*)&(myclass->broadcastAddr5), sizeof myclass->broadcastAddr5);
-                        result = sendto(myclass->DatagramSocketC, noteType.cString, strlen(noteType.cString), 0, (struct sockaddr*)&(myclass->broadcastAddr6), sizeof myclass->broadcastAddr6);
-                        result = sendto(myclass->DatagramSocketC, noteType.cString, strlen(noteType.cString), 0, (struct sockaddr*)&(myclass->broadcastAddr7), sizeof myclass->broadcastAddr7);
-                        result = sendto(myclass->DatagramSocketC, noteType.cString, strlen(noteType.cString), 0, (struct sockaddr*)&(myclass->broadcastAddr8), sizeof myclass->broadcastAddr8);
                     }
                 }
             }
@@ -172,33 +151,12 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
         successInitializingTransmitter = false;
         // Allocate the memory
         memset(&broadcastAddr, 0, sizeof broadcastAddr);
-        memset(&broadcastAddr2, 0, sizeof broadcastAddr2);
-        memset(&broadcastAddr3, 0, sizeof broadcastAddr3);
-        memset(&broadcastAddr4, 0, sizeof broadcastAddr4);
-        memset(&broadcastAddr5, 0, sizeof broadcastAddr5);
-        memset(&broadcastAddr6, 0, sizeof broadcastAddr6);
-        memset(&broadcastAddr7, 0, sizeof broadcastAddr7);
-        memset(&broadcastAddr8, 0, sizeof broadcastAddr8);
         broadcastAddr.sin_family = AF_INET;
-        broadcastAddr2.sin_family = AF_INET;
-        broadcastAddr3.sin_family = AF_INET;
-        broadcastAddr4.sin_family = AF_INET;
-        broadcastAddr5.sin_family = AF_INET;
-        broadcastAddr6.sin_family = AF_INET;
-        broadcastAddr7.sin_family = AF_INET;
-        broadcastAddr8.sin_family = AF_INET;
         midisuccess = false;
         // Set the destination IP address
         const char * ip_address_or_url = ((NSString *)[command.arguments objectAtIndex:0]).cString;
         // First, assume it's a ddd.ddd.ddd.ddd address
         int result = inet_pton(AF_INET, ip_address_or_url, &broadcastAddr.sin_addr); // Set the broadcast IP address
-        result = inet_pton(AF_INET, ip_address_or_url, &broadcastAddr2.sin_addr); // Set the broadcast IP
-        result = inet_pton(AF_INET, ip_address_or_url, &broadcastAddr3.sin_addr); // Set the broadcast IP
-        result = inet_pton(AF_INET, ip_address_or_url, &broadcastAddr4.sin_addr); // Set the broadcast IP
-        result = inet_pton(AF_INET, ip_address_or_url, &broadcastAddr5.sin_addr); // Set the broadcast IP
-        result = inet_pton(AF_INET, ip_address_or_url, &broadcastAddr6.sin_addr); // Set the broadcast IP
-        result = inet_pton(AF_INET, ip_address_or_url, &broadcastAddr7.sin_addr); // Set the broadcast IP
-        result = inet_pton(AF_INET, ip_address_or_url, &broadcastAddr8.sin_addr); // Set the broadcast IP
         
         // If that failed, it might be in www.xxxyyyzzz.com domain name format
         if (result != 1) { // 1 = SUCCESS
@@ -222,13 +180,6 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
             // Set the destination port #
             NSUInteger thePort = [[command.arguments objectAtIndex:1] integerValue];
             broadcastAddr.sin_port = htons(thePort); // Set port, e.g., 4445
-            broadcastAddr2.sin_port = htons(thePort); // Set port, e.g., 4445
-            broadcastAddr3.sin_port = htons(thePort); // Set port, e.g., 4445
-            broadcastAddr4.sin_port = htons(thePort); // Set port, e.g., 4445
-            broadcastAddr5.sin_port = htons(thePort); // Set port, e.g., 4445
-            broadcastAddr6.sin_port = htons(thePort); // Set port, e.g., 4445
-            broadcastAddr7.sin_port = htons(thePort); // Set port, e.g., 4445
-            broadcastAddr8.sin_port = htons(thePort); // Set port, e.g., 4445
             bool success;
             // 	Create the socket
             DatagramSocketC = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
@@ -539,7 +490,7 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
             NSTimeInterval timeInterval;
             midisuccess = true;
             while (1) { // kill time until the music is over
-                usleep (3000000);
+                usleep (1000000);
                 timeInterval = [start timeIntervalSinceNow];
                 //NSLog([NSString stringWithFormat:@": %f", timeInterval*-1]);
                 if (timeInterval*-1 >= len)
