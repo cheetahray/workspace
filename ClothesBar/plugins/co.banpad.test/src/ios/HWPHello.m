@@ -279,7 +279,7 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
         // Get a string to the path of the MIDI file which
         // should be located in the Resources folder
         NSString *midiFilePath = [[NSBundle mainBundle]
-                                  pathForResource:@"fish"
+                                  pathForResource:@"head2"
                                   ofType:@"mid"];
         // Create a new URL which points to the MIDI file
         NSURL * midiFileURL = [NSURL fileURLWithPath:midiFilePath];
@@ -306,7 +306,7 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
         // Get a string to the path of the MIDI file which
         // should be located in the Resources folder
         midiFilePath = [[NSBundle mainBundle]
-                        pathForResource:@"head2"
+                        pathForResource:@"fish"
                         ofType:@"mid"];
         // Create a new URL which points to the MIDI file
         midiFileURL = [NSURL fileURLWithPath:midiFilePath];
@@ -315,7 +315,7 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
         // Get a string to the path of the MIDI file which
         // should be located in the Resources folder
         midiFilePath = [[NSBundle mainBundle]
-                        pathForResource:@"bee"
+                        pathForResource:@"tpchild1"
                         ofType:@"mid"];
         // Create a new URL which points to the MIDI file
         midiFileURL = [NSURL fileURLWithPath:midiFilePath];
@@ -324,7 +324,7 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
         // Get a string to the path of the MIDI file which
         // should be located in the Resources folder
         midiFilePath = [[NSBundle mainBundle]
-                        pathForResource:@"cuckoo"
+                        pathForResource:@"bee"
                         ofType:@"mid"];
         // Create a new URL which points to the MIDI file
         midiFileURL = [NSURL fileURLWithPath:midiFilePath];
@@ -342,7 +342,7 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
         // Get a string to the path of the MIDI file which
         // should be located in the Resources folder
         midiFilePath = [[NSBundle mainBundle]
-                        pathForResource:@"tpchild1"
+                        pathForResource:@"cuckoo"
                         ofType:@"mid"];
         // Create a new URL which points to the MIDI file
         midiFileURL = [NSURL fileURLWithPath:midiFilePath];
