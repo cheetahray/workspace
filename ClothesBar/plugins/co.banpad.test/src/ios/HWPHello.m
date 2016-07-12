@@ -25,18 +25,27 @@
     MIDIClientRef virtualMidi3;
     MIDIClientRef virtualMidi4;
     MIDIClientRef virtualMidi5;
+    MIDIClientRef virtualMidi6;
+    MIDIClientRef virtualMidi7;
+    MIDIClientRef virtualMidi8;
     // Create an endpoint
     MIDIEndpointRef virtualEndpoint1;
     MIDIEndpointRef virtualEndpoint2;
     MIDIEndpointRef virtualEndpoint3;
     MIDIEndpointRef virtualEndpoint4;
     MIDIEndpointRef virtualEndpoint5;
+    MIDIEndpointRef virtualEndpoint6;
+    MIDIEndpointRef virtualEndpoint7;
+    MIDIEndpointRef virtualEndpoint8;
     // Create a new music sequence
     MusicSequence s1;
     MusicSequence s2;
     MusicSequence s3;
     MusicSequence s4;
     MusicSequence s5;
+    MusicSequence s6;
+    MusicSequence s7;
+    MusicSequence s8;
 }
 
 @synthesize samplerUnit;
@@ -215,6 +224,22 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
                                   NULL,
                                   &virtualMidi5);
         NSAssert( result == noErr, @"MIDIClientCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
+        result = MIDIClientCreate(CFSTR("Virtual Client"),
+                                  MyMIDINotifyProc,
+                                  NULL,
+                                  &virtualMidi6);
+        NSAssert( result == noErr, @"MIDIClientCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
+        result = MIDIClientCreate(CFSTR("Virtual Client"),
+                                  MyMIDINotifyProc,
+                                  NULL,
+                                  &virtualMidi7);
+        NSAssert( result == noErr, @"MIDIClientCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
+        result = MIDIClientCreate(CFSTR("Virtual Client"),
+                                  MyMIDINotifyProc,
+                                  NULL,
+                                  &virtualMidi8);
+        NSAssert( result == noErr, @"MIDIClientCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
+        
         
         result = MIDIDestinationCreate(virtualMidi1, @"Virtual Destination", MyMIDIReadProc, self.samplerUnit, &virtualEndpoint1);
         
@@ -231,6 +256,15 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
         result = MIDIDestinationCreate(virtualMidi5, @"Virtual Destination", MyMIDIReadProc, self.samplerUnit, &virtualEndpoint5);
         
         NSAssert( result == noErr, @"MIDIDestinationCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
+        result = MIDIDestinationCreate(virtualMidi6, @"Virtual Destination", MyMIDIReadProc, self.samplerUnit, &virtualEndpoint6);
+        
+        NSAssert( result == noErr, @"MIDIDestinationCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
+        result = MIDIDestinationCreate(virtualMidi7, @"Virtual Destination", MyMIDIReadProc, self.samplerUnit, &virtualEndpoint7);
+        
+        NSAssert( result == noErr, @"MIDIDestinationCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
+        result = MIDIDestinationCreate(virtualMidi8, @"Virtual Destination", MyMIDIReadProc, self.samplerUnit, &virtualEndpoint8);
+        
+        NSAssert( result == noErr, @"MIDIDestinationCreate failed. Error code: %d '%.4s'", (int) result, (const char *)&result);
         
         // Initialise the music sequence
         NewMusicSequence(&s1);
@@ -238,11 +272,14 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
         NewMusicSequence(&s3);
         NewMusicSequence(&s4);
         NewMusicSequence(&s5);
+        NewMusicSequence(&s6);
+        NewMusicSequence(&s7);
+        NewMusicSequence(&s8);
         
         // Get a string to the path of the MIDI file which
         // should be located in the Resources folder
         NSString *midiFilePath = [[NSBundle mainBundle]
-                                  pathForResource:@"bee"
+                                  pathForResource:@"fish"
                                   ofType:@"mid"];
         // Create a new URL which points to the MIDI file
         NSURL * midiFileURL = [NSURL fileURLWithPath:midiFilePath];
@@ -251,7 +288,7 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
         // Get a string to the path of the MIDI file which
         // should be located in the Resources folder
         midiFilePath = [[NSBundle mainBundle]
-                        pathForResource:@"bridge"
+                        pathForResource:@"frog"
                         ofType:@"mid"];
         // Create a new URL which points to the MIDI file
         midiFileURL = [NSURL fileURLWithPath:midiFilePath];
@@ -260,7 +297,7 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
         // Get a string to the path of the MIDI file which
         // should be located in the Resources folder
         midiFilePath = [[NSBundle mainBundle]
-                        pathForResource:@"cuckoo"
+                        pathForResource:@"head"
                         ofType:@"mid"];
         // Create a new URL which points to the MIDI file
         midiFileURL = [NSURL fileURLWithPath:midiFilePath];
@@ -269,7 +306,7 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
         // Get a string to the path of the MIDI file which
         // should be located in the Resources folder
         midiFilePath = [[NSBundle mainBundle]
-                        pathForResource:@"donkey"
+                        pathForResource:@"head2"
                         ofType:@"mid"];
         // Create a new URL which points to the MIDI file
         midiFileURL = [NSURL fileURLWithPath:midiFilePath];
@@ -278,11 +315,38 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
         // Get a string to the path of the MIDI file which
         // should be located in the Resources folder
         midiFilePath = [[NSBundle mainBundle]
-                        pathForResource:@"tpchild1"
+                        pathForResource:@"bee"
                         ofType:@"mid"];
         // Create a new URL which points to the MIDI file
         midiFileURL = [NSURL fileURLWithPath:midiFilePath];
         MusicSequenceFileLoad(s5, (__bridge CFURLRef) midiFileURL, 0, 0);
+        
+        // Get a string to the path of the MIDI file which
+        // should be located in the Resources folder
+        midiFilePath = [[NSBundle mainBundle]
+                        pathForResource:@"cuckoo"
+                        ofType:@"mid"];
+        // Create a new URL which points to the MIDI file
+        midiFileURL = [NSURL fileURLWithPath:midiFilePath];
+        MusicSequenceFileLoad(s6, (__bridge CFURLRef) midiFileURL, 0, 0);
+        
+        // Get a string to the path of the MIDI file which
+        // should be located in the Resources folder
+        midiFilePath = [[NSBundle mainBundle]
+                        pathForResource:@"donkey"
+                        ofType:@"mid"];
+        // Create a new URL which points to the MIDI file
+        midiFileURL = [NSURL fileURLWithPath:midiFilePath];
+        MusicSequenceFileLoad(s7, (__bridge CFURLRef) midiFileURL, 0, 0);
+        
+        // Get a string to the path of the MIDI file which
+        // should be located in the Resources folder
+        midiFilePath = [[NSBundle mainBundle]
+                        pathForResource:@"tpchild1"
+                        ofType:@"mid"];
+        // Create a new URL which points to the MIDI file
+        midiFileURL = [NSURL fileURLWithPath:midiFilePath];
+        MusicSequenceFileLoad(s8, (__bridge CFURLRef) midiFileURL, 0, 0);
         
         // ************* Set the endpoint of the sequence to be our virtual endpoint
         MusicSequenceSetMIDIEndpoint(s1, virtualEndpoint1);
@@ -290,6 +354,9 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
         MusicSequenceSetMIDIEndpoint(s3, virtualEndpoint3);
         MusicSequenceSetMIDIEndpoint(s4, virtualEndpoint4);
         MusicSequenceSetMIDIEndpoint(s5, virtualEndpoint5);
+        MusicSequenceSetMIDIEndpoint(s6, virtualEndpoint6);
+        MusicSequenceSetMIDIEndpoint(s7, virtualEndpoint7);
+        MusicSequenceSetMIDIEndpoint(s8, virtualEndpoint8);
         
         //NSString* socket = [NSString stringWithFormat:@"%i", DatagramSocketC];
         if (DatagramSocketC != 0 && successInitializingTransmitter)
@@ -443,29 +510,44 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
             switch([(NSString *)[command.arguments objectAtIndex:0] intValue])
             {
                 case 239:
-                    len = 30.0;
+                    len = 16.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s1);
                     break;
                 case 223:
-                    len = 17.0;
+                    len = 16.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s2);
                     break;
                 case 207:
-                    len = 18.0;
+                    len = 26.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s3);
                     break;
                 case 191:
-                    len = 28.0;
+                    len = 18.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s4);
                     break;
                 case 175:
-                    len = 26.0;
+                    len = 38.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s5);
+                    break;
+                case 159:
+                    len = 18.0;
+                    // Load the sequence into the music player
+                    MusicPlayerSetSequence(p, s6);
+                    break;
+                case 143:
+                    len = 28.0;
+                    // Load the sequence into the music player
+                    MusicPlayerSetSequence(p, s7);
+                    break;
+                case 127:
+                    len = 26.0;
+                    // Load the sequence into the music player
+                    MusicPlayerSetSequence(p, s8);
                     break;
                 default:
                     len = 0.0;
@@ -493,7 +575,7 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
                 usleep (1000000);
                 timeInterval = [start timeIntervalSinceNow];
                 //NSLog([NSString stringWithFormat:@": %f", timeInterval*-1]);
-                if (timeInterval*-1 >= len)
+                if (0 > len + timeInterval)
                     break;
             }
             
@@ -516,6 +598,15 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
                     break;
                 case 175:
                     DisposeMusicSequence(s5);
+                    break;
+                case 159:
+                    DisposeMusicSequence(s6);
+                    break;
+                case 143:
+                    DisposeMusicSequence(s7);
+                    break;
+                case 127:
+                    DisposeMusicSequence(s8);
                     break;
                 default:
                     DisposeMusicSequence(s1);
