@@ -115,6 +115,7 @@ var _sin70_71 = 0.0;
 var sin83_57 = 0.0;
 var _sin83_57 = 0.0;
 var lastret = "";
+var last2ret = "";
 
 var successScan = function (message) {
     if (language == "zh-TW")
@@ -679,11 +680,11 @@ function process2Move() {
     }
     else
         candraw = false;
-    if(lastret != ret)
+    if(last2ret != ret)
     {
         if (document.getElementById("already").value == "1")
             hello.sendMessage(ret, successScan, failureScan);
-        lastret = ret;
+        last2ret = ret;
     }
     if (true == candraw)
     {
