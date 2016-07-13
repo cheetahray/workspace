@@ -140,11 +140,11 @@ function id3()
             }
             else {
                 if (language == "zh-TW")
-                    navigator.notification.prompt('沒連上廣場的wifi', onPrompt, '', ['確定', '取消'], '');
+				    navigator.notification.alert("沒連上廣場的wifi" + err, alertDismissed, '', '確定');
                 else if (language == "zh-CN")
-                    navigator.notification.prompt('没连上广场的wifi', onPrompt, '', ['确定', '取消'], '');
+                    navigator.notification.alert("没连上广场的wifi" + err, alertDismissed, '', '確定');
                 else
-                    navigator.notification.prompt('Not connected to wifi in this square?', onPrompt, '', ['OK', 'Cancel'], '');
+                    navigator.notification.alert("Not connected to wifi in this square?" + err, alertDismissed, '', '確定');
             }
         }
     );

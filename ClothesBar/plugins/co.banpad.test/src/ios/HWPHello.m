@@ -510,7 +510,7 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
             switch([(NSString *)[command.arguments objectAtIndex:0] intValue])
             {
                 case 239:
-                    len = 16.0;
+                    len = 18.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s1);
                     break;
@@ -525,17 +525,17 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
                     MusicPlayerSetSequence(p, s3);
                     break;
                 case 191:
-                    len = 18.0;
+                    len = 16.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s4);
                     break;
                 case 175:
-                    len = 38.0;
+                    len = 26.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s5);
                     break;
                 case 159:
-                    len = 18.0;
+                    len = 38.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s6);
                     break;
@@ -545,7 +545,7 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
                     MusicPlayerSetSequence(p, s7);
                     break;
                 case 127:
-                    len = 26.0;
+                    len = 18.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s8);
                     break;
