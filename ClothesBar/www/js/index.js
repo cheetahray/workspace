@@ -140,11 +140,11 @@ function id3()
             }
             else {
                 if (language == "zh-TW")
-				    navigator.notification.alert("沒連上廣場的wifi" + err, alertDismissed, '', '確定');
+				    navigator.notification.alert("沒連上廣場的wifi bellclass", alertDismissed, '', '確定');
                 else if (language == "zh-CN")
-                    navigator.notification.alert("没连上广场的wifi" + err, alertDismissed, '', '確定');
+                    navigator.notification.alert("没连上广场的wifi bellclass", alertDismissed, '', '確定');
                 else
-                    navigator.notification.alert("Not connected to wifi in this square?" + err, alertDismissed, '', '確定');
+                    navigator.notification.alert("Not connected to wifi bellclass in this square?", alertDismissed, '', '確定');
             }
         }
     );
@@ -529,11 +529,11 @@ function readyet(mystr) {
     if (document.getElementById("already").value == "0")
     {
         if (language == "zh-TW")
-            navigator.notification.alert("您尚未設置電路板上之標籤號\n請按右上設定", alertDismissed, '', '確定');
+            navigator.notification.alert("沒連上廣場的wifi bellclass", alertDismissed, '', '確定');
         else if (language == "zh-CN")
-            navigator.notification.alert("您尚未设置电路板上之标签号\n请按右上设定", alertDismissed, '', '确定');
+            navigator.notification.alert("没连上广场的wifi bellclass", alertDismissed, '', '確定');
         else
-            navigator.notification.alert("You haven't set the network.\nPlease touch top-right corner, the setting icon.", alertDismissed, '', 'OK');
+            navigator.notification.alert("Not connected to wifi bellclass in this square?", alertDismissed, '', '確定');
     }
     else if (document.getElementById("record").value == "1") {
         $('#runner').runner('reset', true);
