@@ -23,7 +23,7 @@ var Angle_9 = 0;
 var Angle_A = 0;
 var Angle_B = 0;
 var Angle_C = 0;
-var Angle_D = 0;
+var Angle_D = 0;0
 var Angle_E = 0;
 var Angle_F = 0;
 var left7 = 0;
@@ -114,8 +114,11 @@ var sin70_71 = 0.0;
 var _sin70_71 = 0.0;
 var sin83_57 = 0.0;
 var _sin83_57 = 0.0;
-var lastret = "";
-var last2ret = "";
+var lastret = "0x00";
+var last2ret = "0x80";
+var ret1 = lastret;
+var ret2 = last2ret;
+var isleft = true;
 
 var successScan = function (message) {
     if (language == "zh-TW")
@@ -313,7 +316,7 @@ function getBoardary() {
 function clearAll() {
     if (document.getElementById("already").value == "1")
     {
-        hello.sendMessage("0x00", successScan, failureScan);
+        ret1 = "0x00";
     }
     boxDo.setAttribute('style', 'background-color:transparent;');
     boxRe.setAttribute('style', 'background-color:transparent;');
@@ -328,7 +331,7 @@ function clearAll() {
 function clear2All() {
     if (document.getElementById("already").value == "1")
     {
-        hello.sendMessage("0x80", successScan, failureScan);
+        ret2 = "0x80";
     }
     boxAngle.setAttribute('style', 'background-color:transparent;');
     $("#note").text("0x80");
@@ -601,11 +604,9 @@ function processMove() {
     }
     else
         candraw = false;
-    if(lastret != ret)
+    if(ret1 != ret)
     {
-        if (document.getElementById("already").value == "1")
-            hello.sendMessage(ret, successScan, failureScan);
-        lastret = ret;
+        ret1 = ret;
     }
     if (true == candraw)
     {
@@ -680,11 +681,9 @@ function process2Move() {
     }
     else
         candraw = false;
-    if(last2ret != ret)
+    if(ret2 != ret)
     {
-        if (document.getElementById("already").value == "1")
-            hello.sendMessage(ret, successScan, failureScan);
-        last2ret = ret;
+        ret2 = ret;
     }
     if (true == candraw)
     {
@@ -779,9 +778,9 @@ boxTi.addEventListener('touchmove', function (e) {
 
 boxTi.addEventListener('touchend', function (e) {
     //if (document.getElementById("already").value == "1")
-    clearAll();
     //sendto("223", finalcountdown.toString());
     e.preventDefault();
+    clearAll();
     boxSet.setAttribute('style', 'left: 380px;');
 }, false);
 
@@ -813,9 +812,9 @@ boxLa.addEventListener('touchmove', function (e) {
 
 boxLa.addEventListener('touchend', function (e) {
     //if (document.getElementById("already").value == "1")
-    clearAll();
     //sendto("207", finalcountdown.toString());
     e.preventDefault();
+    clearAll();
     boxSet.setAttribute('style', 'left: 380px;');
 }, false);
 
@@ -847,9 +846,9 @@ boxSo.addEventListener('touchmove', function (e) {
 
 boxSo.addEventListener('touchend', function (e) {
     //if (document.getElementById("already").value == "1")
-    clearAll();
     //sendto("191", finalcountdown.toString());
     e.preventDefault();
+    clearAll();
     boxSet.setAttribute('style', 'left: 380px;');
 }, false);
 
@@ -881,9 +880,9 @@ boxFa.addEventListener('touchmove', function (e) {
 
 boxFa.addEventListener('touchend', function (e) {
     //if (document.getElementById("already").value == "1")
-    clearAll();
     //sendto("175", finalcountdown.toString());
     e.preventDefault();
+    clearAll();
     boxSet.setAttribute('style', 'left: 380px;');
 }, false);
 
@@ -914,9 +913,9 @@ boxMi.addEventListener('touchmove', function (e) {
 
 boxMi.addEventListener('touchend', function (e) {
     //if (document.getElementById("already").value == "1")
-    clearAll();
     //sendto("159", finalcountdown.toString());
     e.preventDefault();
+    clearAll();
     boxSet.setAttribute('style', 'left: 380px;');
 }, false);
 
@@ -948,9 +947,9 @@ boxRe.addEventListener('touchmove', function (e) {
 
 boxRe.addEventListener('touchend', function (e) {
     //if (document.getElementById("already").value == "1")
-    clearAll();
     //sendto("143", finalcountdown.toString());
     e.preventDefault();
+    clearAll();
     boxSet.setAttribute('style', 'left: 380px;');
 }, false);
 
@@ -982,9 +981,9 @@ boxDo.addEventListener('touchmove', function (e) {
 
 boxDo.addEventListener('touchend', function (e) {
     //if (document.getElementById("already").value == "1")
-    clearAll();
     //sendto("127", finalcountdown.toString());
     e.preventDefault();
+    clearAll();
     boxSet.setAttribute('style', 'left: 380px;');
 }, false);
 
@@ -1018,10 +1017,10 @@ boxAngle.addEventListener('touchmove', function (e) {
 
 boxAngle.addEventListener('touchend', function (e) {
     //if (document.getElementById("already").value == "1")
-    clear2All();
     //sendto("127", finalcountdown.toString());
     e.preventDefault();
-	boxKick.setAttribute('style', 'left: 1355px;');
+    clear2All();
+    boxKick.setAttribute('style', 'left: 1355px;');
 }, false);
 
 var app = {
@@ -1092,9 +1091,44 @@ var app = {
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-
+        setInterval("clock()",100);
         console.log('Received Event: ' + id);
     }
 };
+
+function clock()
+{
+    if (document.getElementById("already").value == "1") {
+        if(true == isleft)
+        {
+            if(lastret != ret1) {
+                if("0x00" == ret1)
+                {
+                    hello.sendMessage(ret1, successScan, failureScan);
+                    hello.sendMessage(ret1, successScan, failureScan);
+                    hello.sendMessage(ret1, successScan, failureScan);
+                    hello.sendMessage(ret1, successScan, failureScan);
+                }
+                hello.sendMessage(ret1, successScan, failureScan);
+                lastret = ret1;
+            }
+            isleft = false;
+        }
+        else
+        {
+            if(last2ret != ret2) {
+                if("0x80" == ret2) {
+                    hello.sendMessage(ret2, successScan, failureScan);
+                    hello.sendMessage(ret2, successScan, failureScan);
+                    hello.sendMessage(ret2, successScan, failureScan);
+                    hello.sendMessage(ret2, successScan, failureScan);
+                }
+                hello.sendMessage(ret2, successScan, failureScan);
+                last2ret = ret2;
+            }
+            isleft = true;
+        }
+    }
+}
 
 app.initialize();
