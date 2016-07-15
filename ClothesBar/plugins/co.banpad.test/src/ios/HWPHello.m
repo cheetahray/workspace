@@ -10,6 +10,7 @@
 @property (readwrite) Boolean successInitializingTransmitter;
 @property (readwrite) int DatagramSocketC;
 @property (readwrite) struct sockaddr_in broadcastAddr;
+@property (readwrite) NSString *noteType;
 
 @end
 
@@ -46,12 +47,14 @@
     MusicSequence s6;
     MusicSequence s7;
     MusicSequence s8;
+    NSThread *wthread;
 }
 
 @synthesize samplerUnit;
 @synthesize successInitializingTransmitter;
 @synthesize DatagramSocketC;
 @synthesize broadcastAddr;
+@synthesize noteType;
 
 void MyMIDINotifyProc (const MIDINotification  *message, void *refCon) {
     printf("MIDI Notify, messageId=%d,", (int)message->messageID);
@@ -65,7 +68,6 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
     
     
     //AudioUnit *player = (AudioUnit*) refCon;
-    Boolean gottogo = false;
     MIDIPacket *packet = (MIDIPacket *)pktlist->packet;
     for (int i=0; i < pktlist->numPackets; i++) {
         Byte midiStatus = packet->data[0];
@@ -77,73 +79,39 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
             Byte velocity = packet->data[2] & 0x7F;
             
             //int noteNumber = ((int) note) % 12;
-            NSString *noteType;
             switch ((int)note) {
                 case 84:
-                    noteType = @"127";
-                    gottogo = true;
-                    break;
-                case 85:
-                    noteType = @"C#";
-                    gottogo = false;
+                    myclass->noteType = @"127";
                     break;
                 case 86:
-                    noteType = @"143";
-                    gottogo = true;
-                    break;
-                case 87:
-                    noteType = @"D#";
-                    gottogo = false;
+                    myclass->noteType = @"143";
                     break;
                 case 88:
-                    noteType = @"159";
-                    gottogo = true;
+                    myclass->noteType = @"159";
                     break;
                 case 89:
-                    noteType = @"175";
-                    gottogo = true;
-                    break;
-                case 90:
-                    noteType = @"F#";
-                    gottogo = false;
+                    myclass->noteType = @"175";
                     break;
                 case 91:
-                    noteType = @"191";
-                    gottogo = true;
-                    break;
-                case 92:
-                    noteType = @"G#";
-                    gottogo = false;
+                    myclass->noteType = @"191";
                     break;
                 case 93:
-                    noteType = @"207";
-                    gottogo = true;
-                    break;
-                case 94:
-                    noteType = @"A#";
-                    gottogo = false;
+                    myclass->noteType = @"207";
                     break;
                 case 95:
-                    noteType = @"223";
-                    gottogo = true;
+                    myclass->noteType = @"223";
                     break;
                 case 96:
-                    noteType = @"239";
-                    gottogo = true;
+                    myclass->noteType = @"239";
                     break;
                 default:
+                    myclass->noteType = @"No";
                     break;
             }
-            if((int)velocity > 0)
+            if((int)velocity == 0)
             {
                 //NSLog([noteType stringByAppendingFormat:[NSString stringWithFormat:@": %i", ((int) note)]]);
-                ssize_t result = 0;
-                if (myclass->successInitializingTransmitter) {
-                    if(true == gottogo)
-                    {
-                        result = sendto(myclass->DatagramSocketC, noteType.cString, strlen(noteType.cString), 0, (struct sockaddr*)&(myclass->broadcastAddr), sizeof myclass->broadcastAddr);
-                    }
-                }
+                myclass->noteType = @"No";
             }
             //OSStatus result = noErr;
             //result = MusicDeviceMIDIEvent (player, midiStatus, note, velocity, 0);
@@ -357,7 +325,9 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
         MusicSequenceSetMIDIEndpoint(s6, virtualEndpoint6);
         MusicSequenceSetMIDIEndpoint(s7, virtualEndpoint7);
         MusicSequenceSetMIDIEndpoint(s8, virtualEndpoint8);
-        
+        noteType = @"No";
+        wthread = [[NSThread alloc] initWithTarget:self selector:@selector(threadProc) object:nil];
+        [wthread start];
         //NSString* socket = [NSString stringWithFormat:@"%i", DatagramSocketC];
         if (DatagramSocketC != 0 && successInitializingTransmitter)
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[@": " stringByAppendingString:(NSString *)[command.arguments objectAtIndex:0]]];
@@ -366,6 +336,22 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
         
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];
+}
+
+-(void) threadProc
+{
+    while(true)
+    {
+        if([noteType isEqualToString:@"No"])
+            ;
+        else
+        {
+            ssize_t result = 0;
+            result = sendto(DatagramSocketC, noteType.cString, strlen(noteType.cString), 0, (struct sockaddr*)&(broadcastAddr), sizeof broadcastAddr);
+            noteType = @"No";
+        }
+        usleep(1000);
+    }
 }
 
 - (void)listenForPackets:(CDVInvokedUrlCommand*)command
@@ -506,51 +492,41 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
             // Initialise the music player
             NewMusicPlayer(&p);
             
-            double len = 0.0;
             switch([(NSString *)[command.arguments objectAtIndex:0] intValue])
             {
                 case 239:
-                    len = 18.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s1);
                     break;
                 case 223:
-                    len = 16.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s2);
                     break;
                 case 207:
-                    len = 26.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s3);
                     break;
                 case 191:
-                    len = 16.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s4);
                     break;
                 case 175:
-                    len = 26.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s5);
                     break;
                 case 159:
-                    len = 38.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s6);
                     break;
                 case 143:
-                    len = 28.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s7);
                     break;
                 case 127:
-                    len = 18.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s8);
                     break;
                 default:
-                    len = 0.0;
                     // Load the sequence into the music player
                     MusicPlayerSetSequence(p, s1);
                     break;
@@ -562,22 +538,64 @@ static void MyMIDIReadProc(const MIDIPacketList *pktlist,
             // Starts the music playing
             MusicPlayerStart(p);
             
+            midisuccess = true;
+            
+            //double len = 0.0;
+            switch([(NSString *)[command.arguments objectAtIndex:0] intValue])
+            {
+                case 239:
+                    //len = 18.0;
+                    usleep (18000000);
+                    break;
+                case 223:
+                    //len = 16.0;
+                    usleep (16000000);
+                    break;
+                case 207:
+                    //len = 26.0;
+                    usleep (26000000);
+                    break;
+                case 191:
+                    //len = 16.0;
+                    usleep (16000000);
+                    break;
+                case 175:
+                    //len = 26.0;
+                    usleep (26000000);
+                    break;
+                case 159:
+                    //len = 28.0;
+                    usleep (29000000);
+                    break;
+                case 143:
+                    //len = 28.0;
+                    usleep (28000000);
+                    break;
+                case 127:
+                    //len = 18.0;
+                    usleep (18000000);
+                    break;
+                default:
+                    //len = 0.0;
+                    usleep (100000);
+                    break;
+            }
+            
             // Get length of track so that we know how long to kill time for
             //MusicTrack t;
             //MusicTimeStamp len;
             //UInt32 sz = sizeof(MusicTimeStamp);
             //MusicSequenceGetIndTrack(s, 1, &t);
             //MusicTrackGetProperty(t, kSequenceTrackProperty_TrackLength, &len, &sz);
-            NSDate *start = [NSDate date];
-            NSTimeInterval timeInterval;
-            midisuccess = true;
-            while (1) { // kill time until the music is over
-                usleep (1000000);
-                timeInterval = [start timeIntervalSinceNow];
-                //NSLog([NSString stringWithFormat:@": %f", timeInterval*-1]);
-                if (0 > len + timeInterval)
-                    break;
-            }
+            //NSDate *start = [NSDate date];
+            //NSTimeInterval timeInterval;
+            //while (1) { // kill time until the music is over
+            //usleep (3000000);
+            //timeInterval = [start timeIntervalSinceNow];
+            //NSLog([NSString stringWithFormat:@": %f", timeInterval*-1]);
+            //if (0 > len + timeInterval)
+            //break;
+            //}
             
             // Stop the player and dispose of the objects
             MusicPlayerStop(p);
