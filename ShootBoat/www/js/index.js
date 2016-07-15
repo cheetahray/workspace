@@ -727,15 +727,15 @@ function strcmp(a, b) {
 
 var successInit = function (message) {
     myssid = message;
-    if (strcmp(myssid, "uucar_")) {
+    if (strcmp(myssid, "ssfar_")) {
         hello.initialize("192.168.4.1", 7777, successInternal, failureSet);
     }
     else if (language == "zh-TW")
-        navigator.notification.alert("您沒連上電路板的 wifi uucar_x", alertDismissed, '', '確定');
+        navigator.notification.alert("您沒連上電路板的 wifi ssfar_x", alertDismissed, '', '確定');
     else if (language == "zh-CN")
-        navigator.notification.alert("您没连上电路板的 wifi uucar_x", alertDismissed, '', '确定');
+        navigator.notification.alert("您没连上电路板的 wifi ssfar_x", alertDismissed, '', '确定');
     else
-        navigator.notification.alert("You haven't connected to motherboard's wifi uucar_x.", alertDismissed, '', 'OK');
+        navigator.notification.alert("You haven't connected to motherboard's wifi ssfar_x.", alertDismissed, '', 'OK');
     /*
      else if (document.getElementById("already").value == "0")
      {
@@ -1099,8 +1099,8 @@ function clock()
         if(true == isleft)
         {
             if(lastret != ret1) {
-                for(ii = 0; ii < 5; ii++)
-                     hello.sendMessage(ret1, successScan, failureScan);
+                //for(ii = 0; ii < 5; ii++)
+                hello.sendMessage(ret1, successScan, failureScan);
                 $("#note").text(ConvertBase.dec2bin(parseInt(ret1).toString()));
                 lastret = ret1;
             }
@@ -1109,8 +1109,8 @@ function clock()
         else
         {
             if(last2ret != ret2) {
-                for(ii = 0; ii < 5; ii++)
-                    hello.sendMessage(ret2, successScan, failureScan);
+                //for(ii = 0; ii < 5; ii++)
+                hello.sendMessage(ret2, successScan, failureScan);
                 $("#note").text(ConvertBase.dec2bin(parseInt(ret2).toString()));
                 last2ret = ret2;
             }
