@@ -325,7 +325,6 @@ function clearAll() {
     boxSo.setAttribute('style', 'background-color:transparent;');
     boxLa.setAttribute('style', 'background-color:transparent;');
     boxTi.setAttribute('style', 'background-color:transparent;');
-    $("#note").text("0x00");
 }
 
 function clear2All() {
@@ -334,7 +333,6 @@ function clear2All() {
         ret2 = "0x80";
     }
     boxAngle.setAttribute('style', 'background-color:transparent;');
-    $("#note").text("0x80");
 }
 
 function processMove() {
@@ -610,7 +608,6 @@ function processMove() {
     }
     if (true == candraw)
     {
-        $("#note").text(ConvertBase.dec2bin(parseInt(ret).toString()));
         boxSet.setAttribute('style', 'left: ' + (parseInt(nowx) - succorW).toString() + 'px; top: ' + (parseInt(nowy) - succorW).toString() + 'px;');
     }
 }
@@ -687,7 +684,6 @@ function process2Move() {
     }
     if (true == candraw)
     {
-        $("#note").text(ConvertBase.dec2bin(parseInt(ret).toString()));
         boxKick.setAttribute('style', 'top: ' + (parseInt(now2y) - succorW).toString() + 'px;');
     }
 }
@@ -1099,17 +1095,13 @@ var app = {
 function clock()
 {
     if (document.getElementById("already").value == "1") {
+        var ii = 0;
         if(true == isleft)
         {
             if(lastret != ret1) {
-                if("0x00" == ret1)
-                {
-                    hello.sendMessage(ret1, successScan, failureScan);
-                    hello.sendMessage(ret1, successScan, failureScan);
-                    hello.sendMessage(ret1, successScan, failureScan);
-                    hello.sendMessage(ret1, successScan, failureScan);
-                }
-                hello.sendMessage(ret1, successScan, failureScan);
+                for(ii = 0; ii < 5; ii++)
+                     hello.sendMessage(ret1, successScan, failureScan);
+                $("#note").text(ConvertBase.dec2bin(parseInt(ret1).toString()));
                 lastret = ret1;
             }
             isleft = false;
@@ -1117,13 +1109,9 @@ function clock()
         else
         {
             if(last2ret != ret2) {
-                if("0x80" == ret2) {
+                for(ii = 0; ii < 5; ii++)
                     hello.sendMessage(ret2, successScan, failureScan);
-                    hello.sendMessage(ret2, successScan, failureScan);
-                    hello.sendMessage(ret2, successScan, failureScan);
-                    hello.sendMessage(ret2, successScan, failureScan);
-                }
-                hello.sendMessage(ret2, successScan, failureScan);
+                $("#note").text(ConvertBase.dec2bin(parseInt(ret2).toString()));
                 last2ret = ret2;
             }
             isleft = true;
