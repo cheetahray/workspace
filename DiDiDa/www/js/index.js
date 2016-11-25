@@ -21,10 +21,11 @@ var lastret = "0x00";
 var last2ret = "0x80";
 var ret1 = lastret;
 var ret2 = last2ret;
-var isleft = true;
 var Angle128 = 0;
 var Angle1282 = 0;
 var divider = 1285;
+var leftbar = 140;
+var rightbar = 860;
 
 var successScan = function (message) {
     if (language == "zh-TW")
@@ -123,15 +124,13 @@ function processMove() {
     var candraw = true;
     //var mycos = tryX / nowr2sqrt;
     var ret="";
-	alert(leftAngle);
-	alert(topAngle);
-	alert(rightAngle);
-	alert(bottomAngle);
-	alert(nowx);
-	alert(nowy);
-    if (nowx > leftAngle && nowx < rightAngle && nowy < topAngle && nowy > bottomAngle )
+	if (nowx > leftAngle && nowx < rightAngle && nowy > topAngle && nowy < bottomAngle )
     {
-        ret = "0x8F";
+		if( nowx > rightbar )
+		    nowx = rightbar;
+		else if( nowx < leftbar ) 
+		    nowx = leftbar;
+		ret = "0x" + ConvertBase.dec2hex(Math.floor( (nowx - leftbar) / 5.65 ).toString());
     }
     else
         candraw = false;
@@ -141,7 +140,7 @@ function processMove() {
     }
     if (true == candraw)
     {
-        boxSet.setAttribute('style', 'left: ' + (parseInt(nowx) - succorW).toString() + 'px;');
+        boxSet.setAttribute('style', 'left: ' + (parseInt(nowx)).toString() + 'px;');
     }
 }
 
@@ -149,9 +148,13 @@ function process2Move() {
     var candraw = true;
     //var mycos = tryX / nowr2sqrt;
     var ret="";
-    if (now2y > topAngle && now2y < Angle_1) //( nowx > left3 && nowx < right3 && nowy > top3  && nowy < bottom3 )
+    if (now2x > leftAngle2 && now2x < rightAngle2 && now2y > topAngle2 && now2y < bottomAngle2 )
     {
-        ret = "0x8F";
+		if( now2x > rightbar )
+		    now2x = rightbar;
+		else if( now2x < leftbar ) 
+		    now2x = leftbar;
+		ret = "0x" + ConvertBase.dec2hex(Math.floor( (now2x - leftbar) / 5.65 ).toString());
     }
     else
         candraw = false;
@@ -161,7 +164,7 @@ function process2Move() {
     }
     if (true == candraw)
     {
-        boxKick.setAttribute('style', 'top: ' + (parseInt(now2y) - succorW).toString() + 'px;');
+        boxKick.setAttribute('style', 'left: ' + (parseInt(now2x)).toString() + 'px;');
     }
 }
 
@@ -230,18 +233,6 @@ var boxKick = document.getElementById('kick');
 
 //var boxAngle2 = document.getElementById('angle2');
 
-boxSet.addEventListener('touchstart', function (e) {
-    //readyet();
-    //if (document.getElementById("already").value == "1")
-	e.preventDefault();
-	var touch = e.touches[e.touches.length-1];
-    if(touch.pageY > divider)
-        touch = e.touches[e.touches.length-2];
-    nowx = touch.pageX;
-    nowy = touch.pageY;
-    processMove();
-}, false);
-
 boxSet.addEventListener('touchmove', function (e) {
     //readyet();
     //if (document.getElementById("already").value == "1")
@@ -258,7 +249,39 @@ boxSet.addEventListener('touchend', function (e) {
     //if (document.getElementById("already").value == "1")
     //sendto("127", finalcountdown.toString());
     e.preventDefault();
-    clearAll();
+	var touch = e.touches[e.touches.length-1];
+    if(touch.pageY > divider)
+        touch = e.touches[e.touches.length-2];
+    nowx = touch.pageX;
+    nowy = touch.pageY;
+    processMove();
+    //clearAll();
+    //boxSet.setAttribute('style', 'left: 1355px;');
+}, false);
+
+boxKick.addEventListener('touchmove', function (e) {
+    //readyet();
+    //if (document.getElementById("already").value == "1")
+    e.preventDefault();
+    var touch = e.touches[e.touches.length-1];
+    if(touch.pageX > divider)
+        touch = e.touches[e.touches.length-2];
+    now2x = touch.pageX;
+    now2y = touch.pageY;
+    process2Move();
+}, false);
+
+boxKick.addEventListener('touchend', function (e) {
+    //if (document.getElementById("already").value == "1")
+    //sendto("127", finalcountdown.toString());
+    e.preventDefault();
+	var touch = e.touches[e.touches.length-1];
+    if(touch.pageY > divider)
+        touch = e.touches[e.touches.length-2];
+    now2x = touch.pageX;
+    now2y = touch.pageY;
+    process2Move();
+    //clear2All();
     //boxSet.setAttribute('style', 'left: 1355px;');
 }, false);
 
@@ -308,7 +331,7 @@ var app = {
         });
 
         getCenter();
-        getSuccorW();
+        //getSuccorW();
         getBoardary();
 
         window.screen.lockOrientation('portrait');
@@ -330,7 +353,7 @@ var app = {
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:none;');
-        //setInterval("clock()",100);
+        setInterval("clock()",100);
         console.log('Received Event: ' + id);
     }
 };
@@ -344,7 +367,7 @@ function clock()
             if(lastret != ret1) {
                 //for(ii = 0; ii < 5; ii++)
                 hello.sendMessage(ret1, successScan, failureScan);
-                $("#note").text(ConvertBase.dec2bin(parseInt(ret1).toString()));
+                //$("#note").text(ConvertBase.dec2bin(parseInt(ret1).toString()));
                 lastret = ret1;
             }
             isleft = false;
@@ -354,7 +377,7 @@ function clock()
             if(last2ret != ret2) {
                 //for(ii = 0; ii < 5; ii++)
                 hello.sendMessage(ret2, successScan, failureScan);
-                $("#note").text(ConvertBase.dec2bin(parseInt(ret2).toString()));
+                //$("#note").text(ConvertBase.dec2bin(parseInt(ret2).toString()));
                 last2ret = ret2;
             }
             isleft = true;
