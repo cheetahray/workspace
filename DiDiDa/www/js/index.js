@@ -154,7 +154,7 @@ function process2Move() {
 		    now2x = rightbar;
 		else if( now2x < leftbar ) 
 		    now2x = leftbar;
-		ret = "0x" + ConvertBase.dec2hex(Math.floor( (now2x - leftbar) / 5.65 ).toString());
+		ret = "0x" + ConvertBase.dec2hex( ( 128 + Math.floor( (now2x - leftbar) / 5.65 ) ).toString());
     }
     else
         candraw = false;
@@ -207,22 +207,29 @@ function strcmp(a, b) {
 
 var successInit = function (message) {
     myssid = message;
+	networkinterface.getIPAddress(
+        function (ip) {
+            myip = ip.substring(0, ip.lastIndexOf(".") + 1);
+            //app.scanEvent('deviceready');
+	        hello.initialize(myip + "255", 8008, successInternal, failureSet);
+        }
+    );
+	/*
 	ssidshould = "DiDiDa";
     if (strcmp(myssid, ssidshould)) {
         hello.initialize("192.168.4.255", 8008, successInternal, failureSet);
     }
     else if (language == "zh-TW")
-        navigator.notification.alert("您沒連上喇叭的 wifi " + ssidshould, alertDismissed, '', '確定');
+        navigator.notification.alert("您沒連上 wifi " + ssidshould, alertDismissed, '', '確定');
     else if (language == "zh-CN")
-        navigator.notification.alert("您没连上喇叭的 wifi " + ssidshould, alertDismissed, '', '确定');
+        navigator.notification.alert("您没连上 wifi " + ssidshould, alertDismissed, '', '确定');
     else
-        navigator.notification.alert("You haven't connected to speaker's wifi " + ssidshould, alertDismissed, '', 'OK');
-    /*
-     else if (document.getElementById("already").value == "0")
-     {
-     id3();
-     }
-     */
+        navigator.notification.alert("You haven't connected wifi " + ssidshould, alertDismissed, '', 'OK');
+    else if (document.getElementById("already").value == "0")
+    {
+       ; //id3();
+    }
+    */
 }
 
 var boxSet = document.getElementById('xy');
@@ -361,26 +368,18 @@ var app = {
 function clock()
 {
     if (document.getElementById("already").value == "1") {
-        var ii = 0;
-        if(true == isleft)
-        {
-            if(lastret != ret1) {
-                //for(ii = 0; ii < 5; ii++)
-                hello.sendMessage(ret1, successScan, failureScan);
-                //$("#note").text(ConvertBase.dec2bin(parseInt(ret1).toString()));
-                lastret = ret1;
-            }
-            isleft = false;
+        var isleft = false;
+        if(lastret != ret1) {
+            hello.sendMessage(ret1, successScan, failureScan);
+            //$("#note").text(ConvertBase.dec2bin(parseInt(ret1).toString()));
+            lastret = ret1;
+			isleft = true;
         }
-        else
-        {
-            if(last2ret != ret2) {
-                //for(ii = 0; ii < 5; ii++)
-                hello.sendMessage(ret2, successScan, failureScan);
-                //$("#note").text(ConvertBase.dec2bin(parseInt(ret2).toString()));
-                last2ret = ret2;
-            }
-            isleft = true;
+        if(last2ret != ret2 && false == isleft) {
+            //for(ii = 0; ii < 5; ii++)
+            hello.sendMessage(ret2, successScan, failureScan);
+            //$("#note").text(ConvertBase.dec2bin(parseInt(ret2).toString()));
+            last2ret = ret2;
         }
     }
 }
