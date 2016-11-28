@@ -1,0 +1,192 @@
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+body {
+    -webkit-touch-callout: none;
+    -webkit-text-size-adjust: none;
+    -webkit-user-select: none;
+    background-color:#6C6A68;
+    background-attachment:fixed;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size:12px;
+    height:100%;
+    margin:0px;
+    padding:0px;
+    text-transform:uppercase;
+    width:100%;
+}
+
+
+.app {
+	background:url(../img/1-iphone-layout_iphone.png) no-repeat center top;
+	position:absolute;
+	left:0px;
+	top:0px;
+	height:1080px;
+	width:1920px;
+	text-align:center;
+	padding:0px 0px 0px 0px;
+	margin:0px 0px 0px 0px;
+
+}
+
+
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+        background-position:left center;
+        padding:0px 0px 0px 0px;
+        margin:0px 0px 0px 0px;
+
+    }
+}
+
+h1 {
+    font-size:24px;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
+.REC {
+	font-size:12px;
+	position: absolute;
+	top: 403px;
+	left: 1592px;
+	width: 236px;
+	height: 238px;
+	background: none;
+}
+
+.SET {
+	font-size:12px;
+	position: absolute;
+	top: 65px;
+	left: 1788px;
+	width: 95px;
+	height: 98px;
+	background-color: transparent;
+}
+
+.DOO {
+	font-size:12px;
+	position: absolute;
+	top: 325px;
+	left: 1324px;
+	width: 128px;
+	height: 391px;
+	background-color: transparent;
+}
+
+.TI {
+	font-size:12px;
+	position: absolute;
+	top: 314px;
+	left: 1148px;
+	width: 130px;
+	height: 407px;
+	background-color: transparent;
+}
+
+.LA {
+	font-size:12px;
+	position: absolute;
+	top: 303px;
+	left: 974px;
+	width: 125px;
+	height: 433px;
+	background-color: transparent;
+}
+
+.SO {
+	font-size:12px;
+	position: absolute;
+	top: 286px;
+	left: 797px;
+	width: 125px;
+	height: 464px;
+	background-color: transparent;
+}
+
+.FA {
+	font-size:12px;
+	position: absolute;
+	top: 275px;
+	left: 618px;
+	width: 127px;
+	height: 489px;
+	background-color: transparent;
+}
+
+.MI {
+	font-size:12px;
+	position: absolute;
+	top: 269px;
+	left: 442px;
+	width: 128px;
+	height: 503px;
+	background-color: transparent;
+}
+
+.RE {
+	font-size:12px;
+	position: absolute;
+	top: 252px;
+	left: 265px;
+	width: 125px;
+	height: 533px;
+	background-color: transparent;
+}
+
+.DO {
+	font-size:12px;
+	position: absolute;
+	top: 236px;
+	left: 89px;
+	width: 128px;
+	height: 565px;
+	background-color: transparent;
+}
+
+.event {
+	border-radius:4px;
+	-webkit-border-radius:4px;
+	color:#FFFFFF;
+	font-size:16px;
+	margin:0px 30px;
+	padding:2px 0px;
+	position: absolute;
+	top: 748px;
+	left: 1481px;
+	width: 277px;
+}
+
+.event.listening {
+	background-color:#333333;
+	display:block;
+	
+}
+
+.event.received {
+	background-color:#4B946A;
+	display:none;
+}
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+@-webkit-keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+.blink {
+    animation:fade 3000ms infinite;
+    -webkit-animation:fade 3000ms infinite;
+}
