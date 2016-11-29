@@ -4,6 +4,7 @@ var entry = 0;
 var language = "";
 var myip = "";
 var arewescan = false;
+var refreshIntervalId = 0;
 var successSet = function (message) {
     if (document.getElementById("already").value == "0") {
         document.getElementById("already").value = "1";
@@ -222,7 +223,8 @@ boxDoo.addEventListener('touchstart', function (e) {
 boxDoo.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxDoo.setAttribute('style', 'background-color:transparent;');
-    sendto("tst", finalcountdown.toString());
+    sendto("tsl", finalcountdown.toString());
+    refreshIntervalId = setInterval(tss, 100);
     e.preventDefault();
 }, false);
 
@@ -238,7 +240,7 @@ boxTi.addEventListener('touchstart', function (e) {
 boxTi.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxTi.setAttribute('style', 'background-color:transparent;');
-    sendto("tss", finalcountdown.toString());
+    sendto("tsl", finalcountdown.toString());
     e.preventDefault();
 }, false);
 
@@ -318,7 +320,7 @@ boxRe.addEventListener('touchstart', function (e) {
 boxRe.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxRe.setAttribute('style', 'background-color:transparent;');
-    sendto("tss", finalcountdown.toString());
+    sendto("tst", finalcountdown.toString());
     e.preventDefault();
 }, false);
 
@@ -334,7 +336,8 @@ boxDo.addEventListener('touchstart', function (e) {
 boxDo.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxDo.setAttribute('style', 'background-color:transparent;');
-    sendto("tsl", finalcountdown.toString());
+    sendto("tst", finalcountdown.toString());
+    refreshIntervalId = setInterval(tss, 100);
     e.preventDefault();
 }, false);
 
@@ -364,6 +367,11 @@ var successCountdown = function (result) {
     }
 };
 
+function tss()
+{
+    sendto("tss", finalcountdown.toString());
+    clearInterval(refreshIntervalId);
+}
 // example of a callback method
 var errorCountdown = function (error) {
     if (language == "zh-TW")
