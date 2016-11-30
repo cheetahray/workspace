@@ -223,6 +223,7 @@ boxDoo.addEventListener('touchstart', function (e) {
 boxDoo.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxDoo.setAttribute('style', 'background-color:transparent;');
+    clearInterval(refreshIntervalId);
     sendto("tsl", finalcountdown.toString());
     refreshIntervalId = setInterval(tss, 100);
     e.preventDefault();
@@ -240,7 +241,9 @@ boxTi.addEventListener('touchstart', function (e) {
 boxTi.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxTi.setAttribute('style', 'background-color:transparent;');
+    clearInterval(refreshIntervalId);
     sendto("tsl", finalcountdown.toString());
+    clearInterval(refreshIntervalId);
     e.preventDefault();
 }, false);
 
@@ -320,7 +323,9 @@ boxRe.addEventListener('touchstart', function (e) {
 boxRe.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxRe.setAttribute('style', 'background-color:transparent;');
+    clearInterval(refreshIntervalId);
     sendto("tst", finalcountdown.toString());
+    clearInterval(refreshIntervalId);
     e.preventDefault();
 }, false);
 
@@ -336,6 +341,7 @@ boxDo.addEventListener('touchstart', function (e) {
 boxDo.addEventListener('touchend', function (e) {
     if (document.getElementById("already").value == "1")
         boxDo.setAttribute('style', 'background-color:transparent;');
+    clearInterval(refreshIntervalId);
     sendto("tst", finalcountdown.toString());
     refreshIntervalId = setInterval(tss, 100);
     e.preventDefault();
