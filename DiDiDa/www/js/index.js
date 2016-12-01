@@ -130,7 +130,7 @@ function processMove() {
 		    nowx = rightbar;
 		else if( nowx < leftbar ) 
 		    nowx = leftbar;
-		ret = "0x" + ConvertBase.dec2hex(Math.floor( (nowx - leftbar) / 5.65 ).toString());
+		ret = "0x" + ConvertBase.dec2hex(Math.floor( (nowx - leftbar) / 5.65 ).toString());		
     }
     else
         candraw = false;
@@ -140,6 +140,7 @@ function processMove() {
     }
     if (true == candraw)
     {
+		document.getElementById("yellowglow").setAttribute('style', 'opacity: ' + ( (nowx - leftbar) / (rightbar - leftbar) ).toString() + ';');
         boxSet.setAttribute('style', 'left: ' + (parseInt(nowx)).toString() + 'px;');
     }
 }
@@ -164,6 +165,7 @@ function process2Move() {
     }
     if (true == candraw)
     {
+		document.getElementById("whiteglow").setAttribute('style', 'opacity: ' + ( (now2x - leftbar) / (rightbar - leftbar) ).toString() + ';');
         boxKick.setAttribute('style', 'left: ' + (parseInt(now2x)).toString() + 'px;');
     }
 }
