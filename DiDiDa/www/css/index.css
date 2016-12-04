@@ -29,6 +29,25 @@ body {
     width: 100%;
 }
 
+td img 
+{
+	display: block;
+}
+
+.resizedTextbox
+{
+	width: 355px; 
+	height: 59px;
+	font-size:42px;
+}
+
+.resizedTextbox2
+{
+	width: 355px; 
+	height: 58px;
+	font-size:42px;
+}
+
 /* Portrait layout (default) */
 .app {
 	z-index: 1;
@@ -128,6 +147,16 @@ h1 {
 	background-color: transparent;
 }
 
+.WIFI {
+	font-size: 12px;
+	position: absolute;
+	top: 1598px;
+	left: 474px;
+	width: 132px;
+	height: 97px;
+	background-color: transparent;
+}
+
 .KICK {
 	background: url(../img/gray_button.png);
 	font-size: 12px;
@@ -136,6 +165,35 @@ h1 {
 	left: 501px;
 	width: 81px;
 	height: 111px;
+}
+
+.SAVE {
+	font-size: 12px;
+	position: absolute;
+	top: 1406px;
+	left: 288px;
+	width: 141px;
+	height: 140px;
+	background-color: transparent;
+}
+
+.TEST {
+	font-size: 12px;
+	position: absolute;
+	top: 1406px;
+	left: 467px;
+	width: 141px;
+	height: 142px;
+	background-color: transparent;
+}
+
+.RESET {
+	font-size: 12px;
+	position: absolute;
+	top: 1407px;
+	left: 645px;
+	width: 142px;
+	height: 142px;
 }
 
 .event {

@@ -35,4 +35,6 @@
     <plugin name="cordova-plugin-dialogs" spec="~1.2.1" />
     <plugin name="cordova-plugin-networkinterface" spec="~1.0.8" />
     <plugin name="com.pylonproducts.wifiwizard" spec="https://github.com/hoerresb/WifiWizard" />
+    <plugin name="cordova-plugin-navigationbar" spec="https://github.com/cranberrygame/cordova-plugin-navigationbar" />
+    <plugin name="cordova-plugin-keyboard" spec="https://github.com/cjpearson/cordova-plugin-keyboard" />
 </widget>

@@ -26,6 +26,7 @@ var Angle1282 = 0;
 var divider = 1285;
 var leftbar = 140;
 var rightbar = 860;
+var whiteglowalpha = 0.0;
 
 var successScan = function (message) {
     if (language == "zh-TW")
@@ -120,6 +121,12 @@ function clear2All() {
     boxAngle2.setAttribute('style', 'background-color:transparent;');
 }
 
+function whiteyellowalpha()
+{
+	document.getElementById("yellowglow").setAttribute('style', 'opacity: ' + ( ( (nowx - leftbar) / (rightbar - leftbar) ) * ( 1 - whiteglowalpha / 2.0 ) ).toString() + ';');
+    document.getElementById("whiteglow").setAttribute('style', 'opacity: ' + whiteglowalpha.toString() + ';');
+}
+
 function processMove() {
     var candraw = true;
     //var mycos = tryX / nowr2sqrt;
@@ -140,8 +147,8 @@ function processMove() {
     }
     if (true == candraw)
     {
-		document.getElementById("yellowglow").setAttribute('style', 'opacity: ' + ( (nowx - leftbar) / (rightbar - leftbar) ).toString() + ';');
-        boxSet.setAttribute('style', 'left: ' + (parseInt(nowx)).toString() + 'px;');
+		whiteyellowalpha();
+		boxSet.setAttribute('style', 'left: ' + (parseInt(nowx)).toString() + 'px;');
     }
 }
 
@@ -165,8 +172,9 @@ function process2Move() {
     }
     if (true == candraw)
     {
-		document.getElementById("whiteglow").setAttribute('style', 'opacity: ' + ( (now2x - leftbar) / (rightbar - leftbar) ).toString() + ';');
-        boxKick.setAttribute('style', 'left: ' + (parseInt(now2x)).toString() + 'px;');
+		whiteglowalpha = (now2x - leftbar) / (rightbar - leftbar);
+		whiteyellowalpha();
+		boxKick.setAttribute('style', 'left: ' + (parseInt(now2x)).toString() + 'px;');
     }
 }
 
@@ -238,9 +246,14 @@ var boxSet = document.getElementById('xy');
 
 var boxKick = document.getElementById('kick');
 
-//var boxAngle = document.getElementById('angle');
+var boxWifi = document.getElementById('wifi');
 
-//var boxAngle2 = document.getElementById('angle2');
+boxWifi.addEventListener('touchstart', function (e) {
+    //readyet();
+    //if (document.getElementById("already").value == "1")
+    e.preventDefault();
+    window.location.href = "try.htm";
+}, false);
 
 boxSet.addEventListener('touchmove', function (e) {
     //readyet();
@@ -359,7 +372,7 @@ var app = {
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
-
+        window.navigationbar.setUp(true);
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:none;');
         setInterval("clock()",100);
