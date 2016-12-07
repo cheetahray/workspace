@@ -68,33 +68,50 @@ td img
 .app .white {
 	z-index: 0;
 	opacity: 0.0;
-	background:url(../img/white_glow.png) no-repeat center top;;
-    /* 170px x 200px */
+	background:url(../img/white_glow.png) no-repeat center top;
+	/* 170px x 200px */
     position: absolute; /* position in the center of the screen */
-    left: 0px;
-    top: 0px;
-    height: 1920px; /* text area height */
-    width: 1080px; /* text area width */
-    text-align: center;
-    padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
-    margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
+	left: 155px;
+	top: 150px;
+	height: 940px; /* text area height */
+	width: 770px; /* text area width */
+	text-align: center;
+	padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
+	margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
     /* offset horizontal: half of text area width */
 }
 
 /* Portrait layout (default) */
 .app .yellow {
-    z-index: 0;
+	z-index: 0;
 	opacity: 0.0;
-	background: url(../img/yellow_glow.png) no-repeat center top;; 
+	background: url(../img/yellow_glow.png) no-repeat center top;
 	/* 170px x 200px */
     position: absolute; /* position in the center of the screen */
-    left: 0px;
-    top: 0px;
-    height: 1920px; /* text area height */
-    width: 1080px; /* text area width */
-    text-align: center;
-    padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
-    margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
+	left: 155px;
+	top: 150px;
+	height: 940px; /* text area height */
+	width: 770px; /* text area width */
+	text-align: center;
+	padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
+	margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
+    /* offset horizontal: half of text area width */
+}
+
+/* Portrait layout (default) */
+.app .ring {
+	z-index: 1;
+	opacity: 1.0;
+	background: url(../img/glow_ring.png) no-repeat center top;
+	/* 170px x 200px */
+    position: absolute; /* position in the center of the screen */
+	left: 411px;
+	top: 931px;
+	height: 217px; /* text area height */
+	width: 257px; /* text area width */
+	text-align: center;
+	padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
+	margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
     /* offset horizontal: half of text area width */
 }
 

@@ -119,20 +119,6 @@ var boxSave = document.getElementById('save');
 var boxTest = document.getElementById('test');
 var boxReset = document.getElementById('reset');
 
-boxName.addEventListener('touchstart', function (e) {
-    //readyet();
-    //if (document.getElementById("already").value == "1")
-    e.preventDefault();
-    Keyboard.show();
-}, false);
-
-boxPass.addEventListener('touchstart', function (e) {
-    //readyet();
-    //if (document.getElementById("already").value == "1")
-    e.preventDefault();
-    Keyboard.show();
-}, false);
-
 boxSave.addEventListener('touchstart', function (e) {
     //readyet();
     //if (document.getElementById("already").value == "1")
