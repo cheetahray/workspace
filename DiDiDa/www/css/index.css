@@ -55,8 +55,8 @@ td img
     position: absolute; /* position in the center of the screen */
     left: 0px;
     top: 0px;
-    height: 1920px; /* text area height */
-    width: 1080px; /* text area width */
+    height: 1921px; /* text area height */
+    width: 1081px; /* text area width */
     text-align: center;
     padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
     margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
