@@ -36,16 +36,15 @@ td img
 
 .resizedTextbox
 {
-	width: 355px; 
-	height: 58px;
+	width: 358px; 
+	height: 60px;
 	font-size:42px;
 }
 
-.resizedTextbox2
+.resizedDiv
 {
-	width: 355px; 
-	height: 58px;
-	font-size:42px;
+	width: 361px; 
+	height: 65px;
 }
 
 /* Portrait layout (default) */
