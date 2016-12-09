@@ -36,14 +36,14 @@ td img
 
 .resizedTextbox
 {
-	width: 355px; 
+	width: 356px; 
 	height: 59px;
 	font-size:42px;
 }
 
 .resizedTextbox2
 {
-	width: 355px; 
+	width: 356px; 
 	height: 58px;
 	font-size:42px;
 }
@@ -187,8 +187,8 @@ h1 {
 .SAVE {
 	font-size: 12px;
 	position: absolute;
-	top: 1406px;
-	left: 288px;
+	top: 1396px;
+	left: 292px;
 	width: 141px;
 	height: 140px;
 	background-color: transparent;
@@ -197,8 +197,8 @@ h1 {
 .TEST {
 	font-size: 12px;
 	position: absolute;
-	top: 1406px;
-	left: 467px;
+	top: 1396px;
+	left: 471px;
 	width: 141px;
 	height: 142px;
 	background-color: transparent;
@@ -207,8 +207,8 @@ h1 {
 .RESET {
 	font-size: 12px;
 	position: absolute;
-	top: 1407px;
-	left: 645px;
+	top: 1396px;
+	left: 649px;
 	width: 142px;
 	height: 142px;
 }
