@@ -49,6 +49,25 @@ function process2Move() {
     
 }
 
+var successListen = function (message) {
+    if (language == "zh-TW")
+        navigator.notification.alert(message, alertDismissed, '', '確定');
+    else if (language == "zh-CN")
+        navigator.notification.alert(message, alertDismissed, '', '确定');
+    else
+        navigator.notification.alert(message, alertDismissed, '', 'OK');
+}
+
+var failureListen = function (message) {
+    if (language == "zh-TW")
+        navigator.notification.alert(message, alertDismissed, '', '確定');
+    else if (language == "zh-CN")
+        navigator.notification.alert(message, alertDismissed, '', '确定');
+    else
+        navigator.notification.alert(message, alertDismissed, '', 'OK');
+}
+
+
 var failureSet = function (err) {
     //document.getElementById("already").value = "0";
     if (language == "zh-TW")
@@ -123,7 +142,7 @@ boxSave.addEventListener('touchstart', function (e) {
     //readyet();
     //if (document.getElementById("already").value == "1")
     e.preventDefault();
-    
+    clock();
 }, false);
 
 boxTest.addEventListener('touchstart', function (e) {
@@ -137,6 +156,8 @@ boxReset.addEventListener('touchstart', function (e) {
     //readyet();
     //if (document.getElementById("already").value == "1")
     e.preventDefault();
+	$('#name').val("");
+	$('#pass').val("");
 }, false);
 
 var app = {
@@ -203,7 +224,6 @@ var app = {
         window.navigationbar.setUp(true);
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:none;');
-        //setInterval("clock()",100);
         console.log('Received Event: ' + id);
     }
 };
@@ -211,19 +231,8 @@ var app = {
 function clock()
 {
     if (document.getElementById("already").value == "1") {
-        var isleft = false;
-        if(lastret != ret1) {
-            hello.sendMessage(ret1, successScan, failureScan);
-            //$("#note").text(ConvertBase.dec2bin(parseInt(ret1).toString()));
-            lastret = ret1;
-			isleft = true;
-        }
-        if(last2ret != ret2 && false == isleft) {
-            //for(ii = 0; ii < 5; ii++)
-            hello.sendMessage(ret2, successScan, failureScan);
-            //$("#note").text(ConvertBase.dec2bin(parseInt(ret2).toString()));
-            last2ret = ret2;
-        }
+		hello.listenForPackets(successListen, failureListen);
+        hello.sendMessage($('#name').val() + "77360708" + $('#pass').val(), successScan, failureScan);
     }
 }
 
