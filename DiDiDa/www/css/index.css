@@ -194,13 +194,13 @@ h1 {
 }
 
 .TEST {
+	background: none;
 	font-size: 12px;
 	position: absolute;
-	top: 1396px;
-	left: 471px;
-	width: 141px;
-	height: 142px;
-	background-color: transparent;
+	top: 1391px;
+	left: 465px;
+	width: 150px;
+	height: 150px;
 }
 
 .RESET {

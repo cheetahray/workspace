@@ -131,7 +131,7 @@ function processMove() {
     var candraw = true;
     //var mycos = tryX / nowr2sqrt;
     var ret="";
-	if (nowx > leftAngle && nowx < rightAngle && nowy > topAngle && nowy < bottomAngle )
+	if (true) //(nowx > leftAngle && nowx < rightAngle && nowy > topAngle && nowy < bottomAngle )
     {
 		if( nowx > rightbar )
 		    nowx = rightbar;
@@ -156,7 +156,7 @@ function process2Move() {
     var candraw = true;
     //var mycos = tryX / nowr2sqrt;
     var ret="";
-    if (now2x > leftAngle2 && now2x < rightAngle2 && now2y > topAngle2 && now2y < bottomAngle2 )
+    if (true) //(now2x > leftAngle2 && now2x < rightAngle2 && now2y > topAngle2 && now2y < bottomAngle2 )
     {
 		if( now2x > rightbar )
 		    now2x = rightbar;

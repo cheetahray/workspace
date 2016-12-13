@@ -49,6 +49,12 @@ function process2Move() {
     
 }
 
+function onConfirm(results) {
+	if (results == 1) {
+        window.location.href = "index.html";
+    }
+}
+
 var successListen = function (message) {
     if (language == "zh-TW")
         navigator.notification.alert(message, alertDismissed, '', '確定');
@@ -56,15 +62,16 @@ var successListen = function (message) {
         navigator.notification.alert(message, alertDismissed, '', '确定');
     else
         navigator.notification.alert(message, alertDismissed, '', 'OK');
+	window.location.href = "index.html";
 }
 
 var failureListen = function (message) {
     if (language == "zh-TW")
-        navigator.notification.alert(message, alertDismissed, '', '確定');
+        navigator.notification.confirm("儲存失敗。 回上頁?", onConfirm, '', ['確定', '取消'], '');
     else if (language == "zh-CN")
-        navigator.notification.alert(message, alertDismissed, '', '确定');
+        navigator.notification.confirm("存储失败。 回上页?", onConfirm, '', ['确定', '取消'], '');
     else
-        navigator.notification.alert(message, alertDismissed, '', 'OK');
+        navigator.notification.confirm("Save failed. Page backward?", onConfirm, '', ['OK', 'Cancel'], '');
 }
 
 
@@ -142,14 +149,43 @@ boxSave.addEventListener('touchstart', function (e) {
     //readyet();
     //if (document.getElementById("already").value == "1")
     e.preventDefault();
-    clock();
+	if( boxName.value != '' && boxPass.value != '' )
+        clock();
+    else if (language == "zh-TW")
+        navigator.notification.confirm("有空值。 回上頁?", onConfirm, '', ['確定', '取消'], '');
+    else if (language == "zh-CN")
+        navigator.notification.confirm("有空值。 回上页?", onConfirm, '', ['确定', '取消'], '');
+    else
+        navigator.notification.confirm("Empty fields. Page backward?", onConfirm, '', ['OK', 'Cancel'], '');
 }, false);
+
+var ispass = true;
 
 boxTest.addEventListener('touchstart', function (e) {
     //if (document.getElementById("already").value == "1")
     //sendto("127", finalcountdown.toString());
     e.preventDefault();
-	
+	if( boxName.value != '' && boxPass.value != '' )
+	{
+		if (true == ispass)
+		{
+			$("#pass").prop("type", "text");
+			boxTest.setAttribute('style', 'background: url(img/hide.png);');
+			ispass = false;
+		}
+		else
+		{
+			$("#pass").prop("type", "password");
+			boxTest.setAttribute('style', 'background: none;');
+			ispass = true;
+		}
+	}
+	else if (language == "zh-TW")
+        navigator.notification.alert("有空值?", alertDismissed, '', '確定');
+    else if (language == "zh-CN")
+        navigator.notification.alert("有空值?", alertDismissed, '', '确定');
+    else
+        navigator.notification.alert("Empty field?" + err, alertDismissed, '', 'OK');
 }, false);
 
 boxReset.addEventListener('touchstart', function (e) {
@@ -221,7 +257,7 @@ var app = {
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
-        window.navigationbar.setUp(true);
+        window.navigationbar.setUp(false);
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:none;');
         console.log('Received Event: ' + id);
