@@ -8,17 +8,17 @@ body {
     -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
     background-color: #E4E4E4;
     /*
-	background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
-    );
-	*/
+     background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+     background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+     background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+     background-image:-webkit-gradient(
+     linear,
+     left top,
+     left bottom,
+     color-stop(0, #A7A7A7),
+     color-stop(0.51, #E4E4E4)
+     );
+     */
     background-attachment: fixed;
     font-family: 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size: 12px;
@@ -29,31 +29,34 @@ body {
     width: 100%;
 }
 
-td img 
+td img
 {
-	display: block;
+    display: block;
 }
 
 .resizedTextbox
 {
-	/* width: 315px;
-	height: 45px; */
-	width: 385px;
-	height: 60px;
-	font-size:42px;
+    /* change here */
+    /* width: 315px;
+     height: 45px; */
+    width: 345px;
+    height: 45px;
+    /* width: 385px;
+     height: 60px; */
+    font-size:42px;
 }
 
 .resizedDiv
 {
-	width: 387px; 
-	height: 65px;
+    width: 387px;
+    height: 66px;
 }
 
 /* Portrait layout (default) */
 .app {
-	z-index: 1;
-	opacity: 1.0;
-	background: none; /* 170px x 200px */
+    z-index: 1;
+    opacity: 1.0;
+    background: none; /* 170px x 200px */
     position: absolute; /* position in the center of the screen */
     left: 0px;
     top: 0px;
@@ -67,52 +70,52 @@ td img
 
 /* Portrait layout (default) */
 .app .white {
-	z-index: 0;
-	opacity: 0.0;
-	background:url(../img/white_glow.png) no-repeat center top;
-	/* 170px x 200px */
+    z-index: 0;
+    opacity: 0.0;
+    background:url(../img/white_glow.png) no-repeat center top;
+    /* 170px x 200px */
     position: absolute; /* position in the center of the screen */
-	left: 335px;
-	top: 150px;
-	height: 940px; /* text area height */
-	width: 770px; /* text area width */
-	text-align: center;
-	padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
-	margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
+    left: 335px;
+    top: 150px;
+    height: 940px; /* text area height */
+    width: 770px; /* text area width */
+    text-align: center;
+    padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
+    margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
     /* offset horizontal: half of text area width */
 }
 
 /* Portrait layout (default) */
 .app .yellow {
-	z-index: 0;
-	opacity: 0.0;
-	background: url(../img/yellow_glow.png) no-repeat center top;
-	/* 170px x 200px */
+    z-index: 0;
+    opacity: 0.0;
+    background: url(../img/yellow_glow.png) no-repeat center top;
+    /* 170px x 200px */
     position: absolute; /* position in the center of the screen */
-	left: 335px;
-	top: 150px;
-	height: 940px; /* text area height */
-	width: 770px; /* text area width */
-	text-align: center;
-	padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
-	margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
+    left: 335px;
+    top: 150px;
+    height: 940px; /* text area height */
+    width: 770px; /* text area width */
+    text-align: center;
+    padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
+    margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
     /* offset horizontal: half of text area width */
 }
 
 /* Portrait layout (default) */
 .app .ring {
-	z-index: 1;
-	opacity: 1.0;
-	background: url(../img/glow_ring.png) no-repeat center top;
-	/* 170px x 200px */
+    z-index: 1;
+    opacity: 1.0;
+    background: url(../img/glow_ring.png) no-repeat center top;
+    /* 170px x 200px */
     position: absolute; /* position in the center of the screen */
-	left: 591px;
-	top: 931px;
-	height: 217px; /* text area height */
-	width: 257px; /* text area width */
-	text-align: center;
-	padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
-	margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
+    left: 591px;
+    top: 931px;
+    height: 217px; /* text area height */
+    width: 257px; /* text area width */
+    text-align: center;
+    padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
+    margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
     /* offset horizontal: half of text area width */
 }
 
@@ -136,82 +139,82 @@ h1 {
 }
 
 .SET {
-	background: url(../img/button.png);
-	font-size: 12px;
-	position: absolute;
-	top: 1112px;
-	left: 680px;
-	width: 81px;
-	height: 110px;
+    background: url(../img/button.png);
+    font-size: 12px;
+    position: absolute;
+    top: 1112px;
+    left: 680px;
+    width: 81px;
+    height: 110px;
 }
 
 .ANGLE {
-	font-size: 12px;
-	position: absolute;
-	top: 1090px;
-	left: 313px;
-	width: 814px;
-	height: 154px;
-	background-color: transparent;
+    font-size: 12px;
+    position: absolute;
+    top: 1090px;
+    left: 313px;
+    width: 814px;
+    height: 154px;
+    background-color: transparent;
 }
 
 .ANGLE2 {
-	font-size: 12px;
-	position: absolute;
-	top: 1338px;
-	left: 311px;
-	width: 820px;
-	height: 157px;
-	background-color: transparent;
+    font-size: 12px;
+    position: absolute;
+    top: 1338px;
+    left: 311px;
+    width: 820px;
+    height: 157px;
+    background-color: transparent;
 }
 
 .WIFI {
-	font-size: 12px;
-	position: absolute;
-	top: 1598px;
-	left: 654px;
-	width: 132px;
-	height: 97px;
-	background-color: transparent;
+    font-size: 12px;
+    position: absolute;
+    top: 1598px;
+    left: 654px;
+    width: 132px;
+    height: 97px;
+    background-color: transparent;
 }
 
 .KICK {
-	background: url(../img/gray_button.png);
-	font-size: 12px;
-	position: absolute;
-	top: 1363px;
-	left: 681px;
-	width: 81px;
-	height: 111px;
+    background: url(../img/gray_button.png);
+    font-size: 12px;
+    position: absolute;
+    top: 1363px;
+    left: 681px;
+    width: 81px;
+    height: 111px;
 }
 
 .SAVE {
-	font-size: 12px;
-	position: absolute;
-	top: 1306px;
-	left: 446px;
-	width: 141px;
-	height: 140px;
-	background-color: transparent;
+    font-size: 12px;
+    position: absolute;
+    top: 1306px;
+    left: 446px;
+    width: 141px;
+    height: 140px;
+    background-color: transparent;
 }
 
 .TEST {
-	background: none;
-	font-size: 12px;
-	position: absolute;
-	top: 1301px;
-	left: 648px;
-	width: 150px;
-	height: 150px;
+    background: none;
+    font-size: 12px;
+    position: absolute;
+    top: 1301px;
+    left: 648px;
+    width: 150px;
+    height: 150px;
 }
 
 .RESET {
-	font-size: 12px;
-	position: absolute;
-	top: 1305px;
-	left: 854px;
-	width: 142px;
-	height: 142px;
+    font-size: 12px;
+    position: absolute;
+    top: 1305px;
+    left: 854px;
+    width: 142px;
+    height: 142px;
 }
 
 .event {
