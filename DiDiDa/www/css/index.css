@@ -36,8 +36,10 @@ td img
 
 .resizedTextbox
 {
-	width: 315px;
-	height: 45px;
+	/* width: 315px;
+	height: 45px; */
+	width: 360px;
+	height: 60px;
 	font-size:42px;
 }
 
@@ -51,7 +53,7 @@ td img
 .app {
 	z-index: 1;
 	opacity: 1.0;
-	background: url(../img/1080p.png) no-repeat center top; /* 170px x 200px */
+	background: none; /* 170px x 200px */
     position: absolute; /* position in the center of the screen */
     left: 0px;
     top: 0px;

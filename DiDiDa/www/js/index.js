@@ -27,7 +27,7 @@ var divider = 1285;
 var leftbar = 140;
 var rightbar = 860;
 var whiteglowalpha = 0.0;
-
+var ratio = 0.0;
 var successScan = function (message) {
     if (language == "zh-TW")
         console.log("傳送掃描請求" + message);
@@ -252,7 +252,10 @@ boxWifi.addEventListener('touchstart', function (e) {
     //readyet();
     //if (document.getElementById("already").value == "1")
     e.preventDefault();
-    window.location.href = "try.htm";
+	if (ratio < 1.55)
+        window.location.assign("trytry.html");
+    else			
+        window.location.assign("try.htm");
 }, false);
 
 boxSet.addEventListener('touchmove', function (e) {
@@ -342,12 +345,21 @@ var app = {
             app.deviceHeight = screen.height;
             app.deviceWidth = screen.width;
         }
-		var ratio = app.deviceHeight / app.deviceWidth;
+		ratio = app.deviceHeight / app.deviceWidth;
         if (ratio < 1.55 && window.location.href.indexOf("second") < 0)
             window.location.assign("second.html");
         else
+		{
+			if (ratio < 1.55) 
+			{
+				leftbar += 180;
+				rightbar += 180;
+			    document.getElementById('APP').setAttribute('style', 'background: url(img/1440p.png);');
+			}
+			else
+			    document.getElementById('APP').setAttribute('style', 'background: url(img/1080p.png);');
             WifiWizard.getCurrentSSID(successInit, failureSSID);
-
+		}
         anyscreen([''], function () { //(['./css/index.css'],function() {
 
         });
@@ -375,7 +387,7 @@ var app = {
         window.navigationbar.setUp(true);
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:none;');
-        setInterval("clock()",100);
+		setInterval("clock()",100);
         console.log('Received Event: ' + id);
     }
 };

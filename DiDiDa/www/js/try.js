@@ -114,6 +114,7 @@ function strcmp(a, b) {
 
 var successInit = function (message) {
     myssid = message;
+	$('#name').val(myssid.substring(1, myssid.length - 1));
 	networkinterface.getIPAddress(
         function (ip) {
             myip = ip.substring(0, ip.lastIndexOf(".") + 1);
@@ -232,7 +233,7 @@ var app = {
             app.deviceWidth = screen.width;
         }
 		var ratio = app.deviceHeight / app.deviceWidth;
-        if (ratio < 1.55 && window.location.href.indexOf("second") < 0)
+        if (ratio < 1.55 && window.location.href.indexOf("trytry") < 0)
             window.location.assign("trytry.html");
         else
             WifiWizard.getCurrentSSID(successInit, failureSSID);
@@ -257,7 +258,7 @@ var app = {
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
-        window.navigationbar.setUp(false);
+        window.navigationbar.setUp(true);
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:none;');
         console.log('Received Event: ' + id);
