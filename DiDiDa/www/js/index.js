@@ -139,7 +139,7 @@ function processMove() {
             nowx = leftbar;
         //change here
         if (ratio < 1.55)
-            ret = "0x" + ConvertBase.dec2hex(Math.floor( (nowx - leftbar) / 5.95 ).toString());
+            ret = "0x" + ConvertBase.dec2hex(Math.floor( (nowx - leftbar) / 6.05 ).toString());
         else
             ret = "0x" + ConvertBase.dec2hex(Math.floor( (nowx - leftbar) / 5.65 ).toString());
     }
@@ -168,7 +168,7 @@ function process2Move() {
             now2x = leftbar;
         //change here
         if (ratio < 1.55)
-            ret = "0x" + ConvertBase.dec2hex( ( 128 + Math.floor( (now2x - leftbar) / 5.95 ) ).toString());
+            ret = "0x" + ConvertBase.dec2hex( ( 128 + Math.floor( (now2x - leftbar) / 6.05 ) ).toString());
         else
             ret = "0x" + ConvertBase.dec2hex( ( 128 + Math.floor( (now2x - leftbar) / 5.65 ) ).toString());
     }
@@ -271,7 +271,7 @@ boxSet.addEventListener('touchmove', function (e) {
                         //if (document.getElementById("already").value == "1")
                         e.preventDefault();
                         var touch = e.touches[e.touches.length-1];
-                        if(touch.pageX > divider)
+                        if(touch.pageY > divider)
                         touch = e.touches[e.touches.length-2];
                         nowx = touch.pageX;
                         nowy = touch.pageY;
@@ -297,7 +297,7 @@ boxKick.addEventListener('touchmove', function (e) {
                          //if (document.getElementById("already").value == "1")
                          e.preventDefault();
                          var touch = e.touches[e.touches.length-1];
-                         if(touch.pageX > divider)
+                         if(touch.pageY < divider)
                          touch = e.touches[e.touches.length-2];
                          now2x = touch.pageX;
                          now2y = touch.pageY;
@@ -309,7 +309,7 @@ boxKick.addEventListener('touchend', function (e) {
                          //sendto("127", finalcountdown.toString());
                          e.preventDefault();
                          var touch = e.touches[e.touches.length-1];
-                         if(touch.pageY > divider)
+                         if(touch.pageY < divider)
                          touch = e.touches[e.touches.length-2];
                          now2x = touch.pageX;
                          now2y = touch.pageY;
