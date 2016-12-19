@@ -115,8 +115,8 @@ function strcmp(a, b) {
 var successInit = function (message) {
     myssid = message;
     //change here
-    $('#name').val(myssid);
-    //$('#name').val(myssid.substring(1, myssid.length - 1));
+    //$('#name').val(myssid);
+    $('#name').val(myssid.substring(1, myssid.length - 1));
     networkinterface.getIPAddress(
                                   function (ip) {
                                   myip = ip.substring(0, ip.lastIndexOf(".") + 1);
