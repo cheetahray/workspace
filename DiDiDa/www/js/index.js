@@ -137,7 +137,7 @@ function processMove() {
             nowx = rightbar;
         else if( nowx < leftbar )
             nowx = leftbar;
-        //change here
+        
         if (ratio < 1.55)
             ret = "0x" + ConvertBase.dec2hex(Math.floor( (nowx - leftbar) / 6.05 ).toString());
         else
@@ -166,7 +166,7 @@ function process2Move() {
             now2x = rightbar;
         else if( now2x < leftbar )
             now2x = leftbar;
-        //change here
+        
         if (ratio < 1.55)
             ret = "0x" + ConvertBase.dec2hex( ( 128 + Math.floor( (now2x - leftbar) / 6.05 ) ).toString());
         else
@@ -359,7 +359,7 @@ onDeviceReady: function () {
     else
     {
         if (ratio < 1.55)
-        {   // change here
+        {
             leftbar = 295;
             rightbar = 1065;
             document.getElementById('APP').setAttribute('style', 'background: url(img/1440p.png);');
