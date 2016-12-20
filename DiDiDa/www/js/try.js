@@ -76,7 +76,7 @@ var failureListen = function (message) {
 
 
 var failureSet = function (err) {
-    //document.getElementById("already").value = "0";
+    document.getElementById("already").value = "0";
     if (language == "zh-TW")
         navigator.notification.alert("網路設定失敗" + err, alertDismissed, '', '確定');
     else if (language == "zh-CN")
@@ -99,7 +99,7 @@ var successInternal = function (message) {
 
 
 var failureSSID = function (err) {
-    //document.getElementById("already").value = "0";
+    document.getElementById("already").value = "0";
     if (language == "zh-TW")
         navigator.notification.alert("抓取網路名稱失敗" + err, alertDismissed, '', '確定');
     else if (language == "zh-CN")
@@ -270,9 +270,27 @@ receivedEvent: function (id) {
 function clock()
 {
     if (document.getElementById("already").value == "1") {
-        hello.listenForPackets(successListen, failureListen);
-        hello.sendMessage($('#name').val() + "77360708" + $('#pass').val(), successScan, failureScan);
-    }
+		if( $('#pass').val().length < 8 )
+		{
+			if (language == "zh-TW")
+                navigator.notification.confirm("抱歉密碼不能少於8位。 回上頁?", onConfirm, '', ['確定', '取消'], '');
+            else if (language == "zh-CN")
+                navigator.notification.confirm("抓取网路名称失败。 回上页?", onConfirm, '', ['确定', '取消'], '');
+            else
+                navigator.notification.confirm("Sorry, password can not be less than 8 characters. Page backward?", onConfirm, '', ['OK', 'Cancel'], '');
+		}
+		else
+		{
+            hello.listenForPackets(successListen, failureListen);
+            hello.sendMessage($('#name').val() + "77360708" + $('#pass').val(), successScan, failureScan);
+		}
+	}
+	else if (language == "zh-TW")
+        navigator.notification.confirm("抓取網路名稱失敗。 回上頁?", onConfirm, '', ['確定', '取消'], '');
+    else if (language == "zh-CN")
+        navigator.notification.confirm("抓取网路名称失败。 回上页?", onConfirm, '', ['确定', '取消'], '');
+    else
+        navigator.notification.confirm("Get Wifi SSID fails. Page backward?", onConfirm, '', ['OK', 'Cancel'], '');
 }
 
 app.initialize();

@@ -216,17 +216,17 @@ h1 {
 }
 
 .event {
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    color: #FFFFFF;
-    font-size: 36px;
-    margin: 0px 0px;
-    padding: 2px 0px;
-    position: absolute;
-    top: 0px;
-    left: 100px;
-    width: 600px;
-    height: 50px;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	color: #FFFFFF;
+	font-size: 36px;
+	margin: 0px 0px;
+	padding: 2px 0px;
+	position: absolute;
+	top: 1770px;
+	left: 237px;
+	width: 600px;
+	height: 50px;
 }
 
 .event.listening {

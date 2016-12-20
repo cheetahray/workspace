@@ -394,7 +394,7 @@ receivedEvent: function (id) {
     var receivedElement = parentElement.querySelector('.received');
     window.navigationbar.setUp(true);
     listeningElement.setAttribute('style', 'display:none;');
-    receivedElement.setAttribute('style', 'display:none;');
+    receivedElement.setAttribute('style', 'display:block;');
     setInterval("clock()",100);
     console.log('Received Event: ' + id);
 }
@@ -407,6 +407,7 @@ function clock()
         if(lastret != ret1) {
             hello.sendMessage(ret1, successScan, failureScan);
             //$("#note").text(ConvertBase.dec2bin(parseInt(ret1).toString()));
+			$("#note").text(ret1);
             lastret = ret1;
             isleft = true;
         }
@@ -414,6 +415,7 @@ function clock()
             //for(ii = 0; ii < 5; ii++)
             hello.sendMessage(ret2, successScan, failureScan);
             //$("#note").text(ConvertBase.dec2bin(parseInt(ret2).toString()));
+			$("#note").text(ret2);
             last2ret = ret2;
         }
     }
