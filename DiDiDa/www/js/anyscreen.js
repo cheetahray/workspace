@@ -38,7 +38,7 @@ function anyscreen(css_urls, successCallback){
         }
         
 		scaling = app.deviceHeight / parseFloat( $("#APP").css("height") ) ; 
-		// , app.deviceWidth / parseFloat( $("#APP").css("height") ) ;
+		//scaling = app.deviceWidth / parseFloat( $("#APP").css("height") ) ;
         //if (device.platform == "Android")
         //    scaling = scaling * 0.96;
             

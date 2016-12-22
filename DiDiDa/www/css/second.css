@@ -8,17 +8,17 @@ body {
     -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
     background-color: #E4E4E4;
     /*
-	background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
-    );
-	*/
+     background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+     background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+     background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+     background-image:-webkit-gradient(
+     linear,
+     left top,
+     left bottom,
+     color-stop(0, #A7A7A7),
+     color-stop(0.51, #E4E4E4)
+     );
+     */
     background-attachment: fixed;
     font-family: 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size: 12px;
@@ -29,14 +29,88 @@ body {
     width: 100%;
 }
 
+td img
+{
+    display: block;
+}
+
+.resizedTextbox
+{
+    /* change here */
+    /* width: 345px;
+     height: 45px;  */
+     width: 385px;
+     height: 60px;
+    font-size:42px;
+}
+
+.resizedDiv
+{
+    width: 387px;
+    height: 66px;
+}
+
 /* Portrait layout (default) */
 .app {
-    background: url(../img/1440p.png) no-repeat center top; /* 170px x 200px */
+    z-index: 1;
+    opacity: 1.0;
+    background: none; /* 170px x 200px */
     position: absolute; /* position in the center of the screen */
     left: 0px;
     top: 0px;
-    height: 1440px; /* text area height */
-    width: 1920px; /* text area width */
+    height: 1921px; /* text area height */
+    width: 1441px; /* text area width */
+    text-align: center;
+    padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
+    margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
+    /* offset horizontal: half of text area width */
+}
+
+/* Portrait layout (default) */
+.app .white {
+    z-index: 0;
+    opacity: 0.0;
+    background:url(../img/white_glow.png) no-repeat center top;
+    /* 170px x 200px */
+    position: absolute; /* position in the center of the screen */
+    left: 335px;
+    top: 150px;
+    height: 940px; /* text area height */
+    width: 770px; /* text area width */
+    text-align: center;
+    padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
+    margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
+    /* offset horizontal: half of text area width */
+}
+
+/* Portrait layout (default) */
+.app .yellow {
+    z-index: 0;
+    opacity: 0.0;
+    background: url(../img/yellow_glow.png) no-repeat center top;
+    /* 170px x 200px */
+    position: absolute; /* position in the center of the screen */
+    left: 335px;
+    top: 150px;
+    height: 940px; /* text area height */
+    width: 770px; /* text area width */
+    text-align: center;
+    padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
+    margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
+    /* offset horizontal: half of text area width */
+}
+
+/* Portrait layout (default) */
+.app .ring {
+    z-index: 1;
+    opacity: 1.0;
+    background: url(../img/glow_ring.png) no-repeat center top;
+    /* 170px x 200px */
+    position: absolute; /* position in the center of the screen */
+    left: 591px;
+    top: 931px;
+    height: 217px; /* text area height */
+    width: 257px; /* text area width */
     text-align: center;
     padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
     margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
@@ -63,117 +137,96 @@ h1 {
 }
 
 .SET {
-	background: url(../img/button.png);
-	font-size: 12px;
-	position: absolute;
-	top: 630px;
-	left: 377px;
-	width: 176px;
-	height: 177px;
-}
-
-.TI {
-	font-size: 12px;
-	position: absolute;
-	top: 651px;
-        left: 395px;
-	width: 137px;
-	height: 137px;
-	background-color: transparent;
-}
-
-.LA {
-	font-size: 12px;
-	position: absolute;
-	top: 583px;
-        left: 325px;
-	width: 274px;
-	height: 274px;
-	background-color: transparent;
-}
-
-.SO {
+    background: url(../img/button.png);
     font-size: 12px;
     position: absolute;
-    top: 514px;
-    left: 256px;
-    width: 411px;
-    height: 411px;
-    background-color: transparent;
-}
-
-.FA {
-	font-size: 12px;
-	position: absolute;
-	top: 446px;
-	left: 189px;
-	width: 548px;
-	height: 548px;
-	background-color: transparent;
-}
-
-.MI {
-    font-size: 12px;
-    position: absolute;
-    top: 377px;
-    left: 121px;
-    width: 685px;
-    height: 685px;
-    background-color: transparent;
-}
-
-.RE {
-    font-size: 12px;
-    position: absolute;
-    top: 309px;
-    left: 51px;
-    width: 822px;
-    height: 822px;
-    background-color: transparent;
-}
-
-.DO {
-    font-size: 12px;
-    position: absolute;
-    top: 240px;
-    left: -16px;
-    width: 959px;
-    height: 959px;
-    background-color: transparent;
+    top: 1112px;
+    left: 680px;
+    width: 81px;
+    height: 110px;
 }
 
 .ANGLE {
-	font-size: 12px;
-	position: absolute;
-	top: 280px;
-	left: 1296px;
-	width: 296px;
-	height: 881px;
-	background-color: transparent;
+    font-size: 12px;
+    position: absolute;
+    top: 1090px;
+    left: 313px;
+    width: 814px;
+    height: 154px;
+    background-color: transparent;
+}
+
+.ANGLE2 {
+    font-size: 12px;
+    position: absolute;
+    top: 1338px;
+    left: 311px;
+    width: 820px;
+    height: 157px;
+    background-color: transparent;
+}
+
+.WIFI {
+    font-size: 12px;
+    position: absolute;
+    top: 1598px;
+    left: 654px;
+    width: 132px;
+    height: 97px;
+    background-color: transparent;
 }
 
 .KICK {
-	background: url(../img/gray_button.png);
-	font-size: 12px;
-	position: absolute;
-	top: 632px;
-	left: 1355px;
-	width: 176px;
-	height: 176px;
+    background: url(../img/gray_button.png);
+    font-size: 12px;
+    position: absolute;
+    top: 1363px;
+    left: 681px;
+    width: 81px;
+    height: 111px;
+}
+
+.SAVE {
+    font-size: 12px;
+    position: absolute;
+    top: 1306px;
+    left: 446px;
+    width: 141px;
+    height: 140px;
+    background-color: transparent;
+}
+
+.TEST {
+    background: none;
+    font-size: 12px;
+    position: absolute;
+    top: 1301px;
+    left: 648px;
+    width: 150px;
+    height: 150px;
+}
+
+.RESET {
+    font-size: 12px;
+    position: absolute;
+    top: 1305px;
+    left: 854px;
+    width: 142px;
+    height: 142px;
 }
 
 .event {
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    color: #FFFFFF;
-    font-size: 36px;
-    margin: 0px 0px;
-    padding: 2px 0px;
-    position: absolute;
-    top: 0px;
-    left: 100px;
-    width: 600px;
-    height: 50px;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	color: #FFFFFF;
+	font-size: 36px;
+	margin: 0px 0px;
+	padding: 2px 0px;
+	position: absolute;
+	top: 1762px;
+	left: 425px;
+	width: 600px;
+	height: 50px;
 }
 
 .event.listening {

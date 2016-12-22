@@ -26,7 +26,8 @@ var Angle1282 = 0;
 var divider = 1285;
 var leftbar = 140;
 var rightbar = 860;
-
+var whiteglowalpha = 0.0;
+var ratio = 0.0;
 var successScan = function (message) {
     if (language == "zh-TW")
         console.log("傳送掃描請求" + message);
@@ -50,7 +51,7 @@ function alertDismissed() {
 }
 
 function getCenter() {
-	var top = $("#angle").css("top");
+    var top = $("#angle").css("top");
     var left = $("#angle").css("left");
     var width = $("#angle").css("width");
     var height = $("#angle").css("height");
@@ -60,8 +61,8 @@ function getCenter() {
     leftAngle = parseInt(left.substr(0, left.indexOf("px")));
     var widthAngle = parseInt(width.substr(0, width.indexOf("px")));
     rightAngle = leftAngle + widthAngle;
-	Angle128 = ( (bottomAngle - topAngle) >> 7);
-	top = $("#angle2").css("top");
+    Angle128 = ( (bottomAngle - topAngle) >> 7);
+    top = $("#angle2").css("top");
     left = $("#angle2").css("left");
     width = $("#angle2").css("width");
     height = $("#angle2").css("height");
@@ -71,13 +72,13 @@ function getCenter() {
     leftAngle2 = parseInt(left.substr(0, left.indexOf("px")));
     var widthAngle2 = parseInt(width.substr(0, width.indexOf("px")));
     rightAngle2 = leftAngle2 + widthAngle2;
-	Angle1282 = ( (bottomAngle2 - topAngle2) >> 7);
+    Angle1282 = ( (bottomAngle2 - topAngle2) >> 7);
 }
 
 function getSuccorW() {
     var width = $("#xy").css("width");
     succorW = parseInt(width.substr(0, width.indexOf("px"))) / 2;
-	width = $("#kick").css("width");
+    width = $("#kick").css("width");
     succorW2 = parseInt(width.substr(0, width.indexOf("px"))) / 2;
 }
 
@@ -109,7 +110,7 @@ function clearAll() {
     {
         ret1 = "0x00";
     }
-	boxAngle.setAttribute('style', 'background-color:transparent;');
+    boxAngle.setAttribute('style', 'background-color:transparent;');
 }
 
 function clear2All() {
@@ -120,17 +121,27 @@ function clear2All() {
     boxAngle2.setAttribute('style', 'background-color:transparent;');
 }
 
+function whiteyellowalpha()
+{
+    document.getElementById("yellowglow").setAttribute('style', 'opacity: ' + ( ( (nowx - leftbar) / (rightbar - leftbar) ) * ( 1 - whiteglowalpha / 2.0 ) ).toString() + ';');
+    document.getElementById("whiteglow").setAttribute('style', 'opacity: ' + whiteglowalpha.toString() + ';');
+}
+
 function processMove() {
     var candraw = true;
     //var mycos = tryX / nowr2sqrt;
     var ret="";
-	if (nowx > leftAngle && nowx < rightAngle && nowy > topAngle && nowy < bottomAngle )
+    if (true) //(nowx > leftAngle && nowx < rightAngle && nowy > topAngle && nowy < bottomAngle )
     {
-		if( nowx > rightbar )
-		    nowx = rightbar;
-		else if( nowx < leftbar ) 
-		    nowx = leftbar;
-		ret = "0x" + ConvertBase.dec2hex(Math.floor( (nowx - leftbar) / 5.65 ).toString());		
+        if( nowx > rightbar )
+            nowx = rightbar;
+        else if( nowx < leftbar )
+            nowx = leftbar;
+        
+        if (ratio < 1.55)
+            ret = "0x" + ConvertBase.dec2hex(Math.floor( (nowx - leftbar) / 6.05 ).toString());
+        else
+            ret = "0x" + ConvertBase.dec2hex(Math.floor( (nowx - leftbar) / 5.65 ).toString());
     }
     else
         candraw = false;
@@ -140,7 +151,7 @@ function processMove() {
     }
     if (true == candraw)
     {
-		document.getElementById("yellowglow").setAttribute('style', 'opacity: ' + ( (nowx - leftbar) / (rightbar - leftbar) ).toString() + ';');
+        whiteyellowalpha();
         boxSet.setAttribute('style', 'left: ' + (parseInt(nowx)).toString() + 'px;');
     }
 }
@@ -149,13 +160,17 @@ function process2Move() {
     var candraw = true;
     //var mycos = tryX / nowr2sqrt;
     var ret="";
-    if (now2x > leftAngle2 && now2x < rightAngle2 && now2y > topAngle2 && now2y < bottomAngle2 )
+    if (true) //(now2x > leftAngle2 && now2x < rightAngle2 && now2y > topAngle2 && now2y < bottomAngle2 )
     {
-		if( now2x > rightbar )
-		    now2x = rightbar;
-		else if( now2x < leftbar ) 
-		    now2x = leftbar;
-		ret = "0x" + ConvertBase.dec2hex( ( 128 + Math.floor( (now2x - leftbar) / 5.65 ) ).toString());
+        if( now2x > rightbar )
+            now2x = rightbar;
+        else if( now2x < leftbar )
+            now2x = leftbar;
+        
+        if (ratio < 1.55)
+            ret = "0x" + ConvertBase.dec2hex( ( 128 + Math.floor( (now2x - leftbar) / 6.05 ) ).toString());
+        else
+            ret = "0x" + ConvertBase.dec2hex( ( 128 + Math.floor( (now2x - leftbar) / 5.65 ) ).toString());
     }
     else
         candraw = false;
@@ -165,7 +180,8 @@ function process2Move() {
     }
     if (true == candraw)
     {
-		document.getElementById("whiteglow").setAttribute('style', 'opacity: ' + ( (now2x - leftbar) / (rightbar - leftbar) ).toString() + ';');
+        whiteglowalpha = (now2x - leftbar) / (rightbar - leftbar);
+        whiteyellowalpha();
         boxKick.setAttribute('style', 'left: ' + (parseInt(now2x)).toString() + 'px;');
     }
 }
@@ -209,162 +225,179 @@ function strcmp(a, b) {
 
 var successInit = function (message) {
     myssid = message;
-	networkinterface.getIPAddress(
-        function (ip) {
-            myip = ip.substring(0, ip.lastIndexOf(".") + 1);
-            //app.scanEvent('deviceready');
-	        hello.initialize(myip + "255", 8008, successInternal, failureSet);
-        }
-    );
-	/*
-	ssidshould = "DiDiDa";
-    if (strcmp(myssid, ssidshould)) {
-        hello.initialize("192.168.4.255", 8008, successInternal, failureSet);
-    }
-    else if (language == "zh-TW")
-        navigator.notification.alert("您沒連上 wifi " + ssidshould, alertDismissed, '', '確定');
-    else if (language == "zh-CN")
-        navigator.notification.alert("您没连上 wifi " + ssidshould, alertDismissed, '', '确定');
-    else
-        navigator.notification.alert("You haven't connected wifi " + ssidshould, alertDismissed, '', 'OK');
-    else if (document.getElementById("already").value == "0")
-    {
-       ; //id3();
-    }
-    */
+    networkinterface.getIPAddress(
+                                  function (ip) {
+                                  myip = ip.substring(0, ip.lastIndexOf(".") + 1);
+                                  //app.scanEvent('deviceready');
+                                  hello.initialize(myip + "255", 8008, successInternal, failureSet);
+                                  }
+                                  );
+    /*
+     ssidshould = "DiDiDa";
+     if (strcmp(myssid, ssidshould)) {
+     hello.initialize("192.168.4.255", 8008, successInternal, failureSet);
+     }
+     else if (language == "zh-TW")
+     navigator.notification.alert("您沒連上 wifi " + ssidshould, alertDismissed, '', '確定');
+     else if (language == "zh-CN")
+     navigator.notification.alert("您没连上 wifi " + ssidshould, alertDismissed, '', '确定');
+     else
+     navigator.notification.alert("You haven't connected wifi " + ssidshould, alertDismissed, '', 'OK');
+     else if (document.getElementById("already").value == "0")
+     {
+     ; //id3();
+     }
+     */
 }
 
 var boxSet = document.getElementById('xy');
 
 var boxKick = document.getElementById('kick');
 
-//var boxAngle = document.getElementById('angle');
+var boxWifi = document.getElementById('wifi');
 
-//var boxAngle2 = document.getElementById('angle2');
+boxWifi.addEventListener('touchstart', function (e) {
+                         //readyet();
+                         //if (document.getElementById("already").value == "1")
+                         e.preventDefault();
+                         if (ratio < 1.55)
+                         window.location.assign("trytry.html");
+                         else
+                         window.location.assign("try.htm");
+                         }, false);
 
 boxSet.addEventListener('touchmove', function (e) {
-    //readyet();
-    //if (document.getElementById("already").value == "1")
-    e.preventDefault();
-    var touch = e.touches[e.touches.length-1];
-    if(touch.pageX > divider)
-        touch = e.touches[e.touches.length-2];
-    nowx = touch.pageX;
-    nowy = touch.pageY;
-    processMove();
-}, false);
+                        //readyet();
+                        //if (document.getElementById("already").value == "1")
+                        e.preventDefault();
+                        var touch = e.touches[e.touches.length-1];
+                        if(touch.pageY > divider)
+                        touch = e.touches[e.touches.length-2];
+                        nowx = touch.pageX;
+                        nowy = touch.pageY;
+                        processMove();
+                        }, false);
 
 boxSet.addEventListener('touchend', function (e) {
-    //if (document.getElementById("already").value == "1")
-    //sendto("127", finalcountdown.toString());
-    e.preventDefault();
-	var touch = e.touches[e.touches.length-1];
-    if(touch.pageY > divider)
-        touch = e.touches[e.touches.length-2];
-    nowx = touch.pageX;
-    nowy = touch.pageY;
-    processMove();
-    //clearAll();
-    //boxSet.setAttribute('style', 'left: 1355px;');
-}, false);
+                        //if (document.getElementById("already").value == "1")
+                        //sendto("127", finalcountdown.toString());
+                        e.preventDefault();
+                        var touch = e.touches[e.touches.length-1];
+                        if(touch.pageY > divider)
+                        touch = e.touches[e.touches.length-2];
+                        nowx = touch.pageX;
+                        nowy = touch.pageY;
+                        processMove();
+                        //clearAll();
+                        //boxSet.setAttribute('style', 'left: 1355px;');
+                        }, false);
 
 boxKick.addEventListener('touchmove', function (e) {
-    //readyet();
-    //if (document.getElementById("already").value == "1")
-    e.preventDefault();
-    var touch = e.touches[e.touches.length-1];
-    if(touch.pageX > divider)
-        touch = e.touches[e.touches.length-2];
-    now2x = touch.pageX;
-    now2y = touch.pageY;
-    process2Move();
-}, false);
+                         //readyet();
+                         //if (document.getElementById("already").value == "1")
+                         e.preventDefault();
+                         var touch = e.touches[e.touches.length-1];
+                         if(touch.pageY < divider)
+                         touch = e.touches[e.touches.length-2];
+                         now2x = touch.pageX;
+                         now2y = touch.pageY;
+                         process2Move();
+                         }, false);
 
 boxKick.addEventListener('touchend', function (e) {
-    //if (document.getElementById("already").value == "1")
-    //sendto("127", finalcountdown.toString());
-    e.preventDefault();
-	var touch = e.touches[e.touches.length-1];
-    if(touch.pageY > divider)
-        touch = e.touches[e.touches.length-2];
-    now2x = touch.pageX;
-    now2y = touch.pageY;
-    process2Move();
-    //clear2All();
-    //boxSet.setAttribute('style', 'left: 1355px;');
-}, false);
+                         //if (document.getElementById("already").value == "1")
+                         //sendto("127", finalcountdown.toString());
+                         e.preventDefault();
+                         var touch = e.touches[e.touches.length-1];
+                         if(touch.pageY < divider)
+                         touch = e.touches[e.touches.length-2];
+                         now2x = touch.pageX;
+                         now2y = touch.pageY;
+                         process2Move();
+                         //clear2All();
+                         //boxSet.setAttribute('style', 'left: 1355px;');
+                         }, false);
 
 var app = {
     // Application Constructor
-    initialize: function () {
-        this.bindEvents();
-    },
+initialize: function () {
+    this.bindEvents();
+},
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function () {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
+bindEvents: function () {
+    document.addEventListener('deviceready', this.onDeviceReady, false);
+},
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function () {
-        /* the larger side ALWAYS is called 'height' */
-        navigator.globalization.getLocaleName(
-            function (locale) {
-                language = locale.value;
-            },
-            function () {
-                navigator.nofification.alert('Error getting locale\n');
-            }
-        );
-
-        if (screen.width > screen.height) {
-            app.deviceHeight = screen.width;
-            app.deviceWidth = screen.height;
-        }
-        else {
-            app.deviceHeight = screen.height;
-            app.deviceWidth = screen.width;
-        }
-		var ratio = app.deviceHeight / app.deviceWidth;
-        if (ratio < 1.55 && window.location.href.indexOf("second") < 0)
-            window.location.assign("second.html");
-        else
-            WifiWizard.getCurrentSSID(successInit, failureSSID);
-
-        anyscreen([''], function () { //(['./css/index.css'],function() {
-
-        });
-
-        getCenter();
-        //getSuccorW();
-        getBoardary();
-
-        window.screen.lockOrientation('portrait');
-        
-        cordova.plugins.backgroundMode.enable();
-
-        // Called when background mode has been activated
-        cordova.plugins.backgroundMode.ondeactivate = function () {
-            WifiWizard.getCurrentSSID(successInit, failureSSID);
-        }
-        
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function (id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:none;');
-        setInterval("clock()",100);
-        console.log('Received Event: ' + id);
+onDeviceReady: function () {
+    /* the larger side ALWAYS is called 'height' */
+    navigator.globalization.getLocaleName(
+                                          function (locale) {
+                                          language = locale.value;
+                                          },
+                                          function () {
+                                          navigator.nofification.alert('Error getting locale\n');
+                                          }
+                                          );
+    
+    if (screen.width > screen.height) {
+        app.deviceHeight = screen.width;
+        app.deviceWidth = screen.height;
     }
+    else {
+        app.deviceHeight = screen.height;
+        app.deviceWidth = screen.width;
+    }
+    ratio = app.deviceHeight / app.deviceWidth;
+    if (ratio < 1.55 && window.location.href.indexOf("second") < 0)
+        window.location.assign("second.html");
+    else
+    {
+        if (ratio < 1.55)
+        {
+            leftbar = 295;
+            rightbar = 1065;
+            document.getElementById('APP').setAttribute('style', 'background: url(img/1440p.png);');
+        }
+        else
+            document.getElementById('APP').setAttribute('style', 'background: url(img/1080p.png);');
+        WifiWizard.getCurrentSSID(successInit, failureSSID);
+    }
+    anyscreen([''], function () { //(['./css/index.css'],function() {
+              
+              });
+    
+    getCenter();
+    //getSuccorW();
+    getBoardary();
+    
+    window.screen.lockOrientation('portrait');
+    
+    cordova.plugins.backgroundMode.enable();
+    
+    // Called when background mode has been activated
+    cordova.plugins.backgroundMode.ondeactivate = function () {
+        WifiWizard.getCurrentSSID(successInit, failureSSID);
+    }
+    
+    app.receivedEvent('deviceready');
+},
+    // Update DOM on a Received Event
+receivedEvent: function (id) {
+    var parentElement = document.getElementById(id);
+    var listeningElement = parentElement.querySelector('.listening');
+    var receivedElement = parentElement.querySelector('.received');
+    window.navigationbar.setUp(true);
+    listeningElement.setAttribute('style', 'display:none;');
+    receivedElement.setAttribute('style', 'display:block;');
+    setInterval("clock()",100);
+    console.log('Received Event: ' + id);
+}
 };
 
 function clock()
@@ -374,13 +407,15 @@ function clock()
         if(lastret != ret1) {
             hello.sendMessage(ret1, successScan, failureScan);
             //$("#note").text(ConvertBase.dec2bin(parseInt(ret1).toString()));
+			$("#note").text(ret1);
             lastret = ret1;
-			isleft = true;
+            isleft = true;
         }
         if(last2ret != ret2 && false == isleft) {
             //for(ii = 0; ii < 5; ii++)
             hello.sendMessage(ret2, successScan, failureScan);
             //$("#note").text(ConvertBase.dec2bin(parseInt(ret2).toString()));
+			$("#note").text(ret2);
             last2ret = ret2;
         }
     }

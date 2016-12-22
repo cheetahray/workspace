@@ -29,16 +29,37 @@ body {
     width: 100%;
 }
 
+td img 
+{
+	display: block;
+}
+
+.resizedTextbox
+{
+    /* Change here */
+	/* width: 315px;
+	height: 45px; */
+	width: 360px;
+	height: 60px;
+	font-size:42px;
+}
+
+.resizedDiv
+{
+	width: 361px; 
+	height: 65px;
+}
+
 /* Portrait layout (default) */
 .app {
 	z-index: 1;
 	opacity: 1.0;
-	background: url(../img/1080p.png) no-repeat center top; /* 170px x 200px */
+	background: none; /* 170px x 200px */
     position: absolute; /* position in the center of the screen */
     left: 0px;
     top: 0px;
-    height: 1920px; /* text area height */
-    width: 1080px; /* text area width */
+    height: 1921px; /* text area height */
+    width: 1081px; /* text area width */
     text-align: center;
     padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
     margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
@@ -49,33 +70,50 @@ body {
 .app .white {
 	z-index: 0;
 	opacity: 0.0;
-	background:url(../img/white_glow.png) no-repeat center top;;
-    /* 170px x 200px */
+	background:url(../img/white_glow.png) no-repeat center top;
+	/* 170px x 200px */
     position: absolute; /* position in the center of the screen */
-    left: 0px;
-    top: 0px;
-    height: 1920px; /* text area height */
-    width: 1080px; /* text area width */
-    text-align: center;
-    padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
-    margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
+	left: 155px;
+	top: 150px;
+	height: 940px; /* text area height */
+	width: 770px; /* text area width */
+	text-align: center;
+	padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
+	margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
     /* offset horizontal: half of text area width */
 }
 
 /* Portrait layout (default) */
 .app .yellow {
-    z-index: 0;
+	z-index: 0;
 	opacity: 0.0;
-	background: url(../img/yellow_glow.png) no-repeat center top;; 
+	background: url(../img/yellow_glow.png) no-repeat center top;
 	/* 170px x 200px */
     position: absolute; /* position in the center of the screen */
-    left: 0px;
-    top: 0px;
-    height: 1920px; /* text area height */
-    width: 1080px; /* text area width */
-    text-align: center;
-    padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
-    margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
+	left: 155px;
+	top: 150px;
+	height: 940px; /* text area height */
+	width: 770px; /* text area width */
+	text-align: center;
+	padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
+	margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
+    /* offset horizontal: half of text area width */
+}
+
+/* Portrait layout (default) */
+.app .ring {
+	z-index: 1;
+	opacity: 1.0;
+	background: url(../img/glow_ring.png) no-repeat center top;
+	/* 170px x 200px */
+    position: absolute; /* position in the center of the screen */
+	left: 411px;
+	top: 931px;
+	height: 217px; /* text area height */
+	width: 257px; /* text area width */
+	text-align: center;
+	padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
+	margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
     /* offset horizontal: half of text area width */
 }
 
@@ -128,6 +166,16 @@ h1 {
 	background-color: transparent;
 }
 
+.WIFI {
+	font-size: 12px;
+	position: absolute;
+	top: 1598px;
+	left: 474px;
+	width: 132px;
+	height: 97px;
+	background-color: transparent;
+}
+
 .KICK {
 	background: url(../img/gray_button.png);
 	font-size: 12px;
@@ -138,18 +186,47 @@ h1 {
 	height: 111px;
 }
 
+.SAVE {
+	font-size: 12px;
+	position: absolute;
+	top: 1396px;
+	left: 292px;
+	width: 141px;
+	height: 140px;
+	background-color: transparent;
+}
+
+.TEST {
+	background: none;
+	font-size: 12px;
+	position: absolute;
+	top: 1391px;
+	left: 465px;
+	width: 150px;
+	height: 150px;
+}
+
+.RESET {
+	font-size: 12px;
+	position: absolute;
+	top: 1396px;
+	left: 649px;
+	width: 142px;
+	height: 142px;
+}
+
 .event {
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    color: #FFFFFF;
-    font-size: 36px;
-    margin: 0px 0px;
-    padding: 2px 0px;
-    position: absolute;
-    top: 0px;
-    left: 100px;
-    width: 600px;
-    height: 50px;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	color: #FFFFFF;
+	font-size: 36px;
+	margin: 0px 0px;
+	padding: 2px 0px;
+	position: absolute;
+	top: 1770px;
+	left: 237px;
+	width: 600px;
+	height: 50px;
 }
 
 .event.listening {
