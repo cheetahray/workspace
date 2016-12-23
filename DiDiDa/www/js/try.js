@@ -275,7 +275,7 @@ function clock()
 			if (language == "zh-TW")
                 navigator.notification.confirm("抱歉密碼不能少於8位。 回上頁?", onConfirm, '', ['確定', '取消'], '');
             else if (language == "zh-CN")
-                navigator.notification.confirm("抓取网路名称失败。 回上页?", onConfirm, '', ['确定', '取消'], '');
+                navigator.notification.confirm("抱歉密码不能少于8位。 回上页?", onConfirm, '', ['确定', '取消'], '');
             else
                 navigator.notification.confirm("Sorry, password can not be less than 8 characters. Page backward?", onConfirm, '', ['OK', 'Cancel'], '');
 		}
