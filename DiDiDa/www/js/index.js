@@ -24,8 +24,8 @@ var ret2 = last2ret;
 var Angle128 = 0;
 var Angle1282 = 0;
 var divider = 1285;
-var leftbar = 140;
-var rightbar = 860;
+var leftbar = 115;
+var rightbar = 835;
 var whiteglowalpha = 0.0;
 var ratio = 0.0;
 var successScan = function (message) {
@@ -360,8 +360,8 @@ onDeviceReady: function () {
     {
         if (ratio < 1.55)
         {
-            leftbar = 295;
-            rightbar = 1065;
+            leftbar = 270;
+            rightbar = 1040;
             document.getElementById('APP').setAttribute('style', 'background: url(img/1440p.png);');
         }
         else
@@ -407,7 +407,7 @@ function clock()
         if(lastret != ret1) {
             hello.sendMessage(ret1, successScan, failureScan);
             //$("#note").text(ConvertBase.dec2bin(parseInt(ret1).toString()));
-			$("#note").text(ret1);
+            $("#note").text(ret1);
             lastret = ret1;
             isleft = true;
         }
@@ -415,7 +415,7 @@ function clock()
             //for(ii = 0; ii < 5; ii++)
             hello.sendMessage(ret2, successScan, failureScan);
             //$("#note").text(ConvertBase.dec2bin(parseInt(ret2).toString()));
-			$("#note").text(ret2);
+            $("#note").text(ret2);
             last2ret = ret2;
         }
     }
