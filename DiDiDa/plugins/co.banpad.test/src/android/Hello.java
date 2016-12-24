@@ -48,7 +48,7 @@ public class Hello extends CordovaPlugin {
 						try {
 							if(successInitializingTransmitter == false)
 							{	
-							    datagramSocket = new DatagramSocket(8888, InetAddress.getByName("0.0.0.0"));
+							    datagramSocket = new DatagramSocket(8118, InetAddress.getByName("0.0.0.0"));
 							    successInitializingTransmitter = true;
 							    datagramSocket.setSoTimeout(125);
 							}
