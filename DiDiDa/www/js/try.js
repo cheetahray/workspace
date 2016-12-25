@@ -66,7 +66,7 @@ var successListen = function (message) {
 }
 
 var failureListen = function (message) {
-    if (language == "zh-TW")
+    if (language == "zh-TW")
         navigator.notification.confirm("儲存失敗。 回上頁?", onConfirm, '', ['確定', '取消'], '');
     else if (language == "zh-CN")
         navigator.notification.confirm("存储失败。 回上页?", onConfirm, '', ['确定', '取消'], '');
@@ -244,7 +244,7 @@ onDeviceReady: function () {
               
               });
     
-    window.screen.lockOrientation('portrait');
+    window.screen.lockOrientation('portrait-primary');
     
     cordova.plugins.backgroundMode.enable();
     
