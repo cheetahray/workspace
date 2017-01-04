@@ -80,6 +80,8 @@ function getSuccorW() {
     succorW = parseInt(width.substr(0, width.indexOf("px"))) / 2;
     width = $("#kick").css("width");
     succorW2 = parseInt(width.substr(0, width.indexOf("px"))) / 2;
+    leftbar += succorW;
+    rightbar += succorW2;
 }
 
 function getBoardary() {
@@ -152,7 +154,7 @@ function processMove() {
     if (true == candraw)
     {
         whiteyellowalpha();
-        boxSet.setAttribute('style', 'left: ' + (parseInt(nowx)).toString() + 'px;');
+        boxSet.setAttribute('style', 'left: ' + (parseInt(nowx) - succorW).toString() + 'px;');
     }
 }
 
@@ -182,7 +184,7 @@ function process2Move() {
     {
         whiteglowalpha = (now2x - leftbar) / (rightbar - leftbar);
         whiteyellowalpha();
-        boxKick.setAttribute('style', 'left: ' + (parseInt(now2x)).toString() + 'px;');
+        boxKick.setAttribute('style', 'left: ' + (parseInt(now2x) - succorW2).toString() + 'px;');
     }
 }
 
@@ -373,7 +375,7 @@ onDeviceReady: function () {
               });
     
     getCenter();
-    //getSuccorW();
+    getSuccorW();
     getBoardary();
     
     window.screen.lockOrientation('portrait');
@@ -407,7 +409,7 @@ function clock()
         if(lastret != ret1) {
             hello.sendMessage(ret1, successScan, failureScan);
             //$("#note").text(ConvertBase.dec2bin(parseInt(ret1).toString()));
-            $("#note").text(ret1);
+			$("#note").text(ret1);
             lastret = ret1;
             isleft = true;
         }
@@ -415,7 +417,7 @@ function clock()
             //for(ii = 0; ii < 5; ii++)
             hello.sendMessage(ret2, successScan, failureScan);
             //$("#note").text(ConvertBase.dec2bin(parseInt(ret2).toString()));
-            $("#note").text(ret2);
+			$("#note").text(ret2);
             last2ret = ret2;
         }
     }

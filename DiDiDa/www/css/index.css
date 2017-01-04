@@ -37,10 +37,10 @@ td img
 .resizedTextbox
 {
     /* Change here */
-	/* width: 315px;
-	height: 45px; */
-	width: 360px;
-	height: 60px;
+	width: 315px;
+	height: 45px;
+	/* width: 360px;
+	height: 60px; */
 	font-size:42px;
 }
 
