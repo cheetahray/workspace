@@ -50,7 +50,7 @@ public class Hello extends CordovaPlugin {
 							{	
 							    datagramSocket = new DatagramSocket(8118, InetAddress.getByName("0.0.0.0"));
 							    successInitializingTransmitter = true;
-							    datagramSocket.setSoTimeout(125);
+							    datagramSocket.setSoTimeout(500);
 							}
 						}
 						catch (UnknownHostException e) {
@@ -107,7 +107,7 @@ public class Hello extends CordovaPlugin {
 				}
 
 				private void listenForPackets(CallbackContext callbackContext) {
-			        byte[] recvBuf = new byte[16];
+			        byte[] recvBuf = new byte[32];
 			        DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
 			        String message = null;
 					boolean messageReceive = false;

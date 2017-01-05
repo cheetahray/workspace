@@ -27,6 +27,8 @@ var divider = 1285;
 var leftbar = 115;
 var rightbar = 835;
 var whiteglowalpha = 0.0;
+var yellowglowalpha = 0.0;
+var brightness = 0.0;
 var ratio = 0.0;
 var successScan = function (message) {
     if (language == "zh-TW")
@@ -125,8 +127,8 @@ function clear2All() {
 
 function whiteyellowalpha()
 {
-    document.getElementById("yellowglow").setAttribute('style', 'opacity: ' + ( ( (nowx - leftbar) / (rightbar - leftbar) ) * ( 1 - whiteglowalpha / 2.0 ) ).toString() + ';');
-    document.getElementById("whiteglow").setAttribute('style', 'opacity: ' + whiteglowalpha.toString() + ';');
+    document.getElementById("yellowglow").setAttribute('style', 'opacity: ' + ( yellowglowalpha * brightness ).toString() + ';');
+    document.getElementById("whiteglow").setAttribute('style', 'opacity: ' + ( whiteglowalpha * brightness ).toString() + ';');
 }
 
 function processMove() {
@@ -153,6 +155,8 @@ function processMove() {
     }
     if (true == candraw)
     {
+        yellowglowalpha = (nowx - leftbar) / (rightbar - leftbar);
+        whiteglowalpha = 1.0 - yellowglowalpha;
         whiteyellowalpha();
         boxSet.setAttribute('style', 'left: ' + (parseInt(nowx) - succorW).toString() + 'px;');
     }
@@ -182,7 +186,7 @@ function process2Move() {
     }
     if (true == candraw)
     {
-        whiteglowalpha = (now2x - leftbar) / (rightbar - leftbar);
+        brightness = (now2x - leftbar) / (rightbar - leftbar);
         whiteyellowalpha();
         boxKick.setAttribute('style', 'left: ' + (parseInt(now2x) - succorW2).toString() + 'px;');
     }
