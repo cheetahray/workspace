@@ -28,7 +28,7 @@ var leftbar = 115;
 var rightbar = 835;
 var whiteglowalpha = 0.0;
 var yellowglowalpha = 0.0;
-var brightness = 0.0;
+var brightness = 0.5;
 var ratio = 0.0;
 var successScan = function (message) {
     if (language == "zh-TW")
