@@ -1,8 +1,10 @@
+﻿
 var app = {
 /*
    Application constructor
 */
-    initialize: function() {
+
+   initialize: function() {
       this.bindEvents();
       console.log("Starting NDEF Events app");
    },
@@ -76,7 +78,7 @@ var app = {
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-
+       
         console.log('Received Event: ' + id);
    },
    /*
@@ -123,6 +125,7 @@ var app = {
       for (var i = 0; i < tag.techTypes.length; i++) {
          app.display("  * " + tag.techTypes[i]);
       }
+	  
    },
 
 /*
@@ -137,6 +140,22 @@ var app = {
       app.display("Is Writable: " +  tag.isWritable);
       app.display("Can Make Read Only: " +  tag.canMakeReadOnly);
 
+      var httpReq = new plugin.HttpRequest();
+      var raystr = "http://smexpress.mitake.com.tw:7003/SpSendUtf?username=31506285&password=JoeyHatchRay&dstaddr=0910102910&DestName=" + encodeURIComponent("施叡凝") + "&smbody=" + encodeURIComponent("踹踹") + "&CharsetURL=utf-8";
+      console.log(raystr);
+      httpReq.get(raystr, 
+         function(status, data) {
+            console.log(data);
+         }
+      );
+      
+      /*
+　　                     dlvtime: raydate.toString(),
+         vldtime: nextdate.toString(),
+         response: encodeURI(""),
+         clientid: encodeURI(""),
+      */
+      
       // if there is an NDEF message on the tag, display it:
       var thisMessage = tag.ndefMessage;
       if (thisMessage !== null) {

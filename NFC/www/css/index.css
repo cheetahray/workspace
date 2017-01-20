@@ -70,7 +70,7 @@ h1 {
 	position: absolute;
 	top: 10%;
 	left: 40%;
-	width: 30%;
+	width: 231px;
 	height: 3%;
 }
 
@@ -107,4 +107,16 @@ h1 {
 .blink {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
+}
+
+.input-style {
+	margin-bottom: 10px;
+	padding: 12px;
+	width: 100%;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.input-style:focus {
+	border-color: #777;
 }

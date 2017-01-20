@@ -26,4 +26,5 @@
     </platform>
     <engine name="android" spec="4.1.1" />
     <plugin name="phonegap-nfc" spec="https://github.com/chariotsolutions/phonegap-nfc" />
+    <plugin name="plugin.http.request" spec="https://github.com/wf9a5m75/phonegap-http-request" />
 </widget>
