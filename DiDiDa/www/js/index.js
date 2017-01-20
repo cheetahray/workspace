@@ -24,9 +24,11 @@ var ret2 = last2ret;
 var Angle128 = 0;
 var Angle1282 = 0;
 var divider = 1285;
-var leftbar = 140;
-var rightbar = 860;
-var whiteglowalpha = 0.0;
+var leftbar = 115;
+var rightbar = 835;
+var whiteglowalpha = 0.5;
+var yellowglowalpha = 0.5;
+var brightness = 0.5;
 var ratio = 0.0;
 var successScan = function (message) {
     if (language == "zh-TW")
@@ -80,6 +82,8 @@ function getSuccorW() {
     succorW = parseInt(width.substr(0, width.indexOf("px"))) / 2;
     width = $("#kick").css("width");
     succorW2 = parseInt(width.substr(0, width.indexOf("px"))) / 2;
+    leftbar += succorW;
+    rightbar += succorW2;
 }
 
 function getBoardary() {
@@ -123,8 +127,8 @@ function clear2All() {
 
 function whiteyellowalpha()
 {
-    document.getElementById("yellowglow").setAttribute('style', 'opacity: ' + ( ( (nowx - leftbar) / (rightbar - leftbar) ) * ( 1 - whiteglowalpha / 2.0 ) ).toString() + ';');
-    document.getElementById("whiteglow").setAttribute('style', 'opacity: ' + whiteglowalpha.toString() + ';');
+    document.getElementById("yellowglow").setAttribute('style', 'opacity: ' + ( yellowglowalpha * brightness ).toString() + ';');
+    document.getElementById("whiteglow").setAttribute('style', 'opacity: ' + ( whiteglowalpha * brightness ).toString() + ';');
 }
 
 function processMove() {
@@ -151,8 +155,10 @@ function processMove() {
     }
     if (true == candraw)
     {
+        yellowglowalpha = (nowx - leftbar) / (rightbar - leftbar);
+        whiteglowalpha = 1.0 - yellowglowalpha;
         whiteyellowalpha();
-        boxSet.setAttribute('style', 'left: ' + (parseInt(nowx)).toString() + 'px;');
+        boxSet.setAttribute('style', 'left: ' + (parseInt(nowx) - succorW).toString() + 'px;');
     }
 }
 
@@ -180,9 +186,9 @@ function process2Move() {
     }
     if (true == candraw)
     {
-        whiteglowalpha = (now2x - leftbar) / (rightbar - leftbar);
+        brightness = (now2x - leftbar) / (rightbar - leftbar);
         whiteyellowalpha();
-        boxKick.setAttribute('style', 'left: ' + (parseInt(now2x)).toString() + 'px;');
+        boxKick.setAttribute('style', 'left: ' + (parseInt(now2x) - succorW2).toString() + 'px;');
     }
 }
 
@@ -360,8 +366,8 @@ onDeviceReady: function () {
     {
         if (ratio < 1.55)
         {
-            leftbar = 295;
-            rightbar = 1065;
+            leftbar = 270;
+            rightbar = 1040;
             document.getElementById('APP').setAttribute('style', 'background: url(img/1440p.png);');
         }
         else
@@ -373,7 +379,7 @@ onDeviceReady: function () {
               });
     
     getCenter();
-    //getSuccorW();
+    getSuccorW();
     getBoardary();
     
     window.screen.lockOrientation('portrait');
@@ -394,7 +400,7 @@ receivedEvent: function (id) {
     var receivedElement = parentElement.querySelector('.received');
     window.navigationbar.setUp(true);
     listeningElement.setAttribute('style', 'display:none;');
-    receivedElement.setAttribute('style', 'display:block;');
+    receivedElement.setAttribute('style', 'display:none;');
     setInterval("clock()",100);
     console.log('Received Event: ' + id);
 }

@@ -75,7 +75,7 @@
         void *buf = nil;
         int listeningSocket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
         if (listeningSocket <= 0) {
-            err = [NSString stringWithFormat:@"Error: listenForPackets - socket() failed."];
+            err = [NSString stringWithFormat:@"Error1: listenForPackets - socket() failed."];
             successInitializingReceiver = false;//return;
         }
         else
@@ -83,11 +83,11 @@
             // set timeout to 2 seconds.
             struct timeval timeV;
             timeV.tv_sec = 0;
-            timeV.tv_usec = 125000;
+            timeV.tv_usec = 500000;
             
             if (setsockopt(listeningSocket, SOL_SOCKET, SO_RCVTIMEO, &timeV, sizeof(timeV)) == -1)
             {
-                err = [NSString stringWithFormat:@"Error: listenForPackets - setsockopt failed"];
+                err = [NSString stringWithFormat:@"Error2: listenForPackets - setsockopt failed"];
                 close(listeningSocket);
                 successInitializingReceiver = false;
             }
@@ -99,13 +99,13 @@
                 
                 sockaddr.sin_len = sizeof(sockaddr);
                 sockaddr.sin_family = AF_INET;
-                sockaddr.sin_port = htons(8888);
+                sockaddr.sin_port = htons(8118);
                 sockaddr.sin_addr.s_addr = htonl(INADDR_ANY);
                 
                 int status = bind(listeningSocket, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
                 if (status == -1) {
                     close(listeningSocket);
-                    err = [NSString stringWithFormat:@"Error: listenForPackets - bind() failed."];
+                    err = [NSString stringWithFormat:@"Error3: listenForPackets - bind() failed."];
                     successInitializingReceiver = false;
                 }
                 else
@@ -146,7 +146,7 @@
                     else
                     {
                         free(buf);
-                        err = [NSString stringWithFormat:@"Error: listenForPackets - no packets."];
+                        err = [NSString stringWithFormat:@"Error4: listenForPackets - no packets."];
                         successInitializingReceiver = false;
                     }
                     close(listeningSocket);

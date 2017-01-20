@@ -37,10 +37,10 @@ td img
 .resizedTextbox
 {
     /* change here */
-    /* width: 345px;
-     height: 45px;  */
-     width: 385px;
-     height: 60px;
+     width: 345px;
+     height: 45px;
+     /* width: 385px;
+     height: 60px; */
     font-size:42px;
 }
 
@@ -137,13 +137,13 @@ h1 {
 }
 
 .SET {
-    background: url(../img/button.png);
-    font-size: 12px;
-    position: absolute;
-    top: 1112px;
-    left: 680px;
-    width: 81px;
-    height: 110px;
+	background: url(../img/button.png);
+	font-size: 12px;
+	position: absolute;
+	top: 1102px;
+	left: 652px;
+	width: 139px;
+	height: 110px;
 }
 
 .ANGLE {
@@ -177,13 +177,13 @@ h1 {
 }
 
 .KICK {
-    background: url(../img/gray_button.png);
-    font-size: 12px;
-    position: absolute;
-    top: 1363px;
-    left: 681px;
-    width: 81px;
-    height: 111px;
+	background: url(../img/gray_button.png);
+	font-size: 12px;
+	position: absolute;
+	top: 1353px;
+	left: 652px;
+	width: 139px;
+	height: 111px;
 }
 
 .SAVE {

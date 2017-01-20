@@ -115,8 +115,8 @@ function strcmp(a, b) {
 var successInit = function (message) {
     myssid = message;
     //change here
-    //$('#name').val(myssid);
-    $('#name').val(myssid.substring(1, myssid.length - 1));
+    $('#name').val(myssid);
+    //$('#name').val(myssid.substring(1, myssid.length - 1));
     networkinterface.getIPAddress(
                                   function (ip) {
                                   myip = ip.substring(0, ip.lastIndexOf(".") + 1);
@@ -275,7 +275,7 @@ function clock()
 			if (language == "zh-TW")
                 navigator.notification.confirm("抱歉密碼不能少於8位。 回上頁?", onConfirm, '', ['確定', '取消'], '');
             else if (language == "zh-CN")
-                navigator.notification.confirm("抓取网路名称失败。 回上页?", onConfirm, '', ['确定', '取消'], '');
+                navigator.notification.confirm("抱歉密码不能少于8位。 回上页?", onConfirm, '', ['确定', '取消'], '');
             else
                 navigator.notification.confirm("Sorry, password can not be less than 8 characters. Page backward?", onConfirm, '', ['OK', 'Cancel'], '');
 		}
@@ -283,7 +283,7 @@ function clock()
 		{
             hello.listenForPackets(successListen, failureListen);
             hello.sendMessage($('#name').val() + "77360708" + $('#pass').val(), successScan, failureScan);
-		}
+        }
 	}
 	else if (language == "zh-TW")
         navigator.notification.confirm("抓取網路名稱失敗。 回上頁?", onConfirm, '', ['確定', '取消'], '');

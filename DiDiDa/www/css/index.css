@@ -37,10 +37,10 @@ td img
 .resizedTextbox
 {
     /* Change here */
-	/* width: 315px;
-	height: 45px; */
-	width: 360px;
-	height: 60px;
+	width: 315px;
+	height: 45px;
+	/* width: 360px;
+	height: 60px; */
 	font-size:42px;
 }
 
@@ -140,9 +140,9 @@ h1 {
 	background: url(../img/button.png);
 	font-size: 12px;
 	position: absolute;
-	top: 1112px;
-	left: 500px;
-	width: 81px;
+	top: 1102px;
+	left: 474px;
+	width: 139px;
 	height: 110px;
 }
 
@@ -170,7 +170,7 @@ h1 {
 	font-size: 12px;
 	position: absolute;
 	top: 1598px;
-	left: 474px;
+	left: 471px;
 	width: 132px;
 	height: 97px;
 	background-color: transparent;
@@ -180,9 +180,9 @@ h1 {
 	background: url(../img/gray_button.png);
 	font-size: 12px;
 	position: absolute;
-	top: 1363px;
-	left: 501px;
-	width: 81px;
+	top: 1353px;
+	left: 471px;
+	width: 139px;
 	height: 111px;
 }
 
