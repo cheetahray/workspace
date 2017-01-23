@@ -1,4 +1,39 @@
-﻿
+﻿language = "";
+
+function alertDismissed() {
+    // do something
+}
+
+function parseINIString(data){
+    var regex = {
+        section: /^\s*\[\s*([^\]]*)\s*\]\s*$/,
+        param: /^\s*([\w\.\-\_]+)\s*=\s*(.*?)\s*$/,
+        comment: /^\s*;.*$/
+    };
+    var value = {};
+    var lines = data.split(/\r\n|\r|\n/);
+    var section = null;
+    lines.forEach(function(line){
+        if(regex.comment.test(line)){
+            return;
+        }else if(regex.param.test(line)){
+            var match = line.match(regex.param);
+            if(section){
+                value[section][match[1]] = match[2];
+            }else{
+                value[match[1]] = match[2];
+            }
+        }else if(regex.section.test(line)){
+            var match = line.match(regex.section);
+            value[match[1]] = {};
+            section = match[1];
+        }else if(line.length == 0 && section){
+            section = null;
+        };
+    });
+    return value;
+}
+
 var app = {
 /*
    Application constructor
@@ -20,6 +55,15 @@ var app = {
 */
    onDeviceReady: function() {
 
+      navigator.globalization.getLocaleName(
+                                          function (locale) {
+                                          language = locale.value;
+                                          },
+                                          function () {
+                                          navigator.nofification.alert('Error getting locale\n');
+                                          }
+                                          );
+    
       nfc.addTagDiscoveredListener(
          app.onNonNdef,           // tag successfully scanned
          function (status) {      // listener successfully initialized
@@ -141,11 +185,15 @@ var app = {
       app.display("Can Make Read Only: " +  tag.canMakeReadOnly);
 
       var httpReq = new plugin.HttpRequest();
-      var raystr = "http://smexpress.mitake.com.tw:7003/SpSendUtf?username=31506285&password=JoeyHatchRay&dstaddr=0910102910&DestName=" + encodeURIComponent("施叡凝") + "&smbody=" + encodeURIComponent("踹踹") + "&CharsetURL=utf-8";
+      var raystr = "http://smexpress.mitake.com.tw:7003/SpSendUtf?username=31506285&password=JoeyHatchRay&dstaddr=0960631894&DestName=" + encodeURIComponent("陳紹良") + "&smbody=" + encodeURIComponent("寶貝你好棒") + "&CharsetURL=utf-8";
       console.log(raystr);
-      httpReq.get(raystr, 
+	  httpReq.get(raystr, 
          function(status, data) {
-            console.log(data);
+			var value = parseINIString(data);
+			if (language == "zh-TW")
+                navigator.notification.alert("您點數還有" + value["1"]["AccountPoint"] + "點", alertDismissed, '', '確定');
+            else
+                navigator.notification.alert("Your account has " + value["1"]["AccountPoint"] + " left.", alertDismissed, '', 'OK');
          }
       );
       
@@ -221,10 +269,12 @@ var app = {
       // if the payload's not a Smart Poster, display it:
       } else {
          var dingdong = nfc.bytesToString(record.payload);
+		 /*
 		 dingdong = dingdong.substring(1);
 		 dingdong = "http://" + dingdong;
 		 app.display("Payload: " + dingdong);
          navigator.app.loadUrl(dingdong, { openExternal:true });
+		 */
       }
    }
 };     // end of app
