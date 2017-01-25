@@ -1,7 +1,42 @@
 ﻿language = "";
+tagid = "";
 
 function alertDismissed() {
-    // do something
+    var raystr = "http://www.peace99.tw/NFC/checkajax.php?tagid=" + tagid;
+    $.ajax({
+        type: "GET",
+        url: raystr,
+        dataType: "json",
+
+        success: function (result) {
+            if (result['num'] == '1') {
+                app.clear();
+                app.display(result['content']);
+            }
+            else if (result['num'] == '0') {
+                alert(result['e']);
+            }
+        },
+        error: function (jqXHR, exception) {
+            var msg = '';
+            if (jqXHR.status === 0) {
+                msg = '没讯号\n 请检查网路';
+            } else if (jqXHR.status == 404) {
+                msg = '找不到远端登入接口 [404]';
+            } else if (jqXHR.status == 500) {
+                msg = '服务器内部错误 [500]';
+            } else if (exception === 'parsererror') {
+                msg = '分析 Requested JSON 失败';
+            } else if (exception === 'timeout') {
+                msg = '逾时失败';
+            } else if (exception === 'abort') {
+                msg = '放弃 Ajax request';
+            } else {
+                msg = '不知名的错误\n' + jqXHR.responseText;
+            }
+            alert(msg);
+        }
+    });
 }
 
 function parseINIString(data){
@@ -178,20 +213,21 @@ var app = {
 
    showTag: function(tag) {
       // display the tag properties:
-      app.display("Tag ID: " + nfc.bytesToHexString(tag.id));
+      tagid = nfc.bytesToHexString(tag.id);
+      app.display("Tag ID: " + tagid);
       app.display("Tag Type: " +  tag.type);
       app.display("Max Size: " +  tag.maxSize + " bytes");
       app.display("Is Writable: " +  tag.isWritable);
       app.display("Can Make Read Only: " +  tag.canMakeReadOnly);
-
       var httpReq = new plugin.HttpRequest();
-      var raystr = "http://smexpress.mitake.com.tw:7003/SpSendUtf?username=31506285&password=JoeyHatchRay&dstaddr=0960631894&DestName=" + encodeURIComponent("陳紹良") + "&smbody=" + encodeURIComponent("寶貝你好棒") + "&CharsetURL=utf-8";
+      var raystr = "http://smexpress.mitake.com.tw:7003/SpSendUtf?username=31506285&password=JoeyHatchRay&dstaddr=0910102910&DestName=" + encodeURIComponent("陳紹良") + "&smbody=" + encodeURIComponent("寶貝你好棒") + "&CharsetURL=utf-8";
       console.log(raystr);
 	  httpReq.get(raystr, 
          function(status, data) {
+            alert(data);
 			var value = parseINIString(data);
 			if (language == "zh-TW")
-                navigator.notification.alert("您點數還有" + value["1"]["AccountPoint"] + "點", alertDismissed, '', '確定');
+			    navigator.notification.alert("您點數還有" + value["1"]["AccountPoint"] + "點", alertDismissed, '', '確定');
             else
                 navigator.notification.alert("Your account has " + value["1"]["AccountPoint"] + " left.", alertDismissed, '', 'OK');
          }
