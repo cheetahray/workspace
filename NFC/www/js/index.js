@@ -1,6 +1,9 @@
 ﻿language = "";
 tagid = "";
 
+function alertError() {
+}
+
 function alertDismissed() {
     var raystr = "http://www.peace99.tw/NFC/checkajax.php?tagid=" + tagid;
     $.ajax({
@@ -226,10 +229,17 @@ var app = {
          function(status, data) {
             alert(data);
 			var value = parseINIString(data);
-			if (language == "zh-TW")
-			    navigator.notification.alert("您點數還有" + value["1"]["AccountPoint"] + "點", alertDismissed, '', '確定');
+            if (value["1"]["statuscode"] == "1")
+            {
+                if (language == "zh-TW")
+                    navigator.notification.alert("您點數還有" + value["1"]["AccountPoint"] + "點", alertDismissed, '', '確定');
+                else
+                    navigator.notification.alert("Your account has " + value["1"]["AccountPoint"] + " left.", alertDismissed, '', 'OK');
+            }
             else
-                navigator.notification.alert("Your account has " + value["1"]["AccountPoint"] + " left.", alertDismissed, '', 'OK');
+            {
+                navigator.notification.alert( value["1"]["Error"], alertError, '', '確定');
+            }
          }
       );
       
