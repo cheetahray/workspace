@@ -29,4 +29,6 @@
     <plugin name="plugin.http.request" spec="https://github.com/wf9a5m75/phonegap-http-request" />
     <plugin name="cordova-plugin-dialogs" spec="https://github.com/apache/cordova-plugin-dialogs" />
     <plugin name="cordova-plugin-globalization" spec="https://github.com/apache/cordova-plugin-globalization" />
+    <plugin name="cordova-plugin-screen-orientation" spec="~1.4.2" />
+    <plugin name="cordova-plugin-device" spec="~1.1.4" />
 </widget>

@@ -5,41 +5,7 @@ function alertError() {
 }
 
 function alertDismissed() {
-    var raystr = "http://www.peace99.tw/NFC/checkajax.php?tagid=" + tagid;
-    $.ajax({
-        type: "GET",
-        url: raystr,
-        dataType: "json",
-
-        success: function (result) {
-            if (result['num'] == '1') {
-                app.clear();
-                app.display(result['content']);
-            }
-            else if (result['num'] == '0') {
-                alert(result['e']);
-            }
-        },
-        error: function (jqXHR, exception) {
-            var msg = '';
-            if (jqXHR.status === 0) {
-                msg = '没讯号\n 请检查网路';
-            } else if (jqXHR.status == 404) {
-                msg = '找不到远端登入接口 [404]';
-            } else if (jqXHR.status == 500) {
-                msg = '服务器内部错误 [500]';
-            } else if (exception === 'parsererror') {
-                msg = '分析 Requested JSON 失败';
-            } else if (exception === 'timeout') {
-                msg = '逾时失败';
-            } else if (exception === 'abort') {
-                msg = '放弃 Ajax request';
-            } else {
-                msg = '不知名的错误\n' + jqXHR.responseText;
-            }
-            alert(msg);
-        }
-    });
+    
 }
 
 function parseINIString(data){
@@ -101,6 +67,37 @@ var app = {
                                           navigator.nofification.alert('Error getting locale\n');
                                           }
                                           );
+										 
+      if (screen.width > screen.height) {
+         app.deviceHeight = screen.width;
+         app.deviceWidth = screen.height;
+      }
+      else {
+         app.deviceHeight = screen.height;
+         app.deviceWidth = screen.width;
+      }
+      ratio = app.deviceHeight / app.deviceWidth;
+      /*
+	  if (ratio < 1.55 && window.location.href.indexOf("second") < 0)
+         window.location.assign("second.html");
+      else
+      {
+         if (ratio < 1.55)
+         {
+            leftbar = 270;
+            rightbar = 1040;
+            document.getElementById('APP').setAttribute('style', 'background: url(img/1440p.png);');
+         }
+         else
+            document.getElementById('APP').setAttribute('style', 'background: url(img/1080p.png);');
+         WifiWizard.getCurrentSSID(successInit, failureSSID);
+      }
+	  */
+      anyscreen([''], function () { //(['./css/index.css'],function() {
+              
+              });
+										 
+      window.screen.lockOrientation('portrait');
     
       nfc.addTagDiscoveredListener(
          app.onNonNdef,           // tag successfully scanned
@@ -169,14 +166,46 @@ var app = {
    display: function(message) {
       var label = document.createTextNode(message),
          lineBreak = document.createElement("br");
-      messageDiv.appendChild(lineBreak);         // add a line break
-      messageDiv.appendChild(label);             // add the text
+      messageDiv4.appendChild(lineBreak);         // add a line break
+      messageDiv4.appendChild(label);             // add the text
+   },
+   /*
+      appends @message to the message div:
+   */
+   display2: function(message) {
+      var label = document.createTextNode(message), createA = document.createElement('a'), 
+         lineBreak = document.createElement("br");
+		createA.setAttribute('href', "next.html");
+	  createA.appendChild(label);
+	  messageDiv2.appendChild(createA);             // add the text 
+   },
+   /*
+      appends @message to the message div:
+   */
+   display3: function(message) {
+      var label = document.createTextNode(message), createA = document.createElement('a'),
+         lineBreak = document.createElement("br");
+    	createA.setAttribute('href', "next.html");
+	  createA.appendChild(label);
+	  messageDiv3.appendChild(createA);             // add the text
    },
    /*
       clears the message div:
    */
    clear: function() {
-       messageDiv.innerHTML = "";
+       messageDiv4.innerHTML = "";
+   },
+   /*
+      clears the message div:
+   */
+   clear2: function() {
+       messageDiv2.innerHTML = "";
+   },
+/*
+      clears the message div:
+   */
+   clear3: function() {
+       messageDiv3.innerHTML = "";
    },
 
    /*
@@ -222,28 +251,68 @@ var app = {
       app.display("Max Size: " +  tag.maxSize + " bytes");
       app.display("Is Writable: " +  tag.isWritable);
       app.display("Can Make Read Only: " +  tag.canMakeReadOnly);
-      var httpReq = new plugin.HttpRequest();
-      var raystr = "http://smexpress.mitake.com.tw:7003/SpSendUtf?username=31506285&password=JoeyHatchRay&dstaddr=0910102910&DestName=" + encodeURIComponent("陳紹良") + "&smbody=" + encodeURIComponent("寶貝你好棒") + "&CharsetURL=utf-8";
-      console.log(raystr);
-	  httpReq.get(raystr, 
-         function(status, data) {
-            alert(data);
-			var value = parseINIString(data);
-            if (value["1"]["statuscode"] == "1")
-            {
-                if (language == "zh-TW")
-                    navigator.notification.alert("您點數還有" + value["1"]["AccountPoint"] + "點", alertDismissed, '', '確定');
-                else
-                    navigator.notification.alert("Your account has " + value["1"]["AccountPoint"] + " left.", alertDismissed, '', 'OK');
-            }
-            else
-            {
-                navigator.notification.alert( value["1"]["Error"], alertError, '', '確定');
-            }
-         }
-      );
       
-      /*
+	  var raystr = "http://nfc.tagallover.com/NFC/checkajax.php?tagid=" + tagid;
+      $.ajax({
+        type: "GET",
+        url: raystr,
+        dataType: "json",
+
+        success: function (result) {
+            if (result['num'] == '1') {
+                app.clear2();
+                app.display2(result['h1']);
+				app.clear3();
+                app.display3(result['h2']);
+		        var httpReq = new plugin.HttpRequest();
+                var raystr = "http://smexpress.mitake.com.tw:7003/SpSendUtf?username=31506285&password=JoeyHatchRay&dstaddr=0910102910&DestName=" + encodeURIComponent("陳紹良") + "&smbody=" + encodeURIComponent(result['content']) + "&CharsetURL=utf-8";
+                console.log(raystr);
+				/*
+	            httpReq.get(raystr, 
+                   function(status, data) {
+                      //alert(data);
+			          var value = parseINIString(data);
+                      if (value["1"]["statuscode"] == "1")
+                      {
+                          if (language == "zh-TW")
+                              navigator.notification.alert("您點數還有" + value["1"]["AccountPoint"] + "點", alertDismissed, '', '確定');
+                          else
+                              navigator.notification.alert("Your account has " + value["1"]["AccountPoint"] + " left.", alertDismissed, '', 'OK');
+                      }
+                      else
+                      {
+                          navigator.notification.alert( value["1"]["Error"], alertError, '', '確定');
+                      }
+                   }
+                );
+				*/
+            }
+            else if (result['num'] == '0') {
+                alert(result['e']);
+            }
+        },
+        error: function (jqXHR, exception) {
+            var msg = '';
+            if (jqXHR.status === 0) {
+                msg = '没讯号\n 请检查网路';
+            } else if (jqXHR.status == 404) {
+                msg = '找不到远端登入接口 [404]';
+            } else if (jqXHR.status == 500) {
+                msg = '服务器内部错误 [500]';
+            } else if (exception === 'parsererror') {
+                msg = '分析 Requested JSON 失败';
+            } else if (exception === 'timeout') {
+                msg = '逾时失败';
+            } else if (exception === 'abort') {
+                msg = '放弃 Ajax request';
+            } else {
+                msg = '不知名的错误\n' + jqXHR.responseText;
+            }
+            alert(msg);
+        }
+      });
+	
+	  /*
 　　                     dlvtime: raydate.toString(),
          vldtime: nextdate.toString(),
          response: encodeURI(""),
