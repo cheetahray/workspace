@@ -1,11 +1,78 @@
 ﻿language = "";
 tagid = "";
+var rayfile;
 
 function alertError() {
+
 }
 
 function alertDismissed() {
+	    
+}
+
+//文件创建失败回调
+function  onErrorCreateFile(error){
+   alert(error);
+}
+			
+//FileSystem加载失败回调
+function onErrorLoadFs(error){
+   alert(error);
+}
+
+//读取文件失败响应
+function onErrorReadFile(){
+   alert("文件读取失败!");
+}
+
+function createFile(dirEntry, fileName, isAppend) {
     
+	// Creates a new file or returns the file if it already exists.
+    dirEntry.getFile(fileName, {create: true, exclusive: false}, function(fileEntry) {
+        writeFile(fileEntry, null, isAppend);
+        rayfile = fileEntry; 
+	}, onErrorCreateFile);
+
+}
+
+function writeFile(fileEntry, dataObj, isAppend) {
+    // Create a FileWriter object for our FileEntry (log.txt).
+    fileEntry.createWriter(function (fileWriter) {
+
+        fileWriter.onwriteend = function() {
+            console.log("Successful file read...");
+        };
+
+        fileWriter.onerror = function (e) {
+            alert("Failed file read: " + e.toString());
+        };
+
+        // If we are appending data to file, go to the end of the file.
+        if (isAppend) {
+            try {
+                fileWriter.seek(fileWriter.length);
+            }
+            catch (e) {
+                alert("file doesn't exist!");
+            }
+        }
+        fileWriter.write(dataObj);
+    });
+}
+
+function readFile(fileEntry) {
+
+    fileEntry.file(function (file) {
+        var reader = new FileReader();
+
+        reader.onloadend = function() {
+            console.log("Successful file read: " + this.result);
+            //displayFileData(fileEntry.fullPath + ": " + this.result);
+        };
+
+        reader.readAsText(file);
+
+    }, onErrorReadFile);
 }
 
 function parseINIString(data){
@@ -98,7 +165,14 @@ var app = {
               });
 										 
       window.screen.lockOrientation('portrait');
-    
+	  
+	  window.requestFileSystem(window.TEMPORARY, 1024, function (fs) {
+
+         console.log('file system open: ' + fs.name);
+         createFile(fs.root, "newTempFile.txt", false);
+
+      }, onErrorLoadFs);
+
       nfc.addTagDiscoveredListener(
          app.onNonNdef,           // tag successfully scanned
          function (status) {      // listener successfully initialized
@@ -260,17 +334,21 @@ var app = {
 
         success: function (result) {
             if (result['num'] == '1') {
-                app.clear2();
+                var dataObj = new Blob([tagid], { type: 'text/plain' });
+                writeFile(rayfile, dataObj, false);
+                
+				app.clear2();
                 app.display2(result['h1']);
 				app.clear3();
                 app.display3(result['h2']);
 		        var httpReq = new plugin.HttpRequest();
                 var raystr = "http://smexpress.mitake.com.tw:7003/SpSendUtf?username=31506285&password=JoeyHatchRay&dstaddr=0910102910&DestName=" + encodeURIComponent("陳紹良") + "&smbody=" + encodeURIComponent(result['content']) + "&CharsetURL=utf-8";
                 console.log(raystr);
-				/*
-	            httpReq.get(raystr, 
+				
+				httpReq.get(raystr, 
                    function(status, data) {
                       //alert(data);
+					  /*
 			          var value = parseINIString(data);
                       if (value["1"]["statuscode"] == "1")
                       {
@@ -283,10 +361,11 @@ var app = {
                       {
                           navigator.notification.alert( value["1"]["Error"], alertError, '', '確定');
                       }
+					  */
                    }
                 );
-				*/
-            }
+			    
+			}
             else if (result['num'] == '0') {
                 alert(result['e']);
             }
