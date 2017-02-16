@@ -342,7 +342,7 @@ var app = {
 				app.clear3();
                 app.display3(result['h2']);
 		        var httpReq = new plugin.HttpRequest();
-                var raystr = "http://smexpress.mitake.com.tw:7003/SpSendUtf?username=31506285&password=JoeyHatchRay&dstaddr=0910102910&DestName=" + encodeURIComponent("陳紹良") + "&smbody=" + encodeURIComponent(result['content']) + "&CharsetURL=utf-8";
+                var raystr = "http://smexpress.mitake.com.tw:7003/SpSendUtf?username=31506285&password=JoeyHatchRay&dstaddr="+ result['phone'] +"&DestName=" + encodeURIComponent(result['name']) + "&smbody=" + encodeURIComponent(result['content']) + "&CharsetURL=utf-8";
                 console.log(raystr);
 				
 				httpReq.get(raystr, 
