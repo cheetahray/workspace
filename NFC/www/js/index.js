@@ -107,7 +107,7 @@ function parseINIString(data){
 }
 
 function mygod(tagid)
-{
+{     
       var raystr = "http://nfc.tagallover.com/NFC/checkajax.php?tagid=" + tagid;
       $.ajax({
         type: "GET",
@@ -149,7 +149,8 @@ function mygod(tagid)
 			    
 			}
             else if (result['num'] == '0') {
-                alert(result['e']);
+                //alert(result['e']);
+				iab.open('http://nfc.tagallover.com/NFC/barcode.php?tagid=' + tagid, 'random_string', 'location=no'); // loads in the InAppBrowser, no location bar
             }
         },
         error: function (jqXHR, exception) {
@@ -381,7 +382,7 @@ var app = {
       for (var i = 0; i < tag.techTypes.length; i++) {
          app.display("  * " + tag.techTypes[i]);
       }
-	  mygod(tag.id);
+	  mygod(nfc.bytesToHexString(tag.id));
    },
 
 /*
