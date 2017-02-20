@@ -1,10 +1,10 @@
 ﻿<?php
   include_once('db_conn.php');
   include_once('db_func.php');
-  header('Content-Type: text/html; charset=utf-8');
+  header('Content-Type: text/json; charset=utf-8');
 
   // 檢查帳號名稱及密碼
-  $qrystr = "SELECT content FROM tag WHERE tagid ='$tagid'";
+  $qrystr = "SELECT content,photo,h1,h2,phone,name FROM nfc_form_3 WHERE tagid ='$tagid'";
   $res = db_query($qrystr);
 
   $productArray = array();
@@ -16,6 +16,11 @@
         $row = db_fetch_array($res);
         $productArray['tagid'] = $tagid;
         $productArray['content'] = $row['content'];
+        $productArray['photo'] = $row['photo']; 
+        $productArray['h1'] = $row['h1'];
+        $productArray['h2'] = $row['h2'];
+        $productArray['phone'] = $row['phone'];
+        $productArray['name'] = $row['name'];
 
         // 在 session 中記錄管理員已登入
         //session_start();
@@ -27,5 +32,5 @@
     $productArray['e'] = "tag错误!";
 
   //we send the array as JSON object
-  echo json_encode($productArray);
+  echo json_encode($productArray, JSON_UNESCAPED_UNICODE);
 ?>

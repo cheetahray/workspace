@@ -1,6 +1,7 @@
 ﻿language = "";
 tagid = "";
 var rayfile;
+var iab;
 
 function alertError() {
 
@@ -105,6 +106,74 @@ function parseINIString(data){
     return value;
 }
 
+function mygod(tagid)
+{
+      var raystr = "http://nfc.tagallover.com/NFC/checkajax.php?tagid=" + tagid;
+      $.ajax({
+        type: "GET",
+        url: raystr,
+        dataType: "json",
+
+        success: function (result) {
+            if (result['num'] == '1') {
+                var dataObj = new Blob([tagid], { type: 'text/plain' });
+                writeFile(rayfile, dataObj, false);
+                
+				app.clear2();
+                app.display2(result['h1']);
+				app.clear3();
+                app.display3(result['h2']);
+		        var httpReq = new plugin.HttpRequest();
+                var raystr = "http://smexpress.mitake.com.tw:7003/SpSendUtf?username=31506285&password=JoeyHatchRay&dstaddr="+ result['phone'] +"&DestName=" + encodeURIComponent(result['name']) + "&smbody=" + encodeURIComponent(result['content']) + "&CharsetURL=utf-8";
+                console.log(raystr);
+				
+				httpReq.get(raystr, 
+                   function(status, data) {
+                      //alert(data);
+					  /*
+			          var value = parseINIString(data);
+                      if (value["1"]["statuscode"] == "1")
+                      {
+                          if (language == "zh-TW")
+                              navigator.notification.alert("您點數還有" + value["1"]["AccountPoint"] + "點", alertDismissed, '', '確定');
+                          else
+                              navigator.notification.alert("Your account has " + value["1"]["AccountPoint"] + " left.", alertDismissed, '', 'OK');
+                      }
+                      else
+                      {
+                          navigator.notification.alert( value["1"]["Error"], alertError, '', '確定');
+                      }
+					  */
+                   }
+                );
+			    
+			}
+            else if (result['num'] == '0') {
+                alert(result['e']);
+            }
+        },
+        error: function (jqXHR, exception) {
+            var msg = '';
+            if (jqXHR.status === 0) {
+                msg = '没讯号\n 请检查网路';
+            } else if (jqXHR.status == 404) {
+                msg = '找不到远端登入接口 [404]';
+            } else if (jqXHR.status == 500) {
+                msg = '服务器内部错误 [500]';
+            } else if (exception === 'parsererror') {
+                msg = '分析 Requested JSON 失败';
+            } else if (exception === 'timeout') {
+                msg = '逾时失败';
+            } else if (exception === 'abort') {
+                msg = '放弃 Ajax request';
+            } else {
+                msg = '不知名的错误\n' + jqXHR.responseText;
+            }
+            alert(msg);
+        }
+      });	
+}
+
 var app = {
 /*
    Application constructor
@@ -172,6 +241,8 @@ var app = {
          createFile(fs.root, "newTempFile.txt", false);
 
       }, onErrorLoadFs);
+
+      iab = cordova.InAppBrowser;
 
       nfc.addTagDiscoveredListener(
          app.onNonNdef,           // tag successfully scanned
@@ -310,7 +381,7 @@ var app = {
       for (var i = 0; i < tag.techTypes.length; i++) {
          app.display("  * " + tag.techTypes[i]);
       }
-	  
+	  mygod(tag.id);
    },
 
 /*
@@ -326,73 +397,9 @@ var app = {
       app.display("Is Writable: " +  tag.isWritable);
       app.display("Can Make Read Only: " +  tag.canMakeReadOnly);
       
-	  var raystr = "http://nfc.tagallover.com/NFC/checkajax.php?tagid=" + tagid;
-      $.ajax({
-        type: "GET",
-        url: raystr,
-        dataType: "json",
-
-        success: function (result) {
-            if (result['num'] == '1') {
-                var dataObj = new Blob([tagid], { type: 'text/plain' });
-                writeFile(rayfile, dataObj, false);
-                
-				app.clear2();
-                app.display2(result['h1']);
-				app.clear3();
-                app.display3(result['h2']);
-		        var httpReq = new plugin.HttpRequest();
-                var raystr = "http://smexpress.mitake.com.tw:7003/SpSendUtf?username=31506285&password=JoeyHatchRay&dstaddr="+ result['phone'] +"&DestName=" + encodeURIComponent(result['name']) + "&smbody=" + encodeURIComponent(result['content']) + "&CharsetURL=utf-8";
-                console.log(raystr);
-				
-				httpReq.get(raystr, 
-                   function(status, data) {
-                      //alert(data);
-					  /*
-			          var value = parseINIString(data);
-                      if (value["1"]["statuscode"] == "1")
-                      {
-                          if (language == "zh-TW")
-                              navigator.notification.alert("您點數還有" + value["1"]["AccountPoint"] + "點", alertDismissed, '', '確定');
-                          else
-                              navigator.notification.alert("Your account has " + value["1"]["AccountPoint"] + " left.", alertDismissed, '', 'OK');
-                      }
-                      else
-                      {
-                          navigator.notification.alert( value["1"]["Error"], alertError, '', '確定');
-                      }
-					  */
-                   }
-                );
-			    
-			}
-            else if (result['num'] == '0') {
-                alert(result['e']);
-            }
-        },
-        error: function (jqXHR, exception) {
-            var msg = '';
-            if (jqXHR.status === 0) {
-                msg = '没讯号\n 请检查网路';
-            } else if (jqXHR.status == 404) {
-                msg = '找不到远端登入接口 [404]';
-            } else if (jqXHR.status == 500) {
-                msg = '服务器内部错误 [500]';
-            } else if (exception === 'parsererror') {
-                msg = '分析 Requested JSON 失败';
-            } else if (exception === 'timeout') {
-                msg = '逾时失败';
-            } else if (exception === 'abort') {
-                msg = '放弃 Ajax request';
-            } else {
-                msg = '不知名的错误\n' + jqXHR.responseText;
-            }
-            alert(msg);
-        }
-      });
-	
+	  mygod(tagid);
 	  /*
-　　                     dlvtime: raydate.toString(),
+　　     dlvtime: raydate.toString(),
          vldtime: nextdate.toString(),
          response: encodeURI(""),
          clientid: encodeURI(""),
