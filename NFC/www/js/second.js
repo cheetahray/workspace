@@ -76,6 +76,36 @@ function readFile(fileEntry) {
     }, onErrorReadFile);
 }
 
+function parseINIString(data){
+    var regex = {
+        section: /^\s*\[\s*([^\]]*)\s*\]\s*$/,
+        param: /^\s*([\w\.\-\_]+)\s*=\s*(.*?)\s*$/,
+        comment: /^\s*;.*$/
+    };
+    var value = {};
+    var lines = data.split(/\r\n|\r|\n/);
+    var section = null;
+    lines.forEach(function(line){
+        if(regex.comment.test(line)){
+            return;
+        }else if(regex.param.test(line)){
+            var match = line.match(regex.param);
+            if(section){
+                value[section][match[1]] = match[2];
+            }else{
+                value[match[1]] = match[2];
+            }
+        }else if(regex.section.test(line)){
+            var match = line.match(regex.section);
+            value[match[1]] = {};
+            section = match[1];
+        }else if(line.length == 0 && section){
+            section = null;
+        };
+    });
+    return value;
+}
+
 function mygod(tagid)
 {     
       var raystr = "http://nfc.tagallover.com/NFC/checkajax.php?tagid=" + tagid;
@@ -88,16 +118,38 @@ function mygod(tagid)
             if (result['num'] == '1') {
                 var dataObj = new Blob([tagid], { type: 'text/plain' });
                 writeFile(rayfile, dataObj, false);
-                window.location.assign("second.html");				
+                
+				app.clear2();
+                app.display2(result['h1']);
+				app.clear3();
+                app.display3(result['h2']);
+		        var httpReq = new plugin.HttpRequest();
+                var raystr = "http://smexpress.mitake.com.tw:7003/SpSendUtf?username=31506285&password=JoeyHatchRay&dstaddr="+ result['phone'] +"&DestName=" + encodeURIComponent(result['name']) + "&smbody=" + encodeURIComponent(result['content']) + "&CharsetURL=utf-8";
+                console.log(raystr);
+				
+				httpReq.get(raystr, 
+                   function(status, data) {
+                      //alert(data);
+					  /*
+			          var value = parseINIString(data);
+                      if (value["1"]["statuscode"] == "1")
+                      {
+                          if (language == "zh-TW")
+                              navigator.notification.alert("您點數還有" + value["1"]["AccountPoint"] + "點", alertDismissed, '', '確定');
+                          else
+                              navigator.notification.alert("Your account has " + value["1"]["AccountPoint"] + " left.", alertDismissed, '', 'OK');
+                      }
+                      else
+                      {
+                          navigator.notification.alert( value["1"]["Error"], alertError, '', '確定');
+                      }
+					  */
+                   }
+                );
+			    
 			}
             else if (result['num'] == '0') {
                 //alert(result['e']);
-				/*
-				if (language == "zh-TW")
-                    navigator.notification.alert("你遇到詐騙集團了", alertDismissed, '', '確定');
-                else
-                    navigator.notification.alert("HoHoHo you meet the fraud group.", alertDismissed, '', 'OK');
-				*/
 				iab.open('http://nfc.tagallover.com/NFC/barcode.php?tagid=' + tagid, 'random_string', 'location=no'); // loads in the InAppBrowser, no location bar
             }
         },
@@ -264,11 +316,44 @@ var app = {
       messageDiv4.appendChild(label);             // add the text
    },
    /*
+      appends @message to the message div:
+   */
+   display2: function(message) {
+      var label = document.createTextNode(message), createA = document.createElement('a'), 
+         lineBreak = document.createElement("br");
+		createA.setAttribute('href', "next.html");
+	  createA.appendChild(label);
+	  messageDiv2.appendChild(createA);             // add the text 
+   },
+   /*
+      appends @message to the message div:
+   */
+   display3: function(message) {
+      var label = document.createTextNode(message), createA = document.createElement('a'),
+         lineBreak = document.createElement("br");
+    	createA.setAttribute('href', "next.html");
+	  createA.appendChild(label);
+	  messageDiv3.appendChild(createA);             // add the text
+   },
+   /*
       clears the message div:
    */
    clear: function() {
        messageDiv4.innerHTML = "";
    },
+   /*
+      clears the message div:
+   */
+   clear2: function() {
+       messageDiv2.innerHTML = "";
+   },
+/*
+      clears the message div:
+   */
+   clear3: function() {
+       messageDiv3.innerHTML = "";
+   },
+
    /*
       Process NDEF tag data from the nfcEvent
    */
