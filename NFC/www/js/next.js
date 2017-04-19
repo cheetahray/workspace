@@ -1,6 +1,6 @@
 ﻿language = "";
 tagid = "";
-var rayfile;
+//var rayfile;
 
 function alertError() {
 
@@ -69,7 +69,7 @@ function readFile(fileEntry) {
         reader.onloadend = function() {
             console.log("Successful file read: " + this.result);
 			
-			var raystr = "http://nfc.tagallover.com/NFC/checkajax.php?tagid=" + this.result;
+			var raystr = "http://nfc.tagallover.com/NFC/nextajax.php?tagid=" + this.result;
             $.ajax({
               type: "GET",
               url: raystr,
@@ -77,13 +77,20 @@ function readFile(fileEntry) {
 
               success: function (result) {
                   if (result['num'] == '1') {
-                
-      	  			  app.clear2();
-                      app.display2(result['h1']);
-			      	  app.clear3();
-                      app.display3(result['h2']);
-					  
-					  document.getElementById('imageFile').src = result['photo'];
+                      app.clear();
+                      app.display(result['h6']);
+					  app.clear2();
+                      app.display2(result['h7']);
+					  document.getElementById('list1').src = result['photo7'];
+					  app.clear3();
+                      app.display3(result['h8']);
+					  document.getElementById('list2').src = result['photo8'];
+					  app.clear4();
+                      app.display4(result['h9']);
+					  document.getElementById('list3').src = result['photo9'];
+					  app.clear5();
+                      app.display5(result['h10']);
+					  document.getElementById('list4').src = result['photo10'];
 					
 					  /*
 		      		  var httpReq = new plugin.HttpRequest();
@@ -227,10 +234,11 @@ var app = {
          WifiWizard.getCurrentSSID(successInit, failureSSID);
       }
 	  */
+	  /*
       anyscreen([''], function () { //(['./css/index.css'],function() {
               
               });
-										 
+      */									 
       window.screen.lockOrientation('portrait');
 	  
 	  window.requestFileSystem(window.TEMPORARY, 1024, function (fs) {
@@ -257,34 +265,68 @@ var app = {
    /*
       appends @message to the message div:
    */
-   display2: function(message) {
-      var label = document.createTextNode(message), createA = document.createElement('a'), 
+   display: function(message) {
+      var label = document.createTextNode(message);
          lineBreak = document.createElement("br");
-		createA.setAttribute('href', "next.html");
-	  createA.appendChild(label);
-	  messageDiv2.appendChild(label);             // add the text 
+      messageDiv.appendChild(lineBreak);         // add a line break
+      messageDiv.appendChild(label);             // add the text
+   },
+   /*
+      appends @message to the message div:
+   */
+   display2: function(message) {
+      var label = document.createTextNode(message);
+         lineBreak = document.createElement("br");
+      messageDiv2.appendChild(lineBreak);         // add a line break
+      messageDiv2.appendChild(label);             // add the text
    },
    /*
       appends @message to the message div:
    */
    display3: function(message) {
-      var label = document.createTextNode(message), createA = document.createElement('a'),
+      var label = document.createTextNode(message);
          lineBreak = document.createElement("br");
-    	createA.setAttribute('href', "next.html");
-	  createA.appendChild(label);
-	  messageDiv3.appendChild(label);             // add the text
+      messageDiv3.appendChild(lineBreak);         // add a line break
+      messageDiv3.appendChild(label);             // add the text
    },
    /*
       clears the message div:
    */
+   display4: function(message) {
+      var label = document.createTextNode(message);
+         lineBreak = document.createElement("br");
+      messageDiv4.appendChild(lineBreak);         // add a line break
+      messageDiv4.appendChild(label);             // add the text 
+   },
+   /*
+      appends @message to the message div:
+   */
+   display5: function(message) {
+      var label = document.createTextNode(message);
+         lineBreak = document.createElement("br");
+      messageDiv5.appendChild(lineBreak);         // add a line break
+      messageDiv5.appendChild(label);             // add the text
+   },
+   clear: function() {
+       messageDiv.innerHTML = "";
+   },
    clear2: function() {
        messageDiv2.innerHTML = "";
    },
-/*
+   /*
       clears the message div:
    */
    clear3: function() {
        messageDiv3.innerHTML = "";
+   },
+   clear4: function() {
+       messageDiv4.innerHTML = "";
+   },
+/*
+      clears the message div:
+   */
+   clear5: function() {
+       messageDiv5.innerHTML = "";
    }
 
 };     // end of app

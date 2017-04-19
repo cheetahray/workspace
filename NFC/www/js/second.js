@@ -1,7 +1,7 @@
 ﻿language = "";
 tagid = "";
 var rayfile;
-var iab;
+//var iab;
 
 function alertError() {
 
@@ -30,8 +30,9 @@ function createFile(dirEntry, fileName, isAppend) {
     
 	// Creates a new file or returns the file if it already exists.
     dirEntry.getFile(fileName, {create: true, exclusive: false}, function(fileEntry) {
-        writeFile(fileEntry, null, isAppend);
-        rayfile = fileEntry; 
+		readFile(fileEntry);
+		//writeFile(fileEntry, null, isAppend);
+        //rayfile = fileEntry;  
 	}, onErrorCreateFile);
 
 }
@@ -68,7 +69,86 @@ function readFile(fileEntry) {
 
         reader.onloadend = function() {
             console.log("Successful file read: " + this.result);
-            //displayFileData(fileEntry.fullPath + ": " + this.result);
+			//alert(this.result);
+			
+			var raystr = "http://nfc.tagallover.com/NFC/checkajax.php?tagid=" + this.result;
+            $.ajax({
+              type: "GET",
+              url: raystr,
+              dataType: "json",
+
+              success: function (result) {
+                  if (result['num'] == '1') {
+                      document.getElementById('logo').src = result['logo'];
+      	  			  app.clear2();
+                      app.display2(result['h1']);
+					  document.getElementById('photo').src = result['photo'];
+					  document.getElementById('stamp').src = result['thatsright'];
+					  
+					  app.clear3();
+                      app.display3("您為第" + result['howmany'] + "位擁有者");
+					  
+					  app.clear4();
+                      app.display4(result['h2']);
+					  app.clear5();
+                      app.display5(result['h3']);
+					  app.clear6();
+                      app.display6(result['h4']);
+					  app.clear7();
+                      app.display7(result['h5']);
+					  //document.getElementById('imageFile').src = result['photo'];
+			
+					  /*
+		      		  var httpReq = new plugin.HttpRequest();
+                      var raystr = "http://smexpress.mitake.com.tw:7003/SpSendUtf?username=31506285&password=JoeyHatchRay&dstaddr=0910102910&DestName=" + encodeURIComponent("陳紹良") + "&smbody=" + encodeURIComponent(result['content']) + "&CharsetURL=utf-8";
+                      console.log(raystr);
+				
+		      		  httpReq.get(raystr, 
+                         function(status, data) {
+                            //alert(data);
+	      		          var value = parseINIString(data);
+                            if (value["1"]["statuscode"] == "1")
+                            {
+                                if (language == "zh-TW")
+                                    navigator.notification.alert("您點數還有" + value["1"]["AccountPoint"] + "點", alertDismissed, '', '確定');
+                                else
+                                    navigator.notification.alert("Your account has " + value["1"]["AccountPoint"] + " left.", alertDismissed, '', 'OK');
+                            }
+                            else
+                            {
+                                navigator.notification.alert( value["1"]["Error"], alertError, '', '確定');
+                            }
+                         }
+                      );
+			          */
+      		
+				  }
+                  else if (result['num'] == '0') {
+                      alert(result['e']);
+                  }
+              },
+              error: function (jqXHR, exception) {
+                  var msg = '';
+                  if (jqXHR.status === 0) {
+                      msg = '没讯号\n 请检查网路';
+                  } else if (jqXHR.status == 404) {
+                      msg = '找不到远端登入接口 [404]';
+                  } else if (jqXHR.status == 500) {
+                      msg = '服务器内部错误 [500]';
+                  } else if (exception === 'parsererror') {
+                      msg = '分析 Requested JSON 失败';
+                  } else if (exception === 'timeout') {
+                      msg = '逾时失败';
+                  } else if (exception === 'abort') {
+                      msg = '放弃 Ajax request';
+                  } else {
+                      msg = '不知名的错误\n' + jqXHR.responseText;
+                  }
+                  alert(msg);
+              }
+            });
+			
+			//displayFileData(fileEntry.fullPath + ": " + this.result);
         };
 
         reader.readAsText(file);
@@ -104,75 +184,6 @@ function parseINIString(data){
         };
     });
     return value;
-}
-
-function mygod(tagid)
-{     
-      var raystr = "http://nfc.tagallover.com/NFC/checkajax.php?tagid=" + tagid;
-      $.ajax({
-        type: "GET",
-        url: raystr,
-        dataType: "json",
-
-        success: function (result) {
-            if (result['num'] == '1') {
-                var dataObj = new Blob([tagid], { type: 'text/plain' });
-                writeFile(rayfile, dataObj, false);
-                
-				app.clear2();
-                app.display2(result['h1']);
-				app.clear3();
-                app.display3(result['h2']);
-		        var httpReq = new plugin.HttpRequest();
-                var raystr = "http://smexpress.mitake.com.tw:7003/SpSendUtf?username=31506285&password=JoeyHatchRay&dstaddr="+ result['phone'] +"&DestName=" + encodeURIComponent(result['name']) + "&smbody=" + encodeURIComponent(result['content']) + "&CharsetURL=utf-8";
-                console.log(raystr);
-				
-				httpReq.get(raystr, 
-                   function(status, data) {
-                      //alert(data);
-					  /*
-			          var value = parseINIString(data);
-                      if (value["1"]["statuscode"] == "1")
-                      {
-                          if (language == "zh-TW")
-                              navigator.notification.alert("您點數還有" + value["1"]["AccountPoint"] + "點", alertDismissed, '', '確定');
-                          else
-                              navigator.notification.alert("Your account has " + value["1"]["AccountPoint"] + " left.", alertDismissed, '', 'OK');
-                      }
-                      else
-                      {
-                          navigator.notification.alert( value["1"]["Error"], alertError, '', '確定');
-                      }
-					  */
-                   }
-                );
-			    
-			}
-            else if (result['num'] == '0') {
-                //alert(result['e']);
-				iab.open('http://nfc.tagallover.com/NFC/barcode.php?tagid=' + tagid, 'random_string', 'location=no'); // loads in the InAppBrowser, no location bar
-            }
-        },
-        error: function (jqXHR, exception) {
-            var msg = '';
-            if (jqXHR.status === 0) {
-                msg = '没讯号\n 请检查网路';
-            } else if (jqXHR.status == 404) {
-                msg = '找不到远端登入接口 [404]';
-            } else if (jqXHR.status == 500) {
-                msg = '服务器内部错误 [500]';
-            } else if (exception === 'parsererror') {
-                msg = '分析 Requested JSON 失败';
-            } else if (exception === 'timeout') {
-                msg = '逾时失败';
-            } else if (exception === 'abort') {
-                msg = '放弃 Ajax request';
-            } else {
-                msg = '不知名的错误\n' + jqXHR.responseText;
-            }
-            alert(msg);
-        }
-      });	
 }
 
 var app = {
@@ -230,21 +241,38 @@ var app = {
          WifiWizard.getCurrentSSID(successInit, failureSSID);
       }
 	  */
+	  /*
       anyscreen([''], function () { //(['./css/index.css'],function() {
               
               });
-										 
+      */									 
       window.screen.lockOrientation('portrait');
 	  
+	  window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+
+          console.log('file system open: ' + fs.name);
+          fs.root.getFile("newPersistentFile.txt", { create: false, exclusive: false }, function (fileEntry) {
+
+              console.log("fileEntry is file?" + fileEntry.isFile.toString());
+              //fileEntry.name == 'someFile.txt'
+              //fileEntry.fullPath == '/someFile.txt'
+              readFile(fileEntry, null);
+
+          }, onErrorCreateFile);
+
+      }, onErrorLoadFs);
+	  
+	  /*
 	  window.requestFileSystem(window.TEMPORARY, 1024, function (fs) {
 
          console.log('file system open: ' + fs.name);
          createFile(fs.root, "newTempFile.txt", false);
 
       }, onErrorLoadFs);
-
-      iab = cordova.InAppBrowser;
-
+      */
+	  
+      //iab = cordova.InAppBrowser;
+      /*
       nfc.addTagDiscoveredListener(
          app.onNonNdef,           // tag successfully scanned
          function (status) {      // listener successfully initialized
@@ -291,7 +319,7 @@ var app = {
       );
 
       app.display("Tap a tag to read data.");
-      
+      */
       app.receivedEvent('deviceready');
    },
    
@@ -310,7 +338,35 @@ var app = {
       appends @message to the message div:
    */
    display: function(message) {
-      var label = document.createTextNode(message),
+      var label = document.createTextNode(message), createA = document.createElement('a'), 
+         lineBreak = document.createElement("br");
+		createA.setAttribute('href', "next.html");
+	  createA.appendChild(label);
+	  messageDiv.appendChild(createA);             // add the text 
+   },
+   /*
+      appends @message to the message div:
+   */
+   display2: function(message) {
+	  var label = document.createTextNode(message);
+         lineBreak = document.createElement("br");
+      messageDiv2.appendChild(lineBreak);         // add a line break
+      messageDiv2.appendChild(label);             // add the text
+   },
+   /*
+      appends @message to the message div:
+   */
+   display3: function(message) {
+      var label = document.createTextNode(message);
+         lineBreak = document.createElement("br");
+      messageDiv3.appendChild(lineBreak);         // add a line break
+      messageDiv3.appendChild(label);             // add the text
+   },
+   /*
+      appends @message to the message div:
+   */
+   display4: function(message) {
+      var label = document.createTextNode(message);
          lineBreak = document.createElement("br");
       messageDiv4.appendChild(lineBreak);         // add a line break
       messageDiv4.appendChild(label);             // add the text
@@ -318,28 +374,35 @@ var app = {
    /*
       appends @message to the message div:
    */
-   display2: function(message) {
-      var label = document.createTextNode(message), createA = document.createElement('a'), 
+   display5: function(message) {
+      var label = document.createTextNode(message);
          lineBreak = document.createElement("br");
-		createA.setAttribute('href', "next.html");
-	  createA.appendChild(label);
-	  messageDiv2.appendChild(createA);             // add the text 
+      messageDiv5.appendChild(lineBreak);         // add a line break
+      messageDiv5.appendChild(label);             // add the text
    },
    /*
       appends @message to the message div:
    */
-   display3: function(message) {
-      var label = document.createTextNode(message), createA = document.createElement('a'),
+   display6: function(message) {
+      var label = document.createTextNode(message);
          lineBreak = document.createElement("br");
-    	createA.setAttribute('href', "next.html");
-	  createA.appendChild(label);
-	  messageDiv3.appendChild(createA);             // add the text
+      messageDiv6.appendChild(lineBreak);         // add a line break
+      messageDiv6.appendChild(label);             // add the text
+   },
+   /*
+      appends @message to the message div:
+   */
+   display7: function(message) {
+      var label = document.createTextNode(message);
+         lineBreak = document.createElement("br");
+      messageDiv7.appendChild(lineBreak);         // add a line break
+      messageDiv7.appendChild(label);             // add the text
    },
    /*
       clears the message div:
    */
    clear: function() {
-       messageDiv4.innerHTML = "";
+       messageDiv.innerHTML = "";
    },
    /*
       clears the message div:
@@ -347,136 +410,26 @@ var app = {
    clear2: function() {
        messageDiv2.innerHTML = "";
    },
-/*
+   /*
       clears the message div:
    */
    clear3: function() {
        messageDiv3.innerHTML = "";
    },
-
+   clear4: function() {
+       messageDiv4.innerHTML = "";
+   },
    /*
-      Process NDEF tag data from the nfcEvent
+      clears the message div:
    */
-   onNfc: function(nfcEvent) {
-      app.clear();              // clear the message div
-      // display the event type:
-      app.display(" Event Type: " + nfcEvent.type);
-      app.showTag(nfcEvent.tag);   // display the tag details
+   clear5: function() {
+       messageDiv5.innerHTML = "";
    },
-   
-   /*
-      Process non-NDEF tag data from the nfcEvent
-      This includes 
-       * Non NDEF NFC Tags
-       * NDEF Formatable Tags
-       * Mifare Classic Tags on Nexus 4, Samsung S4 
-       (because Broadcom doesn't support Mifare Classic)
-   */
-   onNonNdef: function(nfcEvent) {
-      app.clear();              // clear the message div
-      // display the event type:
-      app.display("Event Type: " + nfcEvent.type);
-      var tag = nfcEvent.tag;
-      app.display("Tag ID: " + nfc.bytesToHexString(tag.id));
-      app.display("Tech Types: ");
-      for (var i = 0; i < tag.techTypes.length; i++) {
-         app.display("  * " + tag.techTypes[i]);
-      }
-	  mygod(nfc.bytesToHexString(tag.id));
+   clear6: function() {
+       messageDiv6.innerHTML = "";
    },
-
-/*
-   writes @tag to the message div:
-*/
-
-   showTag: function(tag) {
-      // display the tag properties:
-      tagid = nfc.bytesToHexString(tag.id);
-      app.display("Tag ID: " + tagid);
-      app.display("Tag Type: " +  tag.type);
-      app.display("Max Size: " +  tag.maxSize + " bytes");
-      app.display("Is Writable: " +  tag.isWritable);
-      app.display("Can Make Read Only: " +  tag.canMakeReadOnly);
-      
-	  mygod(tagid);
-	  /*
-　　     dlvtime: raydate.toString(),
-         vldtime: nextdate.toString(),
-         response: encodeURI(""),
-         clientid: encodeURI(""),
-      */
-      
-      // if there is an NDEF message on the tag, display it:
-      var thisMessage = tag.ndefMessage;
-      if (thisMessage !== null) {
-         // get and display the NDEF record count:
-         app.display("Tag has NDEF message with " + thisMessage.length
-            + " record" + (thisMessage.length === 1 ? ".":"s."));
-
-         // switch is part of the extended example
-         var type =  nfc.bytesToString(thisMessage[0].type);
-         switch (type) {
-            case nfc.bytesToString(ndef.RTD_TEXT):
-               app.display("Looks like a text record to me.");
-               break;
-            case nfc.bytesToString(ndef.RTD_URI):
-               app.display("That's a URI right there");
-               break;
-            case nfc.bytesToString(ndef.RTD_SMART_POSTER):
-               app.display("Golly!  That's a smart poster.");
-               break;
-            // add any custom types here,
-            // such as MIME types or external types:
-            case 'android.com:pkg':
-               app.display("You've got yourself an AAR there.");
-               break;
-            default:
-               app.display("I don't know what " +
-                  type +
-                  " is, must be a custom type");
-               break;
-         }
-         // end of extended example
-
-         app.display("Message Contents: ");
-         app.showMessage(thisMessage);
-      }
-   },
-/*
-   iterates over the records in an NDEF message to display them:
-*/
-   showMessage: function(message) {
-      for (var i=0; i < message.length; i++) {
-         // get the next record in the message array:
-         var record = message[i];
-         app.showRecord(record);          // show it
-      }
-   },
-/*
-   writes @record to the message div:
-*/
-   showRecord: function(record) {
-      // display the TNF, Type, and ID:
-      app.display(" ");
-      app.display("TNF: " + record.tnf);
-      app.display("Type: " +  nfc.bytesToString(record.type));
-      app.display("ID: " + nfc.bytesToString(record.id));
-
-      // if the payload is a Smart Poster, it's an NDEF message.
-      // read it and display it (recursion is your friend here):
-      if (nfc.bytesToString(record.type) === "Sp") {
-         var ndefMessage = ndef.decodeMessage(record.payload);
-         app.showMessage(ndefMessage);
-
-      // if the payload's not a Smart Poster, display it:
-      } else {
-         var dingdong = nfc.bytesToString(record.payload);
-		 /*
-		 dingdong = dingdong.substring(1);
-		 dingdong = "http://" + dingdong;
-		 app.display("Payload: " + dingdong);
-         navigator.app.loadUrl(dingdong, { openExternal:true });
-		 */
-      }
+   clear7: function() {
+       messageDiv6.innerHTML = "";
    }
+   
 };     // end of app

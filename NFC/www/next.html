@@ -3,18 +3,23 @@
 <html>
    <head>
       <title>NDEF Reader</title>
-      <link rel="stylesheet" type="text/css" href="css/next.css">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <link href="style.css" rel="stylesheet" type="text/css">
    </head>
    <body>
-      <div id="APP" class="app">
-         <div id="deviceready" class="blink">
-             <div class="event listening">Connecting to Device</div>
-             <div class="event received">ezSigning</div>
-         </div>
-         <div id="messageDiv" class="nfc"><img id="imageFile"/></div>
-        <div id="messageDiv2" class="nfc2"></div>
-        <div id="messageDiv3" class="nfc3"></div>
-      </div>
+        <div id="messageDiv" class="container text-center"></div>
+        <div class="container">
+          <ul class="list list-unstyled cf">
+            <li><a href="#"><img id="list1"><p><div id="messageDiv2"></div></p></a></li>
+            <li><a href="#"><img id="list2"><p><div id="messageDiv3"></div></p></a></li>
+            <li><a href="#"><img id="list3"><p><div id="messageDiv4"></div></p></a></li>
+            <li><a href="#"><img id="list4"><p><div id="messageDiv5"></div></p></a></li>
+          </ul>
+        </div>
+        <div id="deviceready" class="blink">
+            <div class="event listening">Connecting to Device</div>
+            <div class="event received">ezSigning</div>
+        </div>
       <script type="text/javascript" src="cordova.js"></script>
       <script type="text/javascript" src="js/anyscreen.js"></script>
       <script type="text/javascript" src="js/next.js"></script>

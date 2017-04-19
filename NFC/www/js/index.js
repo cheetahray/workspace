@@ -31,7 +31,7 @@ function createFile(dirEntry, fileName, isAppend) {
 	// Creates a new file or returns the file if it already exists.
     dirEntry.getFile(fileName, {create: true, exclusive: false}, function(fileEntry) {
         writeFile(fileEntry, null, isAppend);
-        rayfile = fileEntry; 
+		rayfile = fileEntry; 
 	}, onErrorCreateFile);
 
 }
@@ -57,7 +57,7 @@ function writeFile(fileEntry, dataObj, isAppend) {
                 alert("file doesn't exist!");
             }
         }
-        fileWriter.write(dataObj);
+		fileWriter.write(dataObj);
     });
 }
 
@@ -67,7 +67,7 @@ function readFile(fileEntry) {
         var reader = new FileReader();
 
         reader.onloadend = function() {
-            console.log("Successful file read: " + this.result);
+            alert("Successful file read: " + this.result);
             //displayFileData(fileEntry.fullPath + ": " + this.result);
         };
 
@@ -87,8 +87,8 @@ function mygod(tagid)
         success: function (result) {
             if (result['num'] == '1') {
                 var dataObj = new Blob([tagid], { type: 'text/plain' });
-                writeFile(rayfile, dataObj, false);
-                window.location.assign("second.html");				
+				writeFile(rayfile, dataObj, false);
+				setInterval(function(){ window.location.assign("second.html"); }, 100);
 			}
             else if (result['num'] == '0') {
                 //alert(result['e']);
@@ -184,13 +184,28 @@ var app = {
 										 
       window.screen.lockOrientation('portrait');
 	  
-	  window.requestFileSystem(window.TEMPORARY, 1024, function (fs) {
+	  window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+
+          console.log('file system open: ' + fs.name);
+          fs.root.getFile("newPersistentFile.txt", { create: true, exclusive: false }, function (fileEntry) {
+
+              console.log("fileEntry is file?" + fileEntry.isFile.toString());
+              // fileEntry.name == 'someFile.txt'
+              // fileEntry.fullPath == '/someFile.txt'
+			  rayfile = fileEntry;
+			  
+		  }, onErrorCreateFile);
+
+      }, onErrorLoadFs);
+	  
+	  /*
+	  window.requestFileSystem(window.PERSISTENT, 1024, function (fs) {
 
          console.log('file system open: ' + fs.name);
          createFile(fs.root, "newTempFile.txt", false);
-
+         
       }, onErrorLoadFs);
-
+      */
       iab = cordova.InAppBrowser;
 
       nfc.addTagDiscoveredListener(
