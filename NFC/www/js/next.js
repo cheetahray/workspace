@@ -1,6 +1,6 @@
-﻿language = "";
-tagid = "";
-//var rayfile;
+﻿var language = "";
+var tagid = "";
+var tagtxt = "tag.txt";
 
 function alertError() {
 
@@ -30,8 +30,6 @@ function createFile(dirEntry, fileName, isAppend) {
 	// Creates a new file or returns the file if it already exists.
     dirEntry.getFile(fileName, {create: true, exclusive: false}, function(fileEntry) {
         readFile(fileEntry);
-		//writeFile(fileEntry, null, isAppend);
-        //rayfile = fileEntry; 
 	}, onErrorCreateFile);
 
 }
@@ -69,7 +67,7 @@ function readFile(fileEntry) {
         reader.onloadend = function() {
             console.log("Successful file read: " + this.result);
 			
-			var raystr = "http://nfc.tagallover.com/NFC/nextajax.php?tagid=" + this.result;
+			var raystr = "http://nfc.tagallover.com/NFC/page3.php?tagid=" + this.result;
             $.ajax({
               type: "GET",
               url: raystr,
@@ -239,16 +237,31 @@ var app = {
               
               });
       */									 
-      window.screen.lockOrientation('portrait');
+      window.screen.lockOrientation('any');
+	  /*
+	  window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+
+          console.log('file system open: ' + fs.name);
+          fs.root.getFile("newPersistentFile.txt", { create: false, exclusive: false }, function (fileEntry) {
+
+              console.log("fileEntry is file?" + fileEntry.isFile.toString());
+              //fileEntry.name == 'someFile.txt'
+              //fileEntry.fullPath == '/someFile.txt'
+              readFile(fileEntry, null);
+
+          }, onErrorCreateFile);
+
+      }, onErrorLoadFs);
+	  */
 	  
 	  window.requestFileSystem(window.TEMPORARY, 1024, function (fs) {
 
          console.log('file system open: ' + fs.name);
-         createFile(fs.root, "newTempFile.txt", false);
+         createFile(fs.root, tagtxt, false);
 
       }, onErrorLoadFs);
       
-      app.receivedEvent('deviceready');
+	  app.receivedEvent('deviceready');
    },
    
    // Update DOM on a Received Event
@@ -258,7 +271,7 @@ var app = {
         var receivedElement = parentElement.querySelector('.received');
 
         listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+        //receivedElement.setAttribute('style', 'display:block;');
        
         console.log('Received Event: ' + id);
    },

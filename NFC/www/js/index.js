@@ -1,7 +1,11 @@
-﻿language = "";
-tagid = "";
+﻿var language = "";
+var tagid = "";
+var phonenum = "0910102910";
 var rayfile;
 var iab;
+var tagtxt = "tag.txt";
+//var catetxt = "cate.txt";
+var phonetxt = "phone.txt";
 
 function alertError() {
 
@@ -30,8 +34,9 @@ function createFile(dirEntry, fileName, isAppend) {
     
 	// Creates a new file or returns the file if it already exists.
     dirEntry.getFile(fileName, {create: true, exclusive: false}, function(fileEntry) {
-        writeFile(fileEntry, null, isAppend);
-		rayfile = fileEntry; 
+		rayfile = fileEntry;
+        //alert(fileEntry.fullPath);
+		//alert(fileEntry.name);
 	}, onErrorCreateFile);
 
 }
@@ -78,7 +83,7 @@ function readFile(fileEntry) {
 
 function mygod(tagid)
 {     
-      var raystr = "http://nfc.tagallover.com/NFC/checkajax.php?tagid=" + tagid;
+      var raystr = "http://nfc.tagallover.com/NFC/page1.php?tagid=" + tagid + "&phone=" + phonenum;
       $.ajax({
         type: "GET",
         url: raystr,
@@ -87,6 +92,16 @@ function mygod(tagid)
         success: function (result) {
             if (result['num'] == '1') {
                 var dataObj = new Blob([tagid], { type: 'text/plain' });
+				rayfile.name = tagtxt;
+				rayfile.fullPath = "/" + tagtxt;
+				writeFile(rayfile, dataObj, false);
+				dataObj = new Blob([result['catid']], { type: 'text/plain' });
+				//rayfile.name = catetxt;
+				//rayfile.fullPath = "/" + catetxt;
+				//writeFile(rayfile, dataObj, false);
+				dataObj = new Blob([phonenum], { type: 'text/plain' });
+				rayfile.name = phonetxt;
+				rayfile.fullPath = "/" + phonetxt;
 				writeFile(rayfile, dataObj, false);
 				setInterval(function(){ window.location.assign("second.html"); }, 100);
 			}
@@ -183,7 +198,7 @@ var app = {
               });
 										 
       window.screen.lockOrientation('portrait');
-	  
+	  /*
 	  window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 
           console.log('file system open: ' + fs.name);
@@ -197,16 +212,18 @@ var app = {
 		  }, onErrorCreateFile);
 
       }, onErrorLoadFs);
+	  */
 	  
-	  /*
-	  window.requestFileSystem(window.PERSISTENT, 1024, function (fs) {
+	  window.requestFileSystem(window.TEMPORARY, 1024, function (fs) {
 
          console.log('file system open: ' + fs.name);
-         createFile(fs.root, "newTempFile.txt", false);
+         createFile(fs.root, phonetxt, false);
+		 //createFile(fs.root, catetxt, false);
+		 createFile(fs.root, tagtxt, false);
          
       }, onErrorLoadFs);
-      */
-      iab = cordova.InAppBrowser;
+      
+	  iab = cordova.InAppBrowser;
 
       nfc.addTagDiscoveredListener(
          app.onNonNdef,           // tag successfully scanned
@@ -273,10 +290,12 @@ var app = {
       appends @message to the message div:
    */
    display: function(message) {
+	  /*
       var label = document.createTextNode(message),
-         lineBreak = document.createElement("br");
+      lineBreak = document.createElement("br");
       messageDiv4.appendChild(lineBreak);         // add a line break
       messageDiv4.appendChild(label);             // add the text
+	  */
    },
    /*
       clears the message div:

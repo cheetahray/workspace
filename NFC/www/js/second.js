@@ -1,21 +1,25 @@
-﻿language = "";
-tagid = "";
+﻿var language = "";
+var tagid = "";
+var phonenum;
 var rayfile;
-//var iab;
+var tagtxt = "tag.txt";
+//var catetxt = "cate.txt";
+var phonetxt = "phone.txt";
+var content = "";
 
 function alertError() {
 
 }
 
 function alertDismissed() {
-	    
+        
 }
 
 //文件创建失败回调
 function  onErrorCreateFile(error){
    alert(error);
 }
-			
+            
 //FileSystem加载失败回调
 function onErrorLoadFs(error){
    alert(error);
@@ -28,12 +32,11 @@ function onErrorReadFile(){
 
 function createFile(dirEntry, fileName, isAppend) {
     
-	// Creates a new file or returns the file if it already exists.
+    // Creates a new file or returns the file if it already exists.
     dirEntry.getFile(fileName, {create: true, exclusive: false}, function(fileEntry) {
-		readFile(fileEntry);
-		//writeFile(fileEntry, null, isAppend);
-        //rayfile = fileEntry;  
-	}, onErrorCreateFile);
+        readFile(fileEntry);
+        rayfile = fileEntry;  
+    }, onErrorCreateFile);
 
 }
 
@@ -62,6 +65,27 @@ function writeFile(fileEntry, dataObj, isAppend) {
     });
 }
 
+function readext(jqXHR, exception)
+{
+    var msg = '';
+    if (jqXHR.status === 0) {
+        msg = '没讯号\n 请检查网路';
+    } else if (jqXHR.status == 404) {
+        msg = '找不到远端登入接口 [404]';
+    } else if (jqXHR.status == 500) {
+        msg = '服务器内部错误 [500]';
+    } else if (exception === 'parsererror') {
+        msg = '分析 Requested JSON 失败';
+    } else if (exception === 'timeout') {
+        msg = '逾时失败';
+    } else if (exception === 'abort') {
+        msg = '放弃 Ajax request';
+    } else {
+        msg = '不知名的错误\n' + jqXHR.responseText;
+    }
+    alert(msg);	
+}
+
 function readFile(fileEntry) {
 
     fileEntry.file(function (file) {
@@ -69,86 +93,76 @@ function readFile(fileEntry) {
 
         reader.onloadend = function() {
             console.log("Successful file read: " + this.result);
-			//alert(this.result);
-			
-			var raystr = "http://nfc.tagallover.com/NFC/checkajax.php?tagid=" + this.result;
-            $.ajax({
-              type: "GET",
-              url: raystr,
-              dataType: "json",
+            if(fileEntry.name == tagtxt)
+            {
+                var raystr = "http://nfc.tagallover.com/NFC/page2.php?tagid=" + this.result + "&phone=" + phonenum;
+				//alert(raystr);
+                $.ajax({
+                  type: "GET",
+                  url: raystr,
+                  dataType: "json",
+    
+                  success: function (result) {
+                      if (result['num'] == '1') {
+                          app.clear2();
+                          app.display2(result['h1']);
+                          document.getElementById('logo').src = result['logo'];
+                          document.getElementById('photo').src = result['photo'];
+                          document.getElementById('stamp').src = result['thatsright'];
+                          content = result['content'];
+                          app.clear3();
+                          app.display3("您為第" + result['howmany'] + "位擁有者");
+                          
+                          app.clear4();
+                          app.display4(result['h2']);
+                          app.clear5();
+                          app.display5(result['h3'],result['href3']);
+                          app.clear6();
+                          app.display6(result['h4'],result['href4']);
+                          app.clear7();
+                          app.display7(result['h5'],result['href5']);
+                          //alert(result['isscanned']);
+                          if(result['issms'] == "0")
+						  {
+							  var httpReq = new plugin.HttpRequest();
+                              raystr = "http://smexpress.mitake.com.tw:7003/SpSendUtf?username=31506285&password=JoeyHatchRay&dstaddr=" + phonenum + "&DestName=" + encodeURIComponent("貌似無用") + "&smbody=" + encodeURIComponent(content) + "&CharsetURL=utf-8";
+                              //alert(raystr);
 
-              success: function (result) {
-                  if (result['num'] == '1') {
-                      document.getElementById('logo').src = result['logo'];
-      	  			  app.clear2();
-                      app.display2(result['h1']);
-					  document.getElementById('photo').src = result['photo'];
-					  document.getElementById('stamp').src = result['thatsright'];
-					  
-					  app.clear3();
-                      app.display3("您為第" + result['howmany'] + "位擁有者");
-					  
-					  app.clear4();
-                      app.display4(result['h2']);
-					  app.clear5();
-                      app.display5(result['h3']);
-					  app.clear6();
-                      app.display6(result['h4']);
-					  app.clear7();
-                      app.display7(result['h5']);
-					  //document.getElementById('imageFile').src = result['photo'];
-			
-					  /*
-		      		  var httpReq = new plugin.HttpRequest();
-                      var raystr = "http://smexpress.mitake.com.tw:7003/SpSendUtf?username=31506285&password=JoeyHatchRay&dstaddr=0910102910&DestName=" + encodeURIComponent("陳紹良") + "&smbody=" + encodeURIComponent(result['content']) + "&CharsetURL=utf-8";
-                      console.log(raystr);
-				
-		      		  httpReq.get(raystr, 
-                         function(status, data) {
-                            //alert(data);
-	      		          var value = parseINIString(data);
-                            if (value["1"]["statuscode"] == "1")
-                            {
-                                if (language == "zh-TW")
-                                    navigator.notification.alert("您點數還有" + value["1"]["AccountPoint"] + "點", alertDismissed, '', '確定');
-                                else
-                                    navigator.notification.alert("Your account has " + value["1"]["AccountPoint"] + " left.", alertDismissed, '', 'OK');
-                            }
-                            else
-                            {
-                                navigator.notification.alert( value["1"]["Error"], alertError, '', '確定');
-                            }
-                         }
-                      );
-			          */
-      		
-				  }
-                  else if (result['num'] == '0') {
-                      alert(result['e']);
+                              httpReq.get(raystr, 
+                                  function(status, data) {
+                                  //alert(data);
+                                      var value = parseINIString(data);
+                                      if (value["1"]["statuscode"] == "1")
+                                      {
+							              /*
+                                          if (language == "zh-TW")
+                                              navigator.notification.alert("您點數還有" + value["1"]["AccountPoint"] + "點", alertDismissed, '', '確定');
+                                          else
+                                              navigator.notification.alert("Your account has " + value["1"]["AccountPoint"] + " left.", alertDismissed, '', 'OK');                           
+							              */
+						              }
+                                      else
+                                      {
+                                          navigator.notification.alert( value["1"]["Error"], alertError, '', '確定');
+                                      }
+                                  }
+                              );
+                          }
+                      }
+                      else if (result['num'] == '0') {
+                          alert(result['e']);
+                      }
+                  },
+                  error: function (jqXHR, exception) {
+                      readext(jqXHR, exception);
                   }
-              },
-              error: function (jqXHR, exception) {
-                  var msg = '';
-                  if (jqXHR.status === 0) {
-                      msg = '没讯号\n 请检查网路';
-                  } else if (jqXHR.status == 404) {
-                      msg = '找不到远端登入接口 [404]';
-                  } else if (jqXHR.status == 500) {
-                      msg = '服务器内部错误 [500]';
-                  } else if (exception === 'parsererror') {
-                      msg = '分析 Requested JSON 失败';
-                  } else if (exception === 'timeout') {
-                      msg = '逾时失败';
-                  } else if (exception === 'abort') {
-                      msg = '放弃 Ajax request';
-                  } else {
-                      msg = '不知名的错误\n' + jqXHR.responseText;
-                  }
-                  alert(msg);
-              }
-            });
-			
-			//displayFileData(fileEntry.fullPath + ": " + this.result);
+                });
+			}
+			else if (fileEntry.name == phonetxt)
+			{
+				phonenum = this.result;            
+			}
+            //displayFileData(fileEntry.fullPath + ": " + this.result);
         };
 
         reader.readAsText(file);
@@ -215,7 +229,7 @@ var app = {
                                           navigator.nofification.alert('Error getting locale\n');
                                           }
                                           );
-										 
+                                         
       if (screen.width > screen.height) {
          app.deviceHeight = screen.width;
          app.deviceWidth = screen.height;
@@ -226,7 +240,7 @@ var app = {
       }
       ratio = app.deviceHeight / app.deviceWidth;
       /*
-	  if (ratio < 1.55 && window.location.href.indexOf("second") < 0)
+      if (ratio < 1.55 && window.location.href.indexOf("second") < 0)
          window.location.assign("second.html");
       else
       {
@@ -240,15 +254,15 @@ var app = {
             document.getElementById('APP').setAttribute('style', 'background: url(img/1080p.png);');
          WifiWizard.getCurrentSSID(successInit, failureSSID);
       }
-	  */
-	  /*
+      */
+      /*
       anyscreen([''], function () { //(['./css/index.css'],function() {
               
               });
-      */									 
-      window.screen.lockOrientation('portrait');
-	  
-	  window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+      */                                     
+      window.screen.lockOrientation('any');
+      /*
+      window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 
           console.log('file system open: ' + fs.name);
           fs.root.getFile("newPersistentFile.txt", { create: false, exclusive: false }, function (fileEntry) {
@@ -261,16 +275,17 @@ var app = {
           }, onErrorCreateFile);
 
       }, onErrorLoadFs);
-	  
-	  /*
-	  window.requestFileSystem(window.TEMPORARY, 1024, function (fs) {
+      */
+      
+      window.requestFileSystem(window.TEMPORARY, 1024, function (fs) {
 
          console.log('file system open: ' + fs.name);
-         createFile(fs.root, "newTempFile.txt", false);
-
+         createFile(fs.root, phonetxt, false);
+         //createFile(fs.root, catetxt, false);
+         createFile(fs.root, tagtxt, false);
+         
       }, onErrorLoadFs);
-      */
-	  
+      
       //iab = cordova.InAppBrowser;
       /*
       nfc.addTagDiscoveredListener(
@@ -340,17 +355,17 @@ var app = {
    display: function(message) {
       var label = document.createTextNode(message), createA = document.createElement('a'), 
          lineBreak = document.createElement("br");
-		createA.setAttribute('href', "next.html");
-	  createA.appendChild(label);
-	  messageDiv.appendChild(createA);             // add the text 
+        createA.setAttribute('href', "next.html");
+      createA.appendChild(label);
+      messageDiv.appendChild(createA);             // add the text 
    },
    /*
       appends @message to the message div:
    */
    display2: function(message) {
-	  var label = document.createTextNode(message);
-         lineBreak = document.createElement("br");
-      messageDiv2.appendChild(lineBreak);         // add a line break
+      var label = document.createTextNode(message);
+         //lineBreak = document.createElement("br");
+      //messageDiv2.appendChild(lineBreak);         // add a line break
       messageDiv2.appendChild(label);             // add the text
    },
    /*
@@ -358,8 +373,8 @@ var app = {
    */
    display3: function(message) {
       var label = document.createTextNode(message);
-         lineBreak = document.createElement("br");
-      messageDiv3.appendChild(lineBreak);         // add a line break
+         //lineBreak = document.createElement("br");
+      //messageDiv3.appendChild(lineBreak);         // add a line break
       messageDiv3.appendChild(label);             // add the text
    },
    /*
@@ -367,36 +382,48 @@ var app = {
    */
    display4: function(message) {
       var label = document.createTextNode(message);
-         lineBreak = document.createElement("br");
-      messageDiv4.appendChild(lineBreak);         // add a line break
+         //lineBreak = document.createElement("br");
+      //messageDiv4.appendChild(lineBreak);         // add a line break
       messageDiv4.appendChild(label);             // add the text
    },
    /*
       appends @message to the message div:
    */
-   display5: function(message) {
+   display5: function(message, hyperlink) {
       var label = document.createTextNode(message);
-         lineBreak = document.createElement("br");
-      messageDiv5.appendChild(lineBreak);         // add a line break
-      messageDiv5.appendChild(label);             // add the text
+      var LI = document.createElement('li');
+      var createA = document.createElement('a'); 
+      createA.setAttribute('href', "javascript:navigator.app.loadUrl('" + hyperlink + "', { openExternal:true });");
+      createA.setAttribute('style', "color:blue");
+      createA.appendChild(label);
+      LI.appendChild(createA);
+      messageDiv5.appendChild(LI);             // add the text
    },
    /*
       appends @message to the message div:
    */
-   display6: function(message) {
+   display6: function(message, hyperlink) {
       var label = document.createTextNode(message);
-         lineBreak = document.createElement("br");
-      messageDiv6.appendChild(lineBreak);         // add a line break
-      messageDiv6.appendChild(label);             // add the text
+      var LI = document.createElement('li');
+      var createA = document.createElement('a'); 
+      createA.setAttribute('href', "javascript:navigator.app.loadUrl('" + hyperlink + "', { openExternal:true });");
+      createA.setAttribute('style', "color:blue");
+      createA.appendChild(label);
+      LI.appendChild(createA);
+      messageDiv5.appendChild(LI);             // add the text
    },
    /*
       appends @message to the message div:
    */
-   display7: function(message) {
+   display7: function(message, hyperlink) {
       var label = document.createTextNode(message);
-         lineBreak = document.createElement("br");
-      messageDiv7.appendChild(lineBreak);         // add a line break
-      messageDiv7.appendChild(label);             // add the text
+      var LI = document.createElement('li');
+      var createA = document.createElement('a'); 
+      createA.setAttribute('href', "javascript:navigator.app.loadUrl('" + hyperlink + "', { openExternal:true });");
+      createA.setAttribute('style', "color:blue");
+      createA.appendChild(label);
+      LI.appendChild(createA);
+      messageDiv5.appendChild(LI);             // add the text
    },
    /*
       clears the message div:
@@ -429,7 +456,7 @@ var app = {
        messageDiv6.innerHTML = "";
    },
    clear7: function() {
-       messageDiv6.innerHTML = "";
+       messageDiv7.innerHTML = "";
    }
    
 };     // end of app
