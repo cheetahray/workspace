@@ -1,0 +1,269 @@
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+body {
+    -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color: #E4E4E4;
+    /*
+     background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+     background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+     background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+     background-image:-webkit-gradient(
+     linear,
+     left top,
+     left bottom,
+     color-stop(0, #A7A7A7),
+     color-stop(0.51, #E4E4E4)
+     );
+     */
+    background-attachment: fixed;
+    font-family: 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    /*text-transform:uppercase;*/
+    width: 100%;
+}
+
+td img
+{
+    display: block;
+}
+
+.resizedTextbox
+{
+    /* change here */
+     width: 345px;
+     height: 45px;
+     /* width: 385px;
+     height: 60px; */
+    font-size:42px;
+}
+
+.resizedDiv
+{
+    width: 387px;
+    height: 66px;
+}
+
+/* Portrait layout (default) */
+.app {
+    z-index: 1;
+    opacity: 1.0;
+    background: none; /* 170px x 200px */
+    position: absolute; /* position in the center of the screen */
+    left: 0px;
+    top: 0px;
+    height: 1921px; /* text area height */
+    width: 1441px; /* text area width */
+    text-align: center;
+    padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
+    margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
+    /* offset horizontal: half of text area width */
+}
+
+/* Portrait layout (default) */
+.app .white {
+    z-index: 0;
+    opacity: 0.0;
+    background:url(../img/white_glow.png) no-repeat center top;
+    /* 170px x 200px */
+    position: absolute; /* position in the center of the screen */
+    left: 335px;
+    top: 150px;
+    height: 940px; /* text area height */
+    width: 770px; /* text area width */
+    text-align: center;
+    padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
+    margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
+    /* offset horizontal: half of text area width */
+}
+
+/* Portrait layout (default) */
+.app .yellow {
+    z-index: 0;
+    opacity: 0.0;
+    background: url(../img/yellow_glow.png) no-repeat center top;
+    /* 170px x 200px */
+    position: absolute; /* position in the center of the screen */
+    left: 335px;
+    top: 150px;
+    height: 940px; /* text area height */
+    width: 770px; /* text area width */
+    text-align: center;
+    padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
+    margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
+    /* offset horizontal: half of text area width */
+}
+
+/* Portrait layout (default) */
+.app .ring {
+    z-index: 1;
+    opacity: 1.0;
+    background: url(../img/glow_ring.png) no-repeat center top;
+    /* 170px x 200px */
+    position: absolute; /* position in the center of the screen */
+    left: 591px;
+    top: 931px;
+    height: 217px; /* text area height */
+    width: 257px; /* text area width */
+    text-align: center;
+    padding: 0px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
+    margin: 0px 0px 0px 0px; /* offset vertical: half of image height and text area height */
+    /* offset horizontal: half of text area width */
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width: 400px) {
+    .app {
+        background-position: left center;
+        padding: 0px 0px 0px 0px; /* padding-top + padding-bottom + text area = image height */
+        margin: 0px 0px 0px 0px; /* offset vertical: half of image height */
+        /* offset horizontal: half of image width and text area width */
+    }
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: normal;
+    margin: 0px;
+    overflow: visible;
+    padding: 0px;
+    text-align: center;
+}
+
+.SET {
+	background: url(../img/button.png);
+	font-size: 12px;
+	position: absolute;
+	top: 1102px;
+	left: 652px;
+	width: 139px;
+	height: 110px;
+}
+
+.ANGLE {
+    font-size: 12px;
+    position: absolute;
+    top: 1090px;
+    left: 313px;
+    width: 814px;
+    height: 154px;
+    background-color: transparent;
+}
+
+.ANGLE2 {
+    font-size: 12px;
+    position: absolute;
+    top: 1338px;
+    left: 311px;
+    width: 820px;
+    height: 157px;
+    background-color: transparent;
+}
+
+.WIFI {
+    font-size: 12px;
+    position: absolute;
+    top: 1598px;
+    left: 654px;
+    width: 132px;
+    height: 97px;
+    background-color: transparent;
+}
+
+.KICK {
+	background: url(../img/gray_button.png);
+	font-size: 12px;
+	position: absolute;
+	top: 1353px;
+	left: 652px;
+	width: 139px;
+	height: 111px;
+}
+
+.SAVE {
+    font-size: 12px;
+    position: absolute;
+    top: 1306px;
+    left: 446px;
+    width: 141px;
+    height: 140px;
+    background-color: transparent;
+}
+
+.TEST {
+    background: none;
+    font-size: 12px;
+    position: absolute;
+    top: 1301px;
+    left: 648px;
+    width: 150px;
+    height: 150px;
+}
+
+.RESET {
+    font-size: 12px;
+    position: absolute;
+    top: 1305px;
+    left: 854px;
+    width: 142px;
+    height: 142px;
+}
+
+.event {
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	color: #FFFFFF;
+	font-size: 36px;
+	margin: 0px 0px;
+	padding: 2px 0px;
+	position: absolute;
+	top: 1762px;
+	left: 425px;
+	width: 600px;
+	height: 50px;
+}
+
+.event.listening {
+    background-color: #333333;
+    display: block;
+}
+
+.event.received {
+    background-color: #4B946A;
+    display: none;
+}
+
+@keyframes fade {
+    from {
+        opacity: 1.0;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    to {
+        opacity: 1.0;
+    }
+}
+
+@-webkit-keyframes fade {
+    from {
+        opacity: 1.0;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    to {
+        opacity: 1.0;
+    }
+}
+
+.blink {
+    animation: fade 3000ms infinite;
+    -webkit-animation: fade 3000ms infinite;
+}

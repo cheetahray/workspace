@@ -19,34 +19,4 @@
     <js-module name="sqlitePorter" src="www/sqlitePorter.js">
         <clobbers target="cordova.plugins.sqlitePorter" />
     </js-module>
-    
-    <!-- android -->
-    <platform name="android">
-        <!-- Cordova >= 3.0.0 -->
-        <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="SQLitePlugin">
-                <param name="android-package" value="io.sqlc.SQLitePlugin"/>
-            </feature>
-        </config-file>
-
-        <source-file src="src/android/io/sqlc/SQLitePlugin.java" target-dir="src/io/sqlc"/>
-        <source-file src="src/android/io/sqlc/SQLiteAndroidDatabase.java" target-dir="src/io/sqlc"/>
-
-    </platform>
-
-    <!-- ios -->
-    <platform name="ios">
-        <config-file target="config.xml" parent="/*">
-            <feature name="SQLitePlugin">
-                <param name="ios-package" value="SQLitePlugin" />
-            </feature>
-        </config-file>
-
-        <!-- Note: the ios src is based off src/ios implicitly -->
-        <header-file src="src/ios/SQLitePlugin.h" />
-        <source-file src="src/ios/SQLitePlugin.m" />
-        <framework src="libsqlite3.dylib" />
-
-    </platform>
-    
 </plugin>

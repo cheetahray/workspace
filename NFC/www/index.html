@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <title>NDEF Reader</title>
+      <link rel="stylesheet" type="text/css" href="css/index.css">
+   </head>
+   <body>
+      <div id="APP" class="app">
+         <div id="deviceready" class="blink">
+             <div class="event listening">Connecting to Device</div>
+             <div class="event received">ezSigning</div>
+         </div>
+        <div class="touch-img"><img src="images/pic1.jpg" width="600" height="660"></div>
+        <div class="touch-hand"><img src="images/touch.png" width="600" height="800"></div>
+        <div id="messageDiv" class="nfc">請對商品進行感應</div>
+        <div id="messageDiv4" class="nfc4"></div>
+      </div>
+      <script type="text/javascript" src="cordova.js"></script>
+      <script type="text/javascript" src="js/anyscreen.js"></script>
+      <script type="text/javascript" src="js/index.js"></script>
+      <script type="text/javascript" src="js/jquery-1.12.3.js"></script>
+      <script type="text/javascript" src="js/ini.js"></script>
+      <script type="text/javascript">
+          app.initialize();
+      </script>
+    </body>
+</html>

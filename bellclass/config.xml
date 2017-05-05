@@ -1,62 +1,35 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="tw.dac.bellclass" version="0.0.1"
-	xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-	<name>BarBar</name>
-	<description>電鈴工作坊</description>
-	<author email="ray@dac.tw" href="http://noisekitchen.tw">噪咖事務所</author>
-	<content src="index.html" />
-	<plugin name="cordova-plugin-whitelist" spec="1" />
-	<access origin="*" />
-	<allow-intent href="http://*/*" />
-	<allow-intent href="https://*/*" />
-	<allow-intent href="tel:*" />
-	<allow-intent href="sms:*" />
-	<allow-intent href="mailto:*" />
-	<allow-intent href="geo:*" />
-	<platform name="android">
-		<allow-intent href="market:*" />
-	</platform>
-	<platform name="ios">
-		<allow-intent href="itms:*" />
-		<allow-intent href="itms-apps:*" />
-	</platform>
-	<feature name="Hello">
-		<param name="android-package" value="com.example.plugin.Hello" />
-		<param name="id" value="co.banpad.test" />
-	</feature>
-	<feature name="WifiWizard">
-		<param name="android-package" value="com.pylonproducts.wifiwizard.WifiWizard" />
-		<param name="onload" value="true" />
-		<param name="id" value="com.pylonproducts.wifiwizard" />
-	</feature>
-	<feature name="networkinterface">
-		<param name="android-package"
-			value="com.albahra.plugin.networkinterface.networkinterface" />
-		<param name="wp-package" value="networkinterface" />
-	</feature>
-	<feature name="NetworkInterface">
-		<param name="id" value="cordova-plugin-networkinterface" />
-	</feature>
-	<feature name="YoikScreenOrientation">
-		<param name="android-package"
-			value="net.yoik.cordova.plugins.screenorientation.YoikScreenOrientation" />
-		<param name="wp-package" value="YoikScreenOrientation" />
-	</feature>
-	<feature name="Screen Orientation">
-		<param name="id" value="cordova-plugin-screen-orientation" />
-	</feature>
-	<feature name="Device">
-		<param name="android-package" value="org.apache.cordova.device.Device" />
-		<param name="wp-package" value="Device" />
-		<param name="id" value="cordova-plugin-device" />
-	</feature>
-
-	<plugin name="org.nypr.cordova.sleeptimerplugin" spec="https://github.com/wnyc/cordova-plugin-sleeptimer" />
-	<plugin name="cordova-plugin-dialogs" spec="~1.2.0" />
-	<plugin name="cordova-plugin-network-information" spec="~1.2.0" />
-	<plugin name="com.mediamatrixdoo.keepscreenon"
-		spec="https://github.com/zoxxx/PhoneGap-KeepScreenOn-plugin" />
-	<plugin name="cordova-plugin-background-mode"
-		spec="https://github.com/katzer/cordova-plugin-background-mode" />
-	
-<engine name="ios" spec="4.0.1" /></widget>
+<widget id="tw.dac.bellclass" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>BarBar</name>
+    <description>電鈴工作坊</description>
+    <author email="ray@dac.tw" href="http://noisekitchen.tw">噪咖事務所</author>
+    <content src="index.html" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+    <feature name="Hello">
+        <param name="android-package" value="com.example.plugin.Hello" />
+        <param name="id" value="co.banpad.test" />
+    </feature>
+    <plugin name="org.nypr.cordova.sleeptimerplugin" spec="https://github.com/wnyc/cordova-plugin-sleeptimer" />
+    <plugin name="cordova-plugin-dialogs" spec="~1.2.0" />
+    <plugin name="cordova-plugin-background-mode" spec="https://github.com/katzer/cordova-plugin-background-mode" />
+    <engine name="android" spec="4.1.1" />
+    <plugin name="cordova-plugin-globalization" spec="~1.0.3" />
+    <plugin name="cordova-plugin-inappbrowser" spec="~1.4.0" />
+    <plugin name="cordova-plugin-screen-orientation" spec="~1.4.0" />
+    <plugin name="com.pylonproducts.wifiwizard" spec="https://github.com/hoerresb/WifiWizard" />
+    <plugin name="cordova-plugin-networkinterface" spec="~1.0.8" />
+</widget>

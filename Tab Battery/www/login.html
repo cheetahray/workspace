@@ -23,20 +23,20 @@
                 success: function (result) {
                     document.fileinfo.userpass.value = temp;
                     if (result['num'] == '1') {
+                        var iferr;
                         var db = window.openDatabase("Test", "1.0", "TestDB", 1 * 1024);
+                        //var db = window.sqlitePlugin.openDatabase({name: 'my.db', location: 'default'});
                         var json = {
-                            "structure":{
-                                "tables":{
-                                    "Artist":"([username] PRIMARY KEY, [password], [photourl])"
-                                },
-                                "otherSQL": [
-                                    "CREATE UNIQUE INDEX Artist_ID ON Artist(username)"
-                                ]
-                            },
-                            "data":{
-                                "inserts":{
-                                    "Artist":[
-                                        {"username":result['username'],"password":result['password'],"photourl":result['photourl']}
+                            "data": {
+                                "updates": {
+                                    "Artist": [
+                                        {
+                                            "set": {
+                                                "password": result['password'],
+                                                "photourl": result['photourl']
+                                            },
+                                            "where": {"username": result['username']}
+                                        }
                                     ]
                                 }
                             }
@@ -47,20 +47,52 @@
                                 '确定'                  // buttonName
                         );
                         var successFn = function (count) {
+                            clearInterval(iferr);
                             console.log("Successfully imported JSON to DB; equivalent to " + count + " SQL statements");
                             window.location = "member.html";
                         };
                         var errorFn = function (error) {
+                            iferr = setInterval(function () {
+
+                                json = {
+                                    "structure": {
+                                        "tables": {
+                                            "Artist": "([username] PRIMARY KEY, [password], [photourl])",
+                                            "Bluetooth": "([address])"
+                                        },
+                                        "otherSQL": [
+                                            "CREATE UNIQUE INDEX Artist_ID ON Artist(username)"
+                                        ]
+                                    },
+                                    "data": {
+                                        "inserts": {
+                                            "Artist": [
+                                                {
+                                                    "username": result['username'],
+                                                    "password": result['password'],
+                                                    "photourl": result['photourl']
+                                                }
+                                            ]
+                                        }
+                                    }
+                                };
+                                cordova.plugins.sqlitePorter.importJsonToDb(db, json, {
+                                    successFn: successFn,
+                                    errorFn: errorFn,
+                                    progressFn: progressFn,
+                                    batchInsertSize: 500
+                                });
+
+                            }, 1000);
                             console.log("The following error occurred: " + error.message);
                         };
-                        var progressFn = function (current, total) {
-                            console.log("Imported " + current + "/" + total + " statements");
+                        var progressFn = function(current, total){
+                            console.log("Imported "+current+"/"+total+" statements");
                         };
                         cordova.plugins.sqlitePorter.importJsonToDb(db, json, {
                             successFn: successFn,
                             errorFn: errorFn,
-                            progressFn: progressFn,
-                            batchInsertSize: 500
+                            progressFn: progressFn
                         });
                     }
                     else if (result['num'] == '0') {
@@ -96,7 +128,7 @@
                     );
                 }
             });
-            return false; // keeps the page from not refreshing 
+            return false; // keeps the page from not refreshing
         });
     });
 </script>
@@ -127,6 +159,6 @@
     <p id="note" class="event received">Device is Ready</p>
 </div>
 <script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/index2.js"></script>
 </body>
 </html>
