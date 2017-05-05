@@ -908,26 +908,12 @@ function subscribe(address, serviceUuid, characteristicUuid) {
   return false;
 }
 
-function notify(address, serviceUuid, characteristicUuid) {
-  var paramsObj = {address:address, serviceUuid:serviceUuid, characteristicUuid:characteristicUuid};
-
-  logger("Subscribe : " + JSON.stringify(paramsObj));
-
-  bluetoothle.subscribe(subscribeSuccess, subscribeError, paramsObj);
-
-  return false;
-}
-
 function subscribeSuccess(obj) {
   logger("Subscribe Success : " + JSON.stringify(obj));
 
   if (obj.status == "subscribedResult")
   {
     logger("Subscribed Result");
-    var bytes = bluetoothle.encodedStringToBytes(obj.value);
-    var string = bluetoothle.bytesToString(bytes);
-    //$("#note").text(string);
-    $('#battery').val(string);
   }
   else if (obj.status == "subscribed")
   {
