@@ -8,10 +8,6 @@ html {
 article, aside, footer, header, nav, section {
     display: block;
 }
-h1 {
-    font-size: 2em;
-    margin: 0.67em 0;
-}
 figcaption, figure, main {
     display: block;
 }
@@ -146,17 +142,10 @@ textarea {
 .right {
     float: right;
 }
-html, body {
+html {
     margin: 0;
     padding: 0;
     height: 100%;
-}
-body{
-	font-family: "Arial", "微軟正黑體", "Microsoft JhengHei", "LiHei Pro", sans-serif;
-	line-height: 1.6;
-	color: #333;
-	font-size: 15px;
-	background-color: #f2f2f2;
 }
 .text-center {
     text-align: center;
@@ -171,20 +160,18 @@ a {
 	position: absolute;
 }
 .touch-img {
-    left: 12%;
-    right: 10px;
-    top: 10%;
+	position: absolute;
+	left: 400px;
+	top: 200px;
 }
 .touch-hand {
-    left: 5px;
-    right: 40%;
-    bottom: 60px;
+	position: absolute;
+	left: 155px;
+	top: 433px;
+	z-index: 999;
 }
 .touch-txt {
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
-	font-size: 16px;
+	position: absolute;
 }
 .nav-wrapper {
 	padding-bottom: 40px;
@@ -269,37 +256,4 @@ hr {
 }
 .list li p {
 	margin: 5px;
-}
-
-.event.listening {
-	font-size:24px;
-    /*background-color:#333333;*/
-    display:block;
-}
-
-.event.received {
-	font-size:24px;
-    /*background-color:#4B946A;*/
-    display:none;
-}
-
-@keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
-}
- 
-@-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
-}
- 
-.blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
-}
-
-.hyperlink {
-    color:#00F;	
 }

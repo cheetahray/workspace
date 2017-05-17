@@ -4,6 +4,10 @@
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <title>NDEF Reader</title>
+      <link rel="stylesheet" type="text/css" href="owlcarousel/animate.css">
+      <link rel="stylesheet" type="text/css" href="owlcarousel/owl.carousel.min.css">
+      <link rel="stylesheet" type="text/css" href="owlcarousel/owl.theme.default.css">
+      <link rel="stylesheet" type="text/css" href="css/style.css">
       <link rel="stylesheet" type="text/css" href="css/index.css">
    </head>
    <body>
@@ -12,7 +16,12 @@
              <div class="event listening">Connecting to Device</div>
              <div class="event received">ezSigning</div>
          </div>
-        <div class="touch-img"><img src="images/pic1.jpg" width="600" height="660"></div>
+        <div class="touch-img">
+            <div class="owl-carousel">
+                <div><img src="images/pic1.jpg" width="600" height="660"></div>
+                <div><img src="images/pic2.jpg" width="600" height="660"></div>
+            </div>
+        </div>
         <div class="touch-hand"><img src="images/touch.png" width="600" height="800"></div>
         <div id="messageDiv" class="nfc">請對商品進行感應</div>
         <div id="messageDiv4" class="nfc4"></div>
@@ -22,8 +31,22 @@
       <script type="text/javascript" src="js/index.js"></script>
       <script type="text/javascript" src="js/jquery-1.12.3.js"></script>
       <script type="text/javascript" src="js/ini.js"></script>
+      <script type="text/javascript" src="owlcarousel/owl.carousel.min.js"></script>
       <script type="text/javascript">
-          app.initialize();
+          //app.initialize();
+      $(document).ready(function(){
+          $('.touch-img').each(function(){
+              $(this).find('.owl-carousel').outerWidth($(this).closest('.touch-img').innerWidth());
+          });
+          $('.owl-carousel').owlCarousel({
+              animateOut: 'slideOutDown',
+              animateIn: 'flipInX',
+              items: 1,
+              autoplayTimeout: 1000,
+              autoplay: true,
+              loop: true
+          });
+      });
       </script>
     </body>
 </html>

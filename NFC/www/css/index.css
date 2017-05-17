@@ -154,19 +154,3 @@ h1 {
 .input-style:focus {
 	border-color: #777;
 }
-
-.touch-img {
-	position: absolute;
-	left: 400px;
-	top: 200px;
-}
-
-.touch-hand {
-	position: absolute;
-	left: 155px;
-	top: 433px;
-}
-
-.touch-txt {
-	position: absolute;
-}
