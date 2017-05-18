@@ -18,8 +18,10 @@
          </div>
         <div class="touch-img">
             <div class="owl-carousel">
-                <div><img src="images/pic1.jpg" width="600" height="660"></div>
-                <div><img src="images/pic2.jpg" width="600" height="660"></div>
+                <img src="http://nfc.tagallover.com/gallery3/var/albums/NFC/%E6%9C%AA%E5%91%BD%E5%90%8D.jpg?m=1487493295" width="600">
+                <img src="http://nfc.tagallover.com/gallery3/var/albums/LV.jpg?m=1487760818" width="600">
+                <img src="http://nfc.tagallover.com/gallery3/var/albums/ARKY.jpg?m=1489668375" width="600">
+                <img src="http://nfc.tagallover.com/gallery3/var/albums/Flora/pic2.jpg?m=1492509991" width="600">
             </div>
         </div>
         <div class="touch-hand"><img src="images/touch.png" width="600" height="800"></div>
@@ -33,20 +35,7 @@
       <script type="text/javascript" src="js/ini.js"></script>
       <script type="text/javascript" src="owlcarousel/owl.carousel.min.js"></script>
       <script type="text/javascript">
-          //app.initialize();
-      $(document).ready(function(){
-          $('.touch-img').each(function(){
-              $(this).find('.owl-carousel').outerWidth($(this).closest('.touch-img').innerWidth());
-          });
-          $('.owl-carousel').owlCarousel({
-              animateOut: 'slideOutDown',
-              animateIn: 'flipInX',
-              items: 1,
-              autoplayTimeout: 1000,
-              autoplay: true,
-              loop: true
-          });
-      });
+          app.initialize();
       </script>
     </body>
 </html>

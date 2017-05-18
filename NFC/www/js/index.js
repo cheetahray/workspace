@@ -455,7 +455,19 @@ var app = {
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
-
+        $(document).ready(function(){
+            $('.touch-img').each(function(){
+                $(this).find('.owl-carousel').outerWidth($(this).closest('.touch-img').innerWidth());
+            });
+            $('.owl-carousel').owlCarousel({
+                animateOut: 'slideOutDown',
+                animateIn: 'flipInX',
+                items: 1,
+                autoplayTimeout: 2000,
+                autoplay: true,
+                loop: true
+            });
+        });
         listeningElement.setAttribute('style', 'display:none;');
         //receivedElement.setAttribute('style', 'display:block;');
         
